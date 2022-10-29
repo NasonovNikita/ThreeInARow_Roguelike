@@ -1,4 +1,4 @@
-# ThreeInARow_Rouglike
+# ThreeInARow_Roguelike
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 This game has a long way to go, fighting enemies in turn-based combat based on the well-known game "three in a row".
 You will find weapons and spells that can outweigh your advantage in combat.
