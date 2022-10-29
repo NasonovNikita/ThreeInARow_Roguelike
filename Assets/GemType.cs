@@ -1,4 +1,4 @@
-enum GemType_
+enum GemType
 {
     red,
     blue,
