@@ -8,7 +8,7 @@ public class Grid : MonoBehaviour
     
 
     public GridState State;
-    void Start()
+    void Awake()
     {
         State = GridState.choosing1;
     }
