@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+    public int size = 10;
+    
+
     public GridState State;
     void Start()
     {
