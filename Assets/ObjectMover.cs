@@ -5,8 +5,7 @@ using System;
 
 public class ObjectMover : MonoBehaviour
 {
-    [SerializeField]
-    private Vector2 EndPos;
+    public Vector2 EndPos;
     [SerializeField]
     private float speed = 0.05f;
 
