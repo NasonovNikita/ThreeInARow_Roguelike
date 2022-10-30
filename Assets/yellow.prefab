@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6164941220317629207}
   - component: {fileID: -8985318442100394132}
   - component: {fileID: 7497714655019023508}
+  - component: {fileID: 5566490800466408010}
   m_Layer: 0
   m_Name: yellow
   m_TagString: Untagged
@@ -114,3 +115,18 @@ MonoBehaviour:
   EndPos: {x: 0, y: 0}
   doMove: 0
   speed: 0.05
+--- !u!114 &5566490800466408010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6082573061079158529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1850e7f761fa15842b0ac245ad22cf03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndScale: {x: 1, y: 1, z: 1}
+  ScaleSpeed: 0.02
+  doScale: 0
