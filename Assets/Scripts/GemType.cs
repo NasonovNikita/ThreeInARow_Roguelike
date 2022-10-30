@@ -1,14 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GemType : MonoBehaviour
+public enum GemType
 {
-    enum Types
-    {
-        red,
-        blue,
-        yellow,
-        green
-    }
+    red,
+    blue,
+    yellow,
+    green
 }

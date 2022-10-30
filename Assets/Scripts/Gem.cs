@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gem : MonoBehaviour
 {
     private ObjectMover mover;
-    public GemType type;
+    public GemType Type;
 
     void Awake()
     {
