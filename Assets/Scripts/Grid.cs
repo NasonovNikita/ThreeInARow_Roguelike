@@ -103,7 +103,13 @@ public class Grid : MonoBehaviour
 
     private IEnumerator MoveGems(Gem gem1, Gem gem2)
     {
+        int[] pos1 = FindGem(gem1);
+        int[] pos2 = FindGem(gem2);
+        gem1.Move((Vector2)transform.position + stepX * pos2[1] + stepY * pos2[0]);
+        gem2.Move((Vector2)transform.position + stepX * pos1[1] + stepY * pos1[0]);
         yield return new WaitForSeconds(0.5f);
+        _box[pos2[0], pos2[1]] = gem1;
+        _box[pos1[0], pos1[1]] = gem2;
         gem1.Scale(_baseScale);
         gem2.Scale(_baseScale);
         state = GridState.refreshing;
