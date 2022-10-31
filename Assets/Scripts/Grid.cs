@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -82,7 +83,7 @@ public class Grid : MonoBehaviour
                 {
                     int[] pos1 = FindGem(_first);
                     int[] pos2 = FindGem(gem);
-                    if (true)
+                    if (pos1[0] == pos2[0] & Math.Abs(pos1[1] - pos2[1]) == 1 | pos1[1] == pos2[1] & Math.Abs(pos1[0] - pos2[0]) == 1)
                     {
                         _second = gem;
                         _second.Scale(_chosenScale);
@@ -116,18 +117,20 @@ public class Grid : MonoBehaviour
 
     private int[] FindGem(Gem gem)
     {
-        int i = 0;
-        int j = 0;
-        
-        while (i < _box.GetLength(0) && _box[i, j] != gem)
+        int a = 0;
+        int b = 0;
+        for (int i = 0; i < SizeY; i++)
         {
-            while (j < _box.GetLength(1) && _box[i, j] != gem)
+            for (int j = 0; j < SizeX; j++)
             {
-                j++;
+                if (_box[i, j] == gem)
+                {
+                    a = i;
+                    b = j;
+                }
             }
-            j = 0;
-            i++;
         }
-        return new [] { i, j };
+        
+        return new [] { a, b };
     }
 }
