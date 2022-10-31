@@ -4,10 +4,8 @@ using Random = UnityEngine.Random;
 
 public class Grid : MonoBehaviour
 {
-    [SerializeField]
-    private int sizeX;
-    [SerializeField]
-    private int sizeY;
+    private static readonly int SizeX = 10;
+    private static readonly int SizeY = 8;
     [SerializeField]
     private Vector2 position;
     public GridState state;
@@ -18,10 +16,11 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private Gem[] prefabs = new Gem[4];
     [SerializeField]
-    private Vector3 chosenScale;
+    private Vector3 _chosenScale;
     private readonly Vector3 _baseScale = Vector3.one;
     private Gem _first;
     private Gem _second;
+    private Gem[,] _box = new Gem[SizeY, SizeX];
     
 
     private void Awake()
@@ -53,12 +52,11 @@ public class Grid : MonoBehaviour
 
     private void GenGems()
     {
-        Gem[,] box = new Gem[sizeY, sizeX];
-        for (int i = 0; i < sizeY; i++)
+        for (int i = 0; i < SizeY; i++)
         {
-            for (int j = 0; j < sizeX; j++)
+            for (int j = 0; j < SizeX; j++)
             {
-                box[i, j] = GenGem((Vector2)transform.position + stepX * j + stepY * i);
+                _box[i, j] = GenGem((Vector2)transform.position + stepX * j + stepY * i);
             }
         }
     }
@@ -69,22 +67,33 @@ public class Grid : MonoBehaviour
         {
             case GridState.choosing1:
                 _first = gem;
-                gem.Scale(chosenScale);
+                _first.Scale(_chosenScale);
                 state = GridState.choosing2;
                 break;
             case GridState.choosing2:
             {
                 if (gem == _first)
                 {
+                    _first.Scale(_baseScale);
                     _first = null;
-                    gem.Scale(_baseScale);
                     state = GridState.choosing1;
                 }
                 else
                 {
-                    _second = gem;
-                    gem.Scale(chosenScale);
-                    state = GridState.moving;
+                    int[] pos1 = FindGem(_first);
+                    int[] pos2 = FindGem(gem);
+                    if (true)
+                    {
+                        _second = gem;
+                        _second.Scale(_chosenScale);
+                        state = GridState.moving;
+                    }
+                    else
+                    {
+                        _first.Scale(_baseScale);
+                        _first = gem;
+                        _first.Scale(_chosenScale);
+                    }
                 }
                 break;
             }
@@ -93,7 +102,6 @@ public class Grid : MonoBehaviour
 
     private IEnumerator MoveGems(Gem gem1, Gem gem2)
     {
-        //moving...
         yield return new WaitForSeconds(0.5f);
         gem1.Scale(_baseScale);
         gem2.Scale(_baseScale);
@@ -104,5 +112,22 @@ public class Grid : MonoBehaviour
     {
         //refreshing...
         state = GridState.choosing1;
+    }
+
+    private int[] FindGem(Gem gem)
+    {
+        int i = 0;
+        int j = 0;
+        
+        while (i < _box.GetLength(0) && _box[i, j] != gem)
+        {
+            while (j < _box.GetLength(1) && _box[i, j] != gem)
+            {
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+        return new [] { i, j };
     }
 }
