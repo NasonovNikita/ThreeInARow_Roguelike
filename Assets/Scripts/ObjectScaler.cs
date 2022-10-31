@@ -1,25 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectScaler : MonoBehaviour
 {
-    public Vector3 EndScale = Vector3.one;
-    [SerializeField]
-    private float ScaleSpeed = 0.02f;
+    public Vector3 endScale = Vector3.one;
+    private float scaleSpeed = 0.02f;
     public bool doScale;
 
     private void FixedUpdate()
     {
-        if (doScale & EndScale.x > transform.localScale.x)
+        if (doScale & endScale.x > transform.localScale.x)
         {
-            transform.localScale += ((EndScale - transform.localScale).magnitude > (Vector3.one * ScaleSpeed).magnitude) ? Vector3.one * ScaleSpeed: EndScale - transform.localScale;
+            transform.localScale += ((endScale - transform.localScale).magnitude > (Vector3.one * scaleSpeed).magnitude) ? Vector3.one * scaleSpeed: endScale - transform.localScale;
         }
-        else if (doScale & EndScale.x < transform.localScale.x)
+        else if (doScale & endScale.x < transform.localScale.x)
         {
-            transform.localScale -= ((transform.localScale - EndScale).magnitude > (Vector3.one * ScaleSpeed).magnitude) ? Vector3.one * ScaleSpeed: transform.localScale - EndScale;
+            transform.localScale -= ((transform.localScale - endScale).magnitude > (Vector3.one * scaleSpeed).magnitude) ? Vector3.one * scaleSpeed: transform.localScale - endScale;
         }
-        if (transform.localScale == EndScale)
+        if (transform.localScale == endScale)
         {
             doScale = false;
         }

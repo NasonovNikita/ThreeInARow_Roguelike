@@ -18,13 +18,13 @@ public class Gem : MonoBehaviour, IPointerClickHandler
 
     public void Move(Vector2 endPos)
     {
-        _mover.EndPos = endPos;
+        _mover.endPos = endPos;
         _mover.doMove = true;
     }
 
     public void Scale(Vector3 endScale)
     {
-        _scaler.EndScale = endScale;
+        _scaler.endScale = endScale;
         _scaler.doScale = true;
     }
 
