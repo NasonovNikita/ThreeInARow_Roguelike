@@ -7,8 +7,9 @@ public class Gem : MonoBehaviour
     private ObjectMover mover;
     private ObjectScaler scaler;
     public GemType Type;
+    public Grid grid;
 
-    void Awake()
+    private void Awake()
     {
         mover = GetComponent<ObjectMover>();
         mover.doMove = false;
