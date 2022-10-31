@@ -16,12 +16,11 @@ public class Grid : MonoBehaviour
     private Vector2 stepY;
     [SerializeField]
     private Gem[] prefabs = new Gem[4];
-    [SerializeField]
-    private Vector3 _chosenScale;
+    private readonly Vector3 _chosenScale = new (1.1f, 1.1f, 1.1f);
     private readonly Vector3 _baseScale = Vector3.one;
     private Gem _first;
     private Gem _second;
-    private Gem[,] _box = new Gem[SizeY, SizeX];
+    private readonly Gem[,] _box = new Gem[SizeY, SizeX];
     
 
     private void Awake()
@@ -105,8 +104,9 @@ public class Grid : MonoBehaviour
     {
         int[] pos1 = FindGem(gem1);
         int[] pos2 = FindGem(gem2);
-        gem1.Move((Vector2)transform.position + stepX * pos2[1] + stepY * pos2[0]);
-        gem2.Move((Vector2)transform.position + stepX * pos1[1] + stepY * pos1[0]);
+        Vector2 pos = transform.position;
+        gem1.Move(pos + stepX * pos2[1] + stepY * pos2[0]);
+        gem2.Move(pos + stepX * pos1[1] + stepY * pos1[0]);
         yield return new WaitForSeconds(0.5f);
         _box[pos2[0], pos2[1]] = gem1;
         _box[pos1[0], pos1[1]] = gem2;
