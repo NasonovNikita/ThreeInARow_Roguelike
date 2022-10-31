@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Grid : MonoBehaviour
 {
@@ -16,13 +18,29 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private Gem[] prefabs = new Gem[4];
     [SerializeField]
-    private Vector3 baseScale;
+    private Vector3 chosenScale;
+    private readonly Vector3 _baseScale = Vector3.one;
+    private Gem _first;
+    private Gem _second;
+    
 
     private void Awake()
     {
         state = GridState.choosing1;
         transform.position = position;
         GenGems();
+    }
+
+    private void Update()
+    {
+        if (state == GridState.moving)
+        {
+            StartCoroutine(MoveGems(_first, _second));
+        }
+        else if (state == GridState.refreshing)
+        {
+            Refresh();
+        }
     }
 
     private Gem GenGem(Vector2 gemPosition)
@@ -47,9 +65,44 @@ public class Grid : MonoBehaviour
 
     public void OnClick(Gem gem)
     {
-        if (state == GridState.choosing1)
+        switch (state)
         {
-            gem.Scale(baseScale);
+            case GridState.choosing1:
+                _first = gem;
+                gem.Scale(chosenScale);
+                state = GridState.choosing2;
+                break;
+            case GridState.choosing2:
+            {
+                if (gem == _first)
+                {
+                    _first = null;
+                    gem.Scale(_baseScale);
+                    state = GridState.choosing1;
+                }
+                else
+                {
+                    _second = gem;
+                    gem.Scale(chosenScale);
+                    state = GridState.moving;
+                }
+                break;
+            }
         }
+    }
+
+    private IEnumerator MoveGems(Gem gem1, Gem gem2)
+    {
+        //moving...
+        yield return new WaitForSeconds(0.5f);
+        gem1.Scale(_baseScale);
+        gem2.Scale(_baseScale);
+        state = GridState.refreshing;
+    }
+
+    private void Refresh()
+    {
+        //refreshing...
+        state = GridState.choosing1;
     }
 }
