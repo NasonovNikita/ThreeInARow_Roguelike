@@ -15,27 +15,41 @@ public class Grid : MonoBehaviour
     private Vector2 stepY;
     [SerializeField]
     private Gem[] prefabs = new Gem[4];
+    [SerializeField]
+    private Vector3 baseScale;
 
     private void Awake()
     {
-        state = GridState.refreshing;
+        state = GridState.choosing1;
         transform.position = position;
         GenGems();
     }
 
-    private Gem GenGem(Vector2 gemPosition) {
+    private Gem GenGem(Vector2 gemPosition)
+    {
         Gem gem = Instantiate(prefabs[Random.Range(0, prefabs.Length)]);
         gem.transform.position = gemPosition;
         gem.grid = this;
         return gem;
     }
 
-    private void GenGems() {
+    private void GenGems()
+    {
         Gem[,] box = new Gem[sizeY, sizeX];
-        for (int i = 0; i < sizeY; i++) {
-            for (int j = 0; j < sizeX; j++) {
+        for (int i = 0; i < sizeY; i++)
+        {
+            for (int j = 0; j < sizeX; j++)
+            {
                 box[i, j] = GenGem((Vector2)transform.position + stepX * j + stepY * i);
             }
+        }
+    }
+
+    public void OnClick(Gem gem)
+    {
+        if (state == GridState.choosing1)
+        {
+            gem.Scale(baseScale);
         }
     }
 }

@@ -1,29 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Gem : MonoBehaviour
+public class Gem : MonoBehaviour, IPointerClickHandler
 {
-    private ObjectMover mover;
-    private ObjectScaler scaler;
-    public GemType Type;
+    private ObjectMover _mover;
+    private ObjectScaler _scaler;
+    public GemType type;
     public Grid grid;
 
     private void Awake()
     {
-        mover = GetComponent<ObjectMover>();
-        mover.doMove = false;
-        scaler = GetComponent<ObjectScaler>();
-        scaler.doScale = false;
+        _mover = GetComponent<ObjectMover>();
+        _mover.doMove = false;
+        _scaler = GetComponent<ObjectScaler>();
+        _scaler.doScale = false;
     }
 
-    void Move(Vector2 EndPos) {
-        mover.EndPos = EndPos;
-        mover.doMove = true;
+    public void Move(Vector2 endPos)
+    {
+        _mover.EndPos = endPos;
+        _mover.doMove = true;
     }
 
-    void Scale(Vector3 EndScale) {
-        scaler.EndScale = EndScale;
-        scaler.doScale = true;
+    public void Scale(Vector3 endScale)
+    {
+        _scaler.EndScale = endScale;
+        _scaler.doScale = true;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Clicked!");
     }
 }
