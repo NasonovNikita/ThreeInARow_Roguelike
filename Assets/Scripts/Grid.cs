@@ -35,10 +35,12 @@ public class Grid : MonoBehaviour
         if (state == GridState.moving)
         {
             StartCoroutine(MoveGems(_first, _second));
+            state = GridState.refreshing;
         }
         else if (state == GridState.refreshing)
         {
             StartCoroutine(Refresh());
+            state = GridState.choosing1;
         }
     }
 
@@ -114,7 +116,6 @@ public class Grid : MonoBehaviour
         _box[pos1[0], pos1[1]] = gem2;
         gem1.Scale(_baseScale);
         gem2.Scale(_baseScale);
-        state = GridState.refreshing;
     }
 
     private IEnumerator Refresh()
@@ -123,7 +124,6 @@ public class Grid : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         //TODO generating gems
         yield return new WaitForSeconds(0.1f);
-        state = GridState.choosing1;
     }
 
     private int[] FindGem(Gem gem)
