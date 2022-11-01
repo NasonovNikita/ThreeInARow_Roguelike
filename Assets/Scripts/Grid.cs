@@ -5,8 +5,10 @@ using Random = UnityEngine.Random;
 
 public class Grid : MonoBehaviour
 {
-    private static readonly int SizeX = 10;
-    private static readonly int SizeY = 9;
+    [SerializeField]
+    private int sizeX = 10;
+    [SerializeField]
+    private int sizeY = 9;
     public GridState state;
     [SerializeField]
     private Vector2 stepX;
@@ -18,11 +20,12 @@ public class Grid : MonoBehaviour
     private readonly Vector3 _baseScale = Vector3.one;
     private Gem _first;
     private Gem _second;
-    private readonly Gem[,] _box = new Gem[SizeY, SizeX];
+    private Gem[,] _box;
     
 
     private void Awake()
     {
+        _box = new Gem[sizeY, sizeX];
         state = GridState.choosing1;
         GenGems();
     }
@@ -35,7 +38,7 @@ public class Grid : MonoBehaviour
         }
         else if (state == GridState.refreshing)
         {
-            Refresh();
+            StartCoroutine(Refresh());
         }
     }
 
@@ -49,9 +52,9 @@ public class Grid : MonoBehaviour
 
     private void GenGems()
     {
-        for (int i = 0; i < SizeY; i++)
+        for (int i = 0; i < sizeY; i++)
         {
-            for (int j = 0; j < SizeX; j++)
+            for (int j = 0; j < sizeX; j++)
             {
                 _box[i, j] = GenGem((Vector2)transform.position + stepX * j + stepY * i);
             }
@@ -65,6 +68,7 @@ public class Grid : MonoBehaviour
             case GridState.choosing1:
                 _first = gem;
                 _first.Scale(_chosenScale);
+                yield return new WaitForSeconds(0.1f);
                 state = GridState.choosing2;
                 break;
             case GridState.choosing2:
@@ -113,9 +117,12 @@ public class Grid : MonoBehaviour
         state = GridState.refreshing;
     }
 
-    private void Refresh()
+    private IEnumerator Refresh()
     {
-        //refreshing...
+        //TODO deleting gems
+        yield return new WaitForSeconds(0.1f);
+        //TODO generating gems
+        yield return new WaitForSeconds(0.1f);
         state = GridState.choosing1;
     }
 
@@ -123,9 +130,9 @@ public class Grid : MonoBehaviour
     {
         int a = 0;
         int b = 0;
-        for (int i = 0; i < SizeY; i++)
+        for (int i = 0; i < sizeY; i++)
         {
-            for (int j = 0; j < SizeX; j++)
+            for (int j = 0; j < sizeX; j++)
             {
                 if (_box[i, j] == gem)
                 {
