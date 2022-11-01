@@ -6,9 +6,7 @@ using Random = UnityEngine.Random;
 public class Grid : MonoBehaviour
 {
     private static readonly int SizeX = 10;
-    private static readonly int SizeY = 8;
-    [SerializeField]
-    private Vector2 position;
+    private static readonly int SizeY = 9;
     public GridState state;
     [SerializeField]
     private Vector2 stepX;
@@ -26,7 +24,6 @@ public class Grid : MonoBehaviour
     private void Awake()
     {
         state = GridState.choosing1;
-        transform.position = position;
         GenGems();
     }
 
