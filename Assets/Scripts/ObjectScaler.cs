@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObjectScaler : MonoBehaviour
 {
-    public Vector3 endScale = Vector3.one;
+    public Vector3 endScale;
     private float scaleSpeed = 0.02f;
     public bool doScale;
 

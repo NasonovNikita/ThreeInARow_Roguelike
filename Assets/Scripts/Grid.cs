@@ -61,7 +61,7 @@ public class Grid : MonoBehaviour
         }
     }
 
-    public void OnClick(Gem gem)
+    public IEnumerator OnClick(Gem gem)
     {
         switch (state)
         {
@@ -86,6 +86,7 @@ public class Grid : MonoBehaviour
                     {
                         _second = gem;
                         _second.Scale(_chosenScale);
+                        yield return new WaitForSeconds(0.2f);
                         state = GridState.moving;
                     }
                     else

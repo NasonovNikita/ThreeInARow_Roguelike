@@ -30,6 +30,6 @@ public class Gem : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        grid.OnClick(this);
+        StartCoroutine(grid.OnClick(this));
     }
 }
