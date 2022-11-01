@@ -129,20 +129,17 @@ public class Grid : MonoBehaviour
 
     private int[] FindGem(Gem gem)
     {
-        int a = 0;
-        int b = 0;
+        int[] res = { 0, 0 };
         for (int i = 0; i < sizeY; i++)
         {
             for (int j = 0; j < sizeX; j++)
             {
                 if (_box[i, j] == gem)
                 {
-                    a = i;
-                    b = j;
+                    res = new[] { i, j };
                 }
             }
         }
-        
-        return new [] { a, b };
+        return res;
     }
 }
