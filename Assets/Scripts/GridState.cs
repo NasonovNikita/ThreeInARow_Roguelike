@@ -1,7 +1,9 @@
 public enum GridState
 {
-    choosing1,
-    choosing2,
-    moving,
-    refreshing
+    Choosing1,
+    Choosing2,
+    Chosen,
+    Moving,
+    Moved,
+    Refreshing
 }

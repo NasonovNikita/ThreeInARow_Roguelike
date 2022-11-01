@@ -1,7 +1,7 @@
 public enum GemType
 {
-    red,
-    blue,
-    yellow,
-    green
+    Red,
+    Blue,
+    Yellow,
+    Green
 }

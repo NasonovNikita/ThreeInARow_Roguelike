@@ -26,21 +26,24 @@ public class Grid : MonoBehaviour
     private void Awake()
     {
         _box = new Gem[sizeY, sizeX];
-        state = GridState.choosing1;
+        state = GridState.Choosing1;
         GenGems();
     }
 
     private void Update()
     {
-        if (state == GridState.moving)
+        switch (state)
         {
-            StartCoroutine(MoveGems(_first, _second));
-            state = GridState.refreshing;
-        }
-        else if (state == GridState.refreshing)
-        {
-            StartCoroutine(Refresh());
-            state = GridState.choosing1;
+            case GridState.Chosen:
+                state = GridState.Moving;
+                StartCoroutine(MoveGems(_first, _second));
+                state = GridState.Moved;
+                break;
+            case GridState.Moved:
+                state = GridState.Refreshing;
+                StartCoroutine(Refresh());
+                state = GridState.Choosing1;
+                break;
         }
     }
 
@@ -67,38 +70,36 @@ public class Grid : MonoBehaviour
     {
         switch (state)
         {
-            case GridState.choosing1:
+            case GridState.Choosing1:
                 _first = gem;
                 _first.Scale(_chosenScale);
                 yield return new WaitForSeconds(0.1f);
-                state = GridState.choosing2;
+                state = GridState.Choosing2;
                 break;
-            case GridState.choosing2:
+            case GridState.Choosing2 when gem == _first:
+                _first.Scale(_baseScale);
+                _first = null;
+                state = GridState.Choosing1;
+                break;
+            case GridState.Choosing2:
             {
-                if (gem == _first)
+                int[] pos1 = FindGem(_first);
+                int[] pos2 = FindGem(gem);
+                if (pos1[0] == pos2[0] & Math.Abs(pos1[1] - pos2[1]) == 1 |
+                    pos1[1] == pos2[1] & Math.Abs(pos1[0] - pos2[0]) == 1)
                 {
-                    _first.Scale(_baseScale);
-                    _first = null;
-                    state = GridState.choosing1;
+                    _second = gem;
+                    _second.Scale(_chosenScale);
+                    yield return new WaitForSeconds(0.1f);
+                    state = GridState.Chosen;
                 }
                 else
                 {
-                    int[] pos1 = FindGem(_first);
-                    int[] pos2 = FindGem(gem);
-                    if (pos1[0] == pos2[0] & Math.Abs(pos1[1] - pos2[1]) == 1 | pos1[1] == pos2[1] & Math.Abs(pos1[0] - pos2[0]) == 1)
-                    {
-                        _second = gem;
-                        _second.Scale(_chosenScale);
-                        yield return new WaitForSeconds(0.1f);
-                        state = GridState.moving;
-                    }
-                    else
-                    {
-                        _first.Scale(_baseScale);
-                        _first = gem;
-                        _first.Scale(_chosenScale);
-                    }
+                    _first.Scale(_baseScale);
+                    _first = gem;
+                    _first.Scale(_chosenScale);
                 }
+
                 break;
             }
         }
@@ -118,30 +119,28 @@ public class Grid : MonoBehaviour
         gem2.Scale(_baseScale);
     }
 
-    private IEnumerator Refresh()
+    private static IEnumerator Refresh()
     {
         //TODO deleting gems
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         //TODO generating gems
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
     }
 
     private int[] FindGem(Gem gem)
     {
-        int a = 0;
-        int b = 0;
+        int[] res = { 0, 0 };
         for (int i = 0; i < sizeY; i++)
         {
             for (int j = 0; j < sizeX; j++)
             {
                 if (_box[i, j] == gem)
                 {
-                    a = i;
-                    b = j;
+                    res = new [] { i, j };
                 }
             }
+            i = 0;
         }
-        
-        return new [] { a, b };
+        return res;
     }
 }
