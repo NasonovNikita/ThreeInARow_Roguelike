@@ -86,7 +86,7 @@ public class Grid : MonoBehaviour
                     {
                         _second = gem;
                         _second.Scale(_chosenScale);
-                        yield return new WaitForSeconds(0.2f);
+                        yield return new WaitForSeconds(0.1f);
                         state = GridState.moving;
                     }
                     else
