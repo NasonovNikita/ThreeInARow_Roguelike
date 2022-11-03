@@ -20,7 +20,7 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private Vector3 baseScale = Vector3.one;
     [SerializeField]
-    private float moveTime = 0.5f;
+    private float moveTime = 5f;
     [SerializeField]
     private float scaleTime = 0.2f;
     [SerializeField]
@@ -111,7 +111,6 @@ public class Grid : MonoBehaviour
         //TODO deleting gems
         yield return new WaitForSeconds(refreshTime);
         //TODO generating gems
-        yield return new WaitForSeconds(refreshTime);
     }
 
     private int[] FindGem(Gem gem)
