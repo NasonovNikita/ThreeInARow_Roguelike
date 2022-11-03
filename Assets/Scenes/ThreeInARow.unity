@@ -346,3 +346,6 @@ MonoBehaviour:
   - {fileID: -1593909840676541764, guid: 0fd2726e2139b674886186f5384f46a7, type: 3}
   - {fileID: 7005791935035994931, guid: fc4667ed736e3494dbc1b85c9b2c9075, type: 3}
   - {fileID: -8985318442100394132, guid: 04759e64b6de29d4f93084eeb36acee3, type: 3}
+  moveTime: 0.2
+  scaleTime: 0.1
+  refreshTime: 0.2
