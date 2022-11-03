@@ -1,15 +1,22 @@
 using UnityEngine;
-using System;
-
 public class ObjectMover : MonoBehaviour
 {
     public Vector2 endPos;
     public bool doMove;
-    private float speed = 0.05f;
+    private Vector2 _speed;
 
+    public void StartMovement(Vector2 end, float time)
+    {
+        _speed = (end - (Vector2)transform.position) / time;
+        endPos = end;
+        doMove = true;
+
+    }
     private void FixedUpdate() {
         if (doMove) {
-            transform.position = Vector2.MoveTowards(transform.position, endPos, Math.Min(speed, Mathf.Min(speed, (endPos - (Vector2) transform.position).magnitude)));
+            transform.position += (_speed * Time.deltaTime).magnitude < (endPos - (Vector2)transform.position).magnitude
+                ? _speed * Time.deltaTime
+                : (Vector3)endPos - transform.position;
         }
         if ((Vector2)transform.position == endPos) {
             doMove = false;

@@ -16,16 +16,14 @@ public class Gem : MonoBehaviour, IPointerClickHandler
         _scaler.doScale = false;
     }
 
-    public void Move(Vector2 endPos)
+    public void Move(Vector2 endPos, float time)
     {
-        _mover.endPos = endPos;
-        _mover.doMove = true;
+        _mover.StartMovement(endPos, time);
     }
 
-    public void Scale(Vector3 endScale)
+    public void Scale(Vector3 endScale, float time)
     {
-        _scaler.endScale = endScale;
-        _scaler.doScale = true;
+        _scaler.StartScale(endScale, time);
     }
 
     public void OnPointerClick(PointerEventData eventData)

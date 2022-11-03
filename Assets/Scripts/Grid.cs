@@ -18,10 +18,13 @@ public class Grid : MonoBehaviour
     private Gem[] prefabs = new Gem[4];
     private readonly Vector3 _chosenScale = new (1.1f, 1.1f, 1.1f);
     private readonly Vector3 _baseScale = Vector3.one;
+    [SerializeField]
+    private float moveTime = 0.5f;
+    [SerializeField]
+    private float scaleTime = 0.2f;
     private Gem _first;
     private Gem _second;
     private Gem[,] _box;
-    
 
     private void Awake()
     {
@@ -72,12 +75,12 @@ public class Grid : MonoBehaviour
         {
             case GridState.Choosing1:
                 _first = gem;
-                _first.Scale(_chosenScale);
+                _first.Scale(_chosenScale, scaleTime);
                 yield return new WaitForSeconds(0.1f);
                 state = GridState.Choosing2;
                 break;
             case GridState.Choosing2 when gem == _first:
-                _first.Scale(_baseScale);
+                _first.Scale(_baseScale, scaleTime);
                 _first = null;
                 state = GridState.Choosing1;
                 break;
@@ -89,15 +92,15 @@ public class Grid : MonoBehaviour
                     pos1[1] == pos2[1] && Math.Abs(pos1[0] - pos2[0]) == 1)
                 {
                     _second = gem;
-                    _second.Scale(_chosenScale);
+                    _second.Scale(_chosenScale, scaleTime);
                     yield return new WaitForSeconds(0.1f);
                     state = GridState.Chosen;
                 }
                 else
                 {
-                    _first.Scale(_baseScale);
+                    _first.Scale(_baseScale, scaleTime);
                     _first = gem;
-                    _first.Scale(_chosenScale);
+                    _first.Scale(_chosenScale, scaleTime);
                 }
 
                 break;
@@ -110,13 +113,13 @@ public class Grid : MonoBehaviour
         int[] pos1 = FindGem(gem1);
         int[] pos2 = FindGem(gem2);
         Vector2 pos = transform.position;
-        gem1.Move(pos + stepX * pos2[1] + stepY * pos2[0]);
-        gem2.Move(pos + stepX * pos1[1] + stepY * pos1[0]);
-        yield return new WaitForSeconds(0.5f);
+        gem1.Move(pos + stepX * pos2[1] + stepY * pos2[0], moveTime);
+        gem2.Move(pos + stepX * pos1[1] + stepY * pos1[0], moveTime);
+        yield return new WaitForSeconds(moveTime);
         _box[pos2[0], pos2[1]] = gem1;
         _box[pos1[0], pos1[1]] = gem2;
-        gem1.Scale(_baseScale);
-        gem2.Scale(_baseScale);
+        gem1.Scale(_baseScale, scaleTime);
+        gem2.Scale(_baseScale, scaleTime);
     }
 
     private static IEnumerator Refresh()

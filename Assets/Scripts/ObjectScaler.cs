@@ -3,19 +3,23 @@ using UnityEngine;
 public class ObjectScaler : MonoBehaviour
 {
     public Vector3 endScale;
-    [SerializeField]
-    private float scaleSpeed = 0.02f;
+    private Vector3 _speed;
     public bool doScale;
 
+    public void StartScale(Vector3 end, float time)
+    {
+        _speed = (end - transform.localScale) / time;
+        endScale = end;
+        doScale = true;
+    }
+    
     private void FixedUpdate()
     {
-        if (doScale & endScale.x > transform.localScale.x)
+        if (doScale)
         {
-            transform.localScale += (endScale - transform.localScale).magnitude > (Vector3.one * scaleSpeed).magnitude ? Vector3.one * scaleSpeed: endScale - transform.localScale;
-        }
-        else if (doScale & endScale.x < transform.localScale.x)
-        {
-            transform.localScale -= (transform.localScale - endScale).magnitude > (Vector3.one * scaleSpeed).magnitude ? Vector3.one * scaleSpeed: transform.localScale - endScale;
+            transform.localScale += (_speed * Time.deltaTime).magnitude < (endScale - transform.localScale).magnitude
+                ? _speed * Time.deltaTime
+                : endScale - transform.localScale;
         }
         if (transform.localScale == endScale)
         {
