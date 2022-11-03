@@ -15,8 +15,10 @@ public class Grid : MonoBehaviour
     private Vector2 stepY;
     [SerializeField]
     private Gem[] prefabs = new Gem[4];
-    private readonly Vector3 _chosenScale = new (1.1f, 1.1f, 1.1f);
-    private readonly Vector3 _baseScale = Vector3.one;
+    [SerializeField]
+    private Vector3 chosenScale = new (1.1f, 1.1f, 1.1f);
+    [SerializeField]
+    private Vector3 baseScale = Vector3.one;
     [SerializeField]
     private float moveTime = 0.5f;
     [SerializeField]
@@ -57,12 +59,12 @@ public class Grid : MonoBehaviour
         if (_first is null)
         {
             _first = gem;
-            _first.Scale(_chosenScale, scaleTime);
+            _first.Scale(chosenScale, scaleTime);
             yield return new WaitForSeconds(scaleTime);
         }
         else if (gem == _first)
         {
-            _first.Scale(_baseScale, scaleTime);
+            _first.Scale(baseScale, scaleTime);
             _first = null;
         }
         else
@@ -73,7 +75,7 @@ public class Grid : MonoBehaviour
                 pos1[1] == pos2[1] && Math.Abs(pos1[0] - pos2[0]) == 1)
             {
                 _second = gem;
-                _second.Scale(_chosenScale, scaleTime);
+                _second.Scale(chosenScale, scaleTime);
                 yield return new WaitForSeconds(scaleTime);
                 StartCoroutine(MoveGems(_first, _second));
                 _first = null;
@@ -81,9 +83,9 @@ public class Grid : MonoBehaviour
             }
             else
             {
-                _first.Scale(_baseScale, scaleTime);
+                _first.Scale(baseScale, scaleTime);
                 _first = gem;
-                _first.Scale(_chosenScale, scaleTime);
+                _first.Scale(chosenScale, scaleTime);
             }
         }
     }
@@ -98,8 +100,8 @@ public class Grid : MonoBehaviour
         yield return new WaitForSeconds(moveTime);
         _box[pos2[0], pos2[1]] = gem1;
         _box[pos1[0], pos1[1]] = gem2;
-        gem1.Scale(_baseScale, scaleTime);
-        gem2.Scale(_baseScale, scaleTime);
+        gem1.Scale(baseScale, scaleTime);
+        gem2.Scale(baseScale, scaleTime);
         yield return new WaitForSeconds(scaleTime);
         StartCoroutine(Refresh());
     }
