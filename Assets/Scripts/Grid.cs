@@ -85,8 +85,8 @@ public class Grid : MonoBehaviour
             {
                 int[] pos1 = FindGem(_first);
                 int[] pos2 = FindGem(gem);
-                if (pos1[0] == pos2[0] & Math.Abs(pos1[1] - pos2[1]) == 1 |
-                    pos1[1] == pos2[1] & Math.Abs(pos1[0] - pos2[0]) == 1)
+                if (pos1[0] == pos2[0] && Math.Abs(pos1[1] - pos2[1]) == 1 ||
+                    pos1[1] == pos2[1] && Math.Abs(pos1[0] - pos2[0]) == 1)
                 {
                     _second = gem;
                     _second.Scale(_chosenScale);
