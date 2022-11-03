@@ -22,6 +22,8 @@ public class Grid : MonoBehaviour
     private float moveTime = 0.5f;
     [SerializeField]
     private float scaleTime = 0.2f;
+    [SerializeField]
+    private float refreshTime = 1f;
     private Gem _first;
     private Gem _second;
     private Gem[,] _box;
@@ -31,23 +33,6 @@ public class Grid : MonoBehaviour
         _box = new Gem[sizeY, sizeX];
         state = GridState.Choosing1;
         GenGems();
-    }
-
-    private void Update()
-    {
-        switch (state)
-        {
-            case GridState.Chosen:
-                state = GridState.Moving;
-                StartCoroutine(MoveGems(_first, _second));
-                state = GridState.Moved;
-                break;
-            case GridState.Moved:
-                state = GridState.Refreshing;
-                StartCoroutine(Refresh());
-                state = GridState.Choosing1;
-                break;
-        }
     }
 
     private Gem GenGem(Vector2 gemPosition)
@@ -76,7 +61,7 @@ public class Grid : MonoBehaviour
             case GridState.Choosing1:
                 _first = gem;
                 _first.Scale(_chosenScale, scaleTime);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(scaleTime);
                 state = GridState.Choosing2;
                 break;
             case GridState.Choosing2 when gem == _first:
@@ -93,8 +78,10 @@ public class Grid : MonoBehaviour
                 {
                     _second = gem;
                     _second.Scale(_chosenScale, scaleTime);
-                    yield return new WaitForSeconds(0.1f);
-                    state = GridState.Chosen;
+                    yield return new WaitForSeconds(scaleTime);
+                    state = GridState.Moving;
+                    StartCoroutine(MoveGems(_first, _second));
+                    
                 }
                 else
                 {
@@ -120,14 +107,18 @@ public class Grid : MonoBehaviour
         _box[pos1[0], pos1[1]] = gem2;
         gem1.Scale(_baseScale, scaleTime);
         gem2.Scale(_baseScale, scaleTime);
+        yield return new WaitForSeconds(scaleTime);
+        state = GridState.Refreshing;
+        StartCoroutine(Refresh());
     }
 
-    private static IEnumerator Refresh()
+    private IEnumerator Refresh()
     {
         //TODO deleting gems
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(refreshTime);
         //TODO generating gems
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(refreshTime);
+        state = GridState.Choosing1;
     }
 
     private int[] FindGem(Gem gem)
