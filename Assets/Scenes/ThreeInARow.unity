@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeX: 10
   sizeY: 9
-  state: 0
+  state: 3
   stepX: {x: 1.1, y: 0}
   stepY: {x: 0, y: 1.1}
   prefabs:

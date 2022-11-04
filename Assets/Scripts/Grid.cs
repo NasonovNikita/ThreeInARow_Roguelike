@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,6 +35,7 @@ public class Grid : MonoBehaviour
     {
         _box = new Gem[sizeY, sizeX];
         GenGems();
+        StartCoroutine(Refresh());
     }
 
     private Gem GenGem(Vector2 gemPosition)
@@ -117,7 +119,35 @@ public class Grid : MonoBehaviour
 
     private IEnumerator Refresh()
     {
-        //TODO deleting gems
+        HashSet<Gem> toDelete = new HashSet<Gem>();
+        for (int i = 0; i < sizeY; i++)
+        {
+            for (int j = 0; j < sizeX - 2; j++)
+            {
+                if (_box[i, j].type == _box[i, j + 1].type && _box[i, j].type == _box[i, j + 2].type)
+                {
+                    toDelete.Add(_box[i, j]);
+                    toDelete.Add(_box[i, j + 1]);
+                    toDelete.Add(_box[i, j + 2]);
+                }
+            }
+        }
+        for (int i = 0; i < sizeY - 2; i++)
+        {
+            for (int j = 0; j < sizeX; j++)
+            {
+                if (_box[i, j].type == _box[i + 1, j].type && _box[i, j].type == _box[i + 2, j].type)
+                {
+                    toDelete.Add(_box[i, j]);
+                    toDelete.Add(_box[i + 1, j]);
+                    toDelete.Add(_box[i + 2, j]);
+                }
+            }
+        }
+        foreach (Gem gem in toDelete)
+        {
+            Destroy(gem);
+        }
         yield return new WaitForSeconds(refreshTime);
         //TODO generating gems
         state = GridState.Choosing1;
