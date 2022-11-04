@@ -38,10 +38,10 @@ public class Grid : MonoBehaviour
         StartCoroutine(Refresh());
     }
 
-    private Gem GenGem(Vector2 gemPosition)
+    private Gem GenGem(int i, int j)
     {
         Gem gem = Instantiate(prefabs[Random.Range(0, prefabs.Length)]);
-        gem.transform.position = gemPosition;
+        gem.transform.position = (Vector2)transform.position + stepX * j + stepY * i;
         gem.grid = this;
         return gem;
     }
@@ -52,7 +52,7 @@ public class Grid : MonoBehaviour
         {
             for (int j = 0; j < sizeX; j++)
             {
-                _box[i, j] = GenGem((Vector2)transform.position + stepX * j + stepY * i);
+                _box[i, j] = GenGem(i, j);
             }
         }
     }
@@ -119,6 +119,7 @@ public class Grid : MonoBehaviour
 
     private IEnumerator Refresh()
     {
+        yield return new WaitForSeconds(refreshTime);
         HashSet<Gem> toDelete = new HashSet<Gem>();
         for (int i = 0; i < sizeY; i++)
         {
@@ -144,12 +145,28 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+
+        if (toDelete.Count == 0)
+        {
+            yield break;
+        }
         foreach (Gem gem in toDelete)
         {
-            Destroy(gem);
+            Destroy(gem.gameObject);
         }
         yield return new WaitForSeconds(refreshTime);
-        //TODO generating gems
+        for (int i = 0; i < sizeY; i++)
+        {
+            for (int j = 0; j < sizeX; j++)
+            {
+                if (_box[i, j] == null)
+                {
+                    Debug.Log("found");
+                    _box[i, j] = GenGem(i, j);
+                }
+            }
+        }
+        StartCoroutine(Refresh());
         state = GridState.Choosing1;
     }
 

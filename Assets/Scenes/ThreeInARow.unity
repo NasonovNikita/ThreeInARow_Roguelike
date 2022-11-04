@@ -267,7 +267,7 @@ MonoBehaviour:
   baseScale: {x: 1, y: 1, z: 1}
   moveTime: 0.2
   scaleTime: 0.1
-  refreshTime: 0.2
+  refreshTime: 0.8
 --- !u!4 &1350078685
 Transform:
   m_ObjectHideFlags: 0
