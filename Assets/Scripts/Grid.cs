@@ -148,6 +148,8 @@ public class Grid : MonoBehaviour
 
         if (toDelete.Count == 0)
         {
+            
+            state = GridState.Choosing1;
             yield break;
         }
         foreach (Gem gem in toDelete)
@@ -167,7 +169,6 @@ public class Grid : MonoBehaviour
             }
         }
         StartCoroutine(Refresh());
-        state = GridState.Choosing1;
     }
 
     private int[] FindGem(Gem gem)
