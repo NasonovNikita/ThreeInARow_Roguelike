@@ -253,17 +253,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1706f635693ed0d4caf56228f2e5a677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeX: 10
-  sizeY: 9
-  stepX: {x: 1.1, y: 0}
-  stepY: {x: 0, y: 1.1}
+  sizeX: 8
+  sizeY: 8
+  stepX: {x: 1, y: 0}
+  stepY: {x: 0, y: 1}
   prefabs:
   - {fileID: 1917038237409578163, guid: 11ca37aca5bd3fe47a26bc15b03cb876, type: 3}
   - {fileID: -1593909840676541764, guid: 0fd2726e2139b674886186f5384f46a7, type: 3}
   - {fileID: 7005791935035994931, guid: fc4667ed736e3494dbc1b85c9b2c9075, type: 3}
   - {fileID: -8985318442100394132, guid: 04759e64b6de29d4f93084eeb36acee3, type: 3}
-  chosenScale: {x: 1.1, y: 1.1, z: 1.1}
-  baseScale: {x: 1, y: 1, z: 1}
+  chosenScale: {x: 0.9, y: 0.9, z: 0.9}
+  baseScale: {x: 0.8, y: 0.8, z: 0.8}
   moveTime: 0.2
   scaleTime: 0.1
   refreshTime: 0.7
@@ -276,7 +276,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1350078683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: -4.4, z: 0}
+  m_LocalPosition: {x: -3.5, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -30,9 +30,9 @@ public class Grid : MonoBehaviour
     private float scaleTime;
     [SerializeField]
     private float refreshTime;
-
-    private GridState _state;
-    public GridState State => _state;
+    [SerializeField]
+    private GridState state;
+    public GridState State => state;
 
     private Gem _first;
     private Gem _second;
@@ -67,12 +67,12 @@ public class Grid : MonoBehaviour
 
     public void Unlock()
     {
-        _state = GridState.Choosing1;
+        state = GridState.Choosing1;
     }
 
     public IEnumerator OnClick(Gem gem)
     {
-        switch (_state)
+        switch (state)
         {
             case GridState.Choosing1:
                 
@@ -81,7 +81,7 @@ public class Grid : MonoBehaviour
                 _first.Scale(chosenScale, scaleTime);
                 yield return new WaitForSeconds(scaleTime);
                 
-                _state = GridState.Choosing2;
+                state = GridState.Choosing2;
                 break;
             
             case GridState.Choosing2 when gem == _first:
@@ -91,7 +91,7 @@ public class Grid : MonoBehaviour
                 
                 _first = null;
                 
-                _state = GridState.Choosing1;
+                state = GridState.Choosing1;
                 break;
             
             case GridState.Choosing2:
@@ -105,7 +105,7 @@ public class Grid : MonoBehaviour
                     _second.Scale(chosenScale, scaleTime);
                     yield return new WaitForSeconds(scaleTime);
                     
-                    _state = GridState.Moving;
+                    state = GridState.Moving;
                     StartCoroutine(MoveGems(_first, _second));
                     
                     _first = null;
@@ -141,7 +141,7 @@ public class Grid : MonoBehaviour
         gem2.Scale(baseScale, scaleTime);
         yield return new WaitForSeconds(scaleTime);
         
-        _state = GridState.Refreshing;
+        state = GridState.Refreshing;
         StartCoroutine(Refresh());
     }
 
@@ -171,7 +171,7 @@ public class Grid : MonoBehaviour
         if (toDelete.Count == 0)
         {
             
-            _state = GridState.Blocked;
+            state = GridState.Blocked;
             Unlock();
             yield break;
         }
