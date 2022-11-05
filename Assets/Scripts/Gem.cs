@@ -3,15 +3,18 @@ using UnityEngine.EventSystems;
 
 public class Gem : MonoBehaviour, IPointerClickHandler
 {
+    public GemType type;
+    
+    public Grid grid;
+    
     private ObjectMover _mover;
     private ObjectScaler _scaler;
-    public GemType type;
-    public Grid grid;
 
     private void Awake()
     {
         _mover = GetComponent<ObjectMover>();
         _mover.doMove = false;
+        
         _scaler = GetComponent<ObjectScaler>();
         _scaler.doScale = false;
     }

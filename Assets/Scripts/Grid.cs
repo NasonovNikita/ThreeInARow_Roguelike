@@ -7,28 +7,36 @@ using Random = UnityEngine.Random;
 public class Grid : MonoBehaviour
 {
     [SerializeField]
-    private int sizeX = 10;
+    private int sizeX;
     [SerializeField]
-    private int sizeY = 9;
-    public GridState state;
+    private int sizeY;
+    
     [SerializeField]
     private Vector2 stepX;
     [SerializeField]
     private Vector2 stepY;
+    
     [SerializeField]
-    private Gem[] prefabs = new Gem[4];
+    private Gem[] prefabs;
+    
     [SerializeField]
-    private Vector3 chosenScale = new (1.1f, 1.1f, 1.1f);
+    private Vector3 chosenScale;
     [SerializeField]
-    private Vector3 baseScale = Vector3.one;
+    private Vector3 baseScale;
+    
     [SerializeField]
-    private float moveTime = 0.2f;
+    private float moveTime;
     [SerializeField]
-    private float scaleTime = 0.2f;
+    private float scaleTime;
     [SerializeField]
-    private float refreshTime = 0.2f;
+    private float refreshTime;
+
+    private GridState _state;
+    public GridState State => _state;
+
     private Gem _first;
     private Gem _second;
+    
     private Gem[,] _box;
 
     private void Awake()
@@ -57,43 +65,60 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public void Unlock()
+    {
+        _state = GridState.Choosing1;
+    }
+
     public IEnumerator OnClick(Gem gem)
     {
-        switch (state)
+        switch (_state)
         {
             case GridState.Choosing1:
+                
                 _first = gem;
+                
                 _first.Scale(chosenScale, scaleTime);
                 yield return new WaitForSeconds(scaleTime);
-                state = GridState.Choosing2;
+                
+                _state = GridState.Choosing2;
                 break;
+            
             case GridState.Choosing2 when gem == _first:
+                
                 _first.Scale(baseScale, scaleTime);
                 yield return new WaitForSeconds(scaleTime);
+                
                 _first = null;
-                state = GridState.Choosing1;
+                
+                _state = GridState.Choosing1;
                 break;
+            
             case GridState.Choosing2:
             {
-                int[] pos1 = FindGem(_first);
-                int[] pos2 = FindGem(gem);
-                if (pos1[0] == pos2[0] && Math.Abs(pos1[1] - pos2[1]) == 1 ||
-                    pos1[1] == pos2[1] && Math.Abs(pos1[0] - pos2[0]) == 1)
+                _second = gem;
+                
+                
+                if (GemsArenNeighbours(_first, _second))
                 {
-                    _second = gem;
+                    
                     _second.Scale(chosenScale, scaleTime);
                     yield return new WaitForSeconds(scaleTime);
-                    state = GridState.Moving;
+                    
+                    _state = GridState.Moving;
                     StartCoroutine(MoveGems(_first, _second));
+                    
                     _first = null;
                     _second = null;
                 }
                 else
                 {
                     _first.Scale(baseScale, scaleTime);
-                    _first = gem;
-                    _first.Scale(chosenScale, scaleTime);
+                    _second.Scale(chosenScale, scaleTime);
                     yield return new WaitForSeconds(scaleTime);
+
+                    _first = _second;
+                    _second = null;
                 }
                 break;
             }
@@ -104,40 +129,37 @@ public class Grid : MonoBehaviour
     {
         int[] pos1 = FindGem(gem1);
         int[] pos2 = FindGem(gem2);
-        Vector2 pos = transform.position;
-        gem1.Move(pos + stepX * pos2[1] + stepY * pos2[0], moveTime);
-        gem2.Move(pos + stepX * pos1[1] + stepY * pos1[0], moveTime);
+        
+        gem1.Move(gem2.transform.position, moveTime);
+        gem2.Move(gem1.transform.position, moveTime);
         yield return new WaitForSeconds(moveTime);
+        
         _box[pos2[0], pos2[1]] = gem1;
         _box[pos1[0], pos1[1]] = gem2;
+        
         gem1.Scale(baseScale, scaleTime);
         gem2.Scale(baseScale, scaleTime);
         yield return new WaitForSeconds(scaleTime);
-        state = GridState.Refreshing;
+        
+        _state = GridState.Refreshing;
         StartCoroutine(Refresh());
     }
 
     private IEnumerator Refresh()
     {
-        yield return new WaitForSeconds(refreshTime);
         HashSet<Gem> toDelete = new HashSet<Gem>();
+        
         for (int i = 0; i < sizeY; i++)
         {
-            for (int j = 0; j < sizeX - 2; j++)
+            for (int j = 0; j < sizeX; j++)
             {
-                if (_box[i, j].type == _box[i, j + 1].type && _box[i, j].type == _box[i, j + 2].type)
+                if (HorizontalRowExists(i, j))
                 {
                     toDelete.Add(_box[i, j]);
                     toDelete.Add(_box[i, j + 1]);
                     toDelete.Add(_box[i, j + 2]);
                 }
-            }
-        }
-        for (int i = 0; i < sizeY - 2; i++)
-        {
-            for (int j = 0; j < sizeX; j++)
-            {
-                if (_box[i, j].type == _box[i + 1, j].type && _box[i, j].type == _box[i + 2, j].type)
+                if (VerticalRowExists(i, j))
                 {
                     toDelete.Add(_box[i, j]);
                     toDelete.Add(_box[i + 1, j]);
@@ -149,13 +171,17 @@ public class Grid : MonoBehaviour
         if (toDelete.Count == 0)
         {
             
-            state = GridState.Choosing1;
+            _state = GridState.Blocked;
+            Unlock();
             yield break;
         }
+        
+        yield return new WaitForSeconds(refreshTime);
         foreach (Gem gem in toDelete)
         {
             Destroy(gem.gameObject);
         }
+        
         yield return new WaitForSeconds(refreshTime);
         for (int i = 0; i < sizeY; i++)
         {
@@ -163,11 +189,11 @@ public class Grid : MonoBehaviour
             {
                 if (_box[i, j] == null)
                 {
-                    Debug.Log("found");
                     _box[i, j] = GenGem(i, j);
                 }
             }
         }
+        
         StartCoroutine(Refresh());
     }
 
@@ -185,5 +211,24 @@ public class Grid : MonoBehaviour
             }
         }
         return res;
+    }
+
+    private bool GemsArenNeighbours(Gem gem1, Gem  gem2)
+    {
+        int[] pos1 = FindGem(gem1);
+        int[] pos2 = FindGem(gem2);
+        
+        return pos1[0] == pos2[0] && Math.Abs(pos1[1] - pos2[1]) == 1 ||
+               pos1[1] == pos2[1] && Math.Abs(pos1[0] - pos2[0]) == 1;
+    }
+
+    private bool HorizontalRowExists(int i, int j)
+    {
+        return j < sizeX - 2 && _box[i, j].type == _box[i, j + 1].type && _box[i, j].type == _box[i, j + 2].type;
+    }
+
+    private bool VerticalRowExists(int i, int j)
+    {
+        return i < sizeY - 2 && _box[i, j].type == _box[i + 1, j].type && _box[i, j].type == _box[i + 2, j].type;
     }
 }
