@@ -30,6 +30,7 @@ public class Grid : MonoBehaviour
     private float scaleTime;
     [SerializeField]
     private float refreshTime;
+    
     [SerializeField]
     private GridState state;
     public GridState State => state;
