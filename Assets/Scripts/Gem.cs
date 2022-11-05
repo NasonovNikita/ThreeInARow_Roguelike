@@ -3,8 +3,10 @@ using UnityEngine.EventSystems;
 
 public class Gem : MonoBehaviour, IPointerClickHandler
 {
-    public GemType type;
-    
+    [SerializeField]
+    private GemType type;
+    public GemType Type => type;
+
     public Grid grid;
     
     private ObjectMover _mover;
