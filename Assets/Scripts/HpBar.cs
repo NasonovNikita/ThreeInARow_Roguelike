@@ -1,11 +1,16 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HpBar : MonoBehaviour
 {
     private Slider _slider;
+    
     [SerializeField]
     private Unit unit;
+
+    [SerializeField]
+    private TMP_Text text;
 
     private void Start()
     {
@@ -17,6 +22,6 @@ public class HpBar : MonoBehaviour
     private void Update()
     {
         _slider.value = unit.Hp;
+        text.text = $"{unit.Hp}/{unit.BaseHp}";
     }
-    
 }

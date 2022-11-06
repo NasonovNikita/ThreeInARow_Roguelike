@@ -14,13 +14,16 @@ public class Unit : MonoBehaviour
     private int baseDamage;
     public int BaseDamage => baseDamage;
 
-    private void Awake()
-    {
-        hp = baseHp;
-    }
-
     public void ChangeHp(int change)
     {
         hp += change;
+        if (hp < 0)
+        {
+            hp = 0;
+        }
+        else if (hp > baseHp)
+        {
+            hp = baseHp;
+        }
     }
 }
