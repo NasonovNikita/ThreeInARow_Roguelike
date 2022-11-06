@@ -54,17 +54,6 @@ public class Grid : MonoBehaviour
         return gem;
     }
 
-    private void GenGems()
-    {
-        for (int i = 0; i < sizeY; i++)
-        {
-            for (int j = 0; j < sizeX; j++)
-            {
-                _box[i, j] = Instantiate(GenGem(i, j));
-            }
-        }
-    }
-
     public void Unlock()
     {
         _state = GridState.Choosing1;
