@@ -31,6 +31,8 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private float refreshTime;
 
+    public Dictionary<GemType, int> Destroyed = new();
+    
     private GridState _state;
     public GridState State => _state;
 
@@ -41,8 +43,14 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
+        foreach (Gem prefab in prefabs)
+        {
+            Destroyed[prefab.Type] = 0;
+        }
+        
         _box = new Gem[sizeY, sizeX];
         SmartGenGems();
+        
         StartCoroutine(Refresh());
     }
 
@@ -164,12 +172,18 @@ public class Grid : MonoBehaviour
             Unlock();
             yield break;
         }
-        
+
+        foreach (Gem gem in toDelete)
+        {
+            Destroyed[gem.Type] += 1;
+        }
+
         yield return new WaitForSeconds(refreshTime);
         foreach (Gem gem in toDelete)
         {
             Destroy(gem.gameObject);
         }
+
         
         yield return new WaitForSeconds(refreshTime);
         for (int i = 0; i < sizeY; i++)
