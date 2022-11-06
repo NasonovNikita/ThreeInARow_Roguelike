@@ -236,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 965b76475614349469dd645f9021c0d6, type: 3}
     - target: {fileID: 4783039333401078123, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: hp
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4783039333401078123, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: baseHp
@@ -250,6 +250,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4783039334133650681, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_Value
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783039334133650681, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783039334133650681, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783039334133650682, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 702914744}
     - target: {fileID: 7628347798506386919, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_fontSize
       value: 0.35
@@ -296,6 +312,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+--- !u!114 &702914744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5312084455693575710, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+  m_PrefabInstance: {fileID: 113691082}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &718194181 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4783039333239394354, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
