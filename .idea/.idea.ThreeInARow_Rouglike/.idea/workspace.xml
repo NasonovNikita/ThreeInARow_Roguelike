@@ -11,6 +11,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/HpBar.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Unit.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Utilities/LinqUtility.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -88,7 +90,9 @@
       <workItem from="1667554380491" duration="3349000" />
       <workItem from="1667560190515" duration="4555000" />
       <workItem from="1667674312951" duration="5397000" />
-      <workItem from="1667719209997" duration="5942000" />
+      <workItem from="1667719209997" duration="11345000" />
+      <workItem from="1667744438641" duration="945000" />
+      <workItem from="1667745417429" duration="1937000" />
     </task>
     <servers />
   </component>
