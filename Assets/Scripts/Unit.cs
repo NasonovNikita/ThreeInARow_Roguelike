@@ -13,7 +13,11 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private int baseDamage;
     public int BaseDamage => baseDamage;
-    
+
+    private void Awake()
+    {
+        hp = baseHp;
+    }
 
     public void ChangeHp(int change)
     {
