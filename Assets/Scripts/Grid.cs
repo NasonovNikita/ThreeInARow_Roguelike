@@ -42,13 +42,13 @@ public class Grid : MonoBehaviour
     private void Awake()
     {
         _box = new Gem[sizeY, sizeX];
-        GenGems();
+        SmartGenGems();
         StartCoroutine(Refresh());
     }
 
-    private Gem GenGem(int i, int j)
+    private Gem GenGem(int i, int j, int type = 0)
     {
-        Gem gem = Instantiate(prefabs[Random.Range(0, prefabs.Length)]);
+        Gem gem = prefabs[type != 0 ? type : Random.Range(0, prefabs.Length)];
         gem.transform.position = (Vector2)transform.position + stepX * j + stepY * i;
         gem.grid = this;
         return gem;
@@ -60,7 +60,7 @@ public class Grid : MonoBehaviour
         {
             for (int j = 0; j < sizeX; j++)
             {
-                _box[i, j] = GenGem(i, j);
+                _box[i, j] = Instantiate(GenGem(i, j));
             }
         }
     }
@@ -189,7 +189,7 @@ public class Grid : MonoBehaviour
             {
                 if (_box[i, j] == null)
                 {
-                    _box[i, j] = GenGem(i, j);
+                    _box[i, j] = Instantiate(GenGem(i, j));
                 }
             }
         }
@@ -197,6 +197,24 @@ public class Grid : MonoBehaviour
         StartCoroutine(Refresh());
     }
 
+    private void SmartGenGems()
+    {
+        for (int i = sizeY - 1; i >= 0; i--)
+        {
+            for (int j = sizeX - 1; j >= 0; j--)
+            {
+                int type = 0;
+                do
+                {
+                    _box[i, j] = GenGem(i, j, type);
+                    type++;
+                } while (HorizontalRowExists(i, j) || VerticalRowExists(i, j));
+
+                _box[i, j] = Instantiate(_box[i, j]);
+            }
+        }
+    }
+    
     private int[] FindGem(Gem gem)
     {
         int[] res = { 0, 0 };
@@ -212,6 +230,8 @@ public class Grid : MonoBehaviour
         }
         return res;
     }
+
+    
 
     private bool GemsArenNeighbours(Gem gem1, Gem  gem2)
     {
