@@ -43,15 +43,8 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        foreach (Gem prefab in prefabs)
-        {
-            Destroyed[prefab.Type] = 0;
-        }
-        
         _box = new Gem[sizeY, sizeX];
         SmartGenGems();
-        
-        StartCoroutine(Refresh());
     }
 
     private Gem GenGem(int i, int j, int type = 0)
@@ -65,6 +58,11 @@ public class Grid : MonoBehaviour
     public void Unlock()
     {
         _state = GridState.Choosing1;
+    }
+
+    public void StartUnlocking()
+    {
+        _state = GridState.ToUnblock;
     }
 
     public IEnumerator OnClick(Gem gem)
@@ -169,13 +167,19 @@ public class Grid : MonoBehaviour
         {
             
             _state = GridState.Blocked;
-            Unlock();
             yield break;
         }
 
         foreach (Gem gem in toDelete)
         {
-            Destroyed[gem.Type] += 1;
+            if (Destroyed.TryGetValue(gem.Type, out int val))
+            {
+                Destroyed[gem.Type] = val + 1;
+            }
+            else
+            {
+                Destroyed.Add(gem.Type, 1);
+            }
         }
 
         yield return new WaitForSeconds(refreshTime);

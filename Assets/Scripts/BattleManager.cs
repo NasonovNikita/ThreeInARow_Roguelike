@@ -1,18 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private Player player;
+
+    [SerializeField]
+    private Enemy[] enemies;
+
+    [SerializeField]
+    private Grid grid;
+
+    [SerializeField]
+    private float attackTime;
+
+    private void Update()
     {
-        
+        if (grid.State == GridState.Blocked)
+        {
+            StartCoroutine(DoDamages());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator<WaitForSeconds> DoDamages()
     {
+        grid.StartUnlocking();
         
+        yield return new WaitForSeconds(attackTime);
+        enemies[0].ChangeHp(-player.Damage(grid.Destroyed));
+        grid.Destroyed.Clear();
+        
+        foreach (Enemy enemy in enemies)
+        { 
+            yield return new WaitForSeconds(attackTime);
+            player.ChangeHp(-enemy.Damage());
+        }
+        
+        grid.Unlock();
     }
 }

@@ -4,5 +4,6 @@ public enum GridState
     Choosing2,
     Moving,
     Refreshing,
-    Blocked
+    Blocked,
+    ToUnblock
 }
