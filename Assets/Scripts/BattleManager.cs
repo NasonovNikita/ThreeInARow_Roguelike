@@ -7,7 +7,7 @@ public class BattleManager : MonoBehaviour
     private Player player;
 
     [SerializeField]
-    private Enemy[] enemies;
+    private List<Enemy> enemies;
 
     [SerializeField]
     private Grid grid;
@@ -17,7 +17,11 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
-        if (grid.State == GridState.Blocked)
+        if (enemies.Count == 0)
+        {
+            EndOfBattle();
+        }
+        else if (grid.State == GridState.Blocked)
         {
             StartCoroutine(DoDamages());
         }
@@ -26,7 +30,6 @@ public class BattleManager : MonoBehaviour
     private IEnumerator<WaitForSeconds> DoDamages()
     {
         grid.StartUnlocking();
-        
         yield return new WaitForSeconds(attackTime);
         enemies[0].ChangeHp(-player.Damage(grid.Destroyed));
         grid.Destroyed.Clear();
@@ -34,9 +37,27 @@ public class BattleManager : MonoBehaviour
         foreach (Enemy enemy in enemies)
         { 
             yield return new WaitForSeconds(attackTime);
-            player.ChangeHp(-enemy.Damage());
+            if (enemy.Hp == 0)
+            {
+                Destroy(enemy.gameObject);
+            }
+            else
+            {
+                player.ChangeHp(-enemy.Damage());
+            }
         }
         
         grid.Unlock();
+    }
+
+    public void KillEnemy(Enemy enemy)
+    {
+        enemy.Delete();
+        enemies.Remove(enemy);
+    }
+
+    private void EndOfBattle()
+    {
+        grid.Block();
     }
 }

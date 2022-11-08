@@ -148,8 +148,10 @@ MonoBehaviour:
   hp: 200
   baseHp: 200
   mana: 0
-  basemana: 0
+  baseMana: 0
   baseDamage: 40
+  box: {fileID: 953944921}
+  manager: {fileID: 2081847656}
 --- !u!1 &218005713 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4783039333401078127, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
@@ -170,8 +172,9 @@ MonoBehaviour:
   hp: 150
   baseHp: 150
   mana: 100
-  basemana: 100
+  baseMana: 100
   baseDamage: 20
+  box: {fileID: 617740360}
 --- !u!1001 &468360897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -289,6 +292,16 @@ PrefabInstance:
       objectReference: {fileID: 218005718}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+--- !u!1 &617740360 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4783039333239394353, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+  m_PrefabInstance: {fileID: 468360897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &953944921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4783039333239394353, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+  m_PrefabInstance: {fileID: 1825747529}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1046667986
 GameObject:
   m_ObjectHideFlags: 0

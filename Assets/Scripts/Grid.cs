@@ -55,6 +55,10 @@ public class Grid : MonoBehaviour
         return gem;
     }
 
+    public void Block()
+    {
+        _state = GridState.Blocked;
+    }
     public void Unlock()
     {
         _state = GridState.Choosing1;
@@ -166,7 +170,7 @@ public class Grid : MonoBehaviour
         if (toDelete.Count == 0)
         {
             
-            _state = GridState.Blocked;
+            Block();
             yield break;
         }
 

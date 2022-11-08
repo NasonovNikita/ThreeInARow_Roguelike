@@ -3,24 +3,27 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     [SerializeField]
-    private int hp;
+    protected int hp;
     public int Hp => hp;
     
     [SerializeField]
-    private int baseHp;
+    protected int baseHp;
     public int BaseHp => baseHp;
 
     [SerializeField]
-    private int mana;
+    protected int mana;
     public int Mana => mana;
     
     [SerializeField]
-    private int basemana;
-    public int Basemana => basemana;
+    protected int baseMana;
+    public int BaseMana => baseMana;
 
     [SerializeField]
-    private int baseDamage;
+    protected int baseDamage;
     public int BaseDamage => baseDamage;
+    
+    [SerializeField]
+    protected GameObject box;
 
     public void ChangeHp(int change)
     {
@@ -42,9 +45,14 @@ public class Unit : MonoBehaviour
         {
             mana = 0;
         }
-        else if (mana > basemana)
+        else if (mana > baseMana)
         {
-            mana = basemana;
+            mana = baseMana;
         }
+    }
+
+    public void Delete()
+    {
+        Destroy(box.gameObject);
     }
 }
