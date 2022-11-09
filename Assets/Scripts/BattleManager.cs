@@ -13,7 +13,7 @@ public class BattleManager : MonoBehaviour
     private Grid grid;
 
     [SerializeField]
-    private float attackTime;
+    private float fightTime;
 
     private void Update()
     {
@@ -30,21 +30,16 @@ public class BattleManager : MonoBehaviour
     private IEnumerator<WaitForSeconds> DoDamages()
     {
         grid.StartUnlocking();
-        yield return new WaitForSeconds(attackTime);
+        
+        yield return new WaitForSeconds(fightTime);
+        
         enemies[0].ChangeHp(-player.Damage(grid.Destroyed));
         grid.Destroyed.Clear();
         
         foreach (Enemy enemy in enemies)
-        { 
-            yield return new WaitForSeconds(attackTime);
-            if (enemy.Hp == 0)
-            {
-                Destroy(enemy.gameObject);
-            }
-            else
-            {
-                player.ChangeHp(-enemy.Damage());
-            }
+        {
+            player.ChangeHp(-enemy.Damage());
+            yield return new WaitForSeconds(fightTime);
         }
         
         grid.Unlock();

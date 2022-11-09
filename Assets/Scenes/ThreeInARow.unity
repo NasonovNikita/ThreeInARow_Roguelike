@@ -843,7 +843,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 124046311}
   grid: {fileID: 1350078684}
-  attackTime: 0.3
+  fightTime: 0.2
 --- !u!4 &2081847657
 Transform:
   m_ObjectHideFlags: 0
