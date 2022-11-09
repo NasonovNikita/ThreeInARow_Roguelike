@@ -18,12 +18,7 @@ public class Grid : MonoBehaviour
     
     [SerializeField]
     private Gem[] prefabs;
-    
-    [SerializeField]
-    private Vector3 chosenScale;
-    [SerializeField]
-    private Vector3 baseScale;
-    
+
     [SerializeField]
     private float moveTime;
     [SerializeField]
@@ -31,7 +26,7 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private float refreshTime;
 
-    public Dictionary<GemType, int> Destroyed = new();
+    public Dictionary<GemType, int> destroyed = new();
     
     private GridState _state;
     public GridState State => _state;
@@ -77,7 +72,7 @@ public class Grid : MonoBehaviour
                 
                 _first = gem;
                 
-                _first.Scale(chosenScale, scaleTime);
+                _first.Scale(gem.ChosenScale, scaleTime);
                 yield return new WaitForSeconds(scaleTime);
                 
                 _state = GridState.Choosing2;
@@ -85,7 +80,7 @@ public class Grid : MonoBehaviour
             
             case GridState.Choosing2 when gem == _first:
                 
-                _first.Scale(baseScale, scaleTime);
+                _first.Scale(gem.BaseScale, scaleTime);
                 yield return new WaitForSeconds(scaleTime);
                 
                 _first = null;
@@ -101,7 +96,7 @@ public class Grid : MonoBehaviour
                 if (GemsArenNeighbours(_first, _second))
                 {
                     
-                    _second.Scale(chosenScale, scaleTime);
+                    _second.Scale(gem.ChosenScale, scaleTime);
                     yield return new WaitForSeconds(scaleTime);
                     
                     _state = GridState.Moving;
@@ -112,8 +107,8 @@ public class Grid : MonoBehaviour
                 }
                 else
                 {
-                    _first.Scale(baseScale, scaleTime);
-                    _second.Scale(chosenScale, scaleTime);
+                    _first.Scale(gem.BaseScale, scaleTime);
+                    _second.Scale(gem.ChosenScale, scaleTime);
                     yield return new WaitForSeconds(scaleTime);
 
                     _first = _second;
@@ -136,8 +131,8 @@ public class Grid : MonoBehaviour
         _box[pos2[0], pos2[1]] = gem1;
         _box[pos1[0], pos1[1]] = gem2;
         
-        gem1.Scale(baseScale, scaleTime);
-        gem2.Scale(baseScale, scaleTime);
+        gem1.Scale(gem1.BaseScale, scaleTime);
+        gem2.Scale(gem2.BaseScale, scaleTime);
         yield return new WaitForSeconds(scaleTime);
         
         _state = GridState.Refreshing;
@@ -176,13 +171,13 @@ public class Grid : MonoBehaviour
 
         foreach (Gem gem in toDelete)
         {
-            if (Destroyed.TryGetValue(gem.Type, out int val))
+            if (destroyed.TryGetValue(gem.Type, out int val))
             {
-                Destroyed[gem.Type] = val + 1;
+                destroyed[gem.Type] = val + 1;
             }
             else
             {
-                Destroyed.Add(gem.Type, 1);
+                destroyed.Add(gem.Type, 1);
             }
         }
 

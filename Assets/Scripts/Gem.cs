@@ -7,6 +7,16 @@ public class Gem : MonoBehaviour, IPointerClickHandler
     private GemType type;
     public GemType Type => type;
 
+    [SerializeField]
+    private Vector3 baseScale;
+
+    public Vector3 BaseScale => baseScale;
+    
+    [SerializeField]
+    private Vector3 chosenScale;
+
+    public Vector3 ChosenScale => chosenScale;
+
     public Grid grid;
     
     private ObjectMover _mover;

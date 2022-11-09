@@ -12,7 +12,7 @@ public class Enemy : Unit
     public new void ChangeHp(int change)
     {
         hp += change;
-        if (hp < 0)
+        if (hp <= 0)
         {
             hp = 0;
             NoHp();

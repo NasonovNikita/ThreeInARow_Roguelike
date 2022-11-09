@@ -3,5 +3,6 @@ public enum GemType
     Red,
     Blue,
     Yellow,
-    Green
+    Green,
+    Mana
 }

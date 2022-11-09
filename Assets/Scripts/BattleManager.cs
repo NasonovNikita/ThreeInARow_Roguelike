@@ -33,12 +33,14 @@ public class BattleManager : MonoBehaviour
         
         yield return new WaitForSeconds(fightTime);
         
-        enemies[0].ChangeHp(-player.Damage(grid.Destroyed));
-        grid.Destroyed.Clear();
+        player.ChangeMana(player.CountMana(grid.destroyed));
+        enemies[0].ChangeHp(-player.Damage(grid.destroyed));
+        grid.destroyed.Clear();
         
         foreach (Enemy enemy in enemies)
         {
             player.ChangeHp(-enemy.Damage());
+            
             yield return new WaitForSeconds(fightTime);
         }
         

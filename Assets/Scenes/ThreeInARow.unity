@@ -175,6 +175,7 @@ MonoBehaviour:
   baseMana: 100
   baseDamage: 20
   box: {fileID: 617740360}
+  manaPerGem: 15
 --- !u!1001 &468360897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,6 +183,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983647611}
     m_Modifications:
+    - target: {fileID: 3774242113098308368, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 218005718}
     - target: {fileID: 4783039333239394353, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Name
       value: Player Box
@@ -286,10 +291,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4783039334133650681, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4783039334133650682, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: unit
       value: 
       objectReference: {fileID: 218005718}
+    - target: {fileID: 7489409898708674812, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7489409898708674812, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
 --- !u!1 &617740360 stripped
@@ -442,8 +459,7 @@ MonoBehaviour:
   - {fileID: -1593909840676541764, guid: 0fd2726e2139b674886186f5384f46a7, type: 3}
   - {fileID: 7005791935035994931, guid: fc4667ed736e3494dbc1b85c9b2c9075, type: 3}
   - {fileID: -8985318442100394132, guid: 04759e64b6de29d4f93084eeb36acee3, type: 3}
-  chosenScale: {x: 0.9, y: 0.9, z: 0.9}
-  baseScale: {x: 0.8, y: 0.8, z: 0.8}
+  - {fileID: 6560272084204752305, guid: 8c866997fb6788a45befd66edca5fc79, type: 3}
   moveTime: 0.2
   scaleTime: 0.1
   refreshTime: 0.5
@@ -589,6 +605,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983647611}
     m_Modifications:
+    - target: {fileID: 3774242113098308368, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 124046311}
     - target: {fileID: 4783039333239394353, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Name
       value: Enemy Box
@@ -701,6 +721,14 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 124046311}
+    - target: {fileID: 7489409898708674812, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7489409898708674812, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
 --- !u!1 &1983647607

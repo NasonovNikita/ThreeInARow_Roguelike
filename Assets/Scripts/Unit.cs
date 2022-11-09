@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
     public void ChangeHp(int change)
     {
         hp += change;
-        if (hp < 0)
+        if (hp <= 0)
         {
             hp = 0;
         }
@@ -41,7 +41,7 @@ public class Unit : MonoBehaviour
     public void ChangeMana(int change)
     {
         mana += change;
-        if (mana < 0)
+        if (mana <= 0)
         {
             mana = 0;
         }
