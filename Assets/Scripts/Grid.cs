@@ -27,6 +27,8 @@ public class Grid : MonoBehaviour
     private float refreshTime;
 
     public Dictionary<GemType, int> destroyed = new();
+
+    public BattleManager manager;
     
     private GridState _state;
     public GridState State => _state;
@@ -57,11 +59,6 @@ public class Grid : MonoBehaviour
     public void Unlock()
     {
         _state = GridState.Choosing1;
-    }
-
-    public void StartUnlocking()
-    {
-        _state = GridState.ToUnblock;
     }
 
     public IEnumerator OnClick(Gem gem)
@@ -164,8 +161,8 @@ public class Grid : MonoBehaviour
 
         if (toDelete.Count == 0)
         {
-            
             Block();
+            manager.EndTurn();
             yield break;
         }
 
