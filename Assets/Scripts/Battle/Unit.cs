@@ -24,6 +24,9 @@ public class Unit : MonoBehaviour
     
     [SerializeField]
     protected GameObject box;
+    
+    [SerializeField]
+    protected BattleManager manager;
 
     public void ChangeHp(int change)
     {

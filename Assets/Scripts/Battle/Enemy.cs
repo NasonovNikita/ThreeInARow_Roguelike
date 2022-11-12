@@ -1,9 +1,5 @@
-using UnityEngine;
-
 public class Enemy : Unit
 {
-    [SerializeField]
-    private BattleManager manager;
     public int Damage()
     {
         return baseDamage;
