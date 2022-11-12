@@ -29,7 +29,7 @@ public class BattleManager : MonoBehaviour
         {
             EndOfBattle();
         }
-        else if (_state == BattleState.Processing)
+        else if (_state == BattleState.ToProcess)
         {
             StartCoroutine(Battle());
         }
@@ -37,6 +37,8 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator<WaitForSeconds> Battle()
     {
+        _state = BattleState.Processing;
+        
         yield return new WaitForSeconds(fightTime);
         
         player.ChangeMana(player.CountMana(grid.destroyed));
@@ -55,10 +57,11 @@ public class BattleManager : MonoBehaviour
         grid.Unlock();
     }
 
-    public void KillEnemy(Enemy enemy)
+    public IEnumerator<WaitForSeconds> KillEnemy(Enemy enemy)
     {
-        enemy.Delete();
         enemies.Remove(enemy);
+        yield return new WaitForSeconds(fightTime);
+        enemy.Delete();
     }
 
     private void EndOfBattle()
@@ -67,17 +70,8 @@ public class BattleManager : MonoBehaviour
         grid.Block();
     }
 
-    public void Kick()
-    {
-        if (_state == BattleState.PlayerTurn && player.Mana >= 50)
-        {
-            player.ChangeMana(-50);
-            enemies[0].ChangeHp(-100);
-        }
-    }
-
     public void EndTurn()
     {
-        _state = BattleState.Processing;
+        _state = BattleState.ToProcess;
     }
 }

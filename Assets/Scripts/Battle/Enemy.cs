@@ -25,6 +25,6 @@ public class Enemy : Unit
 
     private void NoHp()
     {
-        manager.KillEnemy(this);
+        StartCoroutine(manager.KillEnemy(this));
     }
 }
