@@ -28,8 +28,6 @@ public abstract class Unit : MonoBehaviour
     [SerializeField]
     protected BattleManager manager;
 
-    public List<Modifier> DamageModifiers;
-
     public void ChangeHp(int change)
     {
         hp += change;

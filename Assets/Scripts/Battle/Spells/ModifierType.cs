@@ -1,4 +1,4 @@
-enum SpellType
+public enum ModifierType
 {
     Damage,
     Health,
