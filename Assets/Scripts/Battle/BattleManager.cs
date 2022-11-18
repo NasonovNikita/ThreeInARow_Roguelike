@@ -7,7 +7,7 @@ public class BattleManager : MonoBehaviour
     private Player player;
 
     [SerializeField]
-    private List<Enemy> enemies;
+    public List<Enemy> enemies;
 
     [SerializeField]
     private Grid grid;
@@ -16,10 +16,17 @@ public class BattleManager : MonoBehaviour
     private float fightTime;
 
     private BattleState _state;
+    public BattleState State => _state;
 
-    private void Start()
+    private void Awake()
     {
         _state = BattleState.PlayerTurn;
+        player.grid = grid;
+        player.enemies = enemies;
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.player = player;
+        }
         grid.manager = this;
     }
 
@@ -29,31 +36,27 @@ public class BattleManager : MonoBehaviour
         {
             EndOfBattle();
         }
-        else if (_state == BattleState.ToProcess)
-        {
-            StartCoroutine(Battle());
-        }
     }
 
     private IEnumerator<WaitForSeconds> Battle()
     {
-        _state = BattleState.Processing;
-        
-        yield return new WaitForSeconds(fightTime);
-        
-        player.ChangeMana(player.CountMana(grid.destroyed));
-        enemies[0].ChangeHp(-player.Damage(grid.destroyed));
-        grid.destroyed.Clear();
+        _state = BattleState.PlayerAct;
 
-        _state = BattleState.EnemiesTurn;
+        yield return new WaitForSeconds(fightTime);
+
+        player.Act();
+
+        _state = BattleState.EnemiesAct;
+        
         foreach (Enemy enemy in enemies)
         {
-            player.ChangeHp(-enemy.Damage());
+            enemy.Act();
             
             yield return new WaitForSeconds(fightTime);
         }
 
         _state = BattleState.PlayerTurn;
+        
         grid.Unlock();
     }
 
@@ -72,6 +75,6 @@ public class BattleManager : MonoBehaviour
 
     public void EndTurn()
     {
-        _state = BattleState.ToProcess;
+        StartCoroutine(Battle());
     }
 }

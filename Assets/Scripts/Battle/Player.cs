@@ -6,13 +6,38 @@ public class Player : Unit
 {
     [SerializeField]
     private int manaPerGem;
-    public int Damage(Dictionary<GemType, int> destroyed)
+
+    private Enemy _target;
+
+    public Grid grid;
+
+    public List<Enemy> enemies;
+    
+
+    private void Start()
     {
-        return destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * baseDamage;
+        SetTarget(enemies[0]);
+    }
+    
+    private int Damage()
+    {
+        return grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * baseDamage;
     }
 
-    public int CountMana(Dictionary<GemType, int> destroyed)
+    private int CountMana()
     {
-        return destroyed.ContainsKey(GemType.Mana) ? destroyed[GemType.Mana] * manaPerGem : 0;
+        return grid.destroyed.ContainsKey(GemType.Mana) ? grid.destroyed[GemType.Mana] * manaPerGem : 0;
+    }
+
+    public override void Act()
+    {
+        ChangeMana(CountMana());
+        _target.ChangeHp(-Damage());
+        grid.destroyed.Clear();
+    }
+
+    private void SetTarget(Enemy target)
+    {
+        _target = target;
     }
 }

@@ -1,6 +1,8 @@
 public class Enemy : Unit
 {
-    public int Damage()
+    public Player player;
+
+    private int Damage()
     {
         return baseDamage;
     }
@@ -17,6 +19,11 @@ public class Enemy : Unit
         {
             hp = baseHp;
         }
+    }
+
+    public override void Act()
+    {
+        player.ChangeHp(-Damage());
     }
 
     private void NoHp()

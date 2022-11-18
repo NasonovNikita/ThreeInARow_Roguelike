@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
     [SerializeField]
     protected int hp;
@@ -20,13 +21,14 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     protected int baseDamage;
-    public int BaseDamage => baseDamage;
     
     [SerializeField]
     protected GameObject box;
     
     [SerializeField]
     protected BattleManager manager;
+
+    public List<Modifier> DamageModifiers;
 
     public void ChangeHp(int change)
     {
@@ -41,7 +43,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void ChangeMana(int change)
+    protected void ChangeMana(int change)
     {
         mana += change;
         if (mana <= 0)
@@ -58,4 +60,6 @@ public class Unit : MonoBehaviour
     {
         Destroy(box.gameObject);
     }
+
+    public abstract void Act();
 }
