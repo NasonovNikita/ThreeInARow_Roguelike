@@ -7,14 +7,11 @@ public class Player : Unit
     [SerializeField]
     private int manaPerGem;
 
-    private Enemy _target;
+    public Enemy target;
 
     public Grid grid;
 
     public List<Enemy> enemies;
-
-    public List<Modifier> DamageModifiers = new();
-    
 
     private void Start()
     {
@@ -39,12 +36,14 @@ public class Player : Unit
     public override void Act()
     {
         ChangeMana(CountMana());
-        _target.ChangeHp(-Damage());
+        target.ChangeHp(-Damage());
         grid.destroyed.Clear();
+        
+        Move();
     }
 
     private void SetTarget(Enemy target)
     {
-        _target = target;
+        this.target = target;
     }
 }

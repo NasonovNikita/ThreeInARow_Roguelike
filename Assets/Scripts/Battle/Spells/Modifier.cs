@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Modifier
 {
     private int _moves;
@@ -16,5 +14,16 @@ public class Modifier
         _moves = moves;
         _type = type;
         _value = value;
+    }
+
+    public Modifier(int moves, ModifierType type)
+    {
+        _moves = moves;
+        _type = type;
+    }
+
+    public void Move()
+    {
+        _moves -= 1;
     }
 }

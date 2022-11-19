@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
@@ -26,6 +27,10 @@ public abstract class Unit : MonoBehaviour
     protected GameObject box;
     
     public BattleManager manager;
+
+    public List<Modifier> DamageModifiers = new();
+
+    public List<Modifier> StatusModifiers = new();
 
     public void ChangeHp(int change)
     {
@@ -56,6 +61,32 @@ public abstract class Unit : MonoBehaviour
     public void Delete()
     {
         Destroy(box.gameObject);
+    }
+
+    public bool Stunned()
+    {
+        return StatusModifiers.Exists(mod => mod.Type == ModifierType.Stun);
+    }
+    
+    public void Move()
+    {
+        foreach (Modifier mod in DamageModifiers.ToList())
+        {
+            mod.Move();
+            if (mod.Moves == 0)
+            {
+                DamageModifiers.Remove(mod);
+            }
+        }
+
+        foreach (Modifier mod in StatusModifiers.ToList())
+        {
+            mod.Move();
+            if (mod.Moves == 0)
+            {
+                StatusModifiers.Remove(mod);
+            }
+        }
     }
 
     public abstract void Act();

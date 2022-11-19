@@ -24,6 +24,7 @@ public class Enemy : Unit
     public override void Act()
     {
         player.ChangeHp(-Damage());
+        Move();
     }
 
     private void NoHp()

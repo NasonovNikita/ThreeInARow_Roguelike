@@ -51,24 +51,37 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator<WaitForSeconds> Battle()
     {
-        _state = BattleState.PlayerAct;
-
-        yield return new WaitForSeconds(fightTime);
-
-        player.Act();
-
-        _state = BattleState.EnemiesAct;
-        
-        foreach (Enemy enemy in enemies)
+        if (!player.Stunned())
         {
-            enemy.Act();
-            
+            PlayerAct();
             yield return new WaitForSeconds(fightTime);
         }
-
-        _state = BattleState.PlayerTurn;
         
-        grid.Unlock();
+        EnemiesAct();
+        
+        yield return new WaitForSeconds(fightTime);
+
+        if (!player.Stunned())
+        {
+            _state = BattleState.PlayerTurn;
+        
+            grid.Unlock();
+        }
+        else
+        {
+            player.Move();
+            
+            if (player.Stunned())
+            {
+                StartCoroutine(Battle());
+            }
+            else
+            {
+                _state = BattleState.PlayerTurn;
+        
+                grid.Unlock();
+            }
+        }
     }
 
     public IEnumerator<WaitForSeconds> KillEnemy(Enemy enemy)
@@ -87,5 +100,29 @@ public class BattleManager : MonoBehaviour
     public void EndTurn()
     {
         StartCoroutine(Battle());
+    }
+
+    private void PlayerAct()
+    {
+        _state = BattleState.PlayerAct;
+
+        player.Act();
+    }
+
+    private void EnemiesAct()
+    {
+        _state = BattleState.EnemiesAct;
+        
+        foreach (Enemy enemy in enemies)
+        {
+            if (!enemy.Stunned())
+            {
+                enemy.Act();
+            }
+            else
+            {
+                enemy.Move();
+            }
+        }
     }
 }

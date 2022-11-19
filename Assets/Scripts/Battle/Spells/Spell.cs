@@ -9,9 +9,6 @@ public abstract class Spell : MonoBehaviour
     public Player player;
     public BattleManager manager;
     public Enemy target;
-    
-    public virtual void Cast()
-    {
-        Debug.Log("Spell is casting");
-    }
+
+    public abstract void Cast();
 }

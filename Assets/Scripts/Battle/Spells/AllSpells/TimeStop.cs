@@ -1,15 +1,13 @@
-public class Kick : Spell
+public class TimeStop : Spell
 {
-    protected override int ManaCost => 50;
+    protected override int ManaCost => 80;
     protected override int Moves => 1;
-
-    private const int Value = 100;
 
     public override void Cast()
     {
         if (manager.State != BattleState.PlayerTurn) return;
         
         player.ChangeMana(-ManaCost);
-        player.target.ChangeHp(-Value);
+        player.target.StatusModifiers.Add(new Modifier(Moves, ModifierType.Stun));
     }
 }

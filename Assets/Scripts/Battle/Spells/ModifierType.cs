@@ -1,5 +1,6 @@
 public enum ModifierType
 {
     DamageAdd,
-    DamageMul
+    DamageMul,
+    Stun
 }
