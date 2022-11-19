@@ -18,15 +18,26 @@ public class BattleManager : MonoBehaviour
     private BattleState _state;
     public BattleState State => _state;
 
+    public Spell[] spells;
     private void Awake()
     {
         _state = BattleState.PlayerTurn;
+        
         player.grid = grid;
         player.enemies = enemies;
+        
         foreach (Enemy enemy in enemies)
         {
             enemy.player = player;
+            enemy.manager = this;
         }
+
+        foreach (Spell spell in spells)
+        {
+            spell.player = player;
+            spell.manager = this;
+        }
+        
         grid.manager = this;
     }
 

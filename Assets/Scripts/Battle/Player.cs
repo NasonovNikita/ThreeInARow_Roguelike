@@ -12,6 +12,8 @@ public class Player : Unit
     public Grid grid;
 
     public List<Enemy> enemies;
+
+    public List<Modifier> DamageModifiers = new();
     
 
     private void Start()
@@ -21,7 +23,12 @@ public class Player : Unit
     
     private int Damage()
     {
-        return grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * baseDamage;
+        float mulDamage = 1 + DamageModifiers.Sum(modifier => modifier.Type == ModifierType.DamageMul ? modifier.Value : 0);
+        int addDamage = (int) DamageModifiers.Sum(modifier => modifier.Type == ModifierType.DamageAdd ? modifier.Value : 0);
+
+        int simpleDamage = grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * baseDamage;
+        
+        return (int) (simpleDamage * mulDamage + addDamage);
     }
 
     private int CountMana()

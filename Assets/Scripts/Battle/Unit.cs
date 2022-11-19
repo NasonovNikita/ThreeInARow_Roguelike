@@ -25,8 +25,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField]
     protected GameObject box;
     
-    [SerializeField]
-    protected BattleManager manager;
+    public BattleManager manager;
 
     public void ChangeHp(int change)
     {
@@ -41,7 +40,7 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    protected void ChangeMana(int change)
+    public void ChangeMana(int change)
     {
         mana += change;
         if (mana <= 0)

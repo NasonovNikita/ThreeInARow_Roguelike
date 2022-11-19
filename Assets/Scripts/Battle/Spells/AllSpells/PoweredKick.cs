@@ -1,15 +1,15 @@
-public class Kick : Spell
+public class PoweredKick : Spell
 {
-    protected override int ManaCost => 50;
+    protected override int ManaCost => 20;
     protected override int Moves => 1;
 
-    private int Value = 100;
+    private float Value = 0.3f;
 
     public override void Cast()
     {
         if (manager.State != BattleState.PlayerTurn) return;
         
         player.ChangeMana(-ManaCost);
-        player.DamageModifiers.Add(new Modifier(Moves, ModifierType.DamageAdd, Value));
+        player.DamageModifiers.Add(new Modifier(Moves, ModifierType.DamageMul, Value));
     }
 }
