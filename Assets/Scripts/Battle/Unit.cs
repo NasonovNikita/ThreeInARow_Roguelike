@@ -38,6 +38,7 @@ public abstract class Unit : MonoBehaviour
         if (hp <= 0)
         {
             hp = 0;
+            NoHp();
         }
         else if (hp > baseHp)
         {
@@ -90,4 +91,6 @@ public abstract class Unit : MonoBehaviour
     }
 
     public abstract void Act();
+
+    protected abstract void NoHp();
 }

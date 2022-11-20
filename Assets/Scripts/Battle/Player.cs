@@ -42,6 +42,11 @@ public class Player : Unit
         Move();
     }
 
+    protected override void NoHp()
+    {
+        manager.Die();
+    }
+
     private void SetTarget(Enemy target)
     {
         this.target = target;

@@ -19,12 +19,15 @@ public class BattleManager : MonoBehaviour
     public BattleState State => _state;
 
     public Spell[] spells;
+
+    private Coroutine battle;
     private void Awake()
     {
         _state = BattleState.PlayerTurn;
         
         player.grid = grid;
         player.enemies = enemies;
+        player.manager = this;
         
         foreach (Enemy enemy in enemies)
         {
@@ -43,10 +46,18 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
+        if (_state == BattleState.End) return;
+        
         if (enemies.Count == 0)
         {
-            EndOfBattle();
+            Win();
         }
+
+        if (player == null)
+        {
+            Lose();
+        }
+
     }
 
     private IEnumerator<WaitForSeconds> Battle()
@@ -73,7 +84,7 @@ public class BattleManager : MonoBehaviour
             
             if (player.Stunned())
             {
-                StartCoroutine(Battle());
+                battle = StartCoroutine(Battle());
             }
             else
             {
@@ -90,16 +101,29 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(fightTime);
         enemy.Delete();
     }
-
-    private void EndOfBattle()
+    
+    public void Die()
     {
+        player.Delete();
+        player = null;
+    }
+
+    private void Win()
+    {
+        _state = BattleState.End;
+        grid.Block();
+    }
+
+    private void Lose()
+    {
+        StopCoroutine(battle);
         _state = BattleState.End;
         grid.Block();
     }
 
     public void EndTurn()
     {
-        StartCoroutine(Battle());
+        battle = StartCoroutine(Battle());
     }
 
     private void PlayerAct()
