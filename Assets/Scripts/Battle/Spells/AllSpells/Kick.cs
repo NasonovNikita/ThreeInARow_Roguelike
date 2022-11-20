@@ -7,7 +7,7 @@ public class Kick : Spell
 
     public override void Cast()
     {
-        if (manager.State != BattleState.PlayerTurn) return;
+        if (manager.State != BattleState.PlayerTurn || player.Mana < ManaCost) return;
         
         player.ChangeMana(-ManaCost);
         player.target.ChangeHp(-Value);

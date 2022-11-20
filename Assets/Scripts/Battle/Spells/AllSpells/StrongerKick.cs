@@ -7,7 +7,7 @@ public class StrongerKick : Spell
 
     public override void Cast()
     {
-        if (manager.State != BattleState.PlayerTurn) return;
+        if (manager.State != BattleState.PlayerTurn || player.Mana < ManaCost) return;
         
         player.ChangeMana(-ManaCost);
         player.DamageModifiers.Add(new Modifier(Moves, ModifierType.DamageMul, Value));

@@ -8,7 +8,7 @@ public class PoweredKick : Spell
 
     public override void Cast()
     {
-        if (manager.State != BattleState.PlayerTurn) return;
+        if (manager.State != BattleState.PlayerTurn || player.Mana < ManaCost) return;
         
         player.ChangeMana(-ManaCost);
         player.StatusModifiers.Add(new Modifier(Moves, ModifierType.Stun));

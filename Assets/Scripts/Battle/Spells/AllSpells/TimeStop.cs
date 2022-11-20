@@ -5,7 +5,7 @@ public class TimeStop : Spell
 
     public override void Cast()
     {
-        if (manager.State != BattleState.PlayerTurn) return;
+        if (manager.State != BattleState.PlayerTurn || player.Mana < ManaCost) return;
         
         player.ChangeMana(-ManaCost);
         player.target.StatusModifiers.Add(new Modifier(Moves, ModifierType.Stun));
