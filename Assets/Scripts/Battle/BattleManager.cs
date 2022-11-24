@@ -1,29 +1,34 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
     [SerializeField]
     private Player player;
-
-    [SerializeField]
-    public List<Enemy> enemies;
-
     [SerializeField]
     private Grid grid;
-
+    
     [SerializeField]
     private float fightTime;
 
-    private BattleState _state;
-    public BattleState State => _state;
+    public List<Enemy> enemies;
 
     public Spell[] spells;
+    
+    public BattleState State { get; private set; }
+    
+    private Coroutine _battle;
+    private Coroutine _playerAct;
+    private Coroutine _enemiesAct;
+    
 
-    private Coroutine battle;
+    private bool _dead;
+    
     private void Awake()
     {
-        _state = BattleState.PlayerTurn;
+        State = BattleState.PlayerTurn;
         
         player.grid = grid;
         player.enemies = enemies;
@@ -46,107 +51,106 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
-        if (_state == BattleState.End) return;
+        if (State == BattleState.End) return;
         
         if (enemies.Count == 0)
         {
             Win();
         }
 
-        if (player == null)
+        if (_dead)
         {
             Lose();
         }
-
     }
-
-    private IEnumerator<WaitForSeconds> Battle()
+    
+    private IEnumerator Battle()
     {
         if (!player.Stunned())
         {
-            PlayerAct();
-            yield return new WaitForSeconds(fightTime);
+            _playerAct = StartCoroutine(PlayerAct());
         }
-        
-        EnemiesAct();
-        
-        yield return new WaitForSeconds(fightTime);
 
+        yield return new WaitUntil(() => _playerAct == null);
+        
+        StartCoroutine(EnemiesAct());
+        
+        yield return new WaitUntil(() => _enemiesAct == null);
+        
+        Move();
+        
         if (!player.Stunned())
         {
-            _state = BattleState.PlayerTurn;
-        
+            State = BattleState.PlayerTurn;
             grid.Unlock();
         }
         else
         {
-            player.Move();
-            
-            if (player.Stunned())
-            {
-                battle = StartCoroutine(Battle());
-            }
-            else
-            {
-                _state = BattleState.PlayerTurn;
-        
-                grid.Unlock();
-            }
+            _battle = StartCoroutine(Battle());
         }
     }
 
-    public IEnumerator<WaitForSeconds> KillEnemy(Enemy enemy)
+    public void EndTurn()
+    {
+        _battle = StartCoroutine(Battle());
+    }
+
+    public IEnumerator KillEnemy(Enemy enemy)
     {
         enemies.Remove(enemy);
         yield return new WaitForSeconds(fightTime);
         enemy.Delete();
     }
-    
-    public void Die()
+
+    public IEnumerator Die()
     {
+        _dead = true;
+        yield return new WaitForSeconds(fightTime);
         player.Delete();
-        player = null;
     }
 
     private void Win()
     {
-        _state = BattleState.End;
+        State = BattleState.End;
         grid.Block();
     }
 
     private void Lose()
     {
-        StopCoroutine(battle);
-        _state = BattleState.End;
+        StopCoroutine(_battle);
+        State = BattleState.End;
         grid.Block();
     }
 
-    public void EndTurn()
+    private IEnumerator PlayerAct()
     {
-        battle = StartCoroutine(Battle());
-    }
-
-    private void PlayerAct()
-    {
-        _state = BattleState.PlayerAct;
-
+        State = BattleState.PlayerAct;
+        yield return new WaitForSeconds(fightTime);
         player.Act();
+        
+        _playerAct = null;
     }
 
-    private void EnemiesAct()
+    private IEnumerator EnemiesAct()
     {
-        _state = BattleState.EnemiesAct;
-        
+        State = BattleState.EnemiesAct;
+
+        foreach (var enemy in enemies.Where(enemy => !enemy.Stunned()))
+        {
+            yield return new WaitForSeconds(fightTime);
+            enemy.Act();
+        }
+
+        _enemiesAct = null;
+    }
+
+    private void Move()
+    {
+        player.Move();
+
         foreach (Enemy enemy in enemies)
         {
-            if (!enemy.Stunned())
-            {
-                enemy.Act();
-            }
-            else
-            {
-                enemy.Move();
-            }
+            enemy.Move();
         }
     }
 }

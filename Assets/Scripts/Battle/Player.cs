@@ -38,13 +38,11 @@ public class Player : Unit
         ChangeMana(CountMana());
         target.ChangeHp(-Damage());
         grid.destroyed.Clear();
-        
-        Move();
     }
 
     protected override void NoHp()
     {
-        manager.Die();
+        StartCoroutine(manager.Die());
     }
 
     private void SetTarget(Enemy target)
