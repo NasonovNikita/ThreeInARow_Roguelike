@@ -502,10 +502,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4783039333401078120, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783039333401078120, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783039333401078120, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.002
+      objectReference: {fileID: 0}
     - target: {fileID: 4783039333401078121, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 965b76475614349469dd645f9021c0d6, type: 3}
+      objectReference: {fileID: 21300000, guid: cc8e2be9532fbc543af51c6932181466, type: 3}
     - target: {fileID: 4783039333401078127, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1275,10 +1287,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 4783039333401078120, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783039333401078120, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.004
+      objectReference: {fileID: 0}
     - target: {fileID: 4783039333401078121, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 971e34c8f4462fd40832b3be53cfa24a, type: 3}
+      objectReference: {fileID: 21300000, guid: acf24f91ea86d2140b7efa39f2011f06, type: 3}
     - target: {fileID: 4783039333401078127, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1469,6 +1489,22 @@ PrefabInstance:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
       value: Kick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.26666668
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4288668908
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
