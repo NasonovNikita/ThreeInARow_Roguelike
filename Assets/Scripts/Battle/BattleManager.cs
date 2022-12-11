@@ -31,7 +31,7 @@ public class BattleManager : MonoBehaviour
         State = BattleState.PlayerTurn;
         
         player.grid = grid;
-        player.enemies = enemies;
+        player.target = enemies[0];
         player.manager = this;
         
         foreach (Enemy enemy in enemies)
@@ -49,21 +49,6 @@ public class BattleManager : MonoBehaviour
         grid.manager = this;
     }
 
-    private void Update()
-    {
-        if (State == BattleState.End) return;
-        
-        if (enemies.Count == 0)
-        {
-            Win();
-        }
-
-        if (_dead)
-        {
-            Lose();
-        }
-    }
-    
     private IEnumerator Battle()
     {
         if (!player.Stunned())
@@ -76,9 +61,9 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(EnemiesAct());
         
         yield return new WaitUntil(() => _enemiesAct == null);
-        
+
         Move();
-        
+
         if (!player.Stunned())
         {
             State = BattleState.PlayerTurn;
@@ -98,15 +83,28 @@ public class BattleManager : MonoBehaviour
     public IEnumerator KillEnemy(Enemy enemy)
     {
         enemies.Remove(enemy);
+        
         yield return new WaitForSeconds(fightTime);
+        
         enemy.Delete();
+        
+        if (enemies.Count == 0)
+        {
+            Win();
+            yield break;
+        }
+        
+        player.target = enemies[0];
     }
 
     public IEnumerator Die()
     {
-        _dead = true;
+        State = BattleState.End;
+        
         yield return new WaitForSeconds(fightTime);
         player.Delete();
+        
+        Lose();
     }
 
     private void Win()

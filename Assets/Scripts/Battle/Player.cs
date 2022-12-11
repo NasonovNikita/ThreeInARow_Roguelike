@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,13 +9,6 @@ public class Player : Unit
     public Enemy target;
 
     public Grid grid;
-
-    public List<Enemy> enemies;
-
-    private void Start()
-    {
-        SetTarget(enemies[0]);
-    }
     
     private int Damage()
     {
@@ -43,10 +35,5 @@ public class Player : Unit
     protected override void NoHp()
     {
         StartCoroutine(manager.Die());
-    }
-
-    private void SetTarget(Enemy target)
-    {
-        this.target = target;
     }
 }
