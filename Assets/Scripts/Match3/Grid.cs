@@ -254,4 +254,12 @@ public class Grid : MonoBehaviour
     {
         return i < sizeY - 2 && _box[i, j].Type == _box[i + 1, j].Type && _box[i, j].Type == _box[i + 2, j].Type;
     }
+
+    public void clear()
+    {
+        foreach (Gem gem in _box)
+        {
+            Destroy(gem.gameObject);
+        }
+    }
 }

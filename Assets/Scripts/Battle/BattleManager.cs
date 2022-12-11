@@ -8,7 +8,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private Player player;
     [SerializeField]
-    private Grid grid;
+    public Grid grid;
     
     [SerializeField]
     private float fightTime;
@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour
     public List<Enemy> enemies;
 
     public Spell[] spells;
+
+    public GameManager gameManager;
     
     public BattleState State { get; private set; }
     
@@ -109,8 +111,10 @@ public class BattleManager : MonoBehaviour
 
     private void Win()
     {
+        StopCoroutine(_battle);
         State = BattleState.End;
         grid.Block();
+        gameManager.Win();
     }
 
     private void Lose()
@@ -118,6 +122,7 @@ public class BattleManager : MonoBehaviour
         StopCoroutine(_battle);
         State = BattleState.End;
         grid.Block();
+        gameManager.Lose();
     }
 
     private IEnumerator PlayerAct()

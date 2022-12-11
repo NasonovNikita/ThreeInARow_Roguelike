@@ -8,6 +8,7 @@ public class TimeStop : Spell
         if (manager.State != BattleState.PlayerTurn || player.Mana < ManaCost) return;
         
         player.ChangeMana(-ManaCost);
+        
         player.target.StatusModifiers.Add(new Modifier(Moves, ModifierType.Stun));
     }
 }

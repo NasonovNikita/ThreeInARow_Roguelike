@@ -18,6 +18,7 @@ public class ManaBar : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         _slider = GetComponent<Slider>();
         _slider.maxValue = unit.BaseMana;
         _slider.value = unit.Mana;
