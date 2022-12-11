@@ -402,6 +402,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983647611}
     m_Modifications:
+    - target: {fileID: 818878902190302042, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e2f3d421d65b0ca42bcb124dcdd702d8, type: 3}
     - target: {fileID: 3774242113098308368, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: unit
       value: 
@@ -505,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 4783039333321529964, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4f8e653bf1c0b054680c13a05741c202, type: 3}
+      objectReference: {fileID: 21300000, guid: 883352339db323941856444fa95082c9, type: 3}
     - target: {fileID: 4783039333385340516, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -513,7 +517,7 @@ PrefabInstance:
     - target: {fileID: 4783039333385340517, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9d5f6625b0b035841a1153f7e5466a94, type: 3}
+      objectReference: {fileID: 21300000, guid: b9e62c4ea56305747b3f88c2a1590f51, type: 3}
     - target: {fileID: 4783039333401078120, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 2000
@@ -558,6 +562,10 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 218005718}
+    - target: {fileID: 6865613220225965889, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b9e62c4ea56305747b3f88c2a1590f51, type: 3}
     - target: {fileID: 7489409898708674812, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -833,7 +841,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.8207547, g: 0.6521762, b: 0.40005335, a: 0}
+  m_BackGroundColor: {r: 0.6226415, g: 0.88580394, b: 0.9339623, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1242,6 +1250,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983647611}
     m_Modifications:
+    - target: {fileID: 818878902190302042, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e2f3d421d65b0ca42bcb124dcdd702d8, type: 3}
     - target: {fileID: 3774242113098308368, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: unit
       value: 
@@ -1366,6 +1378,10 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 124046311}
+    - target: {fileID: 6865613220225965889, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b9e62c4ea56305747b3f88c2a1590f51, type: 3}
     - target: {fileID: 7489409898708674812, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

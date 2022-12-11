@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: aac1008576e4cfb44bbdab956d2c0d7d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Undertale Battle Font
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 5c5f43e77bc20e34f85292d50bb47dfb, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
