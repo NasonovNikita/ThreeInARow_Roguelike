@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public void exit()
     {
         Application.Quit();
+        EditorApplication.ExitPlaymode();
     }
 
     public void Win()

@@ -46,6 +46,14 @@
   }
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Games/project\Lost dungeon.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="N:\Games\project" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="N:\Unity\2021.3.10f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath N:\old\ThreeInARow_Rouglike -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
@@ -108,7 +116,9 @@
       <workItem from="1669275222875" duration="3875000" />
       <workItem from="1670653429021" duration="5000" />
       <workItem from="1670743824318" duration="2000" />
-      <workItem from="1670748046569" duration="18000000" />
+      <workItem from="1670748046569" duration="18875000" />
+      <workItem from="1670819325626" duration="57000" />
+      <workItem from="1670819417098" duration="709000" />
     </task>
     <servers />
   </component>

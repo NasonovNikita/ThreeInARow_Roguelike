@@ -34,6 +34,7 @@ public class BattleManager : MonoBehaviour
         
         player.grid = grid;
         player.target = enemies[0];
+        player.enemies = enemies;
         player.manager = this;
         
         foreach (Enemy enemy in enemies)

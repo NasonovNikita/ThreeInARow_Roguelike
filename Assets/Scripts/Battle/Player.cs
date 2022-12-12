@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Player : Unit
 
     public Enemy target;
 
+    public List<Enemy> enemies;
 
     public Grid grid;
     
