@@ -483,7 +483,7 @@ MonoBehaviour:
   baseHp: 200
   mana: 0
   baseMana: 0
-  baseDamage: 40
+  baseDamage: 35
   box: {fileID: 1766970494}
   manager: {fileID: 2081847656}
   player: {fileID: 2113442316}
@@ -1690,7 +1690,7 @@ MonoBehaviour:
   baseHp: 200
   mana: 0
   baseMana: 0
-  baseDamage: 40
+  baseDamage: 35
   box: {fileID: 1913552647}
   manager: {fileID: 2081847656}
   player: {fileID: 2113442316}

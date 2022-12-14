@@ -25,10 +25,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void exit()
-    {
-        Application.Quit();
-        //EditorApplication.ExitPlaymode();
-    }
+        {
+            #if UNITY_EDITOR
+                EditorApplication.ExitPlaymode();
+            #else
+                Application.Quit();
+            #endif
+        }
 
     public void Win()
     {

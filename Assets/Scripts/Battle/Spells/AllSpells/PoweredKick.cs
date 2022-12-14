@@ -1,10 +1,10 @@
 public class PoweredKick : Spell
 {
-    protected override int ManaCost => 40;
+    protected override int ManaCost => 45;
     
     protected override int Moves => 1;
 
-    private const float Value = 1.5f;
+    private const float Value = 2.0f;
 
     public override void Cast()
     {
