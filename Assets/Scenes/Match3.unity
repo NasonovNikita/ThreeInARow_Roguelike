@@ -1889,7 +1889,7 @@ MonoBehaviour:
   baseDamage: 20
   box: {fileID: 976959182}
   manager: {fileID: 2081847656}
-  manaPerGem: 10
+  manaPerGem: 15
   target: {fileID: 376116620}
   enemies: []
   grid: {fileID: 1350078684}

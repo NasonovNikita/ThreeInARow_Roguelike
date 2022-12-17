@@ -1,6 +1,6 @@
 public class TimeStop : Spell
 {
-    protected override int ManaCost => 55;
+    protected override int ManaCost => 50;
     protected override int Moves => 1;
 
     public override void Cast()

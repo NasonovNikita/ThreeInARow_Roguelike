@@ -70,19 +70,21 @@ public class Grid : MonoBehaviour
                 _first = gem;
                 
                 _first.Scale(gem.ChosenScale, scaleTime);
-                yield return new WaitForSeconds(scaleTime);
                 
                 _state = GridState.Choosing2;
+                
+                yield return new WaitForSeconds(scaleTime);
                 break;
             
             case GridState.Choosing2 when gem == _first:
                 
                 _first.Scale(gem.BaseScale, scaleTime);
-                yield return new WaitForSeconds(scaleTime);
                 
                 _first = null;
                 
                 _state = GridState.Choosing1;
+                
+                yield return new WaitForSeconds(scaleTime);
                 break;
             
             case GridState.Choosing2:
@@ -106,10 +108,11 @@ public class Grid : MonoBehaviour
                 {
                     _first.Scale(gem.BaseScale, scaleTime);
                     _second.Scale(gem.ChosenScale, scaleTime);
-                    yield return new WaitForSeconds(scaleTime);
-
+                    
                     _first = _second;
                     _second = null;
+                    
+                    yield return new WaitForSeconds(scaleTime);
                 }
                 break;
             }
