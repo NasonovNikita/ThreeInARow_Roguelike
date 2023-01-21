@@ -15,7 +15,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Spells/AllSpells/TimeStop.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Spells/Modifier.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Menu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Map.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Vertex.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/SelectableEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Utilities/LinqUtility.cs" root0="SKIP_HIGHLIGHTING" />
@@ -122,7 +123,11 @@
       <workItem from="1670943412429" duration="41000" />
       <workItem from="1671027234498" duration="1469000" />
       <workItem from="1671115146185" duration="531000" />
-      <workItem from="1671121005420" duration="236000" />
+      <workItem from="1671121005420" duration="1042000" />
+      <workItem from="1672864655452" duration="716000" />
+      <workItem from="1672914878515" duration="9310000" />
+      <workItem from="1673274321547" duration="715000" />
+      <workItem from="1673975767707" duration="5159000" />
     </task>
     <servers />
   </component>
