@@ -3,21 +3,25 @@ using UnityEngine;
 
 public class Vertex: MonoBehaviour
 {
-    [SerializeField]
-    private List<Vertex> next;
+    public LineVertex prefab;
+    
+    public List<Vertex> next;
 
     public Map map;
 
-
+    public void Start()
+    {
+        foreach (Vertex vertex in next)
+        {
+            LineVertex newVertex = Instantiate(prefab);
+            newVertex.transform.position = transform.position;
+            newVertex.Draw(vertex.transform.position);
+        }
+    }
 
     public bool BelongsToNext(Vertex vertex)
     {
         return next.Contains(vertex);
-    }
-
-    public void AddNext(Vertex nextVertex)
-    {
-        next.Add(nextVertex);
     }
 
     public void OnClick()
