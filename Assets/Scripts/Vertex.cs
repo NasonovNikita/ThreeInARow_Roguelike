@@ -14,8 +14,7 @@ public class Vertex: MonoBehaviour
         foreach (Vertex vertex in next)
         {
             LineVertex newVertex = Instantiate(prefab);
-            newVertex.transform.position = transform.position;
-            newVertex.Draw(vertex.transform.position);
+            newVertex.Draw(transform.position, vertex.transform.position);
         }
     }
 

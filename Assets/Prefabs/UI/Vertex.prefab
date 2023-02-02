@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8759125467270180708}
   - component: {fileID: 246692112991537016}
   - component: {fileID: 9192863055158378727}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 7777243115017289336}
   - component: {fileID: 106864222803835160}
   - component: {fileID: 5004526069853934303}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Vertex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,5 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a56456bec7e8a4099710a436269d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
   next: []
   map: {fileID: 0}

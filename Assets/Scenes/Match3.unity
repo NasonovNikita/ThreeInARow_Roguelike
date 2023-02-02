@@ -1532,6 +1532,7 @@ MonoBehaviour:
   - {fileID: 566913085}
   - {fileID: 1563215477}
   - {fileID: 1102523058}
+  prefab: {fileID: 1743529955156565020, guid: 65a9e1d1c2a96e94888abfcace706ef4, type: 3}
 --- !u!114 &1281216258
 MonoBehaviour:
   m_ObjectHideFlags: 0

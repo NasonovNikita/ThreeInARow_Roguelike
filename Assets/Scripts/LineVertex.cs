@@ -4,15 +4,14 @@ public class LineVertex : MonoBehaviour
 {
     private LineRenderer _line;
 
-    public void Start()
+    public void Awake()
     {
         _line = GetComponent<LineRenderer>();
     }
     
-    public void Draw(Vector3 pos)
+    public void Draw(Vector3 pos1, Vector3 pos2)
     {
-        _line.positionCount++;
-        _line.SetPosition(0, transform.position);
-        _line.SetPosition(1, pos);
+        _line.SetPosition(0, pos1);
+        _line.SetPosition(1, pos2);
     }
 }
