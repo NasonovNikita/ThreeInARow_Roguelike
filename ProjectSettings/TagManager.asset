@@ -11,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Lines
   - 
   - 
-  - 
-  - 
+  - Map_bg
+  - lines
+  - btns
   - 
   - 
   - 
@@ -52,4 +52,19 @@ TagManager:
     locked: 0
   - name: line
     uniqueID: 891926873
+    locked: 0
+  - name: New Layer 5
+    uniqueID: 3695754885
+    locked: 0
+  - name: New Layer 6
+    uniqueID: 2660794201
+    locked: 0
+  - name: New Layer 7
+    uniqueID: 3359320071
+    locked: 0
+  - name: New Layer 8
+    uniqueID: 1754935215
+    locked: 0
+  - name: lines
+    uniqueID: 2198736079
     locked: 0

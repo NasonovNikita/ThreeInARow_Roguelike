@@ -138,9 +138,17 @@ PrefabInstance:
       propertyPath: next.Array.data[0]
       value: 
       objectReference: {fileID: 1563215477}
+    - target: {fileID: 6780122561929459400, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Name
       value: Vertex (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8205923348558358701, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Pivot.x
@@ -368,9 +376,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1281216256}
     m_Modifications:
+    - target: {fileID: 6780122561929459400, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Name
       value: Vertex (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8205923348558358701, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Pivot.x
@@ -1483,7 +1499,7 @@ GameObject:
   - component: {fileID: 1281216259}
   - component: {fileID: 1281216258}
   - component: {fileID: 1281216257}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1546,7 +1562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.6287944, b: 0.45469916, a: 0.72156864}
+  m_Color: {r: 0.735849, g: 0.6287944, b: 0.45469916, a: 0.8784314}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1701,9 +1717,17 @@ PrefabInstance:
       propertyPath: next.Array.data[1]
       value: 
       objectReference: {fileID: 1102523058}
+    - target: {fileID: 6780122561929459400, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Name
       value: Vertex
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8205923348558358701, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Pivot.x
@@ -2152,9 +2176,17 @@ PrefabInstance:
       propertyPath: next.Array.data[0]
       value: 
       objectReference: {fileID: 1563215477}
+    - target: {fileID: 6780122561929459400, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Name
       value: Vertex (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878685810225277583, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8205923348558358701, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: m_Pivot.x
