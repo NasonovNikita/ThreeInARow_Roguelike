@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Vertex: MonoBehaviour
+public class Vertex: MonoBehaviour, IPointerClickHandler
 {
     public Edge prefab;
     
@@ -29,8 +29,14 @@ public class Vertex: MonoBehaviour
         map.OnClick(this);
     }
 
+    public void OnArrive()
+    {
+        
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         OnClick();
+        OnArrive();
     }
 }
