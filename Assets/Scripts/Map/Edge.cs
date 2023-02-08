@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LineVertex : MonoBehaviour
+public class Edge : MonoBehaviour
 {
     private LineRenderer _line;
 

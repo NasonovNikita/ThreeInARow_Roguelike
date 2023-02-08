@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Vertex: MonoBehaviour
 {
-    public LineVertex prefab;
+    public Edge prefab;
     
     public List<Vertex> next;
 
@@ -13,8 +14,8 @@ public class Vertex: MonoBehaviour
     {
         foreach (Vertex vertex in next)
         {
-            LineVertex newVertex = Instantiate(prefab);
-            newVertex.Draw(transform.position, vertex.transform.position);
+            Edge edge = Instantiate(prefab);
+            edge.Draw(transform.position, vertex.transform.position);
         }
     }
 
@@ -26,5 +27,10 @@ public class Vertex: MonoBehaviour
     public void OnClick()
     {
         map.OnClick(this);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnClick();
     }
 }

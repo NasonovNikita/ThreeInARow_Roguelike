@@ -12,19 +12,19 @@ public class GameManager : MonoBehaviour
     private BattleManager battleManager;
 
     [SerializeField]
-    private Menu[] messages;
+    private GameObject[] messages;
 
     private void Awake()
     {
         battleManager.gameManager = this;
     }
 
-    public void restart()
+    public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void exit()
+    public void Exit()
         {
             #if UNITY_EDITOR
                 EditorApplication.ExitPlaymode();
@@ -43,12 +43,12 @@ public class GameManager : MonoBehaviour
         InstantiateEndMenu(messages[1]);
     }
 
-    private void InstantiateEndMenu(Menu message)
+    private void InstantiateEndMenu(GameObject message)
     {
-        Menu menu = Instantiate(message, canvas.transform, false);
+        GameObject menu = Instantiate(message, canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
-        buttons[0].onClick.AddListener(restart);
-        buttons[1].onClick.AddListener(exit);
+        buttons[0].onClick.AddListener(Restart);
+        buttons[1].onClick.AddListener(Exit);
         menu.gameObject.SetActive(true);
     }
 }

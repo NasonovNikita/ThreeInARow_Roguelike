@@ -7,14 +7,11 @@ public class Map : MonoBehaviour
 
     public List<Vertex> allVertexes;
 
-    public LineVertex prefab;
-
     public void Awake()
     {
         foreach (Vertex vertex in allVertexes)
         {
             vertex.map = this;
-            vertex.prefab = prefab;
         }
     }
 
