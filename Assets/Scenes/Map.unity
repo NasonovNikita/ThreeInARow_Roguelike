@@ -409,12 +409,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe74d5d6b3a9134886b250b0d1ee6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentVertex: {fileID: 0}
+  currentVertex: {fileID: 247457212}
   allVertexes:
   - {fileID: 247457212}
   - {fileID: 197042292}
   - {fileID: 1830276939}
   - {fileID: 1109950474}
+  baseScale: {x: 1, y: 1, z: 1}
+  choosenScale: {x: 1.1, y: 1.1, z: 1.1}
+  timeScale: 0.1
 --- !u!4 &438010990
 Transform:
   m_ObjectHideFlags: 0

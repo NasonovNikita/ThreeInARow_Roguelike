@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5574136127912508983}
   - component: {fileID: 2943834579307022566}
   - component: {fileID: 6381683219178038516}
+  - component: {fileID: 2324063467741416574}
   m_Layer: 0
   m_Name: Vertex
   m_TagString: Untagged
@@ -127,3 +128,18 @@ MonoBehaviour:
   prefab: {fileID: 7249814954095630152, guid: 65a9e1d1c2a96e94888abfcace706ef4, type: 3}
   next: []
   map: {fileID: 0}
+  scaler: {fileID: 2324063467741416574}
+--- !u!114 &2324063467741416574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5574136127912508982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1850e7f761fa15842b0ac245ad22cf03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endScale: {x: 0, y: 0, z: 0}
+  doScale: 0

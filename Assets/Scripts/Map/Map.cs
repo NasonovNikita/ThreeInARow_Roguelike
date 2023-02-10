@@ -7,6 +7,12 @@ public class Map : MonoBehaviour
 
     public List<Vertex> allVertexes;
 
+    public Vector3 baseScale;
+
+    public Vector3 choosenScale;
+
+    public float timeScale;
+
     public void Awake()
     {
         foreach (Vertex vertex in allVertexes)
@@ -15,11 +21,18 @@ public class Map : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        currentVertex.Scale(choosenScale, timeScale);
+    }
+
     public void OnClick(Vertex vertex)
     {
         if (currentVertex.BelongsToNext(vertex))
         {
+            currentVertex.Scale(baseScale, timeScale);
             currentVertex = vertex;
+            currentVertex.Scale(choosenScale, timeScale);
         }
     }
 }

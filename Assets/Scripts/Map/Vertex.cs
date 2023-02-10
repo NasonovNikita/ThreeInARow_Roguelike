@@ -10,6 +10,8 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
 
     public Map map;
 
+    public ObjectScaler scaler;
+
     public void Start()
     {
         foreach (Vertex vertex in next)
@@ -38,5 +40,10 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
     {
         OnClick();
         OnArrive();
+    }
+    
+    public void Scale(Vector3 endScale, float time)
+    {
+        scaler.StartScale(endScale, time);
     }
 }
