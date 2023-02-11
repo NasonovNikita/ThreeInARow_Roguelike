@@ -22,6 +22,7 @@ public abstract class Unit : MonoBehaviour
 
     [SerializeField]
     protected int baseDamage;
+    public int BaseDamage => baseDamage;
     
     [SerializeField]
     protected GameObject box;
