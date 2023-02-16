@@ -1102,12 +1102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef43d4c85b19b7c46a6ca1874c08cb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1983647610}
-  battleManager: {fileID: 2081847656}
-  messages:
-  - {fileID: 2188612303319430005, guid: 0176c58bca5452d4dae563e7896417e4, type: 3}
-  - {fileID: 2879500456662334555, guid: ed9c6d8a9a6a1cc428c67d7bd84120ce, type: 3}
   playerStats: {fileID: 11400000, guid: a9dbbb305a880b94dbdc9e627150651c, type: 2}
+  mapData: {fileID: 11400000, guid: cd5d4fa5cc2f4d345b72be9548b2561d, type: 2}
 --- !u!1001 &1232293966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1849,7 +1845,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2113442316}
   grid: {fileID: 1350078684}
+  playerStats: {fileID: 11400000, guid: a9dbbb305a880b94dbdc9e627150651c, type: 2}
+  canvas: {fileID: 1983647610}
   fightTime: 0.2
+  loseMessage: {fileID: 2879500456662334555, guid: ed9c6d8a9a6a1cc428c67d7bd84120ce, type: 3}
   enemies:
   - {fileID: 376116620}
   - {fileID: 1820346961}
@@ -1858,7 +1857,7 @@ MonoBehaviour:
   - {fileID: 928610061}
   - {fileID: 928610063}
   - {fileID: 928610064}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1199579183}
 --- !u!4 &2081847657
 Transform:
   m_ObjectHideFlags: 0

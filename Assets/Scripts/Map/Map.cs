@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
+    [SerializeField]
+    private MapData mapData;
+    
     public Vertex currentVertex;
 
     public List<Vertex> allVertexes;
@@ -19,6 +22,7 @@ public class Map : MonoBehaviour
         {
             vertex.map = this;
         }
+        LoadMapPos();
     }
 
     public void Start()
@@ -26,13 +30,26 @@ public class Map : MonoBehaviour
         currentVertex.Scale(choosenScale, timeScale);
     }
 
-    public void OnClick(Vertex vertex)
+    public IEnumerator<WaitForSeconds> OnClick(Vertex vertex)
     {
         if (currentVertex.BelongsToNext(vertex))
         {
             currentVertex.Scale(baseScale, timeScale);
             currentVertex = vertex;
+            SaveMapPos();
             currentVertex.Scale(choosenScale, timeScale);
+            yield return new WaitForSeconds(timeScale);
+            currentVertex.OnArrive();
         }
+    }
+    
+    public void SaveMapPos()
+    {
+        mapData.currentVertex = currentVertex;
+    }
+
+    public void LoadMapPos()
+    {
+        currentVertex = mapData.currentVertex;
     }
 }

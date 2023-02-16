@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Vertex: MonoBehaviour, IPointerClickHandler
 {
@@ -33,13 +34,12 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
 
     public void OnArrive()
     {
-        
+        SceneManager.LoadScene("Match3");
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        OnClick();
-        OnArrive();
+        StartCoroutine(map.OnClick(this));
     }
     
     public void Scale(Vector3 endScale, float time)

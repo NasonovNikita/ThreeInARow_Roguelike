@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -11,8 +13,17 @@ public class BattleManager : MonoBehaviour
     public Grid grid;
     
     [SerializeField]
+    private Stats playerStats;
+    
+    [SerializeField]
+    private Canvas canvas;
+    
+    [SerializeField]
     private float fightTime;
 
+    [SerializeField]
+    private GameObject loseMessage;
+    
     public List<Enemy> enemies;
 
     public Spell[] spells;
@@ -51,7 +62,7 @@ public class BattleManager : MonoBehaviour
         
         grid.manager = this;
         
-        gameManager.LoadPlayerStats(player);
+        LoadPlayerStats();
     }
 
     private IEnumerator Battle()
@@ -117,16 +128,8 @@ public class BattleManager : MonoBehaviour
         StopCoroutine(_battle);
         State = BattleState.End;
         grid.Block();
-        gameManager.SavePlayerStats(player);
-        gameManager.Win();
-    }
-
-    private void Lose()
-    {
-        StopCoroutine(_battle);
-        State = BattleState.End;
-        grid.Block();
-        gameManager.Lose();
+        SavePlayerStats();
+        SceneManager.LoadScene("Map");
     }
 
     private IEnumerator PlayerAct()
@@ -159,5 +162,29 @@ public class BattleManager : MonoBehaviour
         {
             enemy.Move();
         }
+    }
+    
+    public void Lose()
+    {
+        StopCoroutine(_battle);
+        State = BattleState.End;
+        grid.Block();
+        GameObject menu = Instantiate(loseMessage, canvas.transform, false);
+        Button[] buttons = menu.GetComponentsInChildren<Button>();
+        buttons[0].onClick.AddListener(gameManager.Restart);
+        buttons[1].onClick.AddListener(gameManager.Exit);
+        menu.gameObject.SetActive(true);
+    }
+
+    public void SavePlayerStats()
+    {
+        playerStats.playerHp = player.Hp;
+        playerStats.playerMana = player.Mana;
+    }
+
+    public void LoadPlayerStats()
+    {
+        player.SetHp(playerStats.playerHp);
+        player.SetMana(playerStats.playerMana);
     }
 }
