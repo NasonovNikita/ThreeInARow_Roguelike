@@ -22,7 +22,7 @@ public class Map : MonoBehaviour
         {
             vertex.map = this;
         }
-        LoadMapPos();
+        //LoadMapPos();
     }
 
     public void Start()
