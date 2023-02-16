@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] messages;
 
+    [SerializeField]
+    private Stats playerStats;
+
     private void Awake()
     {
         battleManager.gameManager = this;
@@ -28,8 +31,10 @@ public class GameManager : MonoBehaviour
         {
             #if UNITY_EDITOR
                 EditorApplication.ExitPlaymode();
+                playerStats.Reset();
             #else
                 Application.Quit();
+                playerStats.Reset();
             #endif
         }
 
@@ -50,5 +55,17 @@ public class GameManager : MonoBehaviour
         buttons[0].onClick.AddListener(Restart);
         buttons[1].onClick.AddListener(Exit);
         menu.gameObject.SetActive(true);
+    }
+
+    public void SavePlayerStats(Player player)
+    {
+        playerStats.playerHp = player.Hp;
+        playerStats.playerMana = player.Mana;
+    }
+
+    public void LoadPlayerStats(Player player)
+    {
+        player.SetHp(playerStats.playerHp);
+        player.SetMana(playerStats.playerMana);
     }
 }

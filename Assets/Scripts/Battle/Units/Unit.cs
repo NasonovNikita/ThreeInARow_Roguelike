@@ -60,6 +60,16 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
+    public void SetHp(int newHp)
+    {
+        hp = newHp;
+    }
+
+    public void SetMana(int newMana)
+    {
+        mana = newMana;
+    }
+
     public void Delete()
     {
         Destroy(box.gameObject);

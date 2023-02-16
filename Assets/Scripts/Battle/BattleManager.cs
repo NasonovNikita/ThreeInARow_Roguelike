@@ -50,6 +50,8 @@ public class BattleManager : MonoBehaviour
         }
         
         grid.manager = this;
+        
+        gameManager.LoadPlayerStats(player);
     }
 
     private IEnumerator Battle()
@@ -115,6 +117,7 @@ public class BattleManager : MonoBehaviour
         StopCoroutine(_battle);
         State = BattleState.End;
         grid.Block();
+        gameManager.SavePlayerStats(player);
         gameManager.Win();
     }
 
