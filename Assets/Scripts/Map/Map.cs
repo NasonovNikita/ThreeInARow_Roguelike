@@ -3,16 +3,13 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    [SerializeField]
-    private MapData mapData;
-    
-    public Vertex currentVertex;
-
     public List<Vertex> allVertexes;
+
+    private static int _currentVertex = -1;
 
     public Vector3 baseScale;
 
-    public Vector3 choosenScale;
+    public Vector3 chosenScale;
 
     public float timeScale;
 
@@ -22,34 +19,34 @@ public class Map : MonoBehaviour
         {
             vertex.map = this;
         }
-        //LoadMapPos();
-    }
 
-    public void Start()
-    {
-        currentVertex.Scale(choosenScale, timeScale);
+        if (_currentVertex != -1)
+        {
+            CurrentVertex().transform.localScale = chosenScale;
+        }
     }
 
     public IEnumerator<WaitForSeconds> OnClick(Vertex vertex)
     {
-        if (currentVertex.BelongsToNext(vertex))
+        if (_currentVertex == -1)
         {
-            currentVertex.Scale(baseScale, timeScale);
-            currentVertex = vertex;
-            SaveMapPos();
-            currentVertex.Scale(choosenScale, timeScale);
+            _currentVertex = allVertexes.IndexOf(vertex);
+            vertex.Scale(chosenScale, timeScale);
             yield return new WaitForSeconds(timeScale);
-            currentVertex.OnArrive();
+            vertex.OnArrive();
+        }
+        else if (CurrentVertex().BelongsToNext(vertex))
+        {
+            CurrentVertex().Scale(baseScale, timeScale);
+            _currentVertex = allVertexes.IndexOf(vertex);
+            vertex.Scale(chosenScale, timeScale);
+            yield return new WaitForSeconds(timeScale);
+            vertex.OnArrive();
         }
     }
-    
-    public void SaveMapPos()
-    {
-        mapData.currentVertex = currentVertex;
-    }
 
-    public void LoadMapPos()
+    private Vertex CurrentVertex()
     {
-        currentVertex = mapData.currentVertex;
+        return allVertexes[_currentVertex];
     }
 }

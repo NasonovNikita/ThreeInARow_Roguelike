@@ -509,8 +509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe74d5d6b3a9134886b250b0d1ee6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 11400000, guid: cd5d4fa5cc2f4d345b72be9548b2561d, type: 2}
-  currentVertex: {fileID: 1585741070}
   allVertexes:
   - {fileID: 1585741070}
   - {fileID: 780650850}
@@ -519,7 +517,7 @@ MonoBehaviour:
   - {fileID: 725811464}
   - {fileID: 991893968}
   baseScale: {x: 0.8, y: 0.8, z: 0.8}
-  choosenScale: {x: 0.9, y: 0.9, z: 0.9}
+  chosenScale: {x: 0.9, y: 0.9, z: 0.9}
   timeScale: 0.1
 --- !u!4 &438010990
 Transform:
@@ -553,11 +551,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3321795522665952335, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.051440835
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3321795522665952335, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.7704964
+      value: -3.93
       objectReference: {fileID: 0}
     - target: {fileID: 3321795522665952335, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
       propertyPath: m_LocalPosition.z
@@ -933,7 +931,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 11400000, guid: a9dbbb305a880b94dbdc9e627150651c, type: 2}
-  mapData: {fileID: 11400000, guid: cd5d4fa5cc2f4d345b72be9548b2561d, type: 2}
 --- !u!4 &1482473995
 Transform:
   m_ObjectHideFlags: 0
@@ -1050,7 +1047,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 500
+  m_fontSizeMax: 200
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
