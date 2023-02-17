@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Match3");
+        Map.CurrentVertex = -1;
         playerStats.Reset();
+        SceneManager.LoadScene("Map");
     }
 
     public void Exit()

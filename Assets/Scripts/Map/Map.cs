@@ -5,7 +5,7 @@ public class Map : MonoBehaviour
 {
     public List<Vertex> allVertexes;
 
-    private static int _currentVertex = -1;
+    public static int CurrentVertex = -1;
 
     public Vector3 baseScale;
 
@@ -20,33 +20,35 @@ public class Map : MonoBehaviour
             vertex.map = this;
         }
 
-        if (_currentVertex != -1)
+        if (CurrentVertex != -1)
         {
-            CurrentVertex().transform.localScale = chosenScale;
+            CurrentVertex_().transform.localScale = chosenScale;
         }
     }
 
     public IEnumerator<WaitForSeconds> OnClick(Vertex vertex)
     {
-        if (_currentVertex == -1)
+        if (CurrentVertex == -1)
         {
-            _currentVertex = allVertexes.IndexOf(vertex);
+            if (allVertexes.IndexOf(vertex) != 0) yield break;
+            
+            CurrentVertex = allVertexes.IndexOf(vertex);
             vertex.Scale(chosenScale, timeScale);
             yield return new WaitForSeconds(timeScale);
             vertex.OnArrive();
         }
-        else if (CurrentVertex().BelongsToNext(vertex))
+        else if (CurrentVertex_().BelongsToNext(vertex))
         {
-            CurrentVertex().Scale(baseScale, timeScale);
-            _currentVertex = allVertexes.IndexOf(vertex);
+            CurrentVertex_().Scale(baseScale, timeScale);
+            CurrentVertex = allVertexes.IndexOf(vertex);
             vertex.Scale(chosenScale, timeScale);
             yield return new WaitForSeconds(timeScale);
             vertex.OnArrive();
         }
     }
 
-    private Vertex CurrentVertex()
+    private Vertex CurrentVertex_()
     {
-        return allVertexes[_currentVertex];
+        return allVertexes[CurrentVertex];
     }
 }
