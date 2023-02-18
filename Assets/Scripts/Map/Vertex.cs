@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class Vertex: MonoBehaviour, IPointerClickHandler
 {
@@ -10,8 +9,6 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
     public List<Vertex> next;
 
     public Map map;
-
-    public ObjectScaler scaler;
 
     public void Start()
     {
@@ -27,14 +24,9 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
         return next.Contains(vertex);
     }
 
-    public void OnClick()
+    public virtual void OnArrive()
     {
-        map.OnClick(this);
-    }
-
-    public void OnArrive()
-    {
-        SceneManager.LoadScene("Match3");
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -42,8 +34,10 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
         StartCoroutine(map.OnClick(this));
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     public void Scale(Vector3 endScale, float time)
     {
+        ObjectScaler scaler = GetComponent<ObjectScaler>();
         scaler.StartScale(endScale, time);
     }
 }

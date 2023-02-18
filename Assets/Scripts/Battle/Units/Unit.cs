@@ -24,9 +24,6 @@ public abstract class Unit : MonoBehaviour
     protected int baseDamage;
     public int BaseDamage => baseDamage;
     
-    [SerializeField]
-    protected GameObject box;
-    
     public BattleManager manager;
 
     public List<Modifier> DamageModifiers = new();
@@ -72,7 +69,7 @@ public abstract class Unit : MonoBehaviour
 
     public void Delete()
     {
-        Destroy(box.gameObject);
+        Destroy(gameObject);
     }
 
     public bool Stunned()

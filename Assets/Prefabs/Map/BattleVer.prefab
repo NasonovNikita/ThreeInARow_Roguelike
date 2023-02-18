@@ -71,5 +71,27 @@ PrefabInstance:
       propertyPath: next.Array.data[1]
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6381683219178038516, guid: ba3e478088371a047a585e1332be454a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ba3e478088371a047a585e1332be454a, type: 3}
+--- !u!1 &3321795522665952329 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5574136127912508982, guid: ba3e478088371a047a585e1332be454a, type: 3}
+  m_PrefabInstance: {fileID: 7152327725055330943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4151228096430590339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321795522665952329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e388177e6147bee42b95d933d83c75f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7249814954095630152, guid: 65a9e1d1c2a96e94888abfcace706ef4, type: 3}
+  next: []
+  map: {fileID: 0}
+  battle: {fileID: 11400000, guid: f8cd48a5314bb1f4299bb2297462e0fc, type: 2}

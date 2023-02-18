@@ -14,6 +14,12 @@ public class BattleManager : MonoBehaviour
     
     [SerializeField]
     private Stats playerStats;
+
+    [SerializeField]
+    private BattleData battle;
+    
+    [SerializeField]
+    private EnemyPlacement placer;
     
     [SerializeField]
     private Canvas canvas;
@@ -25,6 +31,7 @@ public class BattleManager : MonoBehaviour
     private GameObject loseMessage;
     
     public List<Enemy> enemies;
+
 
     public Spell[] spells;
 
@@ -42,11 +49,21 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         State = BattleState.PlayerTurn;
+
+        enemies = battle.enemies;
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i] = Instantiate(enemies[i], canvas.transform, false);
+        }
         
         player.grid = grid;
         player.target = enemies[0];
         player.enemies = enemies;
         player.manager = this;
+
+        placer.enemiesToPlace = enemies;
+        placer.Place();
         
         foreach (Enemy enemy in enemies)
         {
@@ -125,7 +142,7 @@ public class BattleManager : MonoBehaviour
 
     private void Win()
     {
-        StopCoroutine(_battle);
+        if (_battle != null) StopCoroutine(_battle);
         State = BattleState.End;
         grid.Block();
         SavePlayerStats();
@@ -166,7 +183,7 @@ public class BattleManager : MonoBehaviour
     
     public void Lose()
     {
-        StopCoroutine(_battle);
+        if (_battle != null) StopCoroutine(_battle);
         State = BattleState.End;
         grid.Block();
         GameObject menu = Instantiate(loseMessage, canvas.transform, false);

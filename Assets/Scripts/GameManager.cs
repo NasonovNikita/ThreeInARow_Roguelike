@@ -7,21 +7,30 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Stats playerStats;
 
+    [SerializeField]
+    private BattleData battle;
+
     public void Restart()
     {
         Map.CurrentVertex = -1;
-        playerStats.Reset();
+        ResetAllScriptableObjects();
         SceneManager.LoadScene("Map");
     }
 
     public void Exit()
         {
             #if UNITY_EDITOR
+                ResetAllScriptableObjects();
                 EditorApplication.ExitPlaymode();
-                playerStats.Reset();
             #else
+                ResetAllSCriptableObjects();
                 Application.Quit();
-                playerStats.Reset();
             #endif
         }
+
+    private void ResetAllScriptableObjects()
+    {
+        playerStats.Reset();
+        battle.Reset();
+    }
 }
