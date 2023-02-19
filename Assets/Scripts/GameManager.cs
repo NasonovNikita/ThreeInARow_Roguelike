@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private BattleData battle;
+
+    private static bool _start;
+
+    public void Awake()
+    {
+        if (!_start)
+        {
+            ResetAllScriptableObjects();
+        }
+        _start = true;
+    }
 
     public void Restart()
     {
