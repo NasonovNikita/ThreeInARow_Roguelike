@@ -8,9 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Stats playerStats;
 
-    [SerializeField]
-    private BattleData battle;
-
     private static bool _start;
 
     public void Awake()
@@ -43,6 +40,6 @@ public class GameManager : MonoBehaviour
     private void ResetAllScriptableObjects()
     {
         playerStats.Reset();
-        battle.Reset();
+        BattleData.Reset();
     }
 }

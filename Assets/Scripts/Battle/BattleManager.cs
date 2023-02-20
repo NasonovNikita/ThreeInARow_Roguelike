@@ -14,9 +14,6 @@ public class BattleManager : MonoBehaviour
     
     [SerializeField]
     private Stats playerStats;
-
-    [SerializeField]
-    private BattleData battle;
     
     [SerializeField]
     private EnemyPlacement placer;
@@ -50,7 +47,7 @@ public class BattleManager : MonoBehaviour
     {
         State = BattleState.PlayerTurn;
 
-        enemies = battle.enemies;
+        enemies = BattleData.enemies;
 
         for (int i = 0; i < enemies.Count; i++)
         {
