@@ -15,8 +15,8 @@ public class Player : Unit
     
     private int Damage()
     {
-        float mulDamage = 1 + DamageModifiers.Sum(modifier => modifier.Type == ModifierType.DamageMul ? modifier.Value : 0);
-        int addDamage = (int) DamageModifiers.Sum(modifier => modifier.Type == ModifierType.DamageAdd ? modifier.Value : 0);
+        float mulDamage = 1 + DamageModifiers.Sum(modifier => modifier.Type == ModifierType.Mul ? modifier.Value : 0);
+        int addDamage = (int) DamageModifiers.Sum(modifier => modifier.Type == ModifierType.Add ? modifier.Value : 0);
 
         int simpleDamage = grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * baseDamage;
         
@@ -28,11 +28,19 @@ public class Player : Unit
         return grid.destroyed.ContainsKey(GemType.Mana) ? grid.destroyed[GemType.Mana] * manaPerGem : 0;
     }
 
-    public override void Act()
+    public override IEnumerator<WaitForSeconds> Act(float time)
     {
-        ChangeMana(CountMana());
-        target.ChangeHp(-Damage());
+        acts = true;
+        
+        if (!Stunned())
+        {
+            ChangeMana(CountMana());
+            target.ChangeHp(-Damage());
+            yield return new WaitForSeconds(time);
+        }
         grid.destroyed.Clear();
+        
+        acts = false;
     }
 
     protected override void NoHp()

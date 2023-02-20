@@ -40,8 +40,9 @@ public class BattleManager : MonoBehaviour
     public BattleState State { get; private set; }
     
     private Coroutine _battle;
-    private Coroutine _playerAct;
-    private Coroutine _enemiesAct;
+
+    private bool _playerActs;
+    private bool _enemiesAct;
     
 
     private bool _dead;
@@ -84,16 +85,13 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator Battle()
     {
-        if (!player.Stunned())
-        {
-            _playerAct = StartCoroutine(PlayerAct());
-        }
+        StartCoroutine(PlayerAct());
 
-        yield return new WaitUntil(() => _playerAct == null);
+        yield return new WaitUntil(() => !_playerActs);
         
         StartCoroutine(EnemiesAct());
         
-        yield return new WaitUntil(() => _enemiesAct == null);
+        yield return new WaitUntil(() => !_enemiesAct);
 
         Move();
 
@@ -149,26 +147,29 @@ public class BattleManager : MonoBehaviour
         SceneManager.LoadScene("Map");
     }
 
-    private IEnumerator PlayerAct()
+    private IEnumerator<WaitUntil> PlayerAct()
     {
+        _playerActs = true;
         State = BattleState.PlayerAct;
-        yield return new WaitForSeconds(fightTime);
-        player.Act();
         
-        _playerAct = null;
+        StartCoroutine(player.Act(fightTime));
+        yield return new WaitUntil(() => !player.acts);
+
+        _playerActs = false;
     }
 
-    private IEnumerator EnemiesAct()
+    private IEnumerator<WaitUntil> EnemiesAct()
     {
+        _enemiesAct = true;
         State = BattleState.EnemiesAct;
 
-        foreach (var enemy in enemies.Where(enemy => !enemy.Stunned()))
+        foreach (var enemy in enemies)
         {
-            yield return new WaitForSeconds(fightTime);
-            enemy.Act();
+            StartCoroutine(enemy.Act(fightTime));
+            yield return new WaitUntil(() => !enemy.acts);
         }
 
-        _enemiesAct = null;
+        _enemiesAct = false;
     }
 
     private void Move()
@@ -181,6 +182,7 @@ public class BattleManager : MonoBehaviour
         }
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     public void Lose()
     {
         if (_battle != null) StopCoroutine(_battle);

@@ -30,6 +30,12 @@ public abstract class Unit : MonoBehaviour
 
     public List<Modifier> StatusModifiers = new();
 
+    public List<Modifier> ManaModifiers = new();
+
+    public List<Modifier> GotDamageModifiers = new();
+    
+    public bool acts;
+
     public void ChangeHp(int change)
     {
         hp += change;
@@ -98,7 +104,7 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    public abstract void Act();
+    public abstract IEnumerator<WaitForSeconds> Act(float time);
 
     protected abstract void NoHp();
 }

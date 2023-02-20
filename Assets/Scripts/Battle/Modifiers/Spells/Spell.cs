@@ -8,7 +8,11 @@ public abstract class Spell : MonoBehaviour
 
     public Player player;
     public BattleManager manager;
-    public Enemy target;
 
     public abstract void Cast();
+
+    protected bool CanCast()
+    {
+        return manager.State != BattleState.PlayerTurn || player.Mana < ManaCost;
+    }
 }

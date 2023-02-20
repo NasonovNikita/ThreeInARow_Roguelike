@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 public class Enemy : Unit
 {
     public Player player;
@@ -7,9 +10,12 @@ public class Enemy : Unit
         return baseDamage;
     }
 
-    public override void Act()
+    public override IEnumerator<WaitForSeconds> Act(float time)
     {
+        if (Stunned()) yield break;
+        
         player.ChangeHp(-Damage());
+        yield return new WaitForSeconds(time);
     }
 
     protected override void NoHp()

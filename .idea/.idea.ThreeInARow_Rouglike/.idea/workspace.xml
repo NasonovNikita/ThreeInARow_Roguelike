@@ -11,9 +11,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Spells/AllSpells/StrongerKick.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Spells/AllSpells/TimeStop.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Spells/Modifier.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Battle/Units/EnemyPlacement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Map/BattleVertex.cs" root0="FORCE_HIGHLIGHTING" />
@@ -137,7 +134,7 @@
       <workItem from="1676098415059" duration="5137000" />
       <workItem from="1676439462540" duration="16642000" />
       <workItem from="1676568492291" duration="5524000" />
-      <workItem from="1676621130411" duration="24754000" />
+      <workItem from="1676621130411" duration="38776000" />
     </task>
     <servers />
   </component>

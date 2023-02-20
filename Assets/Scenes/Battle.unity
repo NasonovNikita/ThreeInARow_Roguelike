@@ -427,7 +427,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   manager: {fileID: 0}
-  target: {fileID: 0}
 --- !u!114 &928610062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +441,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   manager: {fileID: 0}
-  target: {fileID: 0}
 --- !u!114 &928610063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,7 +455,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   manager: {fileID: 0}
-  target: {fileID: 0}
 --- !u!114 &928610064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,7 +469,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   manager: {fileID: 0}
-  target: {fileID: 0}
 --- !u!1001 &931558198
 PrefabInstance:
   m_ObjectHideFlags: 0
