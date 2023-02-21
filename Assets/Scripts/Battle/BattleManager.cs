@@ -14,9 +14,6 @@ public class BattleManager : MonoBehaviour
     
     [SerializeField]
     private Stats playerStats;
-
-    [SerializeField]
-    private BattleData battle;
     
     [SerializeField]
     private EnemyPlacement placer;
@@ -51,7 +48,7 @@ public class BattleManager : MonoBehaviour
     {
         State = BattleState.PlayerTurn;
 
-        enemies = battle.enemies;
+        enemies = BattleData.enemies;
 
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -167,15 +164,9 @@ public class BattleManager : MonoBehaviour
 
         foreach (var enemy in enemies)
         {
-<<<<<<< Updated upstream
             StartCoroutine(enemy.Act(fightTime));
             yield return new WaitUntil(() => !enemy.acts);
-=======
             if (player.Hp <= 0) yield break;
-            
-            yield return new WaitForSeconds(fightTime);
-            enemy.Act();
->>>>>>> Stashed changes
         }
 
         _enemiesAct = false;

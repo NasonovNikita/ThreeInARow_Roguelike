@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Battle Data", fileName = "BattleData", order = 52)]
-public class BattleData : ScriptableObject
+public static class BattleData
 {
-    public List<Enemy> enemies;
+    public static List<Enemy> enemies;
 
-    public void Reset()
+    public static void Reset()
     {
         enemies = new List<Enemy>();
     }
