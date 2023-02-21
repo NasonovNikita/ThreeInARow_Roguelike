@@ -130,6 +130,8 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator Die()
     {
+        if (_battle != null) StopCoroutine(_battle);
+        
         State = BattleState.End;
         
         yield return new WaitForSeconds(fightTime);
@@ -165,8 +167,15 @@ public class BattleManager : MonoBehaviour
 
         foreach (var enemy in enemies)
         {
+<<<<<<< Updated upstream
             StartCoroutine(enemy.Act(fightTime));
             yield return new WaitUntil(() => !enemy.acts);
+=======
+            if (player.Hp <= 0) yield break;
+            
+            yield return new WaitForSeconds(fightTime);
+            enemy.Act();
+>>>>>>> Stashed changes
         }
 
         _enemiesAct = false;
