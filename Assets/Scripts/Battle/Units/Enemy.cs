@@ -12,10 +12,10 @@ public class Enemy : Unit
 
     public override IEnumerator<WaitForSeconds> Act(float time)
     {
-        if (Stunned()) yield break;
+        if (Stunned() || manager.State == BattleState.End) yield break;
         
-        player.ChangeHp(-Damage());
         yield return new WaitForSeconds(time);
+        player.ChangeHp(-Damage());
     }
 
     protected override void NoHp()

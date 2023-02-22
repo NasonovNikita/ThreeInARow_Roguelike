@@ -225,9 +225,17 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 171.25
       objectReference: {fileID: 0}
+    - target: {fileID: 3618831271767595274, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
       value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Pivot.x
@@ -331,9 +339,17 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 171.25
       objectReference: {fileID: 0}
+    - target: {fileID: 3618831271767595274, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
       value: Button (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Pivot.x

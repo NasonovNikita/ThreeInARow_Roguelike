@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
@@ -13,8 +14,18 @@ public class Map : MonoBehaviour
 
     public float timeScale;
 
+    public Canvas canvas;
+
+    public GameManager gameManager;
+
+    public GameObject winMessage;
+
     public void Awake()
     {
+        if (CurrentVertex == allVertexes.Count - 1)
+        {
+            Win();
+        }
         foreach (Vertex vertex in allVertexes)
         {
             vertex.map = this;
@@ -50,5 +61,14 @@ public class Map : MonoBehaviour
     private Vertex CurrentVertex_()
     {
         return allVertexes[CurrentVertex];
+    }
+    
+    public void Win()
+    {
+        GameObject menu = Instantiate(winMessage, canvas.transform, false);
+        Button[] buttons = menu.GetComponentsInChildren<Button>();
+        buttons[0].onClick.AddListener(gameManager.Restart);
+        buttons[1].onClick.AddListener(gameManager.Exit);
+        menu.gameObject.SetActive(true);
     }
 }
