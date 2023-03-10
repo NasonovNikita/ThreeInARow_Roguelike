@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 public class BattleVertex : Vertex
 {
     public List<Enemy> enemies;
+    
     public override void OnArrive()
     {
-        BattleData.enemies = enemies;
+        BattleManager.enemies = new List<Enemy>(enemies);
         SceneManager.LoadScene("Battle");
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,7 +26,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private GameObject loseMessage;
     
-    public List<Enemy> enemies;
+    public static List<Enemy> enemies;
 
 
     public Spell[] spells;
@@ -48,8 +47,7 @@ public class BattleManager : MonoBehaviour
     {
         State = BattleState.PlayerTurn;
 
-        enemies = BattleData.enemies;
-
+        
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i] = Instantiate(enemies[i], canvas.transform, false);
@@ -112,17 +110,20 @@ public class BattleManager : MonoBehaviour
     {
         enemies.Remove(enemy);
         
-        yield return new WaitForSeconds(fightTime);
-        
-        enemy.Delete();
-        
         if (enemies.Count == 0)
         {
+            State = BattleState.End;
+            yield return new WaitForSeconds(fightTime);
+            enemy.Delete();
             Win();
             yield break;
         }
-        
+
         player.target = enemies[0];
+
+        yield return new WaitForSeconds(fightTime);
+        
+        enemy.Delete();
     }
 
     public IEnumerator Die()
@@ -140,7 +141,6 @@ public class BattleManager : MonoBehaviour
     private void Win()
     {
         if (_battle != null) StopCoroutine(_battle);
-        State = BattleState.End;
         grid.Block();
         SavePlayerStats();
         SceneManager.LoadScene("Map");

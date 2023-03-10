@@ -37,24 +37,20 @@ public class Map : MonoBehaviour
         }
     }
 
-    public IEnumerator<WaitForSeconds> OnClick(Vertex vertex)
+    public void OnClick(Vertex vertex)
     {
         if (CurrentVertex == -1)
         {
-            if (allVertexes.IndexOf(vertex) != 0) yield break;
+            if (allVertexes.IndexOf(vertex) != 0) return;
             
             CurrentVertex = allVertexes.IndexOf(vertex);
             vertex.Scale(chosenScale, timeScale);
-            yield return new WaitForSeconds(timeScale);
-            vertex.OnArrive();
         }
         else if (CurrentVertex_().BelongsToNext(vertex))
         {
             CurrentVertex_().Scale(baseScale, timeScale);
             CurrentVertex = allVertexes.IndexOf(vertex);
             vertex.Scale(chosenScale, timeScale);
-            yield return new WaitForSeconds(timeScale);
-            vertex.OnArrive();
         }
     }
 

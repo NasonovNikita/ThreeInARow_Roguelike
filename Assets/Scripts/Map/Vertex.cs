@@ -31,13 +31,13 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        StartCoroutine(map.OnClick(this));
+        map.OnClick(this);
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
     public void Scale(Vector3 endScale, float time)
     {
         ObjectScaler scaler = GetComponent<ObjectScaler>();
-        scaler.StartScale(endScale, time);
+        scaler.StartScale(endScale, time, OnArrive);
     }
 }

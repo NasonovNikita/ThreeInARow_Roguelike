@@ -1,16 +1,25 @@
+using System;
 using UnityEngine;
 public class ObjectMover : MonoBehaviour
 {
     public Vector2 endPos;
     public bool doMove;
     private Vector2 _speed;
+    private Action _onEnd;
 
     public void StartMovement(Vector2 end, float time)
     {
         _speed = (end - (Vector2)transform.position) / time;
         endPos = end;
         doMove = true;
-
+    }
+    
+    public void StartMovement(Vector2 end, float time, Action action)
+    {
+        _speed = (end - (Vector2)transform.position) / time;
+        endPos = end;
+        doMove = true;
+        _onEnd = action;
     }
     private void FixedUpdate() {
         if (doMove) {
