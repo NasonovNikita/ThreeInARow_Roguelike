@@ -35,9 +35,15 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
-    public void Scale(Vector3 endScale, float time)
+    public void ScaleUp(Vector3 endScale, float time)
     {
         ObjectScaler scaler = GetComponent<ObjectScaler>();
         scaler.StartScale(endScale, time, OnArrive);
+    }
+    
+    public void ScaleDown(Vector3 endScale, float time)
+    {
+        ObjectScaler scaler = GetComponent<ObjectScaler>();
+        scaler.StartScale(endScale, time);
     }
 }

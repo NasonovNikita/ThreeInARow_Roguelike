@@ -50,6 +50,7 @@ public class BattleManager : MonoBehaviour
         
         for (int i = 0; i < enemies.Count; i++)
         {
+            
             enemies[i] = Instantiate(enemies[i], canvas.transform, false);
         }
         

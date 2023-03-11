@@ -44,13 +44,13 @@ public class Map : MonoBehaviour
             if (allVertexes.IndexOf(vertex) != 0) return;
             
             CurrentVertex = allVertexes.IndexOf(vertex);
-            vertex.Scale(chosenScale, timeScale);
+            vertex.ScaleUp(chosenScale, timeScale);
         }
         else if (CurrentVertex_().BelongsToNext(vertex))
         {
-            CurrentVertex_().Scale(baseScale, timeScale);
+            CurrentVertex_().ScaleDown(baseScale, timeScale);
             CurrentVertex = allVertexes.IndexOf(vertex);
-            vertex.Scale(chosenScale, timeScale);
+            vertex.ScaleUp(chosenScale, timeScale);
         }
     }
 

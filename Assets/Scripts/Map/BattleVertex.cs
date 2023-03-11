@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BattleVertex : Vertex
@@ -7,7 +8,7 @@ public class BattleVertex : Vertex
     
     public override void OnArrive()
     {
-        BattleManager.enemies = new List<Enemy>(enemies);
+        BattleManager.enemies = enemies;
         SceneManager.LoadScene("Battle");
     }
 }
