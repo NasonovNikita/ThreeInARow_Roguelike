@@ -13,6 +13,6 @@ public abstract class Spell : MonoBehaviour
 
     protected bool CanCast()
     {
-        return manager.State != BattleState.PlayerTurn || player.Mana < ManaCost;
+        return manager.State != BattleState.PlayerTurn || player.mana < ManaCost;
     }
 }

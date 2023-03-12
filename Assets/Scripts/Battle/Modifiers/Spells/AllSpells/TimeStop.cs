@@ -7,11 +7,11 @@ public class TimeStop : Spell
     {
         if (CanCast()) return;
         
-        player.ChangeMana(-ManaCost);
+        player.mana -= ManaCost;
         
-        foreach (Enemy enemy in player.enemies)
+        foreach (Enemy enemy in BattleManager.Enemies)
         {
-            enemy.StatusModifiers.Add(new Modifier(Moves, ModifierType.Stun));
+            enemy.StatusModifiers.Add(new Modifier(Moves, ModifierType.Stun, enemy.StatusModifiers));
         }
     }
 }

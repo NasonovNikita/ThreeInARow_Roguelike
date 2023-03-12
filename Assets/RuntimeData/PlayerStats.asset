@@ -12,9 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c204cae515edf714b8aedf7eeff13127, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  playerBaseHp: 200
-  playerHp: 200
-  playerBaseMana: 100
-  playerMana: 100
-  playerBaseDamage: 20
-  manaPerGem: 15
+  playerHp:
+    borderDown: 0
+    borderUp: 200
+    value: 185
+    onAddMods: []
+    onSubMods: []
+    onGetMods: []
+  playerMana:
+    borderDown: 0
+    borderUp: 100
+    value: 50
+    onAddMods: []
+    onSubMods: []
+    onGetMods: []
+  playerDamage:
+    borderDown: 0
+    borderUp: 20
+    value: 20
+    onAddMods: []
+    onSubMods: []
+    onGetMods: []
+  manaPerGem: 20

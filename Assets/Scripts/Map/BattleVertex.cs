@@ -8,7 +8,7 @@ public class BattleVertex : Vertex
     
     public override void OnArrive()
     {
-        BattleManager.enemies = enemies;
+        BattleManager.Enemies = enemies;
         SceneManager.LoadScene("Battle");
     }
 }

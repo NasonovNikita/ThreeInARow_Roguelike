@@ -198,10 +198,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2524805ede9714a8c8b36cd08db845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 110
-  baseHp: 110
-  mana: 0
-  baseMana: 0
-  baseDamage: 20
+  hp:
+    borderDown: 0
+    borderUp: 100
+    value: 100
+    OnAddMods: []
+    OnSubMods: []
+    OnGetMods: []
+  mana:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+    OnAddMods: []
+    OnSubMods: []
+    OnGetMods: []
   manager: {fileID: 0}
+  StatusModifiers: []
+  damage:
+    borderDown: 0
+    borderUp: 15
+    value: 15
+    OnAddMods: []
+    OnSubMods: []
+    OnGetMods: []
   player: {fileID: 0}

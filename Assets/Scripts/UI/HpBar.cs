@@ -15,13 +15,14 @@ public class HpBar : MonoBehaviour
     private void Start()
     {
         _slider = GetComponent<Slider>();
-        _slider.maxValue = unit.BaseHp;
-        _slider.value = unit.Hp;
+        _slider.maxValue = unit.hp.borderUp;
+        _slider.minValue = unit.hp.borderDown;
+        _slider.value = unit.hp.GetValue();
     }
 
     private void Update()
     {
-        _slider.value = unit.Hp;
-        text.text = $"{unit.Hp}/{unit.BaseHp}";
+        _slider.value = unit.hp.GetValue();
+        text.text = $"{_slider.value}/{unit.hp.borderUp}";
     }
 }

@@ -14,19 +14,20 @@ public class ManaBar : MonoBehaviour
 
     private void Start()
     {
-        if (unit.BaseMana == 0)
+        if (unit.mana.borderUp == 0)
         {
             Destroy(gameObject);
         }
         
         _slider = GetComponent<Slider>();
-        _slider.maxValue = unit.BaseMana;
-        _slider.value = unit.Mana;
+        _slider.maxValue = unit.mana.borderUp;
+        _slider.minValue = unit.mana.borderDown;
+        _slider.value = unit.mana.GetValue();
     }
 
     private void Update()
     {
-        _slider.value = unit.Mana;
-        text.text = $"{unit.Mana}/{unit.BaseMana}";
+        _slider.value = unit.mana.GetValue();
+        text.text = $"{_slider.value}/{unit.mana.borderUp}";
     }
 }

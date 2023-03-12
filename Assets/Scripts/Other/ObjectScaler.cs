@@ -8,13 +8,7 @@ public class ObjectScaler : MonoBehaviour
     public bool doScale;
     private Action _onEnd;
     
-    public void StartScale(Vector3 end, float time)
-    {
-        _speed = (end - transform.localScale) / time;
-        endScale = end;
-        doScale = true;
-    }
-    public void StartScale(Vector3 end, float time, Action action)
+    public void StartScale(Vector3 end, float time, Action action = null)
     {
         _onEnd = action;
         _speed = (end - transform.localScale) / time;

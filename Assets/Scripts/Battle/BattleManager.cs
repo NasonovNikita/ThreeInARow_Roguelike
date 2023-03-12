@@ -26,7 +26,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private GameObject loseMessage;
     
-    public static List<Enemy> enemies;
+    public static List<Enemy> Enemies;
 
 
     public Spell[] spells;
@@ -39,30 +39,36 @@ public class BattleManager : MonoBehaviour
 
     private bool _playerActs;
     private bool _enemiesAct;
+
+    private bool _firstBattle = true;
     
 
     private bool _dead;
     
     private void Awake()
     {
+        if (_firstBattle)
+        {
+            _firstBattle = false;
+            LoadPlayerStats();
+        }
+        
         State = BattleState.PlayerTurn;
 
         
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < Enemies.Count; i++)
         {
-            
-            enemies[i] = Instantiate(enemies[i], canvas.transform, false);
+            Enemies[i] = Instantiate(Enemies[i], canvas.transform, false);
         }
         
         player.grid = grid;
-        player.target = enemies[0];
-        player.enemies = enemies;
+        player.target = Enemies[0];
         player.manager = this;
 
-        placer.enemiesToPlace = enemies;
+        placer.enemiesToPlace = Enemies;
         placer.Place();
         
-        foreach (Enemy enemy in enemies)
+        foreach (Enemy enemy in Enemies)
         {
             enemy.player = player;
             enemy.manager = this;
@@ -89,7 +95,7 @@ public class BattleManager : MonoBehaviour
         
         yield return new WaitUntil(() => !_enemiesAct);
 
-        Move();
+        ModifierManager.Move();
 
         if (!player.Stunned())
         {
@@ -109,9 +115,9 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator KillEnemy(Enemy enemy)
     {
-        enemies.Remove(enemy);
+        Enemies.Remove(enemy);
         
-        if (enemies.Count == 0)
+        if (Enemies.Count == 0)
         {
             State = BattleState.End;
             yield return new WaitForSeconds(fightTime);
@@ -120,7 +126,7 @@ public class BattleManager : MonoBehaviour
             yield break;
         }
 
-        player.target = enemies[0];
+        player.target = Enemies[0];
 
         yield return new WaitForSeconds(fightTime);
         
@@ -147,40 +153,30 @@ public class BattleManager : MonoBehaviour
         SceneManager.LoadScene("Map");
     }
 
-    private IEnumerator<WaitUntil> PlayerAct()
+    private IEnumerator<WaitForSeconds> PlayerAct()
     {
         _playerActs = true;
         State = BattleState.PlayerAct;
         
-        StartCoroutine(player.Act(fightTime));
-        yield return new WaitUntil(() => !player.acts);
+        player.Act();
+        yield return new WaitForSeconds(fightTime);
 
         _playerActs = false;
     }
 
-    private IEnumerator<WaitUntil> EnemiesAct()
+    private IEnumerator<WaitForSeconds> EnemiesAct()
     {
         _enemiesAct = true;
         State = BattleState.EnemiesAct;
 
-        foreach (var enemy in enemies)
+        foreach (var enemy in Enemies)
         {
-            StartCoroutine(enemy.Act(fightTime));
-            yield return new WaitUntil(() => !enemy.acts);
-            if (player.Hp <= 0) yield break;
+            enemy.Act();
+            yield return new WaitForSeconds(fightTime);
+            if (player.hp <= 0) yield break;
         }
 
         _enemiesAct = false;
-    }
-
-    private void Move()
-    {
-        player.Move();
-
-        foreach (Enemy enemy in enemies)
-        {
-            enemy.Move();
-        }
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -198,13 +194,14 @@ public class BattleManager : MonoBehaviour
 
     public void SavePlayerStats()
     {
-        playerStats.playerHp = player.Hp;
-        playerStats.playerMana = player.Mana;
+        playerStats.playerHp = player.hp;
+        playerStats.playerMana = player.mana;
     }
 
     public void LoadPlayerStats()
     {
-        player.SetHp(playerStats.playerHp);
-        player.SetMana(playerStats.playerMana);
+        player.hp = playerStats.playerHp;
+        player.mana = playerStats.playerMana;
+        player.damage = playerStats.playerDamage;
     }
 }

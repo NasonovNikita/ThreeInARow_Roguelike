@@ -142,13 +142,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c79a3e73de5934da708f62fc06237d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 200
-  baseHp: 200
-  mana: 100
-  baseMana: 100
-  baseDamage: 20
+  Hp:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  Mana:
+    borderDown: 0
+    borderUp: 0
+    value: 0
   manager: {fileID: 0}
+  Damage:
+    borderDown: 0
+    borderUp: 0
+    value: 0
   manaPerGem: 0
   target: {fileID: 0}
-  enemies: []
   grid: {fileID: 0}

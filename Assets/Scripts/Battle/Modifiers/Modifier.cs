@@ -1,29 +1,32 @@
+using System;
+using System.Collections.Generic;
+
+[Serializable]
 public class Modifier
 {
-    private int _moves;
-    public int Moves => _moves;
+    public int Moves;
     
-    private ModifierType _type;
-    public ModifierType Type => _type;
+    public readonly ModifierType Type;
     
-    private float _value;
-    public float Value => _value;
+    public readonly float Value;
 
-    public Modifier(int moves, ModifierType type, float value)
+    private readonly List<Modifier> _belongList;
+
+    public Modifier(int moves, ModifierType type, List<Modifier> belong, float value = 0)
     {
-        _moves = moves;
-        _type = type;
-        _value = value;
+        Moves = moves;
+        Type = type;
+        Value = value;
+        _belongList = belong;
+        ModifierManager.AllMods.Add(this);
     }
-
-    public Modifier(int moves, ModifierType type)
-    {
-        _moves = moves;
-        _type = type;
-    }
-
     public void Move()
     {
-        _moves -= 1;
+        Moves -= 1;
+        if (Moves == 0)
+        {
+            _belongList.Remove(this);
+            ModifierManager.AllMods.Remove(this);
+        }
     }
 }

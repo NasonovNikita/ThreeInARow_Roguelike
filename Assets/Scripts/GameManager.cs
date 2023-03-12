@@ -28,10 +28,8 @@ public class GameManager : MonoBehaviour
     public void Exit()
         {
             #if UNITY_EDITOR
-                ResetAllScriptableObjects();
                 EditorApplication.ExitPlaymode();
             #else
-                ResetAllSCriptableObjects();
                 Application.Quit();
             #endif
         }
