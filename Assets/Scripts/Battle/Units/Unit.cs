@@ -8,11 +8,13 @@ public abstract class Unit : MonoBehaviour
     [SerializeField]
     public Stat mana;
 
-    public BattleManager manager;
-
-    public List<Modifier> StatusModifiers = new();
     [SerializeField]
     public Stat damage;
+    
+    public BattleManager manager;
+
+    public List<Modifier> statusModifiers = new();
+    
 
     public void DoDamage(int value)
     {
@@ -30,7 +32,7 @@ public abstract class Unit : MonoBehaviour
 
     public bool Stunned()
     {
-        return StatusModifiers.Exists(mod => mod.Type == ModifierType.Stun);
+        return statusModifiers.Exists(mod => mod.Type == ModifierType.Stun);
     }
 
     public abstract void Act();

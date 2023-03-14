@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -53,7 +54,7 @@ public class BattleManager : MonoBehaviour
             LoadPlayerStats();
         }
         
-        State = BattleState.PlayerTurn;
+        State = BattleState.Turn;
 
         
         for (int i = 0; i < Enemies.Count; i++)
@@ -84,33 +85,9 @@ public class BattleManager : MonoBehaviour
         
         LoadPlayerStats();
     }
-
-    private IEnumerator Battle()
-    {
-        StartCoroutine(PlayerAct());
-
-        yield return new WaitUntil(() => !_playerActs);
-        
-        StartCoroutine(EnemiesAct());
-        
-        yield return new WaitUntil(() => !_enemiesAct);
-
-        ModifierManager.Move();
-
-        if (!player.Stunned())
-        {
-            State = BattleState.PlayerTurn;
-            grid.Unlock();
-        }
-        else
-        {
-            _battle = StartCoroutine(Battle());
-        }
-    }
-
     public void EndTurn()
     {
-        _battle = StartCoroutine(Battle());
+        StartCoroutine(PlayerAct());
     }
 
     public IEnumerator KillEnemy(Enemy enemy)
@@ -135,8 +112,6 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator Die()
     {
-        if (_battle != null) StopCoroutine(_battle);
-        
         State = BattleState.End;
         
         yield return new WaitForSeconds(fightTime);
@@ -147,7 +122,6 @@ public class BattleManager : MonoBehaviour
 
     private void Win()
     {
-        if (_battle != null) StopCoroutine(_battle);
         grid.Block();
         SavePlayerStats();
         SceneManager.LoadScene("Map");
@@ -155,34 +129,44 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator<WaitForSeconds> PlayerAct()
     {
-        _playerActs = true;
-        State = BattleState.PlayerAct;
-        
-        player.Act();
-        yield return new WaitForSeconds(fightTime);
+        if (!player.Stunned())
+        {
+            State = BattleState.PlayerAct;
 
-        _playerActs = false;
+            player.Act();
+            yield return new WaitForSeconds(fightTime);
+        }
+
+        StartCoroutine(EnemiesAct());
     }
 
     private IEnumerator<WaitForSeconds> EnemiesAct()
     {
-        _enemiesAct = true;
         State = BattleState.EnemiesAct;
 
-        foreach (var enemy in Enemies)
+        foreach (var enemy in Enemies.Where(enemy => !enemy.Stunned()))
         {
             enemy.Act();
             yield return new WaitForSeconds(fightTime);
             if (player.hp <= 0) yield break;
         }
+        
+        ModifierManager.Move();
 
-        _enemiesAct = false;
+        if (!player.Stunned())
+        {
+            State = BattleState.Turn;
+            grid.Unlock();
+        }
+        else
+        {
+            StartCoroutine(EnemiesAct());
+        }
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
     public void Lose()
     {
-        if (_battle != null) StopCoroutine(_battle);
         State = BattleState.End;
         grid.Block();
         GameObject menu = Instantiate(loseMessage, canvas.transform, false);

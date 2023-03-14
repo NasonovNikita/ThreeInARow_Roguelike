@@ -1,6 +1,6 @@
 public enum BattleState
 {
-    PlayerTurn,
+    Turn,
     PlayerAct,
     EnemiesAct,
     End

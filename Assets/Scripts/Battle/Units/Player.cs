@@ -22,11 +22,8 @@ public class Player : Unit
 
     public override void Act()
     {
-        if (!Stunned())
-        {
-            mana += CountMana();
-            target.DoDamage(CountDamage());
-        }
+        mana += CountMana();
+        target.DoDamage(CountDamage());
         grid.destroyed.Clear();
     }
 
