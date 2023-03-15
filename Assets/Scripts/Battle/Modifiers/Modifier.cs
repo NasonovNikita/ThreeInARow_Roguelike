@@ -4,29 +4,35 @@ using System.Collections.Generic;
 [Serializable]
 public class Modifier
 {
-    public int Moves;
+    public int moves;
     
     public readonly ModifierType Type;
     
-    public readonly float Value;
+    public float value;
 
     private readonly List<Modifier> _belongList;
 
-    public Modifier(int moves, ModifierType type, List<Modifier> belong, float value = 0)
+    private Func<bool> _cond;
+
+    public Modifier(int moves, ModifierType type, List<Modifier> belong, Func<bool> cond, float value = 0)
     {
-        Moves = moves;
+        this.moves = moves;
         Type = type;
-        Value = value;
+        this.value = value;
         _belongList = belong;
+        _cond = cond;
         ModifierManager.AllMods.Add(this);
+    }
+
+    public float Use()
+    {
+        return _cond() ? value : 0;
     }
     public void Move()
     {
-        Moves -= 1;
-        if (Moves == 0)
-        {
-            _belongList.Remove(this);
-            ModifierManager.AllMods.Remove(this);
-        }
+        moves -= 1;
+        if (moves != 0) return;
+        _belongList.Remove(this);
+        ModifierManager.AllMods.Remove(this);
     }
 }

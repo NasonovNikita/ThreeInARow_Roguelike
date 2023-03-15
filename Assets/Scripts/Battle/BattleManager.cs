@@ -7,10 +7,9 @@ using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField]
-    private Player player;
-    [SerializeField]
-    public Grid grid;
+    public static Player Player;
+    
+    public static Grid Grid;
     
     [SerializeField]
     private Stats playerStats;
@@ -34,7 +33,7 @@ public class BattleManager : MonoBehaviour
 
     public GameManager gameManager;
     
-    public BattleState State { get; private set; }
+    public static BattleState State { get; private set; }
     
     private Coroutine _battle;
 
@@ -46,7 +45,7 @@ public class BattleManager : MonoBehaviour
 
     private bool _dead;
     
-    private void Awake()
+    public void TurnOn()
     {
         if (_firstBattle)
         {
@@ -62,26 +61,26 @@ public class BattleManager : MonoBehaviour
             Enemies[i] = Instantiate(Enemies[i], canvas.transform, false);
         }
         
-        player.grid = grid;
-        player.target = Enemies[0];
-        player.manager = this;
+        Player.grid = Grid;
+        Player.target = Enemies[0];
+        Player.manager = this;
 
         placer.enemiesToPlace = Enemies;
         placer.Place();
         
         foreach (Enemy enemy in Enemies)
         {
-            enemy.player = player;
+            enemy.player = Player;
             enemy.manager = this;
         }
 
         foreach (Spell spell in spells)
         {
-            spell.player = player;
+            spell.player = Player;
             spell.manager = this;
         }
         
-        grid.manager = this;
+        Grid.manager = this;
         
         LoadPlayerStats();
     }
@@ -103,7 +102,7 @@ public class BattleManager : MonoBehaviour
             yield break;
         }
 
-        player.target = Enemies[0];
+        Player.target = Enemies[0];
 
         yield return new WaitForSeconds(fightTime);
         
@@ -115,25 +114,25 @@ public class BattleManager : MonoBehaviour
         State = BattleState.End;
         
         yield return new WaitForSeconds(fightTime);
-        player.Delete();
+        Player.Delete();
         
         Lose();
     }
 
     private void Win()
     {
-        grid.Block();
+        Grid.Block();
         SavePlayerStats();
         SceneManager.LoadScene("Map");
     }
 
     private IEnumerator<WaitForSeconds> PlayerAct()
     {
-        if (!player.Stunned())
+        if (!Player.Stunned())
         {
             State = BattleState.PlayerAct;
 
-            player.Act();
+            Player.Act();
             yield return new WaitForSeconds(fightTime);
         }
 
@@ -148,15 +147,15 @@ public class BattleManager : MonoBehaviour
         {
             enemy.Act();
             yield return new WaitForSeconds(fightTime);
-            if (player.hp <= 0) yield break;
+            if (Player.hp <= 0) yield break;
         }
         
         ModifierManager.Move();
 
-        if (!player.Stunned())
+        if (!Player.Stunned())
         {
             State = BattleState.Turn;
-            grid.Unlock();
+            Grid.Unlock();
         }
         else
         {
@@ -168,7 +167,7 @@ public class BattleManager : MonoBehaviour
     public void Lose()
     {
         State = BattleState.End;
-        grid.Block();
+        Grid.Block();
         GameObject menu = Instantiate(loseMessage, canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(gameManager.Restart);
@@ -178,14 +177,14 @@ public class BattleManager : MonoBehaviour
 
     public void SavePlayerStats()
     {
-        playerStats.playerHp = player.hp;
-        playerStats.playerMana = player.mana;
+        playerStats.playerHp = Player.hp;
+        playerStats.playerMana = Player.mana;
     }
 
     public void LoadPlayerStats()
     {
-        player.hp = playerStats.playerHp;
-        player.mana = playerStats.playerMana;
-        player.damage = playerStats.playerDamage;
+        Player.hp = playerStats.playerHp;
+        Player.mana = playerStats.playerMana;
+        Player.damage = playerStats.playerDamage;
     }
 }

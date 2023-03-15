@@ -10,21 +10,30 @@ public class Player : Unit
 
     public Grid grid;
 
+    public void Awake()
+    {
+        BattleManager.Player = this;
+        if (BattleManager.Grid != null)
+        {
+            manager.TurnOn();
+        }
+    }
+
     private int CountMana()
     {
-        return grid.destroyed.ContainsKey(GemType.Mana) ? grid.destroyed[GemType.Mana] * manaPerGem : 0;
+        return grid.Destroyed.ContainsKey(GemType.Mana) ? grid.Destroyed[GemType.Mana] * manaPerGem : 0;
     }
 
     private int CountDamage()
     {
-        return grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue();
+        return (int) (grid.Destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
     }
 
     public override void Act()
     {
         mana += CountMana();
         target.DoDamage(CountDamage());
-        grid.destroyed.Clear();
+        grid.Destroyed.Clear();
     }
 
     protected override void NoHp()

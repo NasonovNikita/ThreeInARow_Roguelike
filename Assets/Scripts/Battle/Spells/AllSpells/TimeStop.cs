@@ -11,7 +11,7 @@ public class TimeStop : Spell
         
         foreach (Enemy enemy in BattleManager.Enemies)
         {
-            enemy.statusModifiers.Add(new Modifier(Moves, ModifierType.Stun, enemy.statusModifiers));
+            enemy.statusModifiers.Add(new Modifier(Moves, ModifierType.Stun, enemy.statusModifiers, () => true));
         }
     }
 }

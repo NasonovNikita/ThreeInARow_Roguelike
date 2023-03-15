@@ -11,8 +11,8 @@ public class PoweredKick : Spell
         if (CanCast()) return;
         
         player.mana -= ManaCost;
-        player.statusModifiers.Add(new Modifier(Moves, ModifierType.Stun, player.statusModifiers));
-        player.damage.onGetMods.Add(new Modifier(Moves,ModifierType.Mul, player.damage.onGetMods, Value));
+        player.statusModifiers.Add(new Modifier(Moves, ModifierType.Stun, player.statusModifiers,() => true));
+        player.damage.onGetMods.Add(new Modifier(Moves,ModifierType.Mul, player.damage.onGetMods, () => true, Value));
         manager.EndTurn();
     }
 }

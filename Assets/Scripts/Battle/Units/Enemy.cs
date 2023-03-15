@@ -4,9 +4,9 @@ public class Enemy : Unit
 
     public override void Act()
     {
-        if (Stunned() || manager.State == BattleState.End) return;
+        if (Stunned() || BattleManager.State == BattleState.End) return;
         
-        player.DoDamage(damage.GetValue());
+        player.DoDamage((int) damage.GetValue());
     }
 
     protected override void NoHp()

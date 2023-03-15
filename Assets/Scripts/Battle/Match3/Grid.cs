@@ -26,7 +26,7 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private float refreshTime;
 
-    public Dictionary<GemType, int> destroyed = new();
+    public readonly Dictionary<GemType, int> Destroyed = new();
 
     public BattleManager manager;
     
@@ -40,6 +40,11 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
+        BattleManager.Grid = this;
+        if (BattleManager.Player != null)
+        {
+            manager.TurnOn();
+        }
         _box = new Gem[sizeY, sizeX];
         SmartGenGems();
     }
@@ -171,13 +176,13 @@ public class Grid : MonoBehaviour
 
         foreach (Gem gem in toDelete)
         {
-            if (destroyed.TryGetValue(gem.Type, out int val))
+            if (Destroyed.TryGetValue(gem.Type, out int val))
             {
-                destroyed[gem.Type] = val + 1;
+                Destroyed[gem.Type] = val + 1;
             }
             else
             {
-                destroyed.Add(gem.Type, 1);
+                Destroyed.Add(gem.Type, 1);
             }
         }
 

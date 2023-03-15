@@ -845,7 +845,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 11400000, guid: a9dbbb305a880b94dbdc9e627150651c, type: 2}
-  battle: {fileID: 11400000, guid: f8cd48a5314bb1f4299bb2297462e0fc, type: 2}
 --- !u!224 &1280863342 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -1597,17 +1596,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea46fceb872af13469a785c2968139bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7588734100881700285}
   grid: {fileID: 1350078684}
   playerStats: {fileID: 11400000, guid: a9dbbb305a880b94dbdc9e627150651c, type: 2}
-  battle: {fileID: 11400000, guid: f8cd48a5314bb1f4299bb2297462e0fc, type: 2}
   placer: {fileID: 1528246274}
   canvas: {fileID: 1983647610}
   fightTime: 0.2
   loseMessage: {fileID: 2879500456662334555, guid: ed9c6d8a9a6a1cc428c67d7bd84120ce, type: 3}
-  enemies:
-  - {fileID: 0}
-  - {fileID: 0}
   spells:
   - {fileID: 928610062}
   - {fileID: 928610061}
@@ -1636,6 +1630,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983647611}
     m_Modifications:
+    - target: {fileID: 590550157481429791, guid: 2abd9c21d74a82d4bbf8b850e862082a, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 2081847656}
     - target: {fileID: 590550157481429791, guid: 2abd9c21d74a82d4bbf8b850e862082a, type: 3}
       propertyPath: manaPerGem
       value: 15
@@ -1751,14 +1749,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3330538816200427042, guid: 2abd9c21d74a82d4bbf8b850e862082a, type: 3}
   m_PrefabInstance: {fileID: 7588734100881700282}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7588734100881700285 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 590550157481429791, guid: 2abd9c21d74a82d4bbf8b850e862082a, type: 3}
-  m_PrefabInstance: {fileID: 7588734100881700282}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c79a3e73de5934da708f62fc06237d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
