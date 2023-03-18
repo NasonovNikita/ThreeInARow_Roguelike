@@ -7,7 +7,7 @@ public class TimeStop : Spell
     {
         if (CanCast()) return;
         
-        player.mana -= ManaCost;
+        Player.mana -= ManaCost;
         
         foreach (Enemy enemy in BattleManager.Enemies)
         {

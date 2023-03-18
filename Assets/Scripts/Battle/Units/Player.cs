@@ -33,7 +33,6 @@ public class Player : Unit
     {
         mana += CountMana();
         target.DoDamage(CountDamage());
-        grid.Destroyed.Clear();
     }
 
     protected override void NoHp()

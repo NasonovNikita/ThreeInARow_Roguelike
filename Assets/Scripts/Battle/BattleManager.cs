@@ -29,7 +29,7 @@ public class BattleManager : MonoBehaviour
     public static List<Enemy> Enemies;
 
 
-    public Spell[] spells;
+    public Spell[] Spells;
 
     public GameManager gameManager;
     
@@ -74,10 +74,10 @@ public class BattleManager : MonoBehaviour
             enemy.manager = this;
         }
 
-        foreach (Spell spell in spells)
+        foreach (Spell spell in Spells)
         {
-            spell.player = Player;
-            spell.manager = this;
+            spell.Player = Player;
+            spell.Manager = this;
         }
         
         Grid.manager = this;

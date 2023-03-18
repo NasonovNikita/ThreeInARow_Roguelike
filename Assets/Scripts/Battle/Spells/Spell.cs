@@ -6,13 +6,13 @@ public abstract class Spell : MonoBehaviour
     
     protected abstract int Moves { get;}
 
-    public Player player;
-    public BattleManager manager;
+    public Player Player;
+    public BattleManager Manager;
 
     public abstract void Cast();
 
     protected bool CanCast()
     {
-        return BattleManager.State != BattleState.Turn || player.mana < ManaCost;
+        return BattleManager.State != BattleState.Turn || Player.mana < ManaCost;
     }
 }

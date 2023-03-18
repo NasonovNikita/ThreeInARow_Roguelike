@@ -31,7 +31,6 @@ public class Grid : MonoBehaviour
     public BattleManager manager;
     
     private GridState _state;
-    public GridState State => _state;
 
     private Gem _first;
     private Gem _second;
@@ -173,7 +172,8 @@ public class Grid : MonoBehaviour
             manager.EndTurn();
             yield break;
         }
-
+        
+        Destroyed.Clear();
         foreach (Gem gem in toDelete)
         {
             if (Destroyed.TryGetValue(gem.Type, out int val))
@@ -242,8 +242,6 @@ public class Grid : MonoBehaviour
         return res;
     }
 
-    
-
     private bool GemsArenNeighbours(Gem gem1, Gem  gem2)
     {
         int[] pos1 = FindGem(gem1);
@@ -261,13 +259,5 @@ public class Grid : MonoBehaviour
     private bool VerticalRowExists(int i, int j)
     {
         return i < sizeY - 2 && _box[i, j].Type == _box[i + 1, j].Type && _box[i, j].Type == _box[i + 2, j].Type;
-    }
-
-    public void clear()
-    {
-        foreach (Gem gem in _box)
-        {
-            Destroy(gem.gameObject);
-        }
     }
 }

@@ -15,14 +15,14 @@ MonoBehaviour:
   playerHp:
     borderDown: 0
     borderUp: 200
-    value: 185
+    value: 200
     onAddMods: []
     onSubMods: []
     onGetMods: []
   playerMana:
     borderDown: 0
     borderUp: 100
-    value: 50
+    value: 100
     onAddMods: []
     onSubMods: []
     onGetMods: []

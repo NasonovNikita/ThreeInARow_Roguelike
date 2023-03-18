@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Stats", menuName = "Stats", order = 52)]
+[CreateAssetMenu(fileName = "Stats", menuName = "Stats")]
 public class Stats : ScriptableObject
 {
     public Stat playerHp;
