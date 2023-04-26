@@ -6,7 +6,9 @@ public class Map : MonoBehaviour
 {
     public List<Vertex> allVertexes;
 
-    public static int CurrentVertex = -1;
+    public static int currentVertex = -1;
+
+    public static int nextVertex;
 
     public Vector3 baseScale;
 
@@ -20,7 +22,7 @@ public class Map : MonoBehaviour
 
     public void Awake()
     {
-        if (CurrentVertex == allVertexes.Count - 1)
+        if (currentVertex == allVertexes.Count - 1)
         {
             Win();
         }
@@ -29,7 +31,7 @@ public class Map : MonoBehaviour
             vertex.map = this;
         }
 
-        if (CurrentVertex != -1)
+        if (currentVertex != -1)
         {
             CurrentVertex_().transform.localScale = chosenScale;
         }
@@ -37,24 +39,24 @@ public class Map : MonoBehaviour
 
     public void OnClick(Vertex vertex)
     {
-        if (CurrentVertex == -1)
+        if (currentVertex == -1)
         {
             if (allVertexes.IndexOf(vertex) != 0) return;
             
-            CurrentVertex = allVertexes.IndexOf(vertex);
+            nextVertex = allVertexes.IndexOf(vertex);
             vertex.ScaleUp(chosenScale, timeScale);
         }
         else if (CurrentVertex_().BelongsToNext(vertex))
         {
             CurrentVertex_().ScaleDown(baseScale, timeScale);
-            CurrentVertex = allVertexes.IndexOf(vertex);
+            nextVertex = allVertexes.IndexOf(vertex);
             vertex.ScaleUp(chosenScale, timeScale);
         }
     }
 
     private Vertex CurrentVertex_()
     {
-        return allVertexes[CurrentVertex];
+        return allVertexes[currentVertex];
     }
     
     public void Win()

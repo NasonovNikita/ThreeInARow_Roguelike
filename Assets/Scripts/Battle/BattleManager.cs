@@ -121,6 +121,7 @@ public class BattleManager : MonoBehaviour
     {
         Grid.Block();
         SavePlayerStats();
+        Map.currentVertex = Map.nextVertex;
         SceneManager.LoadScene("Map");
     }
 
