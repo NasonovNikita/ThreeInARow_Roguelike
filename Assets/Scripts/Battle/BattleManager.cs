@@ -30,8 +30,6 @@ public class BattleManager : MonoBehaviour
 
 
     public Spell[] Spells;
-
-    public GameManager gameManager;
     
     public static BattleState State { get; private set; }
     
@@ -170,8 +168,8 @@ public class BattleManager : MonoBehaviour
         Grid.Block();
         GameObject menu = Instantiate(loseMessage, canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
-        buttons[0].onClick.AddListener(gameManager.Restart);
-        buttons[1].onClick.AddListener(gameManager.Exit);
+        buttons[0].onClick.AddListener(GameManager.Restart);
+        buttons[1].onClick.AddListener(GameManager.Exit);
         menu.gameObject.SetActive(true);
     }
 

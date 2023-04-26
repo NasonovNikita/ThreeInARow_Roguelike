@@ -2,15 +2,17 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+
+public static class GameManager
 {
-    [SerializeField]
-    private Stats playerStats;
+    private static Stats _playerStats;
 
     private static bool _start;
 
-    public void Awake()
+    [RuntimeInitializeOnLoadMethod]
+    public static void Any()
     {
+        _playerStats = Resources.Load<Stats>("RuntimeData/PlayerStats");
         if (!_start)
         {
             ResetAllScriptableObjects();
@@ -18,14 +20,14 @@ public class GameManager : MonoBehaviour
         _start = true;
     }
 
-    public void Restart()
+    public static void Restart()
     {
         Map.CurrentVertex = -1;
         ResetAllScriptableObjects();
         SceneManager.LoadScene("Map");
     }
 
-    public void Exit()
+    public static void Exit()
         {
             #if UNITY_EDITOR
                 EditorApplication.ExitPlaymode();
@@ -34,8 +36,8 @@ public class GameManager : MonoBehaviour
             #endif
         }
 
-    private void ResetAllScriptableObjects()
+    private static void ResetAllScriptableObjects()
     {
-        playerStats.Reset();
+        _playerStats.Reset();
     }
 }

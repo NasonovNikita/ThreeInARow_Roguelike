@@ -16,8 +16,6 @@ public class Map : MonoBehaviour
 
     public Canvas canvas;
 
-    public GameManager gameManager;
-
     public GameObject winMessage;
 
     public void Awake()
@@ -63,8 +61,8 @@ public class Map : MonoBehaviour
     {
         GameObject menu = Instantiate(winMessage, canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
-        buttons[0].onClick.AddListener(gameManager.Restart);
-        buttons[1].onClick.AddListener(gameManager.Exit);
+        buttons[0].onClick.AddListener(GameManager.Restart);
+        buttons[1].onClick.AddListener(GameManager.Exit);
         menu.gameObject.SetActive(true);
     }
 }
