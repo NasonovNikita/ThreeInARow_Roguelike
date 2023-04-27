@@ -1,5 +1,9 @@
+using System;
+
+[Serializable]
 public class Enemy : Unit
 {
+    [NonSerialized]
     public Player player;
 
     public override void Act()
@@ -11,6 +15,6 @@ public class Enemy : Unit
 
     protected override void NoHp()
     {
-        StartCoroutine(manager.KillEnemy(this));
+        StartCoroutine(BattleManager.KillEnemy(this));
     }
 }

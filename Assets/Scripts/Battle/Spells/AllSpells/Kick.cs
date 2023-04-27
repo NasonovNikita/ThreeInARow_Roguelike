@@ -9,7 +9,7 @@ public class Kick : Spell
     {
         if (CanCast()) return;
         
-        Player.mana -= ManaCost;
-        Player.target.DoDamage(Value);
+        BattleManager.Player.mana -= ManaCost;
+        BattleManager.target.DoDamage(Value);
     }
 }

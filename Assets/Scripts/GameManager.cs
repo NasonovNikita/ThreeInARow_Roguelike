@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,8 +15,8 @@ public static class GameManager
     {
         _playerStats = Resources.Load<Stats>("RuntimeData/PlayerStats");
         Button[] buttons = Object.FindObjectsOfType<Button>();
-        buttons[0].onClick.AddListener(NewGame);
-        buttons[1].onClick.AddListener(Continue);
+        buttons[1].onClick.AddListener(NewGame);
+        buttons[0].onClick.AddListener(Continue);
     }
 
     private static void NewGame()
@@ -25,9 +27,12 @@ public static class GameManager
 
     private static void Continue()
     {
-        Map.currentVertex = PlayerPrefs.GetInt("vertex");
-        //SceneManager.LoadScene(PlayerPrefs.GetString("scene"));   Doesn't work for Battle, because there are no enemies (they are destroyed on quit)
-        SceneManager.LoadScene("Map");
+        if (PlayerPrefs.HasKey("vertex"))
+        {
+            Map.currentVertex = PlayerPrefs.GetInt("vertex");
+            BattleManager.enemiesNames = JsonConvert.DeserializeObject<List<string>>(PlayerPrefs.GetString("enemies"));
+            SceneManager.LoadScene(PlayerPrefs.GetString("scene"));   //Doesn't work for Battle, because there are no enemies (they are destroyed on quit)
+        }
     }
 
     public static void Restart()
@@ -51,10 +56,6 @@ public static class GameManager
     {
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
-    }
-
-    private static void ResetAllScriptableObjects()
-    {
-        _playerStats.Reset();
+        PlayerPrefs.SetString("enemies", JsonConvert.SerializeObject(BattleManager.enemiesNames));
     }
 }

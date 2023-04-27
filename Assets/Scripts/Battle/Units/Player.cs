@@ -1,12 +1,10 @@
+using System;
 using System.Linq;
-using UnityEngine;
 
+[Serializable]
 public class Player : Unit
 {
-    [SerializeField]
     private int manaPerGem;
-
-    public Enemy target;
 
     public Grid grid;
 
@@ -15,7 +13,7 @@ public class Player : Unit
         BattleManager.Player = this;
         if (BattleManager.Grid != null)
         {
-            manager.TurnOn();
+            BattleManager.TurnOn();
         }
     }
 
@@ -32,11 +30,11 @@ public class Player : Unit
     public override void Act()
     {
         mana += CountMana();
-        target.DoDamage(CountDamage());
+        BattleManager.target.DoDamage(CountDamage());
     }
 
     protected override void NoHp()
     {
-        StartCoroutine(manager.Die());
+        StartCoroutine(BattleManager.Die());
     }
 }

@@ -42,7 +42,7 @@ public class Grid : MonoBehaviour
         BattleManager.Grid = this;
         if (BattleManager.Player != null)
         {
-            manager.TurnOn();
+            BattleManager.TurnOn();
         }
         _box = new Gem[sizeY, sizeX];
         SmartGenGems();

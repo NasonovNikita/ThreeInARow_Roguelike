@@ -10,8 +10,6 @@ public abstract class Unit : MonoBehaviour
 
     [SerializeField]
     public Stat damage;
-    
-    public BattleManager manager;
 
     public List<Modifier> statusModifiers = new();
     
