@@ -175,7 +175,6 @@ public class BattleManager : MonoBehaviour
 
     public static void LoadPlayerStats()
     {
-        Debug.unityLogger.Log(playerStats);
         Player.hp = playerStats.playerHp;
         Player.mana = playerStats.playerMana;
         Player.damage = playerStats.playerDamage;
