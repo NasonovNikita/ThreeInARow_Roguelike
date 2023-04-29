@@ -8,8 +8,6 @@ public class Map : MonoBehaviour
 
     public static int currentVertex = -1;
 
-    public static int nextVertex;
-
     public Vector3 baseScale;
 
     public Vector3 chosenScale;
@@ -43,13 +41,13 @@ public class Map : MonoBehaviour
         {
             if (allVertexes.IndexOf(vertex) != 0) return;
             
-            nextVertex = allVertexes.IndexOf(vertex);
+            currentVertex = allVertexes.IndexOf(vertex);
             vertex.ScaleUp(chosenScale, timeScale);
         }
         else if (CurrentVertex_().BelongsToNext(vertex))
         {
             CurrentVertex_().ScaleDown(baseScale, timeScale);
-            nextVertex = allVertexes.IndexOf(vertex);
+            currentVertex = allVertexes.IndexOf(vertex);
             vertex.ScaleUp(chosenScale, timeScale);
         }
     }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,25 +12,27 @@ public static class GameManager
     private static void MainMenu()
     {
         _playerStats = Resources.Load<Stats>("RuntimeData/PlayerStats");
-        Button[] buttons = Object.FindObjectsOfType<Button>();
-        buttons[1].onClick.AddListener(NewGame);
-        buttons[0].onClick.AddListener(Continue);
+        GameObject.Find("New Game").GetComponent<Button>().onClick.AddListener(NewGame);
+        GameObject.Find("Continue").GetComponent<Button>().onClick.AddListener(Continue);
     }
 
     private static void NewGame()
     {
+        Debug.unityLogger.Log("NewGame");
         _playerStats.Reset();
         SceneManager.LoadScene("Map");
+        PlayerPrefs.DeleteAll();
     }
 
     private static void Continue()
     {
+        Debug.unityLogger.Log("Continue");
         if (PlayerPrefs.HasKey("vertex"))
         {
             Map.currentVertex = PlayerPrefs.GetInt("vertex");
-            BattleManager.enemiesNames = JsonConvert.DeserializeObject<List<string>>(PlayerPrefs.GetString("enemies"));
-            SceneManager.LoadScene(PlayerPrefs.GetString("scene"));   //Doesn't work for Battle, because there are no enemies (they are destroyed on quit)
         }
+
+        SceneManager.LoadScene("Map");
     }
 
     public static void Restart()
@@ -44,18 +44,14 @@ public static class GameManager
     public static void Exit()
     {
         #if UNITY_EDITOR
-            SaveData();
             EditorApplication.ExitPlaymode();
         #else
-            SaveData();
             Application.Quit();
         #endif
     }
 
-    private static void SaveData()
+    public static void SaveData()
     {
-        PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
-        PlayerPrefs.SetString("enemies", JsonConvert.SerializeObject(BattleManager.enemiesNames));
     }
 }
