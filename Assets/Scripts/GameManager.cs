@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     
     
-    public static void NewGame()
+    public void NewGame()
     {
         Debug.unityLogger.Log("NewGame");
         
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public static void Continue()
+    public void Continue()
     {
         Debug.unityLogger.Log("Continue");
         
@@ -42,14 +43,11 @@ public class GameManager : MonoBehaviour
             Map.currentVertex = PlayerPrefs.GetInt("vertex");
             if (PlayerPrefs.GetString("scene") == "Map")
             {
-                SceneManager.LoadScene("Map");
+                LoadMap();
             }
             else if (PlayerPrefs.GetString("scene") == "Battle")
             {
-                SceneManager.LoadScene("Map");
-                Map map = FindObjectOfType<Map>();
-                Debug.unityLogger.Log(map);
-                map.CurrentVertex_().OnArrive();
+                StartCoroutine(LoadBattle());
             }
         }
         else
@@ -85,5 +83,18 @@ public class GameManager : MonoBehaviour
         Map.currentVertex = -1;
         
         PlayerPrefs.DeleteAll();
+    }
+
+    public static void LoadMap()
+    {
+        SceneManager.LoadScene("Map");
+    }
+
+    public static IEnumerator<WaitUntil> LoadBattle()
+    {
+        SceneManager.LoadScene("Map");
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Map");
+        Map map = FindObjectOfType<Map>();
+        map.CurrentVertex_().OnArrive();
     }
 }
