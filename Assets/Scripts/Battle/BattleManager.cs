@@ -73,6 +73,8 @@ public class BattleManager : MonoBehaviour
         }
         
         LoadPlayerStats();
+        
+        GameManager.SaveData();
     }
     public void EndTurn()
     {
@@ -114,7 +116,6 @@ public class BattleManager : MonoBehaviour
         Grid.Block();
         SavePlayerStats();
         SceneManager.LoadScene("Map");
-        GameManager.SaveData();
     }
 
     private IEnumerator<WaitForSeconds> PlayerAct()
@@ -146,6 +147,7 @@ public class BattleManager : MonoBehaviour
         if (!Player.Stunned())
         {
             State = BattleState.Turn;
+            Grid.destroyed.Clear();
             Grid.Unlock();
         }
         else
@@ -177,6 +179,7 @@ public class BattleManager : MonoBehaviour
         Player.hp = playerStats.playerHp;
         Player.mana = playerStats.playerMana;
         Player.damage = playerStats.playerDamage;
+        Player.manaPerGem = playerStats.manaPerGem;
     }
 
     private static Enemy LoadEnemy(int i)

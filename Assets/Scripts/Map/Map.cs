@@ -33,6 +33,8 @@ public class Map : MonoBehaviour
         {
             CurrentVertex_().transform.localScale = chosenScale;
         }
+        
+        GameManager.SaveData();
     }
 
     public void OnClick(Vertex vertex)
@@ -52,7 +54,7 @@ public class Map : MonoBehaviour
         }
     }
 
-    private Vertex CurrentVertex_()
+    public Vertex CurrentVertex_()
     {
         return allVertexes[currentVertex];
     }

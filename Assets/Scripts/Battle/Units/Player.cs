@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
+using UnityEngine;
 
 [Serializable]
 public class Player : Unit
 {
-    private int manaPerGem;
+    public int manaPerGem;
 
     public Grid grid;
 
@@ -19,12 +20,12 @@ public class Player : Unit
 
     private int CountMana()
     {
-        return grid.Destroyed.ContainsKey(GemType.Mana) ? grid.Destroyed[GemType.Mana] * manaPerGem : 0;
+        return grid.destroyed.ContainsKey(GemType.Mana) ? grid.destroyed[GemType.Mana] * manaPerGem : 0;
     }
 
     private int CountDamage()
     {
-        return (int) (grid.Destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
+        return (int) (grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
     }
 
     public override void Act()
