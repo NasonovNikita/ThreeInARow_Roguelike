@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class BattleVertex : Vertex
 {
-    public List<string> enemies;
+    public List<Enemy> enemies;
     
     public override void OnArrive()
     {
-        BattleManager.enemiesNames = enemies;
+        BattleManager.enemies = enemies;
         SceneManager.LoadScene("Battle");
     }
 }

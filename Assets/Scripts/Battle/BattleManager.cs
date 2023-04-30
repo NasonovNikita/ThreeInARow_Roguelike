@@ -19,8 +19,6 @@ public class BattleManager : MonoBehaviour
 
     private const float FightTime = 0.2f;
 
-    public static List<string> enemiesNames;
-
     public static List<Enemy> enemies = new();
 
     public static Enemy target;
@@ -57,14 +55,15 @@ public class BattleManager : MonoBehaviour
         State = BattleState.Turn;
 
         
-        for (int i = 0; i < enemiesNames.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
-            enemies.Add(LoadEnemy(i));
+            enemies[i] = LoadEnemy(i);
         }
         
         Player.grid = Grid;
         target = enemies[0];
 
+        Debug.Log(enemies.Count);
         placer.enemiesToPlace = enemies;
         placer.Place();
         
@@ -182,6 +181,6 @@ public class BattleManager : MonoBehaviour
 
     private static Enemy LoadEnemy(int i)
     {
-        return Instantiate(Resources.Load<Enemy>($"Prefabs/Battle/Units/{enemiesNames[i]}"), canvas.transform, false);
+        return Instantiate(enemies[i], canvas.transform, false);
     }
 }

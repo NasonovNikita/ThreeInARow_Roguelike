@@ -1,35 +1,30 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
 public static class GameManager
 {
-    private static Stats _playerStats;
-
-    [RuntimeInitializeOnLoadMethod]
-    private static void MainMenu()
-    {
-        _playerStats = Resources.Load<Stats>("RuntimeData/PlayerStats");
-        GameObject.Find("New Game").GetComponent<Button>().onClick.AddListener(NewGame);
-        GameObject.Find("Continue").GetComponent<Button>().onClick.AddListener(Continue);
-    }
-
-    private static void NewGame()
+    public static void NewGame()
     {
         Debug.unityLogger.Log("NewGame");
-        _playerStats.Reset();
+        
+        Resources.Load<Stats>("RuntimeData/PlayerStats").Reset();
         SceneManager.LoadScene("Map");
-        PlayerPrefs.DeleteAll();
+        ResetAll();
     }
 
-    private static void Continue()
+    public static void Continue()
     {
         Debug.unityLogger.Log("Continue");
+        
         if (PlayerPrefs.HasKey("vertex"))
         {
             Map.currentVertex = PlayerPrefs.GetInt("vertex");
+        }
+        else
+        {
+            ResetAll();
         }
 
         SceneManager.LoadScene("Map");
@@ -53,5 +48,12 @@ public static class GameManager
     public static void SaveData()
     {
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
+    }
+
+    public static void ResetAll()
+    {
+        Map.currentVertex = -1;
+        
+        PlayerPrefs.DeleteAll();
     }
 }
