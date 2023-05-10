@@ -34,7 +34,7 @@ public class Map : MonoBehaviour
             CurrentVertex_().transform.localScale = chosenScale;
         }
         
-        GameManager.SaveData();
+        GameManager.instance.SaveData();
     }
 
     public void OnClick(Vertex vertex)
@@ -63,8 +63,8 @@ public class Map : MonoBehaviour
     {
         GameObject menu = Instantiate(winMessage, canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
-        buttons[0].onClick.AddListener(GameManager.Restart);
-        buttons[1].onClick.AddListener(GameManager.Exit);
+        buttons[0].onClick.AddListener(GameManager.instance.NewGame);
+        buttons[1].onClick.AddListener(GameManager.instance.Exit);
         menu.gameObject.SetActive(true);
     }
 }

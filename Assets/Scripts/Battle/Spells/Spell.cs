@@ -3,15 +3,18 @@ using UnityEngine;
 public abstract class Spell : MonoBehaviour
 {
     protected abstract int ManaCost { get;}
-    
-    protected abstract int Moves { get;}
 
-    public BattleManager Manager;
+    public BattleManager manager;
+
+    public void Awake()
+    {
+        manager = FindObjectOfType<BattleManager>();
+    }
 
     public abstract void Cast();
 
-    protected bool CanCast()
+    protected bool CantCast()
     {
-        return BattleManager.State != BattleState.Turn || BattleManager.Player.mana < ManaCost;
+        return manager.State != BattleState.Turn || manager.player.mana < ManaCost;
     }
 }

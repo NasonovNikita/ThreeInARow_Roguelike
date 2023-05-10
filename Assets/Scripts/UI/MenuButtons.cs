@@ -20,7 +20,7 @@ public class MenuButtons : MonoBehaviour
     }
     public void Exit()
     {
-        GameManager.Exit();
+        GameManager.instance.Exit();
     }
 
     public void MainMenu()

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -57,13 +56,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void Restart()
+    public void Restart()
     {
         Map.currentVertex = -1;
         SceneManager.LoadScene("Map");
     }
 
-    public static void Exit()
+    public void Exit()
     {
         #if UNITY_EDITOR
             EditorApplication.ExitPlaymode();
@@ -72,25 +71,25 @@ public class GameManager : MonoBehaviour
         #endif
     }
 
-    public static void SaveData()
+    public void SaveData()
     {
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
     }
 
-    public static void ResetAll()
+    public void ResetAll()
     {
         Map.currentVertex = -1;
         
         PlayerPrefs.DeleteAll();
     }
 
-    public static void LoadMap()
+    public void LoadMap()
     {
         SceneManager.LoadScene("Map");
     }
 
-    public static IEnumerator<WaitUntil> LoadBattle()
+    public IEnumerator<WaitUntil> LoadBattle()
     {
         SceneManager.LoadScene("Map");
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Map");

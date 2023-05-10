@@ -39,11 +39,10 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        BattleManager.Grid = this;
-        if (BattleManager.Player != null)
-        {
-            BattleManager.TurnOn();
-        }
+        manager = FindObjectOfType<BattleManager>();
+        
+        manager.grid = this;
+        
         _box = new Gem[sizeY, sizeX];
         SmartGenGems();
     }

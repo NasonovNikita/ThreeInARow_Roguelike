@@ -7,43 +7,39 @@ using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    public static Player Player;
+    public Player player;
     
-    public static Grid Grid;
+    public Grid grid;
     
-    private static Stats playerStats;
+    private Stats playerStats;
     
-    private static EnemyPlacement placer;
+    private EnemyPlacement placer;
     
-    private static Canvas canvas;
+    private Canvas canvas;
 
     private const float FightTime = 0.2f;
 
     public static List<Enemy> enemies = new();
 
-    public static Enemy target;
-
-
-    public static Spell[] Spells;
+    public Enemy target;
     
-    public static BattleState State { get; private set; }
+    public BattleState State { get; private set; }
     
     private Coroutine _battle;
 
     private bool _playerActs;
     private bool _enemiesAct;
 
-    private static bool _firstBattle = true;
+    private bool _firstBattle = true;
     
-
     private bool _dead;
     
-    public static void TurnOn()
+    public void Awake()
     {
         canvas = FindObjectOfType<Canvas>();
-
+        player = FindObjectOfType<Player>();
+        grid = FindObjectOfType<Grid>();
         playerStats = Resources.Load<Stats>("RuntimeData/PlayerStats");
-
         placer = FindObjectOfType<EnemyPlacement>();
         
         if (_firstBattle)
@@ -53,14 +49,13 @@ public class BattleManager : MonoBehaviour
         }
         
         State = BattleState.Turn;
-
         
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i] = LoadEnemy(i);
         }
         
-        Player.grid = Grid;
+        player.grid = grid;
         target = enemies[0];
 
         Debug.Log(enemies.Count);
@@ -69,19 +64,19 @@ public class BattleManager : MonoBehaviour
         
         foreach (Enemy enemy in enemies)
         {
-            enemy.player = Player;
+            enemy.player = player;
         }
         
         LoadPlayerStats();
         
-        GameManager.SaveData();
+        GameManager.instance.SaveData();
     }
     public void EndTurn()
     {
         StartCoroutine(PlayerAct());
     }
 
-    public static IEnumerator KillEnemy(Enemy enemy)
+    public IEnumerator KillEnemy(Enemy enemy)
     {
         enemies.Remove(enemy);
         
@@ -101,30 +96,30 @@ public class BattleManager : MonoBehaviour
         enemy.Delete();
     }
 
-    public static IEnumerator Die()
+    public IEnumerator Die()
     {
         State = BattleState.End;
         
         yield return new WaitForSeconds(FightTime);
-        Player.Delete();
+        player.Delete();
         
         Lose();
     }
 
-    private static void Win()
+    private void Win()
     {
-        Grid.Block();
+        grid.Block();
         SavePlayerStats();
         SceneManager.LoadScene("Map");
     }
 
     private IEnumerator<WaitForSeconds> PlayerAct()
     {
-        if (!Player.Stunned())
+        if (!player.Stunned())
         {
             State = BattleState.PlayerAct;
 
-            Player.Act();
+            player.Act();
             yield return new WaitForSeconds(FightTime);
         }
 
@@ -139,16 +134,16 @@ public class BattleManager : MonoBehaviour
         {
             enemy.Act();
             yield return new WaitForSeconds(FightTime);
-            if (Player.hp <= 0) yield break;
+            if (player.hp <= 0) yield break;
         }
         
         ModifierManager.Move();
 
-        if (!Player.Stunned())
+        if (!player.Stunned())
         {
             State = BattleState.Turn;
-            Grid.destroyed.Clear();
-            Grid.Unlock();
+            grid.destroyed.Clear();
+            grid.Unlock();
         }
         else
         {
@@ -157,32 +152,32 @@ public class BattleManager : MonoBehaviour
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
-    public static void Lose()
+    public void Lose()
     {
         State = BattleState.End;
-        Grid.Block();
+        grid.Block();
         GameObject menu = Instantiate(Resources.Load<GameObject>("Prefabs/Menu/Lose"), canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
-        buttons[0].onClick.AddListener(GameManager.Restart);
-        buttons[1].onClick.AddListener(GameManager.Exit);
+        buttons[0].onClick.AddListener(GameManager.instance.NewGame);
+        buttons[1].onClick.AddListener(GameManager.instance.Exit);
         menu.gameObject.SetActive(true);
     }
 
-    public static void SavePlayerStats()
+    public void SavePlayerStats()
     {
-        playerStats.playerHp = Player.hp;
-        playerStats.playerMana = Player.mana;
+        playerStats.playerHp = player.hp;
+        playerStats.playerMana = player.mana;
     }
 
-    public static void LoadPlayerStats()
+    public void LoadPlayerStats()
     {
-        Player.hp = playerStats.playerHp;
-        Player.mana = playerStats.playerMana;
-        Player.damage = playerStats.playerDamage;
-        Player.manaPerGem = playerStats.manaPerGem;
+        player.hp = playerStats.playerHp;
+        player.mana = playerStats.playerMana;
+        player.damage = playerStats.playerDamage;
+        player.manaPerGem = playerStats.manaPerGem;
     }
 
-    private static Enemy LoadEnemy(int i)
+    private Enemy LoadEnemy(int i)
     {
         return Instantiate(enemies[i], canvas.transform, false);
     }

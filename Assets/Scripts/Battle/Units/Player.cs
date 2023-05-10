@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using UnityEngine;
 
 [Serializable]
 public class Player : Unit
@@ -8,15 +7,6 @@ public class Player : Unit
     public int manaPerGem;
 
     public Grid grid;
-
-    public void Awake()
-    {
-        BattleManager.Player = this;
-        if (BattleManager.Grid != null)
-        {
-            BattleManager.TurnOn();
-        }
-    }
 
     private int CountMana()
     {
@@ -31,11 +21,11 @@ public class Player : Unit
     public override void Act()
     {
         mana += CountMana();
-        BattleManager.target.DoDamage(CountDamage());
+        manager.target.DoDamage(CountDamage());
     }
 
     protected override void NoHp()
     {
-        StartCoroutine(BattleManager.Die());
+        StartCoroutine(manager.Die());
     }
 }

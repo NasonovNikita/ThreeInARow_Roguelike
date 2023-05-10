@@ -8,13 +8,13 @@ public class Enemy : Unit
 
     public override void Act()
     {
-        if (Stunned() || BattleManager.State == BattleState.End) return;
+        if (Stunned() || manager.State == BattleState.End) return;
         
         player.DoDamage((int) damage.GetValue());
     }
 
     protected override void NoHp()
     {
-        StartCoroutine(BattleManager.KillEnemy(this));
+        StartCoroutine(manager.KillEnemy(this));
     }
 }

@@ -12,7 +12,13 @@ public abstract class Unit : MonoBehaviour
     public Stat damage;
 
     public List<Modifier> statusModifiers = new();
-    
+
+    protected BattleManager manager;
+
+    public void Awake()
+    {
+        manager = FindObjectOfType<BattleManager>();
+    }
 
     public void DoDamage(int value)
     {
