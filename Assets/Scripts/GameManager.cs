@@ -25,12 +25,9 @@ public class GameManager : MonoBehaviour
     
     public void NewGame()
     {
-        Debug.unityLogger.Log("NewGame");
-        
         Resources.Load<Stats>("RuntimeData/PlayerStats").Reset();
         SceneManager.LoadScene("Map");
         ResetAll();
-        
     }
 
     public void Continue()
