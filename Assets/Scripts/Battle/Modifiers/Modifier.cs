@@ -6,7 +6,7 @@ public class Modifier
 {
     public int moves;
     
-    public readonly ModifierType Type;
+    public ModifierType type;
     
     public float value;
 
@@ -17,7 +17,7 @@ public class Modifier
     public Modifier(int moves, ModifierType type, List<Modifier> belong, Func<bool> cond, float value = 0)
     {
         this.moves = moves;
-        Type = type;
+        this.type = type;
         this.value = value;
         _belongList = belong;
         _cond = cond;

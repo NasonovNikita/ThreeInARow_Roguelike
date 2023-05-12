@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    private Stats stats;
     public void Awake()
     {
         if (instance == null)
@@ -19,24 +21,25 @@ public class GameManager : MonoBehaviour
         }
         
         DontDestroyOnLoad(gameObject);
+
+        stats = Resources.Load<Stats>("RuntimeData/PlayerStats");
     }
 
     
     
     public void NewGame()
     {
-        Resources.Load<Stats>("RuntimeData/PlayerStats").Reset();
-        SceneManager.LoadScene("Map");
+        stats.Reset();
         ResetAll();
+        SceneManager.LoadScene("Map");
     }
 
     public void Continue()
     {
-        Debug.unityLogger.Log("Continue");
-        
         if (PlayerPrefs.HasKey("vertex"))
         {
             Map.currentVertex = PlayerPrefs.GetInt("vertex");
+            
             if (PlayerPrefs.GetString("scene") == "Map")
             {
                 LoadMap();
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
     public void ResetAll()
     {
         Map.currentVertex = -1;
+        
         
         PlayerPrefs.DeleteAll();
     }

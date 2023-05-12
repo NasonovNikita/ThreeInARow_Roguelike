@@ -71,8 +71,8 @@ public class Stat
 
     private static float UseMods(List<Modifier> mods, float value)
     {
-        float mulValue = 1 + mods.Sum(modifier => modifier.Type == ModifierType.Mul ? modifier.Use() : 0);
-        int addValue = (int) mods.Sum(modifier => modifier.Type == ModifierType.Add ? modifier.Use() : 0);
+        float mulValue = 1 + mods.Sum(modifier => modifier.type == ModifierType.Mul ? modifier.Use() : 0);
+        int addValue = (int) mods.Sum(modifier => modifier.type == ModifierType.Add ? modifier.Use() : 0);
         return value * mulValue + addValue;
     }
     

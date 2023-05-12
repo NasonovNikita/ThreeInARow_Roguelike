@@ -29,8 +29,6 @@ public class BattleManager : MonoBehaviour
 
     private bool _playerActs;
     private bool _enemiesAct;
-
-    private bool _firstBattle = true;
     
     private bool _dead;
     
@@ -42,30 +40,19 @@ public class BattleManager : MonoBehaviour
         playerStats = Resources.Load<Stats>("RuntimeData/PlayerStats");
         placer = FindObjectOfType<EnemyPlacement>();
         
-        if (_firstBattle)
-        {
-            _firstBattle = false;
-            LoadPlayerStats();
-        }
-        
         State = BattleState.Turn;
         
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i] = LoadEnemy(i);
         }
+
+        placer.enemiesToPlace = enemies;
         
         player.grid = grid;
         target = enemies[0];
 
-        Debug.Log(enemies.Count);
-        placer.enemiesToPlace = enemies;
         placer.Place();
-        
-        foreach (Enemy enemy in enemies)
-        {
-            enemy.player = player;
-        }
         
         LoadPlayerStats();
         
@@ -165,6 +152,7 @@ public class BattleManager : MonoBehaviour
 
     public void SavePlayerStats()
     {
+        Debug.unityLogger.Log("aboba");
         playerStats.playerHp = player.hp;
         playerStats.playerMana = player.mana;
     }

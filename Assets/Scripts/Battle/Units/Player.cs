@@ -24,6 +24,16 @@ public class Player : Unit
         manager.target.DoDamage(CountDamage());
     }
 
+    public override void DoDamage(int value)
+    {
+        base.DoDamage(value);
+        
+        if (value != 0)
+        {
+            AudioManager.instance.Play(AudioEnum.PlayerHit);
+        }
+    }
+
     protected override void NoHp()
     {
         StartCoroutine(manager.Die());

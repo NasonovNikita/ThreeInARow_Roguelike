@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,7 +9,12 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
     
     public List<Vertex> next;
 
-    public Map map;
+    private Map map;
+
+    public void Awake()
+    {
+        map = FindObjectOfType<Map>();
+    }
 
     public void Start()
     {

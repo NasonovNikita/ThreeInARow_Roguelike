@@ -3,9 +3,14 @@ using System;
 [Serializable]
 public class Enemy : Unit
 {
-    [NonSerialized]
-    public Player player;
+    private Player player;
 
+    public new void Awake()
+    {
+        base.Awake();
+
+        player = FindObjectOfType<Player>();
+    }
     public override void DoDamage(int value)
     {
         base.DoDamage(value);

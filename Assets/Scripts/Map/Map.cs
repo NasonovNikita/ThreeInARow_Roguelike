@@ -24,10 +24,6 @@ public class Map : MonoBehaviour
         {
             Win();
         }
-        foreach (Vertex vertex in allVertexes)
-        {
-            vertex.map = this;
-        }
 
         if (currentVertex != -1)
         {
