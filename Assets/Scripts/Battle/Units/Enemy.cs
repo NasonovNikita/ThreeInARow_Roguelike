@@ -6,6 +6,16 @@ public class Enemy : Unit
     [NonSerialized]
     public Player player;
 
+    public override void DoDamage(int value)
+    {
+        base.DoDamage(value);
+
+        if (value != 0)
+        {
+            AudioManager.instance.Play(AudioEnum.EnemyHit);
+        }
+    }
+
     public override void Act()
     {
         if (Stunned() || manager.State == BattleState.End) return;

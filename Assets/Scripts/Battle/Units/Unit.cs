@@ -20,7 +20,7 @@ public abstract class Unit : MonoBehaviour
         manager = FindObjectOfType<BattleManager>();
     }
 
-    public void DoDamage(int value)
+    public virtual void DoDamage(int value)
     {
         hp -= value;
 

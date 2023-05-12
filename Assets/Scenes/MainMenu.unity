@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 1257878901}
   - component: {fileID: 1257878900}
   m_Layer: 0
-  m_Name: AudioClassTest
+  m_Name: EnemyHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,9 +454,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4087901775b86f64497fb9b88753937e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: a93a3f0b8a2f67e4e96efd820f00db4d, type: 3}
   loop: 0
-  audioName: 0
+  audioName: 1
 --- !u!82 &1257878901
 AudioSource:
   m_ObjectHideFlags: 0
