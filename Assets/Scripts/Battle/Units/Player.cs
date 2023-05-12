@@ -21,6 +21,7 @@ public class Player : Unit
     public override void Act()
     {
         mana += CountMana();
+        AudioManager.instance.Play(AudioEnum.EnemyHit);
         manager.target.DoDamage(CountDamage());
     }
 
