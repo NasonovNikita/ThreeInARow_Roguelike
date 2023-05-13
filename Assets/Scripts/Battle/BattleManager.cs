@@ -37,7 +37,7 @@ public class BattleManager : MonoBehaviour
         canvas = FindObjectOfType<Canvas>();
         player = FindObjectOfType<Player>();
         grid = FindObjectOfType<Grid>();
-        playerStats = Resources.Load<Stats>("RuntimeData/PlayerStats");
+        playerStats = Resources.Load<Stats>("DefaultStats/PlayerStats");
         placer = FindObjectOfType<EnemyPlacement>();
         
         State = BattleState.Turn;
@@ -49,12 +49,11 @@ public class BattleManager : MonoBehaviour
 
         placer.enemiesToPlace = enemies;
         
-        player.grid = grid;
         target = enemies[0];
 
         placer.Place();
         
-        LoadPlayerStats();
+        player.Load();
         
         GameManager.instance.SaveData();
     }
@@ -96,7 +95,7 @@ public class BattleManager : MonoBehaviour
     private void Win()
     {
         grid.Block();
-        SavePlayerStats();
+        player.Save();
         SceneManager.LoadScene("Map");
     }
 
@@ -148,20 +147,6 @@ public class BattleManager : MonoBehaviour
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
         buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
         menu.gameObject.SetActive(true);
-    }
-
-    public void SavePlayerStats()
-    {
-        playerStats.playerHp = player.hp;
-        playerStats.playerMana = player.mana;
-    }
-
-    public void LoadPlayerStats()
-    {
-        player.hp = playerStats.playerHp;
-        player.mana = playerStats.playerMana;
-        player.damage = playerStats.playerDamage;
-        player.manaPerGem = playerStats.manaPerGem;
     }
 
     private Enemy LoadEnemy(int i)

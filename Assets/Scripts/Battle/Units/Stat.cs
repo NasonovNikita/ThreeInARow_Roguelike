@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 
 [Serializable]
@@ -13,6 +14,7 @@ public class Stat
     public float borderUp;
 
     [SerializeField]
+    [JsonProperty]
     private float value;
 
     public List<Modifier> onAddMods = new ();

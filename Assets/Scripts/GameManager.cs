@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,8 +8,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
-    private Stats stats;
     public void Awake()
     {
         if (instance == null)
@@ -22,7 +21,8 @@ public class GameManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
 
-        stats = Resources.Load<Stats>("RuntimeData/PlayerStats");
+        Player.data = new PlayerData();
+        
     }
 
     public void MainMenu()
@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     
     public void NewGame()
     {
-        stats.Reset();
         ResetAll();
         SceneManager.LoadScene("Map");
     }
@@ -42,6 +41,8 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("vertex"))
         {
             Map.currentVertex = PlayerPrefs.GetInt("vertex");
+            Player.data = JsonConvert.DeserializeObject<PlayerData>(PlayerPrefs.GetString("playerData"));
+            Debug.unityLogger.Log(Player.data);
             
             if (PlayerPrefs.GetString("scene") == "Map")
             {
@@ -76,14 +77,17 @@ public class GameManager : MonoBehaviour
 
     public void SaveData()
     {
+        string playerData = JsonConvert.SerializeObject(Player.data);
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetString("PlayerData", playerData);
+        Debug.unityLogger.Log(playerData);
     }
 
     public void ResetAll()
     {
         Map.currentVertex = -1;
-        
+        Player.data = new PlayerData();
         
         PlayerPrefs.DeleteAll();
     }

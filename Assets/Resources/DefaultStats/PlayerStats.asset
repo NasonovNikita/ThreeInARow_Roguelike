@@ -22,7 +22,7 @@ MonoBehaviour:
   playerMana:
     borderDown: 0
     borderUp: 100
-    value: 100
+    value: 0
     onAddMods: []
     onSubMods: []
     onGetMods: []

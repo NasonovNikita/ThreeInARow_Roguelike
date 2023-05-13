@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 [CreateAssetMenu(fileName = "Stats", menuName = "Stats")]
 public class Stats : ScriptableObject
 {
@@ -7,11 +8,4 @@ public class Stats : ScriptableObject
     public Stat playerMana;
     public Stat playerDamage;
     public int manaPerGem;
-
-    public void Reset()
-    {
-        playerHp = new Stat(playerHp);
-        playerMana = new Stat(playerMana);
-        playerDamage = new Stat(playerDamage);
-    }
 }
