@@ -25,7 +25,10 @@ public class GameManager : MonoBehaviour
         stats = Resources.Load<Stats>("RuntimeData/PlayerStats");
     }
 
-    
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     
     public void NewGame()
     {

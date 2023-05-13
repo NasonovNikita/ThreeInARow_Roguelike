@@ -146,13 +146,12 @@ public class BattleManager : MonoBehaviour
         GameObject menu = Instantiate(Resources.Load<GameObject>("Prefabs/Menu/Lose"), canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
-        buttons[1].onClick.AddListener(GameManager.instance.Exit);
+        buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
         menu.gameObject.SetActive(true);
     }
 
     public void SavePlayerStats()
     {
-        Debug.unityLogger.Log("aboba");
         playerStats.playerHp = player.hp;
         playerStats.playerMana = player.mana;
     }
