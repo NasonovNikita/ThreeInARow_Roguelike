@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("vertex"))
         {
             Map.currentVertex = PlayerPrefs.GetInt("vertex");
-            Player.data = JsonConvert.DeserializeObject<PlayerData>(PlayerPrefs.GetString("playerData"));
-            Debug.unityLogger.Log(Player.data);
+            Player.data = JsonConvert.DeserializeObject<PlayerData>(PlayerPrefs.GetString("PlayerData"));
             
             if (PlayerPrefs.GetString("scene") == "Map")
             {
@@ -81,7 +80,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("PlayerData", playerData);
-        Debug.unityLogger.Log(playerData);
     }
 
     public void ResetAll()

@@ -23,6 +23,7 @@ public class Stat
 
     public List<Modifier> onGetMods = new ();
 
+    [JsonConstructor]
     public Stat(float value, float borderUp, float borderDown = 0)
     {
         this.value = value;

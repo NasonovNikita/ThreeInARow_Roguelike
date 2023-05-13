@@ -84,12 +84,22 @@ public class PlayerData
     [SerializeField]
     public List<Modifier> statusModifiers;
 
+    [JsonConstructor]
+    public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat damage, List<Modifier> statusModifiers)
+    {
+        this.manaPerGem = manaPerGem;
+        this.hp = hp;
+        this.mana = mana;
+        this.damage = damage;
+        this.statusModifiers = statusModifiers;
+    }
+
     public PlayerData()
     {
         manaPerGem = 20;
         hp = new Stat(200);
         mana = new Stat(100);
         damage = new Stat(20);
-        statusModifiers = new();
+        statusModifiers = new List<Modifier>();
     }
 }
