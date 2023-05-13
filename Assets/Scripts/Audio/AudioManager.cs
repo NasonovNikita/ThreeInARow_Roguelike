@@ -1,12 +1,12 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    private AudioPlayer[] sounds;
-    
+    private Dictionary<AudioEnum, AudioPlayer> sounds;
+
     public void Awake()
     {
         if (instance == null)
@@ -20,7 +20,11 @@ public class AudioManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
 
-        sounds = GetComponentsInChildren<AudioPlayer>();
+        sounds = new Dictionary<AudioEnum, AudioPlayer>();
+        foreach (AudioPlayer snd in GetComponentsInChildren<AudioPlayer>())
+        {
+            sounds[snd.audioName] = snd;
+        }
     }
 
     public void Play(AudioEnum soundEnum)
@@ -39,6 +43,6 @@ public class AudioManager : MonoBehaviour
 
     private AudioPlayer GetAudio(AudioEnum soundEnum)
     {
-        return Array.Find(sounds, (snd) => snd.audioName == soundEnum);
+        return sounds[soundEnum];
     }
 }
