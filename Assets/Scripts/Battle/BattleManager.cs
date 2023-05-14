@@ -37,7 +37,6 @@ public class BattleManager : MonoBehaviour
         canvas = FindObjectOfType<Canvas>();
         player = FindObjectOfType<Player>();
         grid = FindObjectOfType<Grid>();
-        playerStats = Resources.Load<Stats>("DefaultStats/PlayerStats");
         placer = FindObjectOfType<EnemyPlacement>();
         
         State = BattleState.Turn;
