@@ -34,6 +34,8 @@ public class BattleManager : MonoBehaviour
     
     public void Awake()
     {
+        AudioManager.instance.StopAll();
+        
         canvas = FindObjectOfType<Canvas>();
         player = FindObjectOfType<Player>();
         grid = FindObjectOfType<Grid>();
@@ -55,6 +57,8 @@ public class BattleManager : MonoBehaviour
         player.Load();
         
         GameManager.instance.SaveData();
+        
+        AudioManager.instance.Play(AudioEnum.Battle);
     }
     public void EndTurn()
     {

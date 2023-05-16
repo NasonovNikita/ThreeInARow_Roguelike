@@ -3,20 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-    private GameManager gm;
-    public void Awake()
-    {
-        gm = FindObjectOfType<GameManager>();
-    }
 
     public void NewGame()
     {
-        gm.NewGame();
+        GameManager.instance.NewGame();
     }
 
     public void Continue()
     {
-        gm.Continue();
+        GameManager.instance.Continue();
     }
     public void Exit()
     {

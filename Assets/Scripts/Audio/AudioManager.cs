@@ -32,6 +32,8 @@ public class AudioManager : MonoBehaviour
         AudioPlayer sound = GetAudio(soundEnum);
         
         sound.Play();
+        
+        Debug.unityLogger.Log($"Play {soundEnum}");
     }
 
     public void Stop(AudioEnum soundEnum)
@@ -39,6 +41,18 @@ public class AudioManager : MonoBehaviour
         AudioPlayer sound = GetAudio(soundEnum);
         
         sound.Stop();
+        
+        Debug.unityLogger.Log($"Stop {soundEnum}");
+    }
+
+    public void StopAll()
+    {
+        foreach (AudioPlayer sound in sounds.Values)
+        {
+            sound.Stop();
+        }
+        
+        Debug.unityLogger.Log("StopAll");
     }
 
     private AudioPlayer GetAudio(AudioEnum soundEnum)

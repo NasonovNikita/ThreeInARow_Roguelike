@@ -52,7 +52,6 @@ public class Player : Unit
 
     public void Load()
     {
-        Debug.unityLogger.Log(data);
         manaPerGem = data.manaPerGem;
         hp = data.hp;
         mana = data.mana;

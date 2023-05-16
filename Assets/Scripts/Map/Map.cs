@@ -20,6 +20,8 @@ public class Map : MonoBehaviour
 
     public void Awake()
     {
+        AudioManager.instance.StopAll();
+        
         if (currentVertex == allVertexes.Count - 1)
         {
             Win();
@@ -31,6 +33,8 @@ public class Map : MonoBehaviour
         }
         
         GameManager.instance.SaveData();
+        
+        AudioManager.instance.Play(AudioEnum.Map);
     }
 
     public void OnClick(Vertex vertex)

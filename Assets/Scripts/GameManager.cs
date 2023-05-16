@@ -22,12 +22,15 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         Player.data = new PlayerData();
-        
     }
 
     public void MainMenu()
     {
+        AudioManager.instance.StopAll();
+        
         SceneManager.LoadScene("MainMenu");
+        
+        AudioManager.instance.Play(AudioEnum.MainMenu);
     }
     
     public void NewGame()
