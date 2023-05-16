@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    private Dictionary<AudioEnum, AudioPlayer> sounds;
+    public Dictionary<AudioEnum, AudioPlayer> sounds;
 
     public void Awake()
     {
@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
         
         sound.Play();
         
-        Debug.unityLogger.Log($"Play {soundEnum}");
+        //Debug.unityLogger.Log($"Play {soundEnum}");
     }
 
     public void Stop(AudioEnum soundEnum)
@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
         
         sound.Stop();
         
-        Debug.unityLogger.Log($"Stop {soundEnum}");
+        //Debug.unityLogger.Log($"Stop {soundEnum}");
     }
 
     public void StopAll()
@@ -52,7 +52,7 @@ public class AudioManager : MonoBehaviour
             sound.Stop();
         }
         
-        Debug.unityLogger.Log("StopAll");
+        //Debug.unityLogger.Log("StopAll");
     }
 
     private AudioPlayer GetAudio(AudioEnum soundEnum)

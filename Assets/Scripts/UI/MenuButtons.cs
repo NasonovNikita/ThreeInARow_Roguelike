@@ -20,6 +20,6 @@ public class MenuButtons : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        GameManager.instance.MainMenu();
     }
 }
