@@ -202,23 +202,12 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 100
     value: 100
-    OnAddMods: []
-    OnSubMods: []
-    OnGetMods: []
   mana:
     borderDown: 0
     borderUp: 0
     value: 0
-    OnAddMods: []
-    OnSubMods: []
-    OnGetMods: []
-  manager: {fileID: 0}
-  StatusModifiers: []
   damage:
     borderDown: 0
     borderUp: 15
     value: 15
-    OnAddMods: []
-    OnSubMods: []
-    OnGetMods: []
-  player: {fileID: 0}
+  statusModifiers: []

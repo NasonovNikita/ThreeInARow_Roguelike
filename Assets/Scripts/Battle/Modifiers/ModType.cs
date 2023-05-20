@@ -1,4 +1,4 @@
-public enum ModifierType
+public enum ModType
 {
     Add,
     Mul,

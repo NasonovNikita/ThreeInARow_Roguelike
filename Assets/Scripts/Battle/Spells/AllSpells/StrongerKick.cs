@@ -10,6 +10,6 @@ public class StrongerKick : Spell
         if (CantCast()) return;
         
         manager.player.mana -= ManaCost;
-        manager.player.damage.onGetMods.Add(new Modifier(Moves, ModifierType.Mul, manager.player.damage.onGetMods, () => true, Value));
+        manager.player.damage.AddMod(new Modifier(Moves, ModType.Mul, () => true, Value), ModAffect.Get);
     }
 }

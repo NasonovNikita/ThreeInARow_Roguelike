@@ -126,7 +126,7 @@ public class BattleManager : MonoBehaviour
             if (player.hp <= 0) yield break;
         }
         
-        ModifierManager.Move();
+        Modifier.Move();
 
         if (!player.Stunned())
         {

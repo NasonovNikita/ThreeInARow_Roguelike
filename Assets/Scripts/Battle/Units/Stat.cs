@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -18,11 +17,12 @@ public class Stat
     [JsonProperty]
     private float value;
 
-    public List<Modifier> onAddMods = new ();
-
-    public List<Modifier> onSubMods = new ();
-
-    public List<Modifier> onGetMods = new ();
+    public readonly Dictionary<ModAffect, List<Modifier>> mods = new()
+    {
+        { ModAffect.Add , new List<Modifier>()},
+        { ModAffect.Get, new List<Modifier>()},
+        { ModAffect.Sub, new List<Modifier>()}
+    };
 
     [JsonConstructor]
     public Stat(float value, float borderUp, float borderDown = 0)
@@ -55,6 +55,11 @@ public class Stat
         borderDown = 0;
     }
 
+    public void AddMod(Modifier mod, ModAffect affect)
+    {
+        mods[affect].Add(mod);
+    }
+
     private void Norm()
     {
         if (value < borderDown)
@@ -70,16 +75,16 @@ public class Stat
 
     public float GetValue()
     {
-        return UseMods(onGetMods, value);
+        return UseMods(ModAffect.Get, value, mods);
     }
 
-    private static float UseMods(List<Modifier> mods, float value)
+    private static float UseMods(ModAffect type, float value, Dictionary<ModAffect, List<Modifier>> mods)
     {
-        float mulValue = 1 + mods.Sum(modifier => modifier.type == ModifierType.Mul ? modifier.Use() : 0);
-        int addValue = (int) mods.Sum(modifier => modifier.type == ModifierType.Add ? modifier.Use() : 0);
+        float mulValue = 1 + mods[type].Sum(mod => mod.type == ModType.Add ? mod.Use() : 0);
+        int addValue = (int) mods[type].Sum(mod => mod.type == ModType.Mul ? mod.Use() : 0);
         return value * mulValue + addValue;
     }
-    
+
     public static bool operator == (Stat stat, float n)
     {
         return stat?.value == n;
@@ -112,13 +117,13 @@ public class Stat
 
     public static Stat operator + (Stat stat, float n)
     {
-        n = UseMods(stat.onAddMods, n);
+        n = UseMods(ModAffect.Add, n, stat.mods);
         return new Stat(stat.value + n, stat.borderUp, stat.borderDown);
     }
 
     public static Stat operator - (Stat stat, float n)
     {
-        n = UseMods(stat.onSubMods, n);
+        n = UseMods(ModAffect.Sub, n, stat.mods);
         return new Stat(stat.value - n, stat.borderUp, stat.borderDown);
     }
 
