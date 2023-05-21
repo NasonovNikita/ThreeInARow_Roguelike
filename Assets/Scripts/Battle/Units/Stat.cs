@@ -22,6 +22,16 @@ public class Stat
         { ModAffect.Sub, new List<Modifier>()}
     };
 
+    public void Init()
+    {
+        mods = new Dictionary<ModAffect, List<Modifier>>
+        {
+            { ModAffect.Add , new List<Modifier>()},
+            { ModAffect.Get, new List<Modifier>()},
+            { ModAffect.Sub, new List<Modifier>()}
+        };
+    }
+
     public Stat(float value, float borderUp, float borderDown = 0)
     {
         this.value = value;

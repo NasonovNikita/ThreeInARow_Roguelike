@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ public abstract class Unit : MonoBehaviour
     public void Awake()
     {
         manager = FindObjectOfType<BattleManager>();
+        hp.Init();
+        mana.Init();
+        damage.Init();
     }
 
     public virtual void DoDamage(int value)
