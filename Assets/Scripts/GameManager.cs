@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -44,7 +43,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("vertex"))
         {
             Map.currentVertex = PlayerPrefs.GetInt("vertex");
-            Player.data = JsonConvert.DeserializeObject<PlayerData>(PlayerPrefs.GetString("PlayerData"));
+            Player.data = JsonUtility.FromJson<PlayerData>(PlayerPrefs.GetString("PlayerData"));
             
             if (PlayerPrefs.GetString("scene") == "Map")
             {
@@ -79,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveData()
     {
-        string playerData = JsonConvert.SerializeObject(Player.data);
+        string playerData = JsonUtility.ToJson(Player.data);
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("PlayerData", playerData);

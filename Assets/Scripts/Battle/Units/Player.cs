@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using UnityEngine;
 
 [Serializable]
@@ -83,7 +82,7 @@ public class PlayerData
     [SerializeField]
     public List<Modifier> statusModifiers;
 
-    [JsonConstructor]
+    
     public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat damage, List<Modifier> statusModifiers)
     {
         this.manaPerGem = manaPerGem;

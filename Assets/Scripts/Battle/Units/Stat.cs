@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using UnityEngine;
 
 [Serializable]
@@ -14,17 +13,15 @@ public class Stat
     public float borderUp;
 
     [SerializeField]
-    [JsonProperty]
     private float value;
 
-    public readonly Dictionary<ModAffect, List<Modifier>> mods = new()
+    private Dictionary<ModAffect, List<Modifier>> mods = new()
     {
         { ModAffect.Add , new List<Modifier>()},
         { ModAffect.Get, new List<Modifier>()},
         { ModAffect.Sub, new List<Modifier>()}
     };
 
-    [JsonConstructor]
     public Stat(float value, float borderUp, float borderDown = 0)
     {
         this.value = value;
