@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class StrongerKick : Spell
 {
     protected override int ManaCost => 25;
@@ -10,6 +12,6 @@ public class StrongerKick : Spell
         if (CantCast()) return;
         
         manager.player.mana -= ManaCost;
-        manager.player.damage.AddMod(new Modifier(Moves, ModType.Mul, () => true, Value), ModAffect.Get);
+        manager.player.damage.AddMod(new Modifier(Moves, ModType.Mul, new List<Condition>(), Value), ModAffect.Get);
     }
 }

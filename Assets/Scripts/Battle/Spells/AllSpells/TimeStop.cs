@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class TimeStop : Spell
 {
     protected override int ManaCost => 50;
@@ -11,7 +13,7 @@ public class TimeStop : Spell
         
         foreach (Enemy enemy in BattleManager.enemies)
         {
-            enemy.statusModifiers.Add(new Modifier(Moves, ModType.Stun, () => true));
+            enemy.statusModifiers.Add(new Modifier(Moves, ModType.Stun, new List<Condition>()));
         }
     }
 }
