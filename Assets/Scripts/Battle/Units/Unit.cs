@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +12,8 @@ public abstract class Unit : MonoBehaviour
 
     public List<Modifier> statusModifiers = new();
 
+    public List<Item> items;
+
     protected BattleManager manager;
 
     public void Awake()
@@ -21,6 +22,11 @@ public abstract class Unit : MonoBehaviour
         hp.Init();
         mana.Init();
         damage.Init();
+
+        foreach (Item item in items)
+        {
+            item.Use(this);
+        }
     }
 
     public virtual void DoDamage(int value)

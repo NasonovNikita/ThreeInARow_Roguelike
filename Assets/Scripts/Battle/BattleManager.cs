@@ -99,6 +99,7 @@ public class BattleManager : MonoBehaviour
     {
         grid.Block();
         player.Save();
+        Modifier.mods.Clear();
         SceneManager.LoadScene("Map");
     }
 

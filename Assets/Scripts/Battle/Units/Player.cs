@@ -15,7 +15,7 @@ public class Player : Unit
     public new void Awake()
     {
         base.Awake();
-        grid = FindObjectOfType<Grid>();
+        grid = FindFirstObjectByType<Grid>();
     }
 
     private int CountMana()
@@ -56,6 +56,7 @@ public class Player : Unit
         mana = data.mana;
         damage = data.damage;
         statusModifiers = data.statusModifiers;
+        items = data.items;
     }
 
     public void Save()
@@ -65,6 +66,7 @@ public class Player : Unit
         data.mana = mana;
         data.damage = damage;
         data.statusModifiers = statusModifiers;
+        data.items = items;
     }
 }
 
@@ -81,15 +83,18 @@ public class PlayerData
     public Stat damage;
     [SerializeField]
     public List<Modifier> statusModifiers;
+    [SerializeField]
+    public List<Item> items;
 
-    
-    public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat damage, List<Modifier> statusModifiers)
+
+    public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat damage, List<Modifier> statusModifiers, List<Item> items)
     {
         this.manaPerGem = manaPerGem;
         this.hp = hp;
         this.mana = mana;
         this.damage = damage;
         this.statusModifiers = statusModifiers;
+        this.items = items;
     }
 
     public PlayerData()
@@ -99,5 +104,6 @@ public class PlayerData
         mana = new Stat(100);
         damage = new Stat(20);
         statusModifiers = new List<Modifier>();
+        items = new List<Item>();
     }
 }

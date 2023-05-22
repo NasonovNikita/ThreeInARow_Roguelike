@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
-  m_Name: TestItem
+  m_Name: Knife of Fury
   m_EditorClassIdentifier: 
+  stat: 2
+  affects: 2
   mod:
-    moves: 1
+    moves: -1
     type: 1
-    value: 0.5
+    value: 10
     conditions:
     - type: 1
-      value: 0
+      value: 40
+      compare: 3
       gem: 0
       unit: 0
+      stat: 0

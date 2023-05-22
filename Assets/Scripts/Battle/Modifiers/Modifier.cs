@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Modifier
 {
-    private static List<Modifier> _mods = new();
+    public static List<Modifier> mods = new();
 
     public int moves;
 
@@ -23,7 +23,7 @@ public class Modifier
         this.type = type;
         this.conditions = conditions;
         this.value = value;
-        _mods.Add(this);
+        mods.Add(this);
     }
 
     public float Use()
@@ -33,12 +33,12 @@ public class Modifier
     }
     public static void Move()
     {
-        foreach (Modifier mod in _mods.ToList())
+        foreach (Modifier mod in mods.ToList())
         {
             mod.moves -= 1;
             if (mod.moves == 0)
             {
-                _mods.Remove(mod);
+                mods.Remove(mod);
             }
         }
     }
