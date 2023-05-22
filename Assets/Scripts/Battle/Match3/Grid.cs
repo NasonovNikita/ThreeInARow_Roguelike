@@ -39,7 +39,7 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        manager = FindObjectOfType<BattleManager>();
+        manager = FindFirstObjectByType<BattleManager>();
         
         manager.grid = this;
         

@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Map");
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Map");
-        Map map = FindObjectOfType<Map>();
+        Map map = FindFirstObjectByType<Map>();
         map.CurrentVertex_().OnArrive();
     }
 }

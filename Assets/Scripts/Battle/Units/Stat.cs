@@ -15,7 +15,7 @@ public class Stat
     [SerializeField]
     private float value;
 
-    private Dictionary<ModAffect, List<Modifier>> mods = new()
+    public Dictionary<ModAffect, List<Modifier>> mods = new()
     {
         { ModAffect.Add , new List<Modifier>()},
         { ModAffect.Get, new List<Modifier>()},
@@ -87,8 +87,8 @@ public class Stat
 
     private static float UseMods(ModAffect type, float value, Dictionary<ModAffect, List<Modifier>> mods)
     {
-        float mulValue = 1 + mods[type].Sum(mod => mod.type == ModType.Add ? mod.Use() : 0);
-        int addValue = (int) mods[type].Sum(mod => mod.type == ModType.Mul ? mod.Use() : 0);
+        float mulValue = 1 + mods[type].Sum(mod => mod.type == ModType.Mul ? mod.Use() : 0);
+        int addValue = (int) mods[type].Sum(mod => mod.type == ModType.Add ? mod.Use() : 0);
         return value * mulValue + addValue;
     }
 
@@ -132,6 +132,11 @@ public class Stat
     {
         n = UseMods(ModAffect.Sub, n, stat.mods);
         return new Stat(stat.value - n, stat.borderUp, stat.borderDown);
+    }
+
+    public static explicit operator int(Stat stat)
+    {
+        return (int) stat.value;
     }
 
     //This two are for Warnings, hate them.

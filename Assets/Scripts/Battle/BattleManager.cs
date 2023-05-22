@@ -36,10 +36,10 @@ public class BattleManager : MonoBehaviour
     {
         AudioManager.instance.StopAll();
         
-        canvas = FindObjectOfType<Canvas>();
-        player = FindObjectOfType<Player>();
-        grid = FindObjectOfType<Grid>();
-        placer = FindObjectOfType<EnemyPlacement>();
+        canvas = FindFirstObjectByType<Canvas>();
+        player = FindFirstObjectByType<Player>();
+        grid = FindFirstObjectByType<Grid>();
+        placer = FindFirstObjectByType<EnemyPlacement>();
         
         State = BattleState.Turn;
         

@@ -8,7 +8,6 @@ public abstract class Unit : MonoBehaviour
     public Stat hp;
     [SerializeField]
     public Stat mana;
-
     [SerializeField]
     public Stat damage;
 
@@ -18,7 +17,7 @@ public abstract class Unit : MonoBehaviour
 
     public void Awake()
     {
-        manager = FindObjectOfType<BattleManager>();
+        manager = FindFirstObjectByType<BattleManager>();
         hp.Init();
         mana.Init();
         damage.Init();

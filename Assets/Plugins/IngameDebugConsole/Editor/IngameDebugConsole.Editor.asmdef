@@ -1,4 +1,4 @@
-{
+ {
     "name": "IngameDebugConsole.Editor",
     "references": [
         "IngameDebugConsole.Runtime"

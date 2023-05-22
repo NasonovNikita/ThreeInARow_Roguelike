@@ -8,7 +8,7 @@ public abstract class Spell : MonoBehaviour
 
     public void Awake()
     {
-        manager = FindObjectOfType<BattleManager>();
+        manager = FindFirstObjectByType<BattleManager>();
     }
 
     public abstract void Cast();

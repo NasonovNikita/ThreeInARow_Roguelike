@@ -67,9 +67,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -104,7 +101,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +114,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -167,6 +164,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c367c73a820e62c40889eb62fc727047, type: 3}
+  m_Resource: {fileID: 8300000, guid: c367c73a820e62c40889eb62fc727047, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.038
   m_Pitch: 1
@@ -322,6 +320,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b9ae00a41dcbe9c45b9e624d92d3eff3, type: 3}
+  m_Resource: {fileID: 8300000, guid: b9ae00a41dcbe9c45b9e624d92d3eff3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.107
   m_Pitch: 1
@@ -412,6 +411,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2061605707}
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -523,6 +523,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
 --- !u!1 &1023604264
 GameObject:
@@ -581,6 +584,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 233a8a89b7faf3e4aa00289e255a1855, type: 3}
+  m_Resource: {fileID: 8300000, guid: 233a8a89b7faf3e4aa00289e255a1855, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.051
   m_Pitch: 1
@@ -775,9 +779,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -892,6 +904,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b85f61063f821ff419a0f0bda8ed0a40, type: 3}
+  m_Resource: {fileID: 8300000, guid: b85f61063f821ff419a0f0bda8ed0a40, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -1026,6 +1039,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2061605707}
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -1137,6 +1151,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
 --- !u!224 &1317473503 stripped
 RectTransform:
@@ -1249,6 +1266,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c367c73a820e62c40889eb62fc727047, type: 3}
+  m_Resource: {fileID: 8300000, guid: c367c73a820e62c40889eb62fc727047, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.038
   m_Pitch: 1
@@ -1339,6 +1357,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2061605707}
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -1450,6 +1469,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
 --- !u!1 &1706201385
 GameObject:
@@ -1581,7 +1603,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
