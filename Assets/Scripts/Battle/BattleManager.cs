@@ -11,8 +11,6 @@ public class BattleManager : MonoBehaviour
     
     public Grid grid;
     
-    private Stats playerStats;
-    
     private EnemyPlacement placer;
     
     private Canvas canvas;
@@ -141,7 +139,7 @@ public class BattleManager : MonoBehaviour
         }
     }
     
-    // ReSharper disable Unity.PerformanceAnalysis
+    
     public void Lose()
     {
         State = BattleState.End;
