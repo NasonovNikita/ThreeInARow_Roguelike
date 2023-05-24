@@ -18,4 +18,10 @@ MonoBehaviour:
     moves: -1
     type: 0
     value: 5
-    conditions: []
+    conditions:
+    - type: 1
+      value: 50
+      compare: 3
+      gem: 0
+      unit: 0
+      stat: 0

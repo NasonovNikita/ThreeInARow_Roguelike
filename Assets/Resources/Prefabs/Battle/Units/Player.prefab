@@ -170,6 +170,5 @@ MonoBehaviour:
     borderUp: 0
     value: 0
   statusModifiers: []
-  items:
-  - {fileID: 11400000, guid: 62a370ef3e23256478b8777c59313056, type: 2}
+  items: []
   manaPerGem: 0

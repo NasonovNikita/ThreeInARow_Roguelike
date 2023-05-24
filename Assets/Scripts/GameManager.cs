@@ -84,20 +84,21 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("PlayerData", playerData);
     }
 
-    public void ResetAll()
+    private void ResetAll()
     {
         Map.currentVertex = -1;
         Player.data = new PlayerData();
         
+        
         PlayerPrefs.DeleteAll();
     }
 
-    public void LoadMap()
+    private void LoadMap()
     {
         SceneManager.LoadScene("Map");
     }
 
-    public IEnumerator<WaitUntil> LoadBattle()
+    private IEnumerator<WaitUntil> LoadBattle()
     {
         SceneManager.LoadScene("Map");
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Map");

@@ -39,6 +39,9 @@ public class BattleManager : MonoBehaviour
         grid = FindFirstObjectByType<Grid>();
         placer = FindFirstObjectByType<EnemyPlacement>();
         
+        player.Load();
+        player.TurnOn();
+        
         State = BattleState.Turn;
         
         for (int i = 0; i < enemies.Count; i++)
@@ -52,7 +55,6 @@ public class BattleManager : MonoBehaviour
 
         placer.Place();
         
-        player.Load();
         
         GameManager.instance.SaveData();
         

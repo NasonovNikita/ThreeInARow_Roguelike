@@ -12,9 +12,9 @@ public class Player : Unit
 
     private Grid grid;
 
-    public new void Awake()
+    public void TurnOn()
     {
-        base.Awake();
+        Awake();
         grid = FindFirstObjectByType<Grid>();
     }
 
@@ -25,7 +25,6 @@ public class Player : Unit
 
     private int CountDamage()
     {
-        Debug.unityLogger.Log(damage.GetValue());
         return (int) (grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
     }
 
