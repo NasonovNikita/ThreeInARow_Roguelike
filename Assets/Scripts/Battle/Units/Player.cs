@@ -12,9 +12,9 @@ public class Player : Unit
 
     private Grid grid;
 
-    public void TurnOn()
+    public new void TurnOn()
     {
-        Awake();
+        base.TurnOn();
         grid = FindFirstObjectByType<Grid>();
     }
 

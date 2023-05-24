@@ -142,7 +142,8 @@ public class BattleManager : MonoBehaviour
     }
     
     
-    public void Lose()
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void Lose()
     {
         State = BattleState.End;
         grid.Block();
@@ -155,6 +156,8 @@ public class BattleManager : MonoBehaviour
 
     private Enemy LoadEnemy(int i)
     {
-        return Instantiate(enemies[i], canvas.transform, false);
+        Enemy enemy = Instantiate(enemies[i], canvas.transform, false);
+        enemy.TurnOn();
+        return enemy;
     }
 }

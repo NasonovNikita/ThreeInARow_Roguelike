@@ -16,7 +16,7 @@ public abstract class Unit : MonoBehaviour
 
     protected BattleManager manager;
 
-    public void Awake()
+    public void TurnOn()
     {
         manager = FindFirstObjectByType<BattleManager>();
         hp.Init();

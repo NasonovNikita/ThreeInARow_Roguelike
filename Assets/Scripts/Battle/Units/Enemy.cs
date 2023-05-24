@@ -5,11 +5,11 @@ public class Enemy : Unit
 {
     private Player player;
 
-    public new void Awake()
+    public new void TurnOn()
     {
-        base.Awake();
+        base.TurnOn();
 
-        player = FindObjectOfType<Player>();
+        player = FindFirstObjectByType<Player>();
     }
     public override void DoDamage(int value)
     {
