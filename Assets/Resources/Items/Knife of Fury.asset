@@ -16,12 +16,6 @@ MonoBehaviour:
   affects: 2
   mod:
     moves: -1
-    type: 1
-    value: 10
-    conditions:
-    - type: 1
-      value: 40
-      compare: 3
-      gem: 0
-      unit: 0
-      stat: 0
+    type: 0
+    value: 5
+    conditions: []

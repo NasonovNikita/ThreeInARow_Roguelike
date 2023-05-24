@@ -25,6 +25,7 @@ public class Player : Unit
 
     private int CountDamage()
     {
+        Debug.unityLogger.Log(damage.GetValue());
         return (int) (grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
     }
 
