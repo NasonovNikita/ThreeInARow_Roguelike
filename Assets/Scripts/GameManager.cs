@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
     {
         Map.currentVertex = -1;
         Player.data = Resources.Load<PlayerData>("Presets/NewGamePreset");
-        Debug.unityLogger.Log(Player.data);
         
         PlayerPrefs.DeleteAll();
     }
