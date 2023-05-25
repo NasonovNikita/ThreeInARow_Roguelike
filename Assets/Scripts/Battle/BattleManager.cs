@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -63,7 +62,7 @@ public class BattleManager : MonoBehaviour
         
         AudioManager.instance.Play(AudioEnum.Battle);
 
-        loseMessage = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menu/Lose.prefab");
+        loseMessage = Resources.Load<GameObject>("Prefabs/Menu/Lose");
     }
     public void EndTurn()
     {

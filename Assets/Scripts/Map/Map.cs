@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +36,7 @@ public class Map : MonoBehaviour
         
         AudioManager.instance.Play(AudioEnum.Map);
 
-        winMessage = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menu/Won.prefab");
+        winMessage = Resources.Load<GameObject>("Prefabs/Menu/Win");
     }
 
     public void OnClick(Vertex vertex)

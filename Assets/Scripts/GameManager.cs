@@ -81,7 +81,8 @@ public class GameManager : MonoBehaviour
     private void ResetAll()
     {
         Map.currentVertex = -1;
-        Player.data = AssetDatabase.LoadAssetAtPath<PlayerData>("Assets/Presets/NewGamePreset.asset");
+        Player.data = Resources.Load<PlayerData>("Presets/NewGamePreset");
+        Debug.unityLogger.Log(Player.data);
         
         PlayerPrefs.DeleteAll();
     }

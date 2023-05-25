@@ -26,4 +26,5 @@ MonoBehaviour:
     borderUp: 20
     value: 20
   statusModifiers: []
-  items: []
+  items:
+  - {fileID: 11400000, guid: 62a370ef3e23256478b8777c59313056, type: 2}
