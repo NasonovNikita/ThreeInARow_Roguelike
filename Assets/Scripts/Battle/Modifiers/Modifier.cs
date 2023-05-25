@@ -17,7 +17,7 @@ public class Modifier
     [SerializeField]
     private List<Condition> conditions;
 
-    public Modifier(int moves, ModType type, List<Condition> conditions, float value = 0)
+    public Modifier(int moves, ModType type, List<Condition> conditions, float value = 1)
     {
         this.moves = moves;
         this.type = type;
@@ -29,17 +29,15 @@ public class Modifier
     public float Use()
     {
         bool res = conditions.Aggregate(true, (current, cond) => current && cond.Use());
-        return res ? value : 0;
+        return res && moves > 0? value : 0;
     }
     public static void Move()
     {
         foreach (Modifier mod in mods.ToList())
         {
             mod.moves -= 1;
-            if (mod.moves == 0)
-            {
-                mods.Remove(mod);
-            }
+            if (mod.moves != 0) continue;
+            mods.Remove(mod);
         }
     }
 }
