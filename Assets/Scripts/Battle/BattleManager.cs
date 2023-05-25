@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -147,7 +148,8 @@ public class BattleManager : MonoBehaviour
     {
         State = BattleState.End;
         grid.Block();
-        GameObject menu = Instantiate(Resources.Load<GameObject>("Prefabs/Menu/Lose"), canvas.transform, false);
+        
+        GameObject menu = Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Prefabs/Menu/Lose"), canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
         buttons[1].onClick.AddListener(GameManager.instance.MainMenu);

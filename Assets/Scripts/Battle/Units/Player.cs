@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 [Serializable]
@@ -69,9 +70,9 @@ public class Player : Unit
         data.items = items;
     }
 }
-
+[CreateAssetMenu(fileName = "Data", menuName = "PlayerData")]
 [Serializable]
-public class PlayerData
+public class PlayerData : ScriptableObject
 {
     [SerializeField]
     public int manaPerGem;
