@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         
         DontDestroyOnLoad(gameObject);
 
-        Player.data = new PlayerData();
+        Player.data = ScriptableObject.CreateInstance<PlayerData>();
     }
 
     public void MainMenu()
@@ -59,12 +59,6 @@ public class GameManager : MonoBehaviour
             ResetAll();
             SceneManager.LoadScene("Map");
         }
-    }
-
-    public void Restart()
-    {
-        Map.currentVertex = -1;
-        SceneManager.LoadScene("Map");
     }
 
     public void Exit()

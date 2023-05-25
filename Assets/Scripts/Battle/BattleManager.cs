@@ -30,6 +30,8 @@ public class BattleManager : MonoBehaviour
     private bool _enemiesAct;
     
     private bool _dead;
+
+    private GameObject loseMessage;
     
     public void Awake()
     {
@@ -60,6 +62,8 @@ public class BattleManager : MonoBehaviour
         GameManager.instance.SaveData();
         
         AudioManager.instance.Play(AudioEnum.Battle);
+
+        loseMessage = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Menu/Lose.prefab");
     }
     public void EndTurn()
     {
@@ -149,7 +153,7 @@ public class BattleManager : MonoBehaviour
         State = BattleState.End;
         grid.Block();
         
-        GameObject menu = Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Prefabs/Menu/Lose"), canvas.transform, false);
+        GameObject menu = Instantiate(loseMessage, canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
         buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
