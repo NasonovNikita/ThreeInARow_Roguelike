@@ -46,7 +46,7 @@ public abstract class Unit : MonoBehaviour
 
     public bool Stunned()
     {
-        return statusModifiers.Exists(mod => mod.type == ModType.Stun);
+        return statusModifiers.Exists(mod => mod.type == ModType.Stun && mod.Use() != 0);
     }
 
     public abstract void Act();
