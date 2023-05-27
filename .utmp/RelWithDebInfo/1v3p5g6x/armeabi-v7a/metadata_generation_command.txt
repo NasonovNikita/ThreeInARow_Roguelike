@@ -1,0 +1,21 @@
+                    -HN:\old\ThreeInARow_Rouglike\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=22
+-DANDROID_PLATFORM=android-22
+-DANDROID_ABI=armeabi-v7a
+-DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
+-DANDROID_NDK=N:\Unity\2023.2.0a15\Editor\Data\PlaybackEngines\AndroidPlayer\NDK
+-DCMAKE_ANDROID_NDK=N:\Unity\2023.2.0a15\Editor\Data\PlaybackEngines\AndroidPlayer\NDK
+-DCMAKE_TOOLCHAIN_FILE=N:\Unity\2023.2.0a15\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=N:\Unity\2023.2.0a15\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\cmake\3.22.1\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=N:\old\ThreeInARow_Rouglike\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\1v3p5g6x\obj\armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=N:\old\ThreeInARow_Rouglike\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\1v3p5g6x\obj\armeabi-v7a
+-DCMAKE_BUILD_TYPE=RelWithDebInfo
+-DCMAKE_FIND_ROOT_PATH=N:\old\ThreeInARow_Rouglike\.utmp\RelWithDebInfo\1v3p5g6x\prefab\armeabi-v7a\prefab
+-BN:\old\ThreeInARow_Rouglike\.utmp\RelWithDebInfo\1v3p5g6x\armeabi-v7a
+-GNinja
+-DBUILD_GRADLE_DIRECTORY=N:\old\ThreeInARow_Rouglike\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary
+-DANDROID_STL=c++_shared
+                    Build command args: []
+                    Version: 2

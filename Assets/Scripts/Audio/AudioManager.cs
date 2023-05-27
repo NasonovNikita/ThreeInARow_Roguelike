@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    public Dictionary<AudioEnum, AudioPlayer> sounds;
+    private Dictionary<AudioEnum, AudioPlayer> sounds;
 
     public void Awake()
     {

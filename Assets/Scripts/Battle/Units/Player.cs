@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
+using UnityEngine;
 
 [Serializable]
 public class Player : Unit
 {
-    public static PlayerData data = new();
+    public static PlayerData data = ScriptableObject.CreateInstance<PlayerData>();
     
     public int manaPerGem;
 

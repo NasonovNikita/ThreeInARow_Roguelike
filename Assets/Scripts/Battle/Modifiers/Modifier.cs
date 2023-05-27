@@ -29,7 +29,7 @@ public class Modifier
     public float Use()
     {
         bool res = conditions.Aggregate(true, (current, cond) => current && cond.Use());
-        return res && moves > 0? value : 0;
+        return res && moves != 0 ? value : 0;
     }
     public static void Move()
     {

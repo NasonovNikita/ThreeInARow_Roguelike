@@ -25,7 +25,7 @@ public class Condition
         {
             case CondType.Grid:
                 Grid grid = manager.grid;
-                return Compare(grid.destroyed[gem], value);
+                return Compare(grid.destroyed.ContainsKey(gem) ? grid.destroyed[gem] : 0, value);
             case CondType.Unit:
                 Unit checkUnit = unit switch
                 {
