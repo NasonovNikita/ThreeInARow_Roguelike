@@ -4,7 +4,7 @@ public abstract class Spell : MonoBehaviour
 {
     protected abstract int ManaCost { get;}
 
-    public BattleManager manager;
+    protected BattleManager manager;
 
     public void Awake()
     {

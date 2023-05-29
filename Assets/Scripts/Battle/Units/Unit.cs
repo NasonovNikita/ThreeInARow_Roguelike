@@ -14,9 +14,11 @@ public abstract class Unit : MonoBehaviour
 
     public List<Item> items;
 
+    public List<Spell> spells;
+
     protected BattleManager manager;
 
-    public void TurnOn()
+    protected void TurnOn()
     {
         manager = FindFirstObjectByType<BattleManager>();
         hp.Init();

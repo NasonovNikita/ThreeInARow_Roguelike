@@ -42,8 +42,7 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("vertex"))
         {
-            Map.currentVertex = PlayerPrefs.GetInt("vertex");
-            JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
+            LoadSave();
             
             if (PlayerPrefs.GetString("scene") == "Map")
             {
@@ -84,6 +83,12 @@ public class GameManager : MonoBehaviour
         Player.data = Resources.Load<PlayerData>("Presets/NewGamePreset");
         
         PlayerPrefs.DeleteAll();
+    }
+
+    private void LoadSave()
+    {
+        Map.currentVertex = PlayerPrefs.GetInt("vertex");
+        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
     }
 
     private void LoadMap()

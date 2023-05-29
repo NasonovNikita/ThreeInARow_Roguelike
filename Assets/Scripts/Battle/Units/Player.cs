@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class Player : Unit
 {
-    public static PlayerData data = ScriptableObject.CreateInstance<PlayerData>();
+    public static PlayerData data;
     
     public int manaPerGem;
 
