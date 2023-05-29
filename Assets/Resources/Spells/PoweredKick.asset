@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PoweredKick
   m_EditorClassIdentifier: 
   manaCost: 45
-  spellName: Powered Kick
+  title: Powered Kick
   value: 2
   moves: 1

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TimeStop
   m_EditorClassIdentifier: 
   manaCost: 50
-  spellName: Time Stop
+  title: Time Stop
   value: 0
   moves: 1

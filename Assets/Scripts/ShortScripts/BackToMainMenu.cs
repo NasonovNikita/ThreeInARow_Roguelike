@@ -13,7 +13,7 @@ public static class BackToMainMenu
     {
         if (!_returned && SceneManager.GetActiveScene().name != "MainMenu")
         {
-            SceneManager.LoadScene("MainMenu");
+            //SceneManager.LoadScene("MainMenu");
         }
 
         _returned = true;

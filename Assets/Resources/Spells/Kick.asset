@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Kick
   m_EditorClassIdentifier: 
   manaCost: 50
-  spellName: Kick
+  title: Kick
   value: 80
   moves: 0

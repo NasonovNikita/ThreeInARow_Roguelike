@@ -1,11 +1,40 @@
+using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [CreateAssetMenu(fileName = "Good", menuName = "Good")]
 public class Good : ScriptableObject
 {
-    public Object good;
-    public GoodType type;
-    public int price;
+    [SerializeField] private Object good;
+    [SerializeField] private GoodType type;
+    [SerializeField] public int price;
+
+    public void Buy()
+    {
+        if (Player.data.money < price) return;
+        Player.data.money -= price;
+        switch (type)
+        {
+            case GoodType.Item:
+                Player.data.items.Add((Item) good);
+                break;
+            case GoodType.Spell:
+                Player.data.spells.Add((Spell) good);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public string GetName()
+    {
+        return type switch
+        {
+            GoodType.Item => ((Item)good).title,
+            GoodType.Spell => ((Spell)good).title,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
 }
 
 public enum GoodType

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: StrongerKick
   m_EditorClassIdentifier: 
   manaCost: 25
-  spellName: Stronger Kick
+  title: Stronger Kick
   value: 0.3
   moves: 1

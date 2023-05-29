@@ -4,7 +4,7 @@ public abstract class Spell : ScriptableObject
 {
     [SerializeField] protected int manaCost;
 
-    [SerializeField] public string spellName;
+    [SerializeField] public string title;
 
     [SerializeField] protected float value;
 

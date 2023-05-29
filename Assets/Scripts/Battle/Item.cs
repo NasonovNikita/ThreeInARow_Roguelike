@@ -8,6 +8,7 @@ public class Item : ScriptableObject
     [SerializeField] private UnitStat stat;
     [SerializeField] private ModAffect affects;
     [SerializeField] private Modifier mod;
+    [SerializeField] public string title;
     
     public void Use(Unit unitBelong)
     {

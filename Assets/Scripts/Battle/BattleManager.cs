@@ -180,7 +180,7 @@ public class BattleManager : MonoBehaviour
             Spell spell = player.spells[i];
             btn.onClick.AddListener(spell.Cast);
             TMP_Text text = btn.GetComponentInChildren<TMP_Text>();
-            text.text = spell.spellName;
+            text.text = spell.title;
         }
     }
 }
