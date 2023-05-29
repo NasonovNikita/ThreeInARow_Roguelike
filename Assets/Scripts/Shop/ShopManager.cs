@@ -1,7 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public List<Good> goods;
+    public void Awake()
+    {
+        AudioManager.instance.StopAll();
+        
+        GameManager.instance.SaveData();
+        
+        AudioManager.instance.Play(AudioEnum.Shop);
+    }
 }

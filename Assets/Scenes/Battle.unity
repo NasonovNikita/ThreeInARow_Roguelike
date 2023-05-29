@@ -130,11 +130,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Stronger Kick
+      value: No Spell
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 147.95
+      value: 144.8
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_margin.w
@@ -158,7 +158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
-      value: Stronger Kick
+      value: Spell2
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756286, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -347,11 +347,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Kick
+      value: No Spell
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 166
+      value: 162.45
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -359,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
-      value: Kick
+      value: Spell1
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756286, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -614,11 +614,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Powered Kick
+      value: No Spell
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 166
+      value: 162.45
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -626,7 +626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
-      value: Powered Kick
+      value: Spell3
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756286, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -966,11 +966,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Time Stop
+      value: No Spell
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 166
+      value: 162.45
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -978,7 +978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
-      value: Time Stop
+      value: Spell4
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756286, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

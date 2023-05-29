@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Vertex: MonoBehaviour, IPointerClickHandler
 {
-    public Edge prefab;
+    private Edge prefab;
     
     public List<Vertex> next;
 
@@ -13,7 +12,8 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
 
     public void Awake()
     {
-        map = FindObjectOfType<Map>();
+        prefab = Resources.Load<Edge>("Prefabs/Map/Edge");
+        map = FindFirstObjectByType<Map>();
     }
 
     public void Start()

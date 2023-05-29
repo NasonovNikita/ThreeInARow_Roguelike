@@ -22,4 +22,9 @@ public class MenuButtons : MonoBehaviour
     {
         GameManager.instance.MainMenu();
     }
+
+    public void EnterMap()
+    {
+        GameManager.instance.EnterMap();
+    }
 }

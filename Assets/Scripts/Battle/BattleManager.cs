@@ -174,7 +174,7 @@ public class BattleManager : MonoBehaviour
     {
         var spells = GameObject.Find("Spells");
         var spellButtons = spells.GetComponentsInChildren<Button>();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < player.spells.Count && i < 4; i++)
         {
             Button btn = spellButtons[i];
             Spell spell = player.spells[i];

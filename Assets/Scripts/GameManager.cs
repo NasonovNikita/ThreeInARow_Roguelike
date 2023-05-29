@@ -43,14 +43,17 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("vertex"))
         {
             LoadSave();
-            
-            if (PlayerPrefs.GetString("scene") == "Map")
+            switch (PlayerPrefs.GetString("scene"))
             {
-                LoadMap();
-            }
-            else if (PlayerPrefs.GetString("scene") == "Battle")
-            {
-                StartCoroutine(LoadBattle());
+                case "Map":
+                    LoadMap();
+                    break;
+                case "Battle":
+                    StartCoroutine(LoadBattle());
+                    break;
+                case "Shop":
+                    LoadShop();
+                    break;
             }
         }
         else
@@ -67,6 +70,11 @@ public class GameManager : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    public void EnterMap()
+    {
+        SceneManager.LoadScene("Map");
     }
 
     public void SaveData()
@@ -102,5 +110,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Map");
         Map map = FindFirstObjectByType<Map>();
         map.CurrentVertex_().OnArrive();
+    }
+
+    private void LoadShop()
+    {
+        SceneManager.LoadScene("Shop");
     }
 }

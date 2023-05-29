@@ -5,5 +5,6 @@ public enum AudioEnum
     EnemyDeath,
     MainMenu,
     Map,
-    Battle
+    Battle,
+    Shop
 }
