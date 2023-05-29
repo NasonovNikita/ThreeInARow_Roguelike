@@ -1,12 +1,18 @@
 using UnityEngine;
 
-public abstract class Spell : MonoBehaviour
+public abstract class Spell : ScriptableObject
 {
-    protected abstract int ManaCost { get;}
+    [SerializeField] protected int manaCost;
+
+    [SerializeField] public string spellName;
+
+    [SerializeField] protected float value;
+
+    [SerializeField] protected int moves;
 
     protected BattleManager manager;
 
-    public void Awake()
+    public void Init()
     {
         manager = FindFirstObjectByType<BattleManager>();
     }
@@ -15,6 +21,6 @@ public abstract class Spell : MonoBehaviour
 
     protected bool CantCast()
     {
-        return manager.State != BattleState.Turn || manager.player.mana < ManaCost;
+        return manager.State != BattleState.Turn || manager.player.mana < manaCost;
     }
 }

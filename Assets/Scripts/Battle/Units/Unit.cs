@@ -29,6 +29,11 @@ public abstract class Unit : MonoBehaviour
         {
             item.Use(this);
         }
+
+        foreach (Spell spell in spells)
+        {
+            spell.Init();
+        }
     }
     
 

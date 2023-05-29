@@ -19,9 +19,11 @@ public class PlayerData : ScriptableObject
     public List<Modifier> statusModifiers;
     [SerializeField]
     public List<Item> items;
+    [SerializeField]
+    public List<Spell> spells;
 
 
-    public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat damage, List<Modifier> statusModifiers, List<Item> items)
+    public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat damage, List<Modifier> statusModifiers, List<Item> items, List<Spell> spells)
     {
         this.manaPerGem = manaPerGem;
         this.hp = hp;
@@ -29,6 +31,7 @@ public class PlayerData : ScriptableObject
         this.damage = damage;
         this.statusModifiers = statusModifiers;
         this.items = items;
+        this.spells = spells;
     }
 
     public PlayerData()
@@ -39,5 +42,6 @@ public class PlayerData : ScriptableObject
         damage = new Stat(20);
         statusModifiers = new List<Modifier>();
         items = new List<Item>();
+        spells = new List<Spell>();
     }
 }

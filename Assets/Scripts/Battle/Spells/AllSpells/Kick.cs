@@ -1,14 +1,13 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Kick", menuName = "Spells/Kick")]
 public class Kick : Spell
 {
-    protected override int ManaCost => 50;
-
-    private const int Value = 80;
-
     public override void Cast()
     {
         if (CantCast()) return;
         
-        manager.player.mana -= ManaCost;
-        manager.target.DoDamage(Value);
+        manager.player.mana -= manaCost;
+        manager.target.DoDamage((int) value);
     }
 }

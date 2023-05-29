@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -36,15 +38,17 @@ public class BattleManager : MonoBehaviour
     {
         AudioManager.instance.StopAll();
         
+        loseMessage = Resources.Load<GameObject>("Prefabs/Menu/Lose");
+        
         canvas = FindFirstObjectByType<Canvas>();
         player = FindFirstObjectByType<Player>();
         grid = FindFirstObjectByType<Grid>();
         placer = FindFirstObjectByType<EnemyPlacement>();
-        
+
         player.Load();
         player.TurnOn();
-        
-        State = BattleState.Turn;
+
+        LoadSpells();
         
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -53,17 +57,17 @@ public class BattleManager : MonoBehaviour
 
         placer.enemiesToPlace = enemies;
         
-        target = enemies[0];
-
         placer.Place();
         
+        target = enemies[0];
         
         GameManager.instance.SaveData();
         
         AudioManager.instance.Play(AudioEnum.Battle);
-
-        loseMessage = Resources.Load<GameObject>("Prefabs/Menu/Lose");
+        
+        State = BattleState.Turn;
     }
+    
     public void EndTurn()
     {
         StartCoroutine(PlayerAct());
@@ -164,5 +168,19 @@ public class BattleManager : MonoBehaviour
         Enemy enemy = Instantiate(enemies[i], canvas.transform, false);
         enemy.TurnOn();
         return enemy;
+    }
+
+    private void LoadSpells()
+    {
+        var spells = GameObject.Find("Spells");
+        var spellButtons = spells.GetComponentsInChildren<Button>();
+        for (int i = 0; i < 4; i++)
+        {
+            Button btn = spellButtons[i];
+            Spell spell = player.spells[i];
+            btn.onClick.AddListener(spell.Cast);
+            TMP_Text text = btn.GetComponentInChildren<TMP_Text>();
+            text.text = spell.spellName;
+        }
     }
 }

@@ -56,6 +56,7 @@ public class Player : Unit
         damage = data.damage;
         statusModifiers = data.statusModifiers;
         items = data.items;
+        spells = data.spells;
     }
 
     public void Save()
@@ -66,5 +67,6 @@ public class Player : Unit
         data.damage = damage;
         data.statusModifiers = statusModifiers;
         data.items = items;
+        data.spells = spells;
     }
 }

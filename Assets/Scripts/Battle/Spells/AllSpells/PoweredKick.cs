@@ -1,20 +1,16 @@
 using System.Collections.Generic;
+using UnityEngine;
 
+[CreateAssetMenu(fileName = "PoweredKick", menuName = "Spells/PoweredKick")]
 public class PoweredKick : Spell
 {
-    protected override int ManaCost => 45;
-    
-    private int Moves => 1;
-
-    private const float Value = 2.0f;
-
     public override void Cast()
     {
         if (CantCast()) return;
         
-        manager.player.mana -= ManaCost;
-        manager.player.statusModifiers.Add(new Modifier(Moves, ModType.Stun, new List<Condition>()));
-        manager.player.damage.AddMod(new Modifier(Moves + 1, ModType.Mul,new List<Condition>(), Value), ModAffect.Get);
+        manager.player.mana -= manaCost;
+        manager.player.statusModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
+        manager.player.damage.AddMod(new Modifier(moves + 1, ModType.Mul,new List<Condition>(), value), ModAffect.Get);
         manager.EndTurn();
     }
 }
