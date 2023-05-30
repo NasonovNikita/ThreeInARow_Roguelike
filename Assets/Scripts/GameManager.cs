@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -88,7 +89,7 @@ public class GameManager : MonoBehaviour
     private void ResetAll()
     {
         Map.currentVertex = -1;
-        Player.data = Resources.Load<PlayerData>("Presets/NewGamePreset");
+        Player.data = Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"));
         
         PlayerPrefs.DeleteAll();
     }

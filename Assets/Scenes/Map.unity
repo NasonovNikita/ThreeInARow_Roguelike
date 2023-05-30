@@ -1468,9 +1468,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
+      propertyPath: goods.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
       propertyPath: 'next.Array.data[0]'
       value: 
       objectReference: {fileID: 1527602830}
+    - target: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
+      propertyPath: 'goods.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0421e3c6697036b41a989864a41364af, type: 2}
+    - target: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
+      propertyPath: 'goods.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 87759b9b68cb2c14f873b6c6d5b10303, type: 2}
     - target: {fileID: 4802012579643846970, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
       propertyPath: m_Name
       value: ShopVertex (1)
