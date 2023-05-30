@@ -8,10 +8,12 @@ public class Good : ScriptableObject
     [SerializeField] private Object good;
     [SerializeField] private GoodType type;
     [SerializeField] public int price;
+    public bool bought;
 
     public void Buy()
     {
         if (Player.data.money < price) return;
+        bought = true;
         Player.data.money -= price;
         switch (type)
         {

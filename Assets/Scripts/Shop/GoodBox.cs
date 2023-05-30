@@ -12,11 +12,19 @@ public class GoodBox : MonoBehaviour
         try
         {
             button.onClick.AddListener(good.Buy);
+            button.onClick.AddListener(OnBuy);
             button.GetComponentInChildren<TMP_Text>().text = $"{good.GetName()} {good.price}";
         }
         catch
         {
-            // ignored
+            button.GetComponentInChildren<TMP_Text>().text = "Sorry, we are out";
         }
+    }
+
+    private void OnBuy()
+    {
+        if (!good.bought) return;
+        button.GetComponentInChildren<TMP_Text>().text = "Sorry, we are out";
+        button.onClick.RemoveAllListeners();
     }
 }
