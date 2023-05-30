@@ -60,8 +60,8 @@ public class Map : MonoBehaviour
     {
         return allVertexes[currentVertex];
     }
-    
-    public void Win()
+
+    private void Win()
     {
         GameObject menu = Instantiate(winMessage, canvas.transform, false);
         Button[] buttons = menu.GetComponentsInChildren<Button>();
