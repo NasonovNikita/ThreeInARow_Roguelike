@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
-  m_Name: Knife of Fury
+  m_Name: Plain Shield
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 62a370ef3e23256478b8777c59313056, type: 2}
+  good: {fileID: 0}
   type: 0
-  price: 20
-  rarity: 2
+  price: 0
+  rarity: 1

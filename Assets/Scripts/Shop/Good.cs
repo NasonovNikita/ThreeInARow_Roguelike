@@ -7,7 +7,11 @@ public class Good : ScriptableObject
 {
     [SerializeField] private Object good;
     [SerializeField] private GoodType type;
-    [SerializeField] public int price;
+    
+    public int price;
+    public int rarity;
+    
+    [NonSerialized]
     public bool bought;
 
     public void Buy()

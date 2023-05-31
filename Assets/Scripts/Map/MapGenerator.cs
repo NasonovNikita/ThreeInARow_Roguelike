@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,17 +13,27 @@ public class MapGenerator : MonoBehaviour
     public int minWidth;
     public int maxWidth;
 
-    private List<List<Vertex>> layers;
+    private readonly Dictionary<int, List<EnemyGroup>> groups = new();
 
     private Map map;
 
     public void Awake()
     {
         Random.InitState(seed);
+        
         map = FindFirstObjectByType<Map>();
+        foreach (EnemyGroup group in Resources.LoadAll<EnemyGroup>("Presets/EnemyGroups"))
+        {
+            if (!groups.TryAdd(group.Difficulty(), new List<EnemyGroup> {group}))
+            {
+                groups[group.Difficulty()].Add(group);
+            }
+        }
+
+        List<List<Vertex>> layers = Generate();
     }
 
-    private void Generate()
+    private List<List<Vertex>> Generate()
     {
         /*
          * Start with single battle vertex
@@ -31,20 +43,41 @@ public class MapGenerator : MonoBehaviour
          *
          * Ends with single battle vertex (some kind of boss?)
          */
+
+        List<List<Vertex>> layers = new();
+
+        BattleVertex first = GenBattle(0);
+        layers.Add(new List<Vertex> {first});
+        
+        for (int i = 0; i < depth - 2; i++)
+        {
+            
+        }
+
+        BattleVertex last = GenBattle(depth);
+        layers.Add(new List<Vertex> {last});
+        
+
+        return layers;
     }
 
-    private void GenBattle()
+    private BattleVertex GenBattle(int layer)
     {
-        /*
-         * 1-5 enemies per room
-         *
-         * I think it's better to use preset rooms to make it more balanced, otherwise it can be too random
-         * Chosen by weight (difficulty) + random in allowed range
-         * Difficulty of a room is calculated using whole game difficulty + layer + small random
-         */
+        BattleVertex vertex = new BattleVertex();
+
+        int battleDifficulty = difficulty + layer * difficulty + Random.Range(-10, 10 + 1);
+        int chosenKey = groups.Keys.Aggregate(
+                (min, next) => Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next
+                );
+
+        
+        EnemyGroup group = groups[chosenKey][Random.Range(0, groups[chosenKey].Count)];
+        vertex.enemies = group.GetEnemies();
+        
+        return vertex;
     }
 
-    private void GenShop()
+    private ShopVertex GenShop()
     {
         /*
          * 1-4 goods
@@ -53,6 +86,10 @@ public class MapGenerator : MonoBehaviour
          * Rare goods obviously appear rarely, NOT affected bu difficulty
          * Price depends on main preset price for good + layer margin + difficulty
          */
+
+        ShopVertex vertex = new ShopVertex();
+
+        return vertex;
     }
 
     private void BindLayers(List<Vertex> oldLayer, List<Vertex> newLayer)
