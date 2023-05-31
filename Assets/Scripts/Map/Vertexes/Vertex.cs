@@ -8,6 +8,8 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
     
     public List<Vertex> next;
 
+    public VertexType type;
+
     private Map map;
 
     public void Awake()

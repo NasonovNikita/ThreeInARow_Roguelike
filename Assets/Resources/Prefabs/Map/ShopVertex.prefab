@@ -87,8 +87,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: []
-  goods:
-  - {fileID: 11400000, guid: 6c44c4ceefb9c0742acea1f3c6591a30, type: 2}
-  - {fileID: 11400000, guid: 47c3b4fd49d4aaf4ea632678f469ab85, type: 2}
-  - {fileID: 11400000, guid: 6a30c74631935ce449eee840e0ce11e6, type: 2}
-  - {fileID: 11400000, guid: 47c3b4fd49d4aaf4ea632678f469ab85, type: 2}
+  type: 1
+  goods: []

@@ -44,6 +44,7 @@ public class Map : MonoBehaviour
         }
         
         generator.BindLayers(instantiatedVertexes);
+        generator.GoodsPricing(instantiatedVertexes);
 
         if (currentVertex == vertexes.Count - 1)
         {

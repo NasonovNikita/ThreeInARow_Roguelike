@@ -149,6 +149,25 @@ public class MapGenerator : MonoBehaviour
         return vertex;
     }
 
+    public void GoodsPricing(List<List<Vertex>> layers)
+    {
+        for (int i = 0; i < layers.Count; i++)
+        {
+            for (int j = 0; j < layers[i].Count; j++)
+            {
+                if (layers[i][j].type != VertexType.Shop) continue;
+                List<Good> localGoods = new();
+                foreach (var goodCopy in ((ShopVertex)layers[i][j]).goods.Select(Instantiate))
+                {
+                    goodCopy.price = (int) (goodCopy.price * (1 + 0.1f * i + 0.01f * difficulty));
+                    localGoods.Add(goodCopy);
+                }
+
+                ((ShopVertex)layers[i][j]).goods = localGoods;
+            }
+        }
+    }
+
     private Good ChooseGood()
     {
         int choice = Random.Range(0, goodsFrequencySum);

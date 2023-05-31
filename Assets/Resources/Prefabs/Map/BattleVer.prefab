@@ -99,6 +99,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: []
-  enemies:
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+  type: 0
+  enemies: []
