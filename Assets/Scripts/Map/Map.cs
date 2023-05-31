@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
-    public List<Vertex> allVertexes;
+    public static List<List<Vertex>> vertexesPrefabs = new();
+
+    private readonly List<Vertex> allVertexes = new();
 
     public static int currentVertex = -1;
 
@@ -18,10 +20,20 @@ public class Map : MonoBehaviour
 
     public GameObject winMessage;
 
-    public void Awake()
+    public void Start()
     {
         AudioManager.instance.StopAll();
-        
+
+        for (int i = 0; i < vertexesPrefabs.Count; i++)
+        {
+            for (int j = 0; j < vertexesPrefabs[i].Count; j++)
+            {
+                Vertex vertex = Instantiate(vertexesPrefabs[i][j]);
+                vertex.transform.position = transform.position + Vector3.up * i * 3 + Vector3.right * j * 3;
+                allVertexes.Add(vertex);
+            }
+        }
+
         if (currentVertex == allVertexes.Count - 1)
         {
             Win();

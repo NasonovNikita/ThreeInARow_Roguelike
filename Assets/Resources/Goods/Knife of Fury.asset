@@ -15,4 +15,4 @@ MonoBehaviour:
   good: {fileID: 11400000, guid: 62a370ef3e23256478b8777c59313056, type: 2}
   type: 0
   price: 20
-  rarity: 2
+  frequency: 2

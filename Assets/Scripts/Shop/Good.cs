@@ -9,7 +9,7 @@ public class Good : ScriptableObject
     [SerializeField] private GoodType type;
     
     public int price;
-    public int rarity;
+    public int frequency;
     
     [NonSerialized]
     public bool bought;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: Kick II
   m_EditorClassIdentifier: 
-  good: {fileID: 0}
-  type: 0
-  price: 0
-  rarity: 0
+  good: {fileID: 11400000, guid: cacc307fc183fb641959491c0764bf10, type: 2}
+  type: 1
+  price: 25
+  frequency: 2
