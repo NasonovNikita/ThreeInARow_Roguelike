@@ -4,9 +4,11 @@ using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
-    public static List<List<Vertex>> vertexesPrefabs = new();
+    private static List<List<Vertex>> _vertexesPrefabs;
 
-    private readonly List<Vertex> allVertexes = new();
+    private readonly List<List<Vertex>> instantiatedVertexes = new();
+
+    private readonly List<Vertex> vertexes = new();
 
     public static int currentVertex = -1;
 
@@ -18,23 +20,32 @@ public class Map : MonoBehaviour
 
     public Canvas canvas;
 
-    public GameObject winMessage;
+    private MapGenerator generator;
 
-    public void Start()
+    private GameObject winMessage;
+
+    public void Awake()
     {
         AudioManager.instance.StopAll();
 
-        for (int i = 0; i < vertexesPrefabs.Count; i++)
+        generator = FindFirstObjectByType<MapGenerator>();
+        _vertexesPrefabs = generator.GetMap();
+
+        for (int i = 0; i < _vertexesPrefabs.Count; i++)
         {
-            for (int j = 0; j < vertexesPrefabs[i].Count; j++)
+            instantiatedVertexes.Add(new List<Vertex>());
+            for (int j = 0; j < _vertexesPrefabs[i].Count; j++)
             {
-                Vertex vertex = Instantiate(vertexesPrefabs[i][j]);
+                Vertex vertex = Instantiate(_vertexesPrefabs[i][j]);
                 vertex.transform.position = transform.position + Vector3.up * i * 3 + Vector3.right * j * 3;
-                allVertexes.Add(vertex);
+                instantiatedVertexes[i].Add(vertex);
+                vertexes.Add(vertex);
             }
         }
+        
+        generator.BindLayers(instantiatedVertexes);
 
-        if (currentVertex == allVertexes.Count - 1)
+        if (currentVertex == vertexes.Count - 1)
         {
             Win();
         }
@@ -55,22 +66,22 @@ public class Map : MonoBehaviour
     {
         if (currentVertex == -1)
         {
-            if (allVertexes.IndexOf(vertex) != 0) return;
+            if (vertexes.IndexOf(vertex) != 0) return;
             
-            currentVertex = allVertexes.IndexOf(vertex);
+            currentVertex = vertexes.IndexOf(vertex);
             vertex.ScaleUp(chosenScale, timeScale);
         }
         else if (CurrentVertex_().BelongsToNext(vertex))
         {
             CurrentVertex_().ScaleDown(baseScale, timeScale);
-            currentVertex = allVertexes.IndexOf(vertex);
+            currentVertex = vertexes.IndexOf(vertex);
             vertex.ScaleUp(chosenScale, timeScale);
         }
     }
 
     public Vertex CurrentVertex_()
     {
-        return allVertexes[currentVertex];
+        return vertexes[currentVertex];
     }
 
     private void Win()

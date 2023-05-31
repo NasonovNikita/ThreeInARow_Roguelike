@@ -28,7 +28,7 @@ public class MapGenerator : MonoBehaviour
     private Good[] goods;
     private int goodsFrequencySum;
     
-    public void Awake()
+    public List<List<Vertex>> GetMap()
     {
         Random.InitState(seed);
         
@@ -51,9 +51,7 @@ public class MapGenerator : MonoBehaviour
             vertexesFrequencySum += vertex.Value;
         }
 
-        var layers = Generate();
-
-        Map.vertexesPrefabs = layers;
+        return Generate();
     }
 
     private List<List<Vertex>> Generate()
@@ -71,11 +69,6 @@ public class MapGenerator : MonoBehaviour
         BattleVertex last = GenBattle(depth - 1);
         layers.Add(new List<Vertex> {last});
 
-        for (int i = 0; i < depth - 1; i++)
-        {
-            BindLayers(layers[i], layers[i + 1]);
-        }
-        
         return layers;
     }
 
@@ -93,7 +86,7 @@ public class MapGenerator : MonoBehaviour
         return resultLayer;
     }
 
-    private void BindLayers(List<Vertex> oldLayer, List<Vertex> newLayer)
+    public void BindLayers(List<List<Vertex>> layers)
     {
         
     }
