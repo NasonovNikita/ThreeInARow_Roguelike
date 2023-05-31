@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -88,7 +89,32 @@ public class MapGenerator : MonoBehaviour
 
     public void BindLayers(List<List<Vertex>> layers)
     {
-        
+        for (int i = 0; i < depth - 1; i++)
+        {
+            Bind2Layers(layers[i], layers[i + 1]);
+        }
+    }
+
+    private void Bind2Layers(List<Vertex> oldLayer, List<Vertex> newLayer)
+    {
+        HashSet<Vertex> boundVertexes = new();
+
+        List<KeyValuePair<int, int>> bounds = new();
+
+        while (boundVertexes.Count != oldLayer.Count + newLayer.Count)
+        {
+            for (int i = 0; i < oldLayer.Count; i++)
+            {
+                for (int j = 0; j < newLayer.Count; j++)
+                {
+                    if (Random.Range(0, 2) == 0 || CrossExists(bounds, i, j) ||
+                        oldLayer[i].next.Contains(newLayer[j])) continue;
+                    oldLayer[i].next.Add(newLayer[j]);
+                    bounds.Add(new KeyValuePair<int, int>(i, j));
+                    boundVertexes.AddRange(new[] { oldLayer[i], newLayer[j] });
+                }
+            }
+        }
     }
 
     private BattleVertex GenBattle(int layer)
@@ -115,13 +141,7 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            var good = ChooseGood();
-            var price = good.price;
-            
-            price = (int) (price * (1 + 0.1f * layer + 0.01f * difficulty));
-            good.price = price;
-            
-            currentGoods.Add(good);
+            currentGoods.Add(ChooseGood());
         }
 
         vertex.goods = currentGoods;
@@ -163,5 +183,17 @@ public class MapGenerator : MonoBehaviour
             VertexType.Shop => GenShop(layer),
             _ => throw new ArgumentOutOfRangeException()
         };
+    }
+
+    private bool CrossExists(List<KeyValuePair<int, int>> bounds, int c, int d)
+    {
+        bool res = false;
+        
+        foreach (var bound in bounds.Where(bound => (bound.Key - c) * (bound.Value - d) < 0))
+        {
+            res = true;
+        }
+
+        return res;
     }
 }

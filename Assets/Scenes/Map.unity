@@ -399,7 +399,6 @@ MonoBehaviour:
   chosenScale: {x: 0.9, y: 0.9, z: 0.9}
   timeScale: 0.2
   canvas: {fileID: 1309010482}
-  winMessage: {fileID: 2188612303319430005, guid: 0176c58bca5452d4dae563e7896417e4, type: 3}
 --- !u!4 &438010990
 Transform:
   m_ObjectHideFlags: 0
@@ -961,9 +960,9 @@ MonoBehaviour:
   shopPrefab: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
   seed: 0
   difficulty: 10
-  depth: 3
+  depth: 4
   minWidth: 2
-  maxWidth: 2
+  maxWidth: 3
 --- !u!4 &1979068991
 Transform:
   m_ObjectHideFlags: 0
