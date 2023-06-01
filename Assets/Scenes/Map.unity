@@ -397,7 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vertexes: []
   baseScale: {x: 0.5, y: 0.5, z: 0.5}
-  chosenScale: {x: 0.7, y: 0.7, z: 0.7}
+  chosenScale: {x: 0.6, y: 0.6, z: 0.6}
   timeScale: 0.2
   canvas: {fileID: 1309010482}
 --- !u!4 &438010990
@@ -1052,7 +1052,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battlePrefab: {fileID: 4151228096430590339, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
   shopPrefab: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
-  seed: 1268549229
   difficulty: 10
   depth: 6
   minWidth: 2
