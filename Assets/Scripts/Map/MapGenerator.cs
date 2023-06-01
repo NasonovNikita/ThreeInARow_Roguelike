@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -7,11 +8,6 @@ using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField] private BattleVertex battlePrefab;
-    [SerializeField] private ShopVertex shopPrefab;
-    
-    public static int seed;
-
     public int difficulty;
     public int depth;
     public int minWidth;
@@ -27,18 +23,18 @@ public class MapGenerator : MonoBehaviour
     private readonly Vector3 dY = new(0, 0.01f, 0);
 
     private readonly Dictionary<int, List<EnemyGroup>> groups = new();
-
+    
     private readonly Dictionary<VertexType, int> vertexesByChance = new ()
     {
-        [VertexType.Battle] = 10,
-        [VertexType.Shop] = 3
+        [VertexType.Battle] = 13,
+        [VertexType.Shop] = 4
     };
     private int vertexesFrequencySum;
 
     private Good[] goods;
     private int goodsFrequencySum;
     
-    public List<List<Vertex>> GetMap()
+    public KeyValuePair<List<List<VertexData>>, List<List<KeyValuePair<int, int>>>> GetMap(int seed)
     {
         Random.InitState(seed);
 
@@ -61,32 +57,33 @@ public class MapGenerator : MonoBehaviour
             vertexesFrequencySum += vertex.Value;
         }
 
-        List<List<Vertex>> layers =  Generate();
+        var layers =  Generate();
         
-        PlaceVertexes(layers);
-        GoodsPricing(layers);
-        BindLayers(layers);
+        
+        var bounds = BindLayers(layers);
 
         
         Random.InitState((int) DateTime.Now.Ticks);
-        return layers;
+        return new KeyValuePair<List<List<VertexData>>, List<List<KeyValuePair<int, int>>>>(layers, bounds);
     }
 
-    private List<List<Vertex>> Generate()
+    private List<List<VertexData>> Generate()
     {
-        List<List<Vertex>> layers = new() { new List<Vertex> {GenBattle(0)} };
+        List<List<VertexData>> layers = new() { new List<VertexData> {GenBattle(0)} };
 
         for (int i = 1; i < depth - 1; i++)
         {
             layers.Add(GenLayer(i));
         }
 
-        layers.Add(new List<Vertex> {GenBattle(depth)});
+        layers.Add(new List<VertexData> {GenBattle(depth)});
+        
+        PlaceVertexes(layers);
 
         return layers;
     }
 
-    private void PlaceVertexes(List<List<Vertex>> layers)
+    private void PlaceVertexes(IReadOnlyList<List<VertexData>> layers)
     {
         Vector3 yStep = (up.transform.position - down.transform.position) / (layers.Count - 1);
         int width = layers.Max(layer => layer.Count);
@@ -96,23 +93,23 @@ public class MapGenerator : MonoBehaviour
             for (int j = 0; j < layers[i].Count; j++)
             {
                 PlaceLayer(layers[i], i, xStep, yStep);
-            } 
+            }
         }
     }
 
-    private void PlaceLayer(List<Vertex> layer, int i, Vector3 xStep, Vector3 yStep)
+    private void PlaceLayer(IReadOnlyList<VertexData> layer, int i, Vector3 xStep, Vector3 yStep)
     {
         int k = layer.Count;
-        layer[0].transform.position = down.transform.position + i * yStep + ((float) k - 1) / 2 * -xStep;
+        layer[0].position = down.transform.position + i * yStep + ((float) k - 1) / 2 * -xStep;
         for (int j = 1; j < k; j++)
         {
-            layer[j].transform.position = layer[j - 1].transform.position + xStep + Random.Range(-25, 26) * dX + Random.Range(-25, 26) * dY;
+            layer[j].position = layer[j - 1].position + xStep + Random.Range(-25, 26) * dX + Random.Range(-25, 26) * dY;
         }
     }
 
-    private List<Vertex> GenLayer(int layer)
+    private List<VertexData> GenLayer(int layer)
     {
-        List<Vertex> resultLayer = new();
+        List<VertexData> resultLayer = new();
 
         int width = Random.Range(minWidth, maxWidth + 1);
 
@@ -124,17 +121,20 @@ public class MapGenerator : MonoBehaviour
         return resultLayer;
     }
 
-    private void BindLayers(List<List<Vertex>> layers)
+    private List<List<KeyValuePair<int, int>>> BindLayers(IReadOnlyList<List<VertexData>> layers)
     {
+        List<List<KeyValuePair<int, int>>> bounds = new();
         for (int i = 0; i < depth - 1; i++)
         {
-            Bind2Layers(layers[i], layers[i + 1]);
+            bounds.Add(Bind2Layers(layers[i], layers[i + 1]));
         }
+
+        return bounds;
     }
 
-    private void Bind2Layers(List<Vertex> oldLayer, List<Vertex> newLayer)
+    private List<KeyValuePair<int, int>> Bind2Layers(ICollection oldLayer, ICollection newLayer)
     {
-        HashSet<Vertex> boundVertexes = new();
+        HashSet<int> boundVertexes = new();
 
         List<KeyValuePair<int, int>> bounds = new();
 
@@ -145,18 +145,19 @@ public class MapGenerator : MonoBehaviour
                 for (int j = 0; j < newLayer.Count; j++)
                 {
                     if (Random.Range(0, 2) == 0 || CrossExists(bounds, i, j) ||
-                        oldLayer[i].next.Contains(newLayer[j])) continue;
-                    oldLayer[i].next.Add(newLayer[j]);
+                        bounds.Exists(pair => pair.Key == i && pair.Value == j)) continue;
                     bounds.Add(new KeyValuePair<int, int>(i, j));
-                    boundVertexes.AddRange(new[] { oldLayer[i], newLayer[j] });
+                    boundVertexes.AddRange(new[] { i, -j - 1 });
                 }
             }
         }
+
+        return bounds;
     }
 
-    private BattleVertex GenBattle(int layer)
+    private BattleVertexData GenBattle(int layer)
     {
-        BattleVertex vertex = Instantiate(battlePrefab);
+        BattleVertexData vertex = new();
 
         int battleDifficulty = difficulty + layer * difficulty / 2 + Random.Range(-5, 6);
         int chosenKey = groups.Keys.Aggregate(
@@ -170,15 +171,15 @@ public class MapGenerator : MonoBehaviour
         return vertex;
     }
 
-    private ShopVertex GenShop()
+    private ShopVertexData GenShop(int layer)
     {
-        ShopVertex vertex = Instantiate(shopPrefab);
+        ShopVertexData vertex = new();
 
         List<Good> currentGoods = new();
 
         for (int i = 0; i < 4; i++)
         {
-            currentGoods.Add(ChooseGood());
+            currentGoods.Add(ChooseGood(layer));
         }
 
         vertex.goods = currentGoods;
@@ -186,26 +187,7 @@ public class MapGenerator : MonoBehaviour
         return vertex;
     }
 
-    private void GoodsPricing(List<List<Vertex>> layers)
-    {
-        for (int i = 0; i < layers.Count; i++)
-        {
-            for (int j = 0; j < layers[i].Count; j++)
-            {
-                if (layers[i][j].type != VertexType.Shop) continue;
-                List<Good> localGoods = new();
-                foreach (var goodCopy in ((ShopVertex)layers[i][j]).goods.Select(Instantiate))
-                {
-                    goodCopy.price = (int) (goodCopy.price * (1 + 0.1f * i + 0.01f * difficulty));
-                    localGoods.Add(goodCopy);
-                }
-
-                ((ShopVertex)layers[i][j]).goods = localGoods;
-            }
-        }
-    }
-
-    private Good ChooseGood()
+    private Good ChooseGood(int layer)
     {
         int choice = Random.Range(0, goodsFrequencySum);
         foreach (Good good in goods)
@@ -214,13 +196,18 @@ public class MapGenerator : MonoBehaviour
             {
                 choice -= good.frequency;
             }
-            else return good;
+            else
+            {
+                Good goodCopy = Instantiate(good);
+                goodCopy.price = (int)(goodCopy.price * (1 + 0.1f * layer + 0.01f * difficulty));
+                return goodCopy;
+            }
         }
 
         return null;
     }
 
-    private Vertex ChooseVertex(int layer)
+    private VertexData ChooseVertex(int layer)
     {
         int choice = Random.Range(0, vertexesFrequencySum);
         VertexType type = VertexType.Battle;
@@ -230,18 +217,22 @@ public class MapGenerator : MonoBehaviour
             {
                 choice -= vertex.Value;
             }
-            else type = vertex.Key;
+            else
+            {
+                type = vertex.Key;
+                break;
+            }
         }
 
         return type switch
         {
             VertexType.Battle => GenBattle(layer),
-            VertexType.Shop => GenShop(),
+            VertexType.Shop => GenShop(layer),
             _ => throw new ArgumentOutOfRangeException()
         };
     }
 
-    private bool CrossExists(List<KeyValuePair<int, int>> bounds, int c, int d)
+    private static bool CrossExists(IEnumerable<KeyValuePair<int, int>> bounds, int c, int d)
     {
         bool res = false;
         

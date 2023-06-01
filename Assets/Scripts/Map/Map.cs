@@ -1,27 +1,26 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
-    private static List<List<Vertex>> _vertexesPrefabs;
+    public static KeyValuePair<List<List<VertexData>>, List<List<KeyValuePair<int, int>>>> map;
 
-    private List<List<Vertex>> layeredVertexes = new();
+    private readonly List<List<Vertex>> layeredVertexes = new();
 
     [SerializeField] private List<Vertex> vertexes = new();
 
     public static int currentVertex = -1;
 
     public Vector3 baseScale;
-
     public Vector3 chosenScale;
-
     public float timeScale;
 
-    public Canvas canvas;
+    public BattleVertex battlePrefab;
+    public ShopVertex shopPrefab;
 
-    private MapGenerator generator;
+    public Canvas canvas;
 
     private GameObject winMessage;
 
@@ -29,13 +28,30 @@ public class Map : MonoBehaviour
     {
         AudioManager.instance.StopAll();
 
-        generator = FindFirstObjectByType<MapGenerator>();
-
-        layeredVertexes = generator.GetMap();
-
-        foreach (var vertex in layeredVertexes.SelectMany(layer => layer))
+        for (int i = 0; i < map.Key.Count; i++)
         {
-            vertexes.Add(vertex);
+            layeredVertexes.Add(new List<Vertex>());
+            for (int j = 0; j < map.Key[i].Count; j++)
+            {
+                Vertex vertex = map.Key[i][j].Type switch
+                {
+                    VertexType.Battle => ((BattleVertexData)map.Key[i][j]).Init(battlePrefab),
+                    VertexType.Shop => ((ShopVertexData)map.Key[i][j]).Init(shopPrefab),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                layeredVertexes[i].Add(vertex);
+                vertexes.Add(vertex);
+            }
+        }
+
+        for (int i = 0; i < map.Value.Count; i++)
+        {
+            var oldLayer = layeredVertexes[i];
+            var newLayer = layeredVertexes[i + 1];
+            foreach (var bounds in map.Value[i])
+            {
+                oldLayer[bounds.Key].next.Add(newLayer[bounds.Value]);
+            }
         }
 
         if (currentVertex == vertexes.Count - 1)
@@ -80,7 +96,7 @@ public class Map : MonoBehaviour
     private void Win()
     {
         GameObject menu = Instantiate(winMessage, canvas.transform, false);
-        Button[] buttons = menu.GetComponentsInChildren<Button>();
+        var buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
         buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
         menu.gameObject.SetActive(true);

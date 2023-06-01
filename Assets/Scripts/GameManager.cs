@@ -9,9 +9,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public MapGenerator generator;
+
     public bool randomSeed;
 
     public int seed;
+
+    private bool generated = false;
     public void Awake()
     {
         if (instance == null)
@@ -48,6 +52,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("vertex"))
         {
             LoadSave();
+            if(!generated) GenerateMap();
             switch (PlayerPrefs.GetString("scene"))
             {
                 case "Map":
@@ -84,10 +89,9 @@ public class GameManager : MonoBehaviour
 
     public void SaveData()
     {
-        string playerData = JsonUtility.ToJson(Player.data);
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
-        PlayerPrefs.SetString("PlayerData", playerData);
+        PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(Player.data));
         PlayerPrefs.SetInt("seed", seed);
     }
 
@@ -95,8 +99,9 @@ public class GameManager : MonoBehaviour
     {
         Map.currentVertex = -1;
         Player.data = Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"));
+        
         if (randomSeed) seed = Random.Range(0, 10000000);
-        MapGenerator.seed = seed;
+        GenerateMap();
         
         PlayerPrefs.DeleteAll();
     }
@@ -105,7 +110,7 @@ public class GameManager : MonoBehaviour
     {
         Map.currentVertex = PlayerPrefs.GetInt("vertex");
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
-        MapGenerator.seed = PlayerPrefs.GetInt("seed");
+        seed = PlayerPrefs.GetInt("seed");
     }
 
     private void LoadMap()
@@ -124,5 +129,12 @@ public class GameManager : MonoBehaviour
     private void LoadShop()
     {
         SceneManager.LoadScene("Shop");
+    }
+
+    private void GenerateMap()
+    {
+        generator = FindFirstObjectByType<MapGenerator>();
+        Map.map = generator.GetMap(seed);
+        generated = true;
     }
 }
