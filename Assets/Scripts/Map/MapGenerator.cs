@@ -67,6 +67,8 @@ public class MapGenerator : MonoBehaviour
         GoodsPricing(layers);
         BindLayers(layers);
 
+        
+        Random.InitState((int) DateTime.Now.Ticks);
         return layers;
     }
 
