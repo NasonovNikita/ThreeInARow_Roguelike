@@ -1333,6 +1333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 1
+  seed: 1347537
 --- !u!4 &1350526673
 Transform:
   m_ObjectHideFlags: 0

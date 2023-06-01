@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private BattleVertex battlePrefab;
     [SerializeField] private ShopVertex shopPrefab;
     
-    public int seed;
+    public static int seed;
 
     public int difficulty;
     public int depth;
@@ -40,10 +40,7 @@ public class MapGenerator : MonoBehaviour
     
     public List<List<Vertex>> GetMap()
     {
-        if (!GameManager.instance.randomSeed)
-        {
-            Random.InitState(seed);
-        }
+        Random.InitState(seed);
 
         foreach (EnemyGroup group in Resources.LoadAll<EnemyGroup>("Presets/EnemyGroups"))
         {

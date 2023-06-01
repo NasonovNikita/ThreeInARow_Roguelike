@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool randomSeed;
+
+    public int seed;
     public void Awake()
     {
         if (instance == null)
@@ -86,12 +88,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("vertex", Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("PlayerData", playerData);
+        PlayerPrefs.SetInt("seed", seed);
     }
 
     private void ResetAll()
     {
         Map.currentVertex = -1;
         Player.data = Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"));
+        if (randomSeed) seed = Random.Range(0, 10000000);
+        MapGenerator.seed = seed;
         
         PlayerPrefs.DeleteAll();
     }
@@ -100,6 +105,7 @@ public class GameManager : MonoBehaviour
     {
         Map.currentVertex = PlayerPrefs.GetInt("vertex");
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
+        MapGenerator.seed = PlayerPrefs.GetInt("seed");
     }
 
     private void LoadMap()
