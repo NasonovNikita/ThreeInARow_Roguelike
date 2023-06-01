@@ -107,6 +107,7 @@ public class BattleManager : MonoBehaviour
     {
         grid.Block();
         player.Save();
+        Player.data.money += 10;
         Modifier.mods.Clear();
         SceneManager.LoadScene("Map");
     }

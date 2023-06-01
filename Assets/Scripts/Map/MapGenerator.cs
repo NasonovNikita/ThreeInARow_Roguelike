@@ -16,6 +16,15 @@ public class MapGenerator : MonoBehaviour
     public int depth;
     public int minWidth;
     public int maxWidth;
+    
+    
+    [SerializeField] private GameObject up;
+    [SerializeField] private GameObject down;
+    [SerializeField] private GameObject left;
+    [SerializeField] private GameObject right;
+
+    private readonly Vector3 dX = new (0.01f, 0, 0);
+    private readonly Vector3 dY = new(0, 0.01f, 0);
 
     private readonly Dictionary<int, List<EnemyGroup>> groups = new();
 
@@ -31,8 +40,11 @@ public class MapGenerator : MonoBehaviour
     
     public List<List<Vertex>> GetMap()
     {
-        Random.InitState(seed);
-        
+        if (!GameManager.instance.randomSeed)
+        {
+            Random.InitState(seed);
+        }
+
         foreach (EnemyGroup group in Resources.LoadAll<EnemyGroup>("Presets/EnemyGroups"))
         {
             if (!groups.TryAdd(group.Difficulty(), new List<EnemyGroup> {group}))
@@ -52,25 +64,51 @@ public class MapGenerator : MonoBehaviour
             vertexesFrequencySum += vertex.Value;
         }
 
-        return Generate();
+        List<List<Vertex>> layers =  Generate();
+        
+        PlaceVertexes(layers);
+        GoodsPricing(layers);
+        BindLayers(layers);
+
+        return layers;
     }
 
     private List<List<Vertex>> Generate()
     {
-        List<List<Vertex>> layers = new();
+        List<List<Vertex>> layers = new() { new List<Vertex> {GenBattle(0)} };
 
-        BattleVertex first = GenBattle(0);
-        layers.Add(new List<Vertex> {first});
-        
         for (int i = 1; i < depth - 1; i++)
         {
             layers.Add(GenLayer(i));
         }
 
-        BattleVertex last = GenBattle(depth - 1);
-        layers.Add(new List<Vertex> {last});
+        layers.Add(new List<Vertex> {GenBattle(depth)});
 
         return layers;
+    }
+
+    private void PlaceVertexes(List<List<Vertex>> layers)
+    {
+        Vector3 yStep = (up.transform.position - down.transform.position) / (layers.Count - 1);
+        int width = layers.Max(layer => layer.Count);
+        Vector3 xStep = (left.transform.position - right.transform.position) / width;
+        for (int i = 0; i < layers.Count; i++)
+        {
+            for (int j = 0; j < layers[i].Count; j++)
+            {
+                PlaceLayer(layers[i], i, xStep, yStep);
+            } 
+        }
+    }
+
+    private void PlaceLayer(List<Vertex> layer, int i, Vector3 xStep, Vector3 yStep)
+    {
+        int k = layer.Count;
+        layer[0].transform.position = down.transform.position + i * yStep + ((float) k - 1) / 2 * -xStep;
+        for (int j = 1; j < k; j++)
+        {
+            layer[j].transform.position = layer[j - 1].transform.position + xStep + Random.Range(-25, 26) * dX + Random.Range(-25, 26) * dY;
+        }
     }
 
     private List<Vertex> GenLayer(int layer)
@@ -87,7 +125,7 @@ public class MapGenerator : MonoBehaviour
         return resultLayer;
     }
 
-    public void BindLayers(List<List<Vertex>> layers)
+    private void BindLayers(List<List<Vertex>> layers)
     {
         for (int i = 0; i < depth - 1; i++)
         {
@@ -119,9 +157,9 @@ public class MapGenerator : MonoBehaviour
 
     private BattleVertex GenBattle(int layer)
     {
-        BattleVertex vertex = battlePrefab;
+        BattleVertex vertex = Instantiate(battlePrefab);
 
-        int battleDifficulty = difficulty + layer * difficulty + Random.Range(-10, 10 + 1);
+        int battleDifficulty = difficulty + layer * difficulty / 2 + Random.Range(-5, 6);
         int chosenKey = groups.Keys.Aggregate(
                 (min, next) => Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next
                 );
@@ -133,9 +171,9 @@ public class MapGenerator : MonoBehaviour
         return vertex;
     }
 
-    private ShopVertex GenShop(int layer)
+    private ShopVertex GenShop()
     {
-        ShopVertex vertex = shopPrefab;
+        ShopVertex vertex = Instantiate(shopPrefab);
 
         List<Good> currentGoods = new();
 
@@ -149,7 +187,7 @@ public class MapGenerator : MonoBehaviour
         return vertex;
     }
 
-    public void GoodsPricing(List<List<Vertex>> layers)
+    private void GoodsPricing(List<List<Vertex>> layers)
     {
         for (int i = 0; i < layers.Count; i++)
         {
@@ -199,7 +237,7 @@ public class MapGenerator : MonoBehaviour
         return type switch
         {
             VertexType.Battle => GenBattle(layer),
-            VertexType.Shop => GenShop(layer),
+            VertexType.Shop => GenShop(),
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -208,7 +246,7 @@ public class MapGenerator : MonoBehaviour
     {
         bool res = false;
         
-        foreach (var bound in bounds.Where(bound => (bound.Key - c) * (bound.Value - d) < 0))
+        foreach (var unused in bounds.Where(bound => (bound.Key - c) * (bound.Value - d) < 0))
         {
             res = true;
         }

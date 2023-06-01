@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,9 +7,9 @@ public class Map : MonoBehaviour
 {
     private static List<List<Vertex>> _vertexesPrefabs;
 
-    private readonly List<List<Vertex>> instantiatedVertexes = new();
+    private List<List<Vertex>> layeredVertexes = new();
 
-    private readonly List<Vertex> vertexes = new();
+    [SerializeField] private List<Vertex> vertexes = new();
 
     public static int currentVertex = -1;
 
@@ -29,22 +30,13 @@ public class Map : MonoBehaviour
         AudioManager.instance.StopAll();
 
         generator = FindFirstObjectByType<MapGenerator>();
-        _vertexesPrefabs = generator.GetMap();
 
-        for (int i = 0; i < _vertexesPrefabs.Count; i++)
+        layeredVertexes = generator.GetMap();
+
+        foreach (var vertex in layeredVertexes.SelectMany(layer => layer))
         {
-            instantiatedVertexes.Add(new List<Vertex>());
-            for (int j = 0; j < _vertexesPrefabs[i].Count; j++)
-            {
-                Vertex vertex = Instantiate(_vertexesPrefabs[i][j]);
-                vertex.transform.position = transform.position + Vector3.up * i * 3 + Vector3.right * j * 3;
-                instantiatedVertexes[i].Add(vertex);
-                vertexes.Add(vertex);
-            }
+            vertexes.Add(vertex);
         }
-        
-        generator.BindLayers(instantiatedVertexes);
-        generator.GoodsPricing(instantiatedVertexes);
 
         if (currentVertex == vertexes.Count - 1)
         {
@@ -60,7 +52,7 @@ public class Map : MonoBehaviour
         
         AudioManager.instance.Play(AudioEnum.Map);
 
-        winMessage = Resources.Load<GameObject>("Prefabs/Menu/Win");
+        winMessage = Resources.Load<GameObject>("Prefabs/Menu/Won");
     }
 
     public void OnClick(Vertex vertex)
