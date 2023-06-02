@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 45
   title: Kick II
-  value: 50
+  value: 55
   moves: 0
