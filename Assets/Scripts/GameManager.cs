@@ -52,18 +52,7 @@ public class GameManager : MonoBehaviour
         {
             LoadSave();
             if(!generated) GenerateMap();
-            switch (PlayerPrefs.GetString("scene"))
-            {
-                case "Map":
-                    LoadMap();
-                    break;
-                case "Battle":
-                    StartCoroutine(LoadBattle());
-                    break;
-                case "Shop":
-                    LoadShop();
-                    break;
-            }
+            SceneManager.LoadScene(PlayerPrefs.GetString("scene"));
         }
         else
         {
@@ -93,6 +82,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(Player.data));
         PlayerPrefs.SetInt("seed", seed);
         PlayerPrefs.SetString("group", JsonUtility.ToJson(BattleManager.group));
+        PlayerPrefs.SetString("goods", JsonUtility.ToJson(ShopManager.goods));
     }
 
     private void ResetAll()
@@ -111,7 +101,9 @@ public class GameManager : MonoBehaviour
         Map.currentVertex = PlayerPrefs.GetInt("vertex");
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
         seed = PlayerPrefs.GetInt("seed");
+        BattleManager.group = ScriptableObject.CreateInstance<EnemyGroup>();
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("group"), BattleManager.group);
+        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("goods"), ShopManager.goods);
     }
 
     private void LoadMap()
@@ -119,12 +111,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Map");
     }
 
-    private IEnumerator<WaitUntil> LoadBattle()
+    private void LoadBattle()
     {
-        SceneManager.LoadScene("Map");
-        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Map");
-        Map map = FindFirstObjectByType<Map>();
-        map.CurrentVertex_().OnArrive();
+        SceneManager.LoadScene("Battle");
     }
 
     private void LoadShop()

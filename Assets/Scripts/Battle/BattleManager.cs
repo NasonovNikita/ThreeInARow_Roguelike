@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ public class BattleManager : MonoBehaviour
 
     private const float FightTime = 0.2f;
 
-    public static EnemyGroup group;
+    public static EnemyGroup group = ScriptableObject.CreateInstance<EnemyGroup>();
 
     public Enemy target;
     
@@ -49,9 +48,7 @@ public class BattleManager : MonoBehaviour
         LoadSpells();
 
         enemies = group.GetEnemies();
-        
-        GameManager.instance.SaveData();
-        
+
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i] = LoadEnemy(i);
@@ -64,6 +61,8 @@ public class BattleManager : MonoBehaviour
         target = enemies[0];
 
         AudioManager.instance.Play(AudioEnum.Battle);
+        
+        GameManager.instance.SaveData();
         
         State = BattleState.Turn;
     }

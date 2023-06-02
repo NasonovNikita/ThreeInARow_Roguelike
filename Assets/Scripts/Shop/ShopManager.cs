@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public static List<Good> goods;
+    public static List<Good> goods = new();
     public void Awake()
     {
         AudioManager.instance.StopAll();
