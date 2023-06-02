@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 040e8467fe041c941b2b46f2f041a81b, type: 3}
-  m_Name: EnemyGroup1
+  m_Name: EEEE
   m_EditorClassIdentifier: 
   enemiesData:
   - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
-  difficulty: 5
-  reward: 5
+  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
+  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
+  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
+  difficulty: 34
+  reward: 30

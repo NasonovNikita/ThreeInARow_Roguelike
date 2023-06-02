@@ -159,7 +159,7 @@ public class MapGenerator : MonoBehaviour
     {
         BattleVertexData vertex = new();
 
-        int battleDifficulty = difficulty + layer * difficulty / 2 + Random.Range(-5, 6);
+        int battleDifficulty = difficulty + layer * difficulty / 3 + Random.Range(-5, 6);
         int chosenKey = groups.Keys.Aggregate(
                 (min, next) => Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next
                 );

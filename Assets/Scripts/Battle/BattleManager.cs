@@ -33,14 +33,10 @@ public class BattleManager : MonoBehaviour
     private bool _enemiesAct;
     
     private bool _dead;
-
-    private GameObject loseMessage;
     
     public void Awake()
     {
         AudioManager.instance.StopAll();
-        
-        loseMessage = Resources.Load<GameObject>("Prefabs/Menu/Lose");
         
         canvas = FindFirstObjectByType<Canvas>();
         player = FindFirstObjectByType<Player>();
@@ -53,8 +49,6 @@ public class BattleManager : MonoBehaviour
         LoadSpells();
 
         enemies = group.GetEnemies();
-        
-        Debug.unityLogger.Log($"{group} {enemies}");
         
         GameManager.instance.SaveData();
         
@@ -163,8 +157,8 @@ public class BattleManager : MonoBehaviour
         State = BattleState.End;
         grid.Block();
         
-        GameObject menu = Instantiate(loseMessage, canvas.transform, false);
-        Button[] buttons = menu.GetComponentsInChildren<Button>();
+        GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, canvas.transform, false);
+        var buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
         buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
         menu.gameObject.SetActive(true);

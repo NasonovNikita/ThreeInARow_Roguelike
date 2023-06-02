@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PrefabsContainer : MonoBehaviour
 {
     public Enemy enemy;
+
+    public GameObject winMessage;
+
+    public GameObject loseMessage;
 
     public static PrefabsContainer instance;
     public void Awake()

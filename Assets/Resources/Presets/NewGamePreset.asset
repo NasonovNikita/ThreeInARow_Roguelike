@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9680307e32fa50f4dbc24593a7e3dbb4, type: 3}
   m_Name: NewGamePreset
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  manaPerGem: 20
   hp:
     borderDown: 0
     borderUp: 200
@@ -31,4 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
   - {fileID: 11400000, guid: dd0f598eea0867f4fbe8092103e08786, type: 2}
   - {fileID: 11400000, guid: 1af1f60f705b24c44b9842b0a7b87e54, type: 2}
-  money: 30
+  manaPerGem: 20
+  money: 11

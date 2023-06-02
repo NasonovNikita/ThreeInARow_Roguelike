@@ -22,8 +22,6 @@ public class Map : MonoBehaviour
 
     public Canvas canvas;
 
-    private GameObject winMessage;
-
     public void Awake()
     {
         AudioManager.instance.StopAll();
@@ -67,8 +65,6 @@ public class Map : MonoBehaviour
         GameManager.instance.SaveData();
         
         AudioManager.instance.Play(AudioEnum.Map);
-
-        winMessage = Resources.Load<GameObject>("Prefabs/Menu/Won");
     }
 
     public void OnClick(Vertex vertex)
@@ -95,7 +91,7 @@ public class Map : MonoBehaviour
 
     private void Win()
     {
-        GameObject menu = Instantiate(winMessage, canvas.transform, false);
+        GameObject menu = Instantiate(PrefabsContainer.instance.winMessage, canvas.transform, false);
         var buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
         buttons[1].onClick.AddListener(GameManager.instance.MainMenu);

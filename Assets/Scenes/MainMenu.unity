@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+  winMessage: {fileID: 2188612303319430005, guid: 0176c58bca5452d4dae563e7896417e4, type: 3}
+  loseMessage: {fileID: 2879500456662334555, guid: ed9c6d8a9a6a1cc428c67d7bd84120ce, type: 3}
 --- !u!4 &193633472
 Transform:
   m_ObjectHideFlags: 0
