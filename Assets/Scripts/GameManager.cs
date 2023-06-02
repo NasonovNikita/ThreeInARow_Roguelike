@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -104,21 +103,6 @@ public class GameManager : MonoBehaviour
         BattleManager.group = ScriptableObject.CreateInstance<EnemyGroup>();
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("group"), BattleManager.group);
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("goods"), ShopManager.goods);
-    }
-
-    private void LoadMap()
-    {
-        SceneManager.LoadScene("Map");
-    }
-
-    private void LoadBattle()
-    {
-        SceneManager.LoadScene("Battle");
-    }
-
-    private void LoadShop()
-    {
-        SceneManager.LoadScene("Shop");
     }
 
     private void GenerateMap()
