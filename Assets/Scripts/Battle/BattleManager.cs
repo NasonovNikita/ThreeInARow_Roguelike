@@ -19,12 +19,14 @@ public class BattleManager : MonoBehaviour
 
     private const float FightTime = 0.2f;
 
-    public static List<Enemy> enemies = new();
+    public static EnemyGroup group;
 
     public Enemy target;
     
     public BattleState State { get; private set; }
-    
+
+    public List<Enemy> enemies;
+
     private Coroutine _battle;
 
     private bool _playerActs;
@@ -49,6 +51,12 @@ public class BattleManager : MonoBehaviour
         player.TurnOn();
 
         LoadSpells();
+
+        enemies = group.GetEnemies();
+        
+        Debug.unityLogger.Log($"{group} {enemies}");
+        
+        GameManager.instance.SaveData();
         
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -60,9 +68,7 @@ public class BattleManager : MonoBehaviour
         placer.Place();
         
         target = enemies[0];
-        
-        GameManager.instance.SaveData();
-        
+
         AudioManager.instance.Play(AudioEnum.Battle);
         
         State = BattleState.Turn;
@@ -107,7 +113,7 @@ public class BattleManager : MonoBehaviour
     {
         grid.Block();
         player.Save();
-        Player.data.money += 10;
+        Player.data.money += group.reward;
         Modifier.mods.Clear();
         SceneManager.LoadScene("Map");
     }

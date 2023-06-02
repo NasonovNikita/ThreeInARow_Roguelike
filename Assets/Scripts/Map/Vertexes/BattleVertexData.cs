@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using Object = UnityEngine.Object;
 
 [Serializable]
 public class BattleVertexData : VertexData
 {
-    public List<Enemy> enemies;
+    public EnemyGroup group;
 
     public override VertexType Type => VertexType.Battle;
     
@@ -13,7 +12,7 @@ public class BattleVertexData : VertexData
     {
         BattleVertex vertex = Object.Instantiate(prefab);
         vertex.transform.position = position;
-        vertex.enemies = enemies;
+        vertex.group = group;
         return vertex;
     }
 }

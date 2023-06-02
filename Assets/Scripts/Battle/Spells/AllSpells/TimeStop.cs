@@ -10,7 +10,7 @@ public class TimeStop : Spell
         
         manager.player.mana -= manaCost;
         
-        foreach (Enemy enemy in BattleManager.enemies)
+        foreach (Enemy enemy in manager.enemies)
         {
             enemy.statusModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
         }

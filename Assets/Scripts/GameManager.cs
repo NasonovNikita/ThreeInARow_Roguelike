@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public int seed;
 
-    private bool generated = false;
+    private bool generated;
     public void Awake()
     {
         if (instance == null)
@@ -93,6 +92,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(Player.data));
         PlayerPrefs.SetInt("seed", seed);
+        PlayerPrefs.SetString("group", JsonUtility.ToJson(BattleManager.group));
     }
 
     private void ResetAll()
@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         Map.currentVertex = PlayerPrefs.GetInt("vertex");
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
         seed = PlayerPrefs.GetInt("seed");
+        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("group"), BattleManager.group);
     }
 
     private void LoadMap()

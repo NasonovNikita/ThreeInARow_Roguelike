@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e8467fe041c941b2b46f2f041a81b, type: 3}
   m_Name: EnemyGroup3
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+  enemiesData:
+  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
+  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
+  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
   difficulty: 30
+  reward: 17

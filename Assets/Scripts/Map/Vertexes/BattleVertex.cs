@@ -1,13 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class BattleVertex : Vertex
 {
-    public List<Enemy> enemies;
+    public EnemyGroup group;
     
     public override void OnArrive()
     {
-        BattleManager.enemies = enemies;
+        BattleManager.group = group;
         SceneManager.LoadScene("Battle");
     }
 }

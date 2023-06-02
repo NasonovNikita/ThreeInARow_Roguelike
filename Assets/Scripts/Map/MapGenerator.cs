@@ -132,7 +132,7 @@ public class MapGenerator : MonoBehaviour
         return bounds;
     }
 
-    private List<KeyValuePair<int, int>> Bind2Layers(ICollection oldLayer, ICollection newLayer)
+    private static List<KeyValuePair<int, int>> Bind2Layers(ICollection oldLayer, ICollection newLayer)
     {
         HashSet<int> boundVertexes = new();
 
@@ -165,8 +165,8 @@ public class MapGenerator : MonoBehaviour
                 );
 
         
-        EnemyGroup group = groups[chosenKey][Random.Range(0, groups[chosenKey].Count)];
-        vertex.enemies = group.GetEnemies();
+        EnemyGroup group = Instantiate(groups[chosenKey][Random.Range(0, groups[chosenKey].Count)]);
+        vertex.group = group;
         
         return vertex;
     }
