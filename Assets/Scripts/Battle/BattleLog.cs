@@ -5,92 +5,49 @@ public static class BattleLog
 {
     private static readonly List<ILog> Logs = new();
 
-    public static List<T> GetLogs<T>()
-    {
-        return Logs.Where(log => log is T).Cast<T>().ToList();
-    }
+    public static List<T> GetLogs<T>() => Logs.Where(log => log is T).Cast<T>().ToList();
 
-    public static List<ILog> GetAllLogs()
-    {
-        return Logs;
-    }
+    public static List<ILog> GetAllLogs() => Logs;
 
-    public static ILog GetLastLog()
-    {
-        return Logs[-1];
-    }
+    public static ILog GetLastLog() => Logs[-1];
 
-    public static void Clear()
-    {
-        Logs.Clear();
-    }
+    public static void Clear() => Logs.Clear();
 
-    internal static void AddLog(ILog log)
-    {
-        Logs.Add(log);
-    }
+    internal static void AddLog(ILog log) => Logs.Add(log);
 }
 
 public class GridLog : ILog
 {
     private readonly Dictionary<GemType, int> _table;
     
-    public static void Log(Dictionary<GemType, int> table)
-    {
-        var log = new GridLog(table);
-        ILog.AddLog(log);
-    }
+    public static void Log(Dictionary<GemType, int> table) => ILog.AddLog(new GridLog(table));
 
-    public Dictionary<GemType, int> GetData()
-    {
-        return _table;
-    }
+    public Dictionary<GemType, int> GetData() => _table;
 
-    private GridLog(Dictionary<GemType, int> table)
-    {
-        _table = table;
-    }
+    private GridLog(Dictionary<GemType, int> table) => _table = table;
 }
 
 public class DeathLog : ILog
 {
     private readonly Unit _unit;
     
-    public static void Log(Unit unit)
-    {
-        var log = new DeathLog(unit);
-        ILog.AddLog(log);
-    }
+    public static void Log(Unit unit) => ILog.AddLog(new DeathLog(unit));
 
-    public Unit GetData()
-    {
-        return _unit;
-    }
+    public Unit GetData() => _unit;
 
-    private DeathLog(Unit unit)
-    {
-        _unit = unit;
-    }
+    private DeathLog(Unit unit) => _unit = unit;
 }
 
 public class PToEDamageLog : DamageLog, ILog
 {
-    public static void Log(Enemy enemy, Player player, int damage)
-    {
-        var log = new PToEDamageLog(enemy, player, damage);
-        ILog.AddLog(log);
-    }
+    public static void Log(Enemy enemy, Player player, int damage) => ILog.AddLog(new PToEDamageLog(enemy, player, damage));
 
     private PToEDamageLog(Enemy enemy, Player player, int damage) : base(enemy, player, damage) {}
 }
 
 public class EToPDamageLog : DamageLog, ILog
 {
-    public static void Log(Enemy enemy, Player player, int damage)
-    {
-        var log = new EToPDamageLog(enemy, player, damage);
-        ILog.AddLog(log);
-    }
+    public static void Log(Enemy enemy, Player player, int damage) => ILog.AddLog(new EToPDamageLog(enemy, player, damage));
 
     private EToPDamageLog(Enemy enemy, Player player, int damage) : base(enemy, player, damage) {}
 }
@@ -101,10 +58,7 @@ public class DamageLog
     private readonly Player _player;
     private readonly int _damage;
     
-    public (Enemy, Player, int) GetData()
-    {
-        return (_enemy, _player, _damage);
-    }
+    public (Enemy, Player, int) GetData() => (_enemy, _player, _damage);
 
     protected DamageLog(Enemy enemy, Player player, int damage)
     {
@@ -116,8 +70,5 @@ public class DamageLog
 
 public interface ILog
 {
-    protected internal static void AddLog(ILog log)
-    {
-        BattleLog.AddLog(log);
-    }
+    protected internal static void AddLog(ILog log) => BattleLog.AddLog(log);
 }
