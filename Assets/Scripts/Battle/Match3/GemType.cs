@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public enum GemType
 {
     Red,

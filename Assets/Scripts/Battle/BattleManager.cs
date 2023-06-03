@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,9 +13,9 @@ public class BattleManager : MonoBehaviour
     
     public Grid grid;
     
-    private EnemyPlacement placer;
+    private EnemyPlacement _placer;
     
-    private Canvas canvas;
+    private Canvas _canvas;
 
     private const float FightTime = 0.2f;
 
@@ -37,10 +38,10 @@ public class BattleManager : MonoBehaviour
     {
         AudioManager.instance.StopAll();
         
-        canvas = FindFirstObjectByType<Canvas>();
+        _canvas = FindFirstObjectByType<Canvas>();
         player = FindFirstObjectByType<Player>();
         grid = FindFirstObjectByType<Grid>();
-        placer = FindFirstObjectByType<EnemyPlacement>();
+        _placer = FindFirstObjectByType<EnemyPlacement>();
 
         player.Load();
         player.TurnOn();
@@ -54,9 +55,9 @@ public class BattleManager : MonoBehaviour
             enemies[i] = LoadEnemy(i);
         }
 
-        placer.enemiesToPlace = enemies;
+        _placer.enemiesToPlace = enemies;
         
-        placer.Place();
+        _placer.Place();
         
         target = enemies[0];
 
@@ -107,6 +108,7 @@ public class BattleManager : MonoBehaviour
         grid.Block();
         player.Save();
         Player.data.money += group.reward;
+        BattleLog.Clear();
         Modifier.mods.Clear();
         SceneManager.LoadScene("Map");
     }
@@ -156,7 +158,7 @@ public class BattleManager : MonoBehaviour
         State = BattleState.End;
         grid.Block();
         
-        GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, canvas.transform, false);
+        GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, _canvas.transform, false);
         var buttons = menu.GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(GameManager.instance.NewGame);
         buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
@@ -165,7 +167,7 @@ public class BattleManager : MonoBehaviour
 
     private Enemy LoadEnemy(int i)
     {
-        Enemy enemy = Instantiate(enemies[i], canvas.transform, false);
+        Enemy enemy = Instantiate(enemies[i], _canvas.transform, false);
         enemy.TurnOn();
         return enemy;
     }

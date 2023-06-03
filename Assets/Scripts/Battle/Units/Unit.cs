@@ -3,11 +3,8 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
-    [SerializeField]
     public Stat hp;
-    [SerializeField]
     public Stat mana;
-    [SerializeField]
     public Stat damage;
 
     public List<Modifier> statusModifiers = new();

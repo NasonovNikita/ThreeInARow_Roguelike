@@ -119,6 +119,14 @@ public class Grid : MonoBehaviour
                 }
                 break;
             }
+            case GridState.Moving:
+                break;
+            case GridState.Refreshing:
+                break;
+            case GridState.Blocked:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -144,7 +152,7 @@ public class Grid : MonoBehaviour
 
     private IEnumerator Refresh()
     {
-        HashSet<Gem> toDelete = new HashSet<Gem>();
+        var toDelete = new HashSet<Gem>();
         
         for (int i = 0; i < sizeY; i++)
         {
@@ -156,17 +164,17 @@ public class Grid : MonoBehaviour
                     toDelete.Add(_box[i, j + 1]);
                     toDelete.Add(_box[i, j + 2]);
                 }
-                if (VerticalRowExists(i, j))
-                {
-                    toDelete.Add(_box[i, j]);
-                    toDelete.Add(_box[i + 1, j]);
-                    toDelete.Add(_box[i + 2, j]);
-                }
+
+                if (!VerticalRowExists(i, j)) continue;
+                toDelete.Add(_box[i, j]);
+                toDelete.Add(_box[i + 1, j]);
+                toDelete.Add(_box[i + 2, j]);
             }
         }
 
         if (toDelete.Count == 0)
         {
+            GridLog.Log(destroyed);
             Block();
             manager.EndTurn();
             yield break;
@@ -174,9 +182,9 @@ public class Grid : MonoBehaviour
         
         foreach (Gem gem in toDelete)
         {
-            if (destroyed.TryGetValue(gem.Type, out int val))
+            if (destroyed.ContainsKey(gem.Type))
             {
-                destroyed[gem.Type] = val + 1;
+                destroyed[gem.Type] += 1;
             }
             else
             {

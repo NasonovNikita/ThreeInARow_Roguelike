@@ -45,7 +45,6 @@ public class ConditionInspectorDrawer : PropertyDrawer
             n++;
         }
 
-
         EditorGUI.PropertyField(position, property.FindPropertyRelative("value"), new GUIContent("Value"));
         position.y += position.height;
         

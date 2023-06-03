@@ -3,13 +3,13 @@ using System;
 [Serializable]
 public class Enemy : Unit
 {
-    private Player player;
+    private Player _player;
 
     public new void TurnOn()
     {
         base.TurnOn();
 
-        player = FindFirstObjectByType<Player>();
+        _player = FindFirstObjectByType<Player>();
     }
     public override void DoDamage(int value)
     {
@@ -24,12 +24,14 @@ public class Enemy : Unit
     public override void Act()
     {
         if (Stunned() || manager.State == BattleState.End) return;
-        
-        player.DoDamage((int) damage.GetValue());
+        int doneDamage = (int)damage.GetValue();
+        EToPDamageLog.Log(this, _player, doneDamage);
+        _player.DoDamage(doneDamage);
     }
 
     protected override void NoHp()
     {
+        DeathLog.Log(this);
         StartCoroutine(manager.KillEnemy(this));
     }
 }

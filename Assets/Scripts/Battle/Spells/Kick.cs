@@ -8,6 +8,7 @@ public class Kick : Spell
         if (CantCast()) return;
         
         manager.player.mana -= manaCost;
+        PToEDamageLog.Log(manager.target, manager.player, (int) value);
         manager.target.DoDamage((int) value);
     }
 }

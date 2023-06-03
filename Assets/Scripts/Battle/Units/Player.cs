@@ -9,28 +9,30 @@ public class Player : Unit
     
     public int manaPerGem;
 
-    private Grid grid;
+    private Grid _grid;
 
     public new void TurnOn()
     {
         base.TurnOn();
-        grid = FindFirstObjectByType<Grid>();
+        _grid = FindFirstObjectByType<Grid>();
     }
 
     private int CountMana()
     {
-        return grid.destroyed.ContainsKey(GemType.Mana) ? grid.destroyed[GemType.Mana] * manaPerGem : 0;
+        return _grid.destroyed.ContainsKey(GemType.Mana) ? _grid.destroyed[GemType.Mana] * manaPerGem : 0;
     }
 
     private int CountDamage()
     {
-        return (int) (grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
+        return (int) (_grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
     }
 
     public override void Act()
     {
         mana += CountMana();
-        manager.target.DoDamage(CountDamage());
+        int doneDamage = CountDamage();
+        PToEDamageLog.Log(manager.target, this, doneDamage);
+        manager.target.DoDamage(doneDamage);
     }
 
     public override void DoDamage(int value)
@@ -45,6 +47,7 @@ public class Player : Unit
 
     protected override void NoHp()
     {
+        DeathLog.Log(this);
         StartCoroutine(manager.Die());
     }
 

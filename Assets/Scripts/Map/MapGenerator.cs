@@ -140,16 +140,12 @@ public class MapGenerator : MonoBehaviour
 
         while (boundVertexes.Count != oldLayer.Count + newLayer.Count)
         {
-            for (int i = 0; i < oldLayer.Count; i++)
-            {
-                for (int j = 0; j < newLayer.Count; j++)
-                {
-                    if (Random.Range(0, 2) == 0 || CrossExists(bounds, i, j) ||
-                        bounds.Exists(pair => pair.Key == i && pair.Value == j)) continue;
-                    bounds.Add(new KeyValuePair<int, int>(i, j));
-                    boundVertexes.AddRange(new[] { i, -j - 1 });
-                }
-            }
+            int a = Random.Range(0, oldLayer.Count);
+            int b = Random.Range(0, newLayer.Count);
+            
+            if (CrossExists(bounds, a, b) || bounds.Exists(pair => pair.Key == a && pair.Value == b)) continue;
+            bounds.Add(new KeyValuePair<int, int>(a, b));
+            boundVertexes.AddRange(new[] { a, -b - 1 });
         }
 
         return bounds;
