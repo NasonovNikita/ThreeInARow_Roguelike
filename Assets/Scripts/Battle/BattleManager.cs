@@ -1,188 +1,194 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using Audio;
+using Battle.Units;
+using Battle.Units.Enemies;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Grid = Battle.Match3.Grid;
 
-public class BattleManager : MonoBehaviour
+namespace Battle
 {
-    public Player player;
-    
-    public Grid grid;
-    
-    private EnemyPlacement _placer;
-    
-    private Canvas _canvas;
-
-    private const float FightTime = 0.2f;
-
-    public static EnemyGroup group = ScriptableObject.CreateInstance<EnemyGroup>();
-
-    public Enemy target;
-    
-    public BattleState State { get; private set; }
-
-    public List<Enemy> enemies;
-
-    private Coroutine _battle;
-
-    private bool _playerActs;
-    private bool _enemiesAct;
-    
-    private bool _dead;
-    
-    public void Awake()
+    public class BattleManager : MonoBehaviour
     {
-        AudioManager.instance.StopAll();
-        
-        _canvas = FindFirstObjectByType<Canvas>();
-        player = FindFirstObjectByType<Player>();
-        grid = FindFirstObjectByType<Grid>();
-        _placer = FindFirstObjectByType<EnemyPlacement>();
+        public Player player;
+    
+        public Grid grid;
+    
+        private EnemyPlacement _placer;
+    
+        private Canvas _canvas;
 
-        player.Load();
-        player.TurnOn();
+        private const float FightTime = 0.2f;
 
-        LoadSpells();
+        public static EnemyGroup group = ScriptableObject.CreateInstance<EnemyGroup>();
 
-        enemies = group.GetEnemies();
+        public Enemy target;
+    
+        public BattleState State { get; private set; }
 
-        for (int i = 0; i < enemies.Count; i++)
+        public List<Enemy> enemies;
+
+        private Coroutine _battle;
+
+        private bool _playerActs;
+        private bool _enemiesAct;
+    
+        private bool _dead;
+    
+        public void Awake()
         {
-            enemies[i] = LoadEnemy(i);
+            AudioManager.instance.StopAll();
+        
+            _canvas = FindFirstObjectByType<Canvas>();
+            player = FindFirstObjectByType<Player>();
+            grid = FindFirstObjectByType<Grid>();
+            _placer = FindFirstObjectByType<EnemyPlacement>();
+
+            player.Load();
+            player.TurnOn();
+
+            LoadSpells();
+
+            enemies = group.GetEnemies();
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i] = LoadEnemy(i);
+            }
+
+            _placer.enemiesToPlace = enemies;
+        
+            _placer.Place();
+        
+            target = enemies[0];
+
+            AudioManager.instance.Play(AudioEnum.Battle);
+        
+            GameManager.instance.SaveData();
+        
+            State = BattleState.Turn;
+        }
+    
+        public void EndTurn()
+        {
+            StartCoroutine(PlayerAct());
         }
 
-        _placer.enemiesToPlace = enemies;
+        public IEnumerator KillEnemy(Enemy enemy)
+        {
+            enemies.Remove(enemy);
         
-        _placer.Place();
-        
-        target = enemies[0];
+            if (enemies.Count == 0)
+            {
+                State = BattleState.End;
+                yield return new WaitForSeconds(FightTime);
+                enemy.Delete();
+                Win();
+                yield break;
+            }
 
-        AudioManager.instance.Play(AudioEnum.Battle);
-        
-        GameManager.instance.SaveData();
-        
-        State = BattleState.Turn;
-    }
-    
-    public void EndTurn()
-    {
-        StartCoroutine(PlayerAct());
-    }
+            target = enemies[0];
 
-    public IEnumerator KillEnemy(Enemy enemy)
-    {
-        enemies.Remove(enemy);
+            yield return new WaitForSeconds(FightTime);
         
-        if (enemies.Count == 0)
+            enemy.Delete();
+        }
+
+        public IEnumerator Die()
         {
             State = BattleState.End;
+        
             yield return new WaitForSeconds(FightTime);
-            enemy.Delete();
-            Win();
-            yield break;
+            player.Delete();
+        
+            Lose();
         }
 
-        target = enemies[0];
-
-        yield return new WaitForSeconds(FightTime);
-        
-        enemy.Delete();
-    }
-
-    public IEnumerator Die()
-    {
-        State = BattleState.End;
-        
-        yield return new WaitForSeconds(FightTime);
-        player.Delete();
-        
-        Lose();
-    }
-
-    private void Win()
-    {
-        grid.Block();
-        player.Save();
-        Player.data.money += group.reward;
-        BattleLog.Clear();
-        Modifier.mods.Clear();
-        SceneManager.LoadScene("Map");
-    }
-
-    private IEnumerator<WaitForSeconds> PlayerAct()
-    {
-        if (!player.Stunned())
+        private void Win()
         {
-            State = BattleState.PlayerAct;
-
-            player.Act();
-            yield return new WaitForSeconds(FightTime);
+            grid.Block();
+            player.Save();
+            Player.data.money += group.reward;
+            BattleLog.Clear();
+            Modifier.mods.Clear();
+            SceneManager.LoadScene("Map");
         }
 
-        StartCoroutine(EnemiesAct());
-    }
-
-    private IEnumerator<WaitForSeconds> EnemiesAct()
-    {
-        State = BattleState.EnemiesAct;
-
-        foreach (var enemy in enemies.Where(enemy => !enemy.Stunned()))
+        private IEnumerator<WaitForSeconds> PlayerAct()
         {
-            enemy.Act();
-            yield return new WaitForSeconds(FightTime);
-            if (player.hp <= 0) yield break;
-        }
-        
-        Modifier.Move();
+            if (!player.Stunned())
+            {
+                State = BattleState.PlayerAct;
 
-        if (!player.Stunned())
-        {
-            State = BattleState.Turn;
-            grid.destroyed.Clear();
-            grid.Unlock();
-        }
-        else
-        {
+                player.Act();
+                yield return new WaitForSeconds(FightTime);
+            }
+
             StartCoroutine(EnemiesAct());
         }
-    }
-    
-    
-    // ReSharper disable Unity.PerformanceAnalysis
-    private void Lose()
-    {
-        State = BattleState.End;
-        grid.Block();
-        
-        GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, _canvas.transform, false);
-        var buttons = menu.GetComponentsInChildren<Button>();
-        buttons[0].onClick.AddListener(GameManager.instance.NewGame);
-        buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
-        menu.gameObject.SetActive(true);
-    }
 
-    private Enemy LoadEnemy(int i)
-    {
-        Enemy enemy = Instantiate(enemies[i], _canvas.transform, false);
-        enemy.TurnOn();
-        return enemy;
-    }
-
-    private void LoadSpells()
-    {
-        var spells = GameObject.Find("Spells");
-        var spellButtons = spells.GetComponentsInChildren<Button>();
-        for (int i = 0; i < player.spells.Count && i < 4; i++)
+        private IEnumerator<WaitForSeconds> EnemiesAct()
         {
-            Button btn = spellButtons[i];
-            Spell spell = player.spells[i];
-            btn.onClick.AddListener(spell.Cast);
-            TMP_Text text = btn.GetComponentInChildren<TMP_Text>();
-            text.text = spell.title;
+            State = BattleState.EnemiesAct;
+
+            foreach (var enemy in enemies.Where(enemy => !enemy.Stunned()))
+            {
+                enemy.Act();
+                yield return new WaitForSeconds(FightTime);
+                if (player.hp <= 0) yield break;
+            }
+        
+            Modifier.Move();
+
+            if (!player.Stunned())
+            {
+                State = BattleState.Turn;
+                grid.destroyed.Clear();
+                grid.Unlock();
+            }
+            else
+            {
+                StartCoroutine(EnemiesAct());
+            }
+        }
+    
+    
+        // ReSharper disable Unity.PerformanceAnalysis
+        private void Lose()
+        {
+            State = BattleState.End;
+            grid.Block();
+        
+            GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, _canvas.transform, false);
+            var buttons = menu.GetComponentsInChildren<Button>();
+            buttons[0].onClick.AddListener(GameManager.instance.NewGame);
+            buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
+            menu.gameObject.SetActive(true);
+        }
+
+        private Enemy LoadEnemy(int i)
+        {
+            Enemy enemy = Instantiate(enemies[i], _canvas.transform, false);
+            enemy.TurnOn();
+            return enemy;
+        }
+
+        private void LoadSpells()
+        {
+            var spells = GameObject.Find("Spells");
+            var spellButtons = spells.GetComponentsInChildren<Button>();
+            for (int i = 0; i < player.spells.Count && i < 4; i++)
+            {
+                Button btn = spellButtons[i];
+                Spell spell = player.spells[i];
+                btn.onClick.AddListener(spell.Cast);
+                TMP_Text text = btn.GetComponentInChildren<TMP_Text>();
+                text.text = spell.title;
+            }
         }
     }
 }

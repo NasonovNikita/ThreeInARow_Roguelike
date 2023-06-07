@@ -1,26 +1,33 @@
+using Battle.Units;
 using UnityEngine;
 
-public abstract class Spell : ScriptableObject
+namespace Battle
 {
-    [SerializeField] protected int manaCost;
-
-    [SerializeField] public string title;
-
-    [SerializeField] protected float value;
-
-    [SerializeField] protected int moves;
-
-    protected BattleManager manager;
-
-    public void Init()
+    public abstract class Spell : ScriptableObject
     {
-        manager = FindFirstObjectByType<BattleManager>();
-    }
+        [SerializeField] protected int manaCost;
 
-    public abstract void Cast();
+        [SerializeField] public string title;
 
-    protected bool CantCast()
-    {
-        return manager.State != BattleState.Turn || manager.player.mana < manaCost;
+        [SerializeField] protected float value;
+
+        [SerializeField] protected int moves;
+
+        protected Unit unitRelated;
+
+        protected BattleManager manager;
+
+        public void Init(Unit unit)
+        {
+            unitRelated = unit;
+            manager = FindFirstObjectByType<BattleManager>();
+        }
+
+        public abstract void Cast();
+
+        protected bool CantCast()
+        {
+            return manager.State != BattleState.Turn || manager.player.mana < manaCost;
+        }
     }
 }

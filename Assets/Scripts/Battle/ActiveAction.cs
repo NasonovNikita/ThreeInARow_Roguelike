@@ -1,9 +1,12 @@
 using System;
 
-[Serializable]
-public abstract class ActiveAction
+namespace Battle
 {
-    public abstract void Use();
+    [Serializable]
+    public abstract class ActiveAction
+    {
+        public abstract void Use();
 
-    public ActiveAction() {}
+        public ActiveAction() {}
+    }
 }

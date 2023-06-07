@@ -1,28 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Units.Data;
+using Battle.Units.Enemies;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyGroup", menuName = "Enemy Group")]
-[Serializable]
-public class EnemyGroup : ScriptableObject
+namespace Battle.Units
 {
-    [SerializeField] private List<EnemyData> enemiesData;
-    [SerializeField] private int difficulty;
-    [SerializeField] public int reward;
-
-    public List<Enemy> GetEnemies()
+    [CreateAssetMenu(fileName = "EnemyGroup", menuName = "Enemy Group")]
+    [Serializable]
+    public class EnemyGroup : ScriptableObject
     {
-        return enemiesData.Select(data => data.Init()).ToList();
-    }
+        [SerializeField] private List<EnemyData> enemiesData;
+        [SerializeField] private int difficulty;
+        [SerializeField] public int reward;
 
-    public int GetReward()
-    {
-        return reward;
-    }
+        public List<Enemy> GetEnemies()
+        {
+            return enemiesData.Select(data => data.Init()).ToList();
+        }
 
-    public int Difficulty()
-    {
-        return difficulty;
+        public int GetReward()
+        {
+            return reward;
+        }
+
+        public int Difficulty()
+        {
+            return difficulty;
+        }
     }
 }

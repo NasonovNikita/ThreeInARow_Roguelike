@@ -1,14 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StrongerKick", menuName = "Spells/StrongerKick")]
-public class StrongerKick : Spell
+namespace Battle.Spells
 {
-    public override void Cast()
+    [CreateAssetMenu(fileName = "StrongerKick", menuName = "Spells/StrongerKick")]
+    public class StrongerKick : Spell
     {
-        if (CantCast()) return;
+        public override void Cast()
+        {
+            if (CantCast()) return;
         
-        manager.player.mana -= manaCost;
-        manager.player.damage.AddMod(new Modifier(moves, ModType.Mul, new List<Condition>(), value), ModAffect.Get);
+            manager.player.mana -= manaCost;
+            manager.player.damage.AddMod(new Modifier(moves, ModType.Mul, value), FuncAffect.Get);
+        }
     }
 }

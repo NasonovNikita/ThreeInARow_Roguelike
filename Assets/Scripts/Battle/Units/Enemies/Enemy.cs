@@ -1,37 +1,41 @@
 using System;
+using Audio;
 
-[Serializable]
-public class Enemy : Unit
+namespace Battle.Units.Enemies
 {
-    private Player _player;
-
-    public new void TurnOn()
+    [Serializable]
+    public class Enemy : Unit
     {
-        base.TurnOn();
+        private Player _player;
 
-        _player = FindFirstObjectByType<Player>();
-    }
-    public override void DoDamage(int value)
-    {
-        base.DoDamage(value);
-
-        if (value != 0)
+        public new void TurnOn()
         {
-            AudioManager.instance.Play(AudioEnum.EnemyHit);
+            base.TurnOn();
+
+            _player = FindFirstObjectByType<Player>();
         }
-    }
+        public override void DoDamage(int value)
+        {
+            base.DoDamage(value);
 
-    public override void Act()
-    {
-        if (Stunned() || manager.State == BattleState.End) return;
-        int doneDamage = (int)damage.GetValue();
-        EToPDamageLog.Log(this, _player, doneDamage);
-        _player.DoDamage(doneDamage);
-    }
+            if (value != 0)
+            {
+                AudioManager.instance.Play(AudioEnum.EnemyHit);
+            }
+        }
 
-    protected override void NoHp()
-    {
-        DeathLog.Log(this);
-        StartCoroutine(manager.KillEnemy(this));
+        public override void Act()
+        {
+            if (Stunned() || manager.State == BattleState.End) return;
+            int doneDamage = (int)damage.GetValue();
+            EToPDamageLog.Log(this, _player, doneDamage);
+            _player.DoDamage(doneDamage);
+        }
+
+        protected override void NoHp()
+        {
+            DeathLog.Log(this);
+            StartCoroutine(manager.KillEnemy(this));
+        }
     }
 }

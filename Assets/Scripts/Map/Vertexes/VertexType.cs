@@ -1,5 +1,8 @@
-public enum VertexType
+namespace Map.Vertexes
 {
-    Battle,
-    Shop
+    public enum VertexType
+    {
+        Battle,
+        Shop
+    }
 }

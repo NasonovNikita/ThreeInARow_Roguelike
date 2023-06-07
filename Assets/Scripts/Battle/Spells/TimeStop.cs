@@ -1,18 +1,29 @@
-using System.Collections.Generic;
+using Battle.Units;
+using Battle.Units.Enemies;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TimeStop", menuName = "Spells/TimeStop")]
-public class TimeStop : Spell
+namespace Battle.Spells
 {
-    public override void Cast()
+    [CreateAssetMenu(fileName = "TimeStop", menuName = "Spells/TimeStop")]
+    public class TimeStop : Spell
     {
-        if (CantCast()) return;
-        
-        manager.player.mana -= manaCost;
-        
-        foreach (Enemy enemy in manager.enemies)
+        public override void Cast()
         {
-            enemy.statusModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
+            if (CantCast()) return;
+        
+            manager.player.mana -= manaCost;
+        
+            switch (unitRelated)
+            {
+                case Player:
+                    foreach (Enemy enemy in manager.enemies)
+                    {
+                        enemy.statusModifiers.Add(new Modifier(moves, ModType.Stun));
+                    }
+                    break;
+                case Enemy:
+                    break;
+            }
         }
     }
 }

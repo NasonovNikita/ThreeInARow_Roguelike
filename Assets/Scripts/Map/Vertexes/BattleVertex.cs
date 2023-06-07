@@ -1,12 +1,17 @@
+using Battle;
+using Battle.Units;
 using UnityEngine.SceneManagement;
 
-public class BattleVertex : Vertex
+namespace Map.Vertexes
 {
-    public EnemyGroup group;
-    
-    public override void OnArrive()
+    public class BattleVertex : Vertex
     {
-        BattleManager.group = group;
-        SceneManager.LoadScene("Battle");
+        public EnemyGroup group;
+
+        protected override void OnArrive()
+        {
+            BattleManager.group = group;
+            SceneManager.LoadScene("Battle");
+        }
     }
 }

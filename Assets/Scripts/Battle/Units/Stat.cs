@@ -1,152 +1,164 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEngine;
 
-[Serializable]
-public class Stat
+namespace Battle.Units
 {
-    [SerializeField]
-    public float borderDown;
+    [Serializable]
+    public class Stat
+    {
+        protected bool Equals(Stat other)
+        {
+            return borderDown.Equals(other.borderDown) && borderUp.Equals(other.borderUp) && value.Equals(other.value) && Equals(mods, other.mods);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Stat)obj);
+        }
+
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(borderDown, borderUp, value, mods);
+        }
+
+        [SerializeField]
+        public float borderDown;
     
-    [SerializeField]
-    public float borderUp;
+        [SerializeField]
+        public float borderUp;
 
-    [SerializeField]
-    private float value;
+        [SerializeField]
+        private float value;
 
-    public Dictionary<ModAffect, List<Modifier>> mods = new()
-    {
-        { ModAffect.Add , new List<Modifier>()},
-        { ModAffect.Get, new List<Modifier>()},
-        { ModAffect.Sub, new List<Modifier>()}
-    };
-
-    public void Init()
-    {
-        mods = new Dictionary<ModAffect, List<Modifier>>
+        public Dictionary<FuncAffect, List<Modifier>> mods = new()
         {
-            { ModAffect.Add , new List<Modifier>()},
-            { ModAffect.Get, new List<Modifier>()},
-            { ModAffect.Sub, new List<Modifier>()}
+            { FuncAffect.Add , new List<Modifier>()},
+            { FuncAffect.Get, new List<Modifier>()},
+            { FuncAffect.Sub, new List<Modifier>()}
         };
-    }
 
-    public Stat(float value, float borderUp, float borderDown = 0)
-    {
-        this.value = value;
-        this.borderUp = borderUp;
-        this.borderDown = borderDown;
-        Norm();
-    }
-
-    public Stat(int v, Stat stat)
-    {
-        value = v;
-        borderUp = stat.borderUp;
-        borderDown = stat.borderDown;
-        Norm();
-    }
-
-    public Stat(Stat stat)
-    {
-        value = stat.borderUp;
-        borderUp = stat.borderUp;
-        borderDown = stat.borderDown;
-    }
-
-    public Stat(int v)
-    {
-        value = v;
-        borderUp = value;
-        borderDown = 0;
-    }
-
-    public void AddMod(Modifier mod, ModAffect affect)
-    {
-        mods[affect].Add(mod);
-    }
-
-    private void Norm()
-    {
-        if (value < borderDown)
+        public void Init()
         {
-            value = borderDown;
+            mods = new Dictionary<FuncAffect, List<Modifier>>
+            {
+                { FuncAffect.Add , new List<Modifier>()},
+                { FuncAffect.Get, new List<Modifier>()},
+                { FuncAffect.Sub, new List<Modifier>()}
+            };
         }
 
-        if (value > borderUp)
+        public Stat(float value, float borderUp, float borderDown = 0)
         {
-            value = borderUp;
+            this.value = value;
+            this.borderUp = borderUp;
+            this.borderDown = borderDown;
+            Norm();
         }
-    }
 
-    public float GetValue()
-    {
-        return UseMods(ModAffect.Get, value, mods);
-    }
+        public Stat(int v, Stat stat)
+        {
+            value = v;
+            borderUp = stat.borderUp;
+            borderDown = stat.borderDown;
+            Norm();
+        }
 
-    private static float UseMods(ModAffect type, float value, Dictionary<ModAffect, List<Modifier>> mods)
-    {
-        float mulValue = 1 + mods[type].Sum(mod => mod.type == ModType.Mul ? mod.Use() : 0);
-        int addValue = (int) mods[type].Sum(mod => mod.type == ModType.Add ? mod.Use() : 0);
-        return value * mulValue + addValue;
-    }
+        public Stat(Stat stat)
+        {
+            value = stat.borderUp;
+            borderUp = stat.borderUp;
+            borderDown = stat.borderDown;
+        }
 
-    public static bool operator == (Stat stat, float n)
-    {
-        return stat?.value == n;
-    }
+        public Stat(int v)
+        {
+            value = v;
+            borderUp = value;
+            borderDown = 0;
+        }
 
-    public static bool operator != (Stat stat, float n)
-    {
-        return stat?.value == n;
-    }
+        public void AddMod(Modifier mod, FuncAffect affect)
+        {
+            mods[affect].Add(mod);
+        }
 
-    public static bool operator >= (Stat stat, int n)
-    {
-        return stat != null && stat.value - stat.borderDown >= n;
-    }
+        private void Norm()
+        {
+            if (value < borderDown)
+            {
+                value = borderDown;
+            }
 
-    public static bool operator <= (Stat stat, int n)
-    {
-        return stat != null && stat.value - stat.borderDown <= n;
-    }
+            if (value > borderUp)
+            {
+                value = borderUp;
+            }
+        }
 
-    public static bool operator > (Stat stat, int n)
-    {
-        return stat != null && stat.value - stat.borderDown > n;
-    }
+        public float GetValue()
+        {
+            return UseMods(FuncAffect.Get, value, mods);
+        }
 
-    public static bool operator < (Stat stat, int n)
-    {
-        return stat != null && stat.value - stat.borderDown < n;
-    }
+        private static float UseMods(FuncAffect type, float value, IReadOnlyDictionary<FuncAffect, List<Modifier>> mods)
+        {
+            float mulValue = 1 + mods[type].Sum(mod => mod.Type == ModType.Mul ? mod.Value : 0);
+            int addValue = (int) mods[type].Sum(mod => mod.Type == ModType.Add ? mod.Value : 0);
+            return value * mulValue + addValue;
+        }
 
-    public static Stat operator + (Stat stat, float n)
-    {
-        n = UseMods(ModAffect.Add, n, stat.mods);
-        return new Stat(stat.value + n, stat.borderUp, stat.borderDown);
-    }
+        public static bool operator == (Stat stat, float n)
+        {
+            return stat?.value == n;
+        }
 
-    public static Stat operator - (Stat stat, float n)
-    {
-        n = UseMods(ModAffect.Sub, n, stat.mods);
-        return new Stat(stat.value - n, stat.borderUp, stat.borderDown);
-    }
+        public static bool operator != (Stat stat, float n)
+        {
+            return stat?.value == n;
+        }
 
-    public static explicit operator int(Stat stat)
-    {
-        return (int) stat.value;
-    }
+        public static bool operator >= (Stat stat, int n)
+        {
+            return stat != null && stat.value - stat.borderDown >= n;
+        }
 
-    //This two are for Warnings, hate them.
-    public override bool Equals(object obj)
-    {
-        return base.Equals(obj);
-    }
+        public static bool operator <= (Stat stat, int n)
+        {
+            return stat != null && stat.value - stat.borderDown <= n;
+        }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
+        public static bool operator > (Stat stat, int n)
+        {
+            return stat != null && stat.value - stat.borderDown > n;
+        }
+
+        public static bool operator < (Stat stat, int n)
+        {
+            return stat != null && stat.value - stat.borderDown < n;
+        }
+
+        public static Stat operator + (Stat stat, float n)
+        {
+            n = UseMods(FuncAffect.Add, n, stat.mods);
+            return new Stat(stat.value + n, stat.borderUp, stat.borderDown);
+        }
+
+        public static Stat operator - (Stat stat, float n)
+        {
+            n = UseMods(FuncAffect.Sub, n, stat.mods);
+            return new Stat(stat.value - n, stat.borderUp, stat.borderDown);
+        }
+
+        public static explicit operator int(Stat stat)
+        {
+            return (int) stat.value;
+        }
     }
 }

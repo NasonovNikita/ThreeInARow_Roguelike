@@ -1,13 +1,17 @@
 using System.Collections.Generic;
+using Shop;
 using UnityEngine.SceneManagement;
 
-public class ShopVertex : Vertex
+namespace Map.Vertexes
 {
-    public List<Good> goods;
-    
-    public override void OnArrive()
+    public class ShopVertex : Vertex
     {
-        ShopManager.goods = goods;
-        SceneManager.LoadScene("Shop");
+        public List<Good> goods;
+
+        protected override void OnArrive()
+        {
+            ShopManager.goods = goods;
+            SceneManager.LoadScene("Shop");
+        }
     }
 }
