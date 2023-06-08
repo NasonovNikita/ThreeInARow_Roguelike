@@ -114,7 +114,6 @@ namespace Battle
 
         private void Win()
         {
-            Debug.unityLogger.Log(Logs);
             grid.Block();
             player.Save();
             Player.data.money += group.reward;

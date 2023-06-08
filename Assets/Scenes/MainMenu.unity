@@ -1846,7 +1846,7 @@ MonoBehaviour:
   difficulty: 10
   depth: 5
   minWidth: 2
-  maxWidth: 3
+  maxWidth: 4
   up: {fileID: 2127849220}
   down: {fileID: 1833940878}
   left: {fileID: 1373263762}

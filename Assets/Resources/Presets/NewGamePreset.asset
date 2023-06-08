@@ -25,7 +25,8 @@ MonoBehaviour:
     borderUp: 20
     value: 20
   statusModifiers: []
-  items: []
+  items:
+  - {fileID: 11400000, guid: a62c6422124ffcf448c0f6b195224040, type: 2}
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
   - {fileID: 11400000, guid: dd0f598eea0867f4fbe8092103e08786, type: 2}

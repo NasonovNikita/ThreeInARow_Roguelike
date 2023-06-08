@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a900c9cedaec441be37135f9d3f6b5, type: 3}
-  m_Name: Kick II
+  m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
+  m_Name: Vampire Fangs
   m_EditorClassIdentifier: 
-  manaCost: 45
-  title: Kick II
-  damageAction:
-    type: 1
-    value: 55
-    stunMoves: 0
+  good: {fileID: 11400000, guid: a62c6422124ffcf448c0f6b195224040, type: 2}
+  type: 0
+  price: 33
+  frequency: 2

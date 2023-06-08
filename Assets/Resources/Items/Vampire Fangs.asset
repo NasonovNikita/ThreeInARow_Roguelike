@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
-  m_Name: Knife of Fury
+  m_Name: Vampire Fangs
   m_EditorClassIdentifier: 
-  title: Knife Of Fury
+  title: Vampire Fangs
   cond:
-    modOrAction: 0
+    modOrAction: 1
     mod:
-      moves: -1
-      type: 1
-      value: 0.5
-      funcAffect: 2
-      statAffect: 2
-    action:
+      moves: 0
       type: 0
       value: 0
+      funcAffect: 0
+      statAffect: 0
+    action:
+      type: 2
+      value: 10
       stunMoves: 0
-    condType: 2
+    condType: 5
     statType: 0
-    compareMethod: 3
-    value: 50
+    compareMethod: 0
+    value: 80
     targetType: 0
     unitType: 0

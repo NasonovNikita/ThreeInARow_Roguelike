@@ -14,5 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 45
   title: Powered Kick
-  value: 2
-  moves: 1
+  damageMod:
+    moves: 2
+    type: 1
+    value: 1.5
+    funcAffect: 2
+    statAffect: 2
+  stunMod:
+    moves: 1
+    type: 2
+    value: 0
+    funcAffect: 3
+    statAffect: 0

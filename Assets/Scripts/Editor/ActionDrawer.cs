@@ -27,14 +27,18 @@ namespace Editor
 
             switch (property.FindPropertyRelative("type").enumValueIndex)
             {
-                case 0:
+                case 0: // Stun
                     EditorGUI.PropertyField(position, property.FindPropertyRelative("stunMoves"), 
                         new GUIContent("Moves"));
                     break;
-                case 1:
+                case 1: // Instant damage
                     EditorGUI.PropertyField(position, property.FindPropertyRelative("value"), 
                         new GUIContent("Damage"));
                     break; 
+                case 2: // Heal
+                    EditorGUI.PropertyField(position, property.FindPropertyRelative("value"), 
+                        new GUIContent("Heal Amount"));
+                    break;
             }
 
             position.y += space;

@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 25
   title: Kick
-  value: 25
-  moves: 0
+  damageAction:
+    type: 1
+    value: 25
+    stunMoves: 0

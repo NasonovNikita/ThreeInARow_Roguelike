@@ -12,11 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
   m_Name: Auto Bomb
   m_EditorClassIdentifier: 
-  stat: 0
-  affects: 0
-  mod:
-    moves: 0
-    type: 0
-    value: 0
-    conditions: []
   title: Auto Bomb
+  cond:
+    modOrAction: 1
+    mod:
+      moves: 0
+      type: 0
+      value: 0
+      funcAffect: 0
+      statAffect: 0
+    action:
+      type: 1
+      value: 20
+      stunMoves: 0
+    condType: 3
+    statType: 1
+    compareMethod: 1
+    value: 60
+    targetType: 2
+    unitType: 0

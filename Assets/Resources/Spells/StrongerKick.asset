@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 25
   title: Stronger Kick
-  value: 0.3
-  moves: 1
+  damageMod:
+    moves: 1
+    type: 1
+    value: 0.3
+    funcAffect: 2
+    statAffect: 2

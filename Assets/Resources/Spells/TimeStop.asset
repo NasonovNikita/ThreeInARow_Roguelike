@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 50
   title: Time Stop
-  value: 0
-  moves: 1
+  stunMod:
+    moves: 1
+    type: 2
+    value: 0
+    funcAffect: 3
+    statAffect: 0

@@ -30,12 +30,12 @@ namespace Editor
                 
                 switch (property.FindPropertyRelative("modOrAction").enumValueIndex)
                 {
-                    case 0:
+                    case 0: // Mod
                         EditorGUI.PropertyField(position, property.FindPropertyRelative("mod"), new GUIContent("Mod"));
                         position.y += space * ModifierDrawer.n;
                         n += ModifierDrawer.n;
                         break;
-                    case 1:
+                    case 1: // Action
                         EditorGUI.PropertyField(position, property.FindPropertyRelative("action"), new GUIContent("Action"));
                         position.y += space * ActionDrawer.n;
                         n += ActionDrawer.n;
@@ -55,11 +55,11 @@ namespace Editor
                 
                 switch (property.FindPropertyRelative("condType").enumValueIndex)
                 {
-                    case 0:
+                    case 0: // Used once at the beginning of the battle
                         break;
-                    case 1:
+                    case 1: // Used every turn (after enemies)
                         break;
-                    case 2 or 3:
+                    case 2 or 3: // Checking stat (while/every turn)
                         EditorGUI.PropertyField(position, property.FindPropertyRelative("statType"), new GUIContent("Stat Type"));
                         position.y += space;
 
@@ -73,7 +73,7 @@ namespace Editor
                         position.y += space;
                         n += 3;
                         break;
-                    case 4 or 5:
+                    case 4 or 5: // Checking damage (Gotten/made)
                         EditorGUI.PropertyField(position, property.FindPropertyRelative("compareMethod"),
                             new GUIContent("Compare Method"));
                         position.y += space;

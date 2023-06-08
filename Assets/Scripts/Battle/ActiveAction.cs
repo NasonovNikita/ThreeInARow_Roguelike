@@ -23,6 +23,9 @@ namespace Battle
                     DamageLog.Log(null, unit, value);
                     unit.DoDamage(value);
                     break;
+                case ActionType.Heal:
+                    unit.hp += value;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -32,6 +35,7 @@ namespace Battle
     public enum ActionType
     {
         Stun,
-        Damage
+        Damage,
+        Heal
     }
 }
