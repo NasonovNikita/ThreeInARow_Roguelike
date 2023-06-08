@@ -161,4 +161,11 @@ namespace Battle.Units
             return (int) stat.value;
         }
     }
+
+    public enum UnitStat
+    {
+        Hp,
+        Mana,
+        Damage
+    }
 }

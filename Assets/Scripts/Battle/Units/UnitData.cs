@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Battle.Units.Data
+namespace Battle.Units
 {
     [Serializable]
     public class UnitData : ScriptableObject

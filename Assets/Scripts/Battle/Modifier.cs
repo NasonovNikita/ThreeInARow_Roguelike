@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Battle.Units;
 using UnityEngine;
 
@@ -23,40 +22,48 @@ namespace Battle
         
         [SerializeField] private FuncAffect funcAffect;
 
-        [SerializeField] private StatAffect statAffect;
+        [SerializeField] private UnitStat statAffect;
 
-        private Unit _unitRelated;
+        private bool _connected;
 
-        public static void CreateModifier(int moves, Unit unitRelated, ModType type, float value = 1,
-            FuncAffect funcAffect = FuncAffect.None, StatAffect statAffect = StatAffect.None)
+        public static void CreateModifier(int moves, Unit unit, ModType type, float value = 1,
+            FuncAffect funcAffect = FuncAffect.None, UnitStat statAffect = UnitStat.Hp)
         {
-            
+            Modifier mod = new Modifier(moves, type, value, funcAffect, statAffect);
+            mod.Use(unit);
         }
         
-        
-
-        public Modifier(int moves, Unit unitRelated, ModType type, float value = 1,
-            FuncAffect funcAffect = FuncAffect.None, StatAffect statAffect = StatAffect.None)
+        public Modifier(int moves, ModType type, float value = 1,
+            FuncAffect funcAffect = FuncAffect.None, UnitStat statAffect = UnitStat.Hp)
         {
             this.moves = moves;
-            _unitRelated = unitRelated;
             this.type = type;
             this.value = value;
             this.funcAffect = funcAffect;
             this.statAffect = statAffect;
         }
+        
         public void Move(Log log)
         {
-            if (moves != 0) moves -= 1;
+            if (moves != 0 && log is TurnLog) moves -= 1;
         }
 
-        public void Use()
+        public void Use(Unit unit)
         {
-            if (Type is ModType.Stun) _unitRelated.statusModifiers.Add(this);
+            if (!_connected) Log.logger += Move;
+            _connected = true;
+            if (Type is ModType.Stun) unit.statusModifiers.Add(this);
             else
             {
-                Stat stat;
+                Stat stat = unit.StatByType(statAffect);
+                
+                stat.AddMod(this, funcAffect);
             }
+        }
+
+        public void Stop()
+        {
+            moves = 0;
         }
     }
     
@@ -73,13 +80,5 @@ namespace Battle
         Add,
         Mul,
         Stun
-    }
-
-    public enum StatAffect
-    {
-        Hp,
-        Mana,
-        Damage,
-        None
     }
 }

@@ -1,12 +1,38 @@
 using System;
+using Battle.Units;
+using UnityEngine;
 
 namespace Battle
 {
     [Serializable]
-    public abstract class ActiveAction
+    public class ActiveAction
     {
-        public abstract void Use();
+        [SerializeField] private ActionType type;
 
-        public ActiveAction() {}
+        [SerializeField] private int value;
+
+        [SerializeField] private int stunMoves;
+
+        public void Use(Unit unit)
+        {
+            switch (type)
+            {
+                case ActionType.Stun:
+                    Modifier.CreateModifier(stunMoves, unit, ModType.Stun);
+                    break;
+                case ActionType.Damage:
+                    DamageLog.Log(null, unit, value);
+                    unit.DoDamage(value);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
+
+    public enum ActionType
+    {
+        Stun,
+        Damage
     }
 }

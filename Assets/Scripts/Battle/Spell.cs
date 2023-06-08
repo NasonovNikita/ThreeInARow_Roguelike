@@ -1,4 +1,3 @@
-using Battle.Units;
 using UnityEngine;
 
 namespace Battle
@@ -9,17 +8,14 @@ namespace Battle
 
         [SerializeField] public string title;
 
-        [SerializeField] protected float value;
-
-        [SerializeField] protected int moves;
-
-        protected Unit unitRelated;
+        protected Unit unit;
 
         protected BattleManager manager;
 
+        // ReSharper disable once ParameterHidesMember
         public void Init(Unit unit)
         {
-            unitRelated = unit;
+            this.unit = unit;
             manager = FindFirstObjectByType<BattleManager>();
         }
 
@@ -27,7 +23,7 @@ namespace Battle
 
         protected bool CantCast()
         {
-            return manager.State != BattleState.Turn || manager.player.mana < manaCost;
+            return manager.State != BattleState.Turn || BattleManager.player.mana < manaCost;
         }
     }
 }

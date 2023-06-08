@@ -7,7 +7,7 @@ namespace Battle.Units.Enemies
     public class Enemy : Unit
     {
         private Player _player;
-
+        
         public new void TurnOn()
         {
             base.TurnOn();
@@ -28,7 +28,7 @@ namespace Battle.Units.Enemies
         {
             if (Stunned() || manager.State == BattleState.End) return;
             int doneDamage = (int)damage.GetValue();
-            EToPDamageLog.Log(this, _player, doneDamage);
+            DamageLog.Log(this, _player, doneDamage);
             _player.DoDamage(doneDamage);
         }
 

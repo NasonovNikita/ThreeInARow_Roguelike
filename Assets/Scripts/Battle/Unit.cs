@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
+using Battle.Units;
 using UnityEngine;
 
-namespace Battle.Units
+namespace Battle
 {
     public abstract class Unit : MonoBehaviour
     {
@@ -17,6 +19,8 @@ namespace Battle.Units
 
         protected BattleManager manager;
 
+        public UnitType type;
+
         protected void TurnOn()
         {
             manager = FindFirstObjectByType<BattleManager>();
@@ -26,7 +30,7 @@ namespace Battle.Units
 
             foreach (Item item in items)
             {
-                item.Use(this);
+                item.Init(this);
             }
 
             foreach (Spell spell in spells)
@@ -53,6 +57,18 @@ namespace Battle.Units
         public bool Stunned()
         {
             return statusModifiers.Exists(mod => mod.Type == ModType.Stun && mod.Value != 0);
+        }
+
+        public Stat StatByType(UnitStat statType)
+        {
+            
+            return statType switch
+            {
+                UnitStat.Hp => hp,
+                UnitStat.Mana => mana,
+                UnitStat.Damage => damage,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         public abstract void Act();

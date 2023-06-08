@@ -12,11 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
   m_Name: Plain Shield
   m_EditorClassIdentifier: 
-  stat: 0
-  affects: 1
-  mod:
-    moves: -1
-    type: 1
-    value: -0.3
-    conditions: []
   title: Plain Shield
+  cond:
+    modOrAction: 0
+    mod:
+      moves: -1
+      type: 1
+      value: -0.2
+      funcAffect: 1
+      statAffect: 0
+    action:
+      type: 0
+      value: 0
+      stunMoves: 0
+      target: {fileID: 0}
+    condType: 0
+    statType: 0
+    compareMethod: 0
+    value: 0
+    whoGotDamage: 0
+    unit: {fileID: 0}

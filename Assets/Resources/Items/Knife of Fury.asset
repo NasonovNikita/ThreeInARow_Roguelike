@@ -12,17 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
   m_Name: Knife of Fury
   m_EditorClassIdentifier: 
-  stat: 2
-  affects: 2
-  mod:
-    moves: -1
-    type: 0
-    value: 5
-    conditions:
-    - type: 1
-      value: 50
-      compare: 3
-      gem: 0
-      unit: 0
-      stat: 0
   title: Knife Of Fury
+  cond:
+    modOrAction: 1
+    mod:
+      moves: -1
+      type: 1
+      value: 0.5
+      funcAffect: 2
+      statAffect: 2
+    action:
+      type: 0
+      value: 0
+      stunMoves: 0
+      target: {fileID: 0}
+    condType: 2
+    statType: 0
+    compareMethod: 3
+    value: 50
+    whoGotDamage: 0
+    unit: {fileID: 0}

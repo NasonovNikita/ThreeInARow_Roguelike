@@ -15,7 +15,7 @@ namespace Battle.Units
         public int manaPerGem;
 
         private Grid _grid;
-
+        
         public new void TurnOn()
         {
             base.TurnOn();
@@ -29,15 +29,15 @@ namespace Battle.Units
 
         private int CountDamage()
         {
-            return (int) (_grid.destroyed.Sum(type => type.Key != GemType.Mana ? type.Value : 0) * damage.GetValue());
+            return (int) (_grid.destroyed.Sum(gemType => gemType.Key != GemType.Mana ? gemType.Value : 0) * damage.GetValue());
         }
 
         public override void Act()
         {
             mana += CountMana();
             int doneDamage = CountDamage();
-            PToEDamageLog.Log(manager.target, this, doneDamage);
-            manager.target.DoDamage(doneDamage);
+            DamageLog.Log(this, BattleManager.target, doneDamage);
+            BattleManager.target.DoDamage(doneDamage);
         }
 
         public override void DoDamage(int value)

@@ -8,27 +8,12 @@ namespace Battle
     [Serializable]
     public class Item : ScriptableObject
     {
-        [SerializeField] private UnitStat stat;
-        [SerializeField] private FuncAffect affects;
-        [SerializeField] private Modifier mod;
         [SerializeField] public string title;
-    
-        public void Use(Unit unitBelong)
+        [SerializeField] private Condition cond;
+
+        public void Init(Unit unit)
         {
-            switch (stat)
-            {
-                case UnitStat.Hp:
-                    unitBelong.hp.AddMod(mod, affects);
-                    break;
-                case UnitStat.Mana:
-                    unitBelong.mana.AddMod(mod, affects);
-                    break;
-                case UnitStat.Damage:
-                    unitBelong.damage.AddMod(mod, affects);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            cond.Init(unit);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Battle
 {
     public class BattleManager : MonoBehaviour
     {
-        public Player player;
+        public static Player player;
     
         public Grid grid;
     
@@ -26,11 +26,13 @@ namespace Battle
 
         public static EnemyGroup group = ScriptableObject.CreateInstance<EnemyGroup>();
 
-        public Enemy target;
+        public static Enemy target;
     
         public BattleState State { get; private set; }
 
-        public List<Enemy> enemies;
+        public static readonly List<Log> Logs = new();
+
+        public static List<Enemy> enemies;
 
         private Coroutine _battle;
 
@@ -71,6 +73,8 @@ namespace Battle
             GameManager.instance.SaveData();
         
             State = BattleState.Turn;
+            
+            BattleBeginLog.Log();
         }
     
         public void EndTurn()
@@ -110,10 +114,12 @@ namespace Battle
 
         private void Win()
         {
+            Debug.unityLogger.Log(Logs);
             grid.Block();
             player.Save();
             Player.data.money += group.reward;
-            BattleLog.Clear();
+            Logs.Clear();
+            Log.logger = null;
             Modifier.mods.Clear();
             SceneManager.LoadScene("Map");
         }
@@ -142,7 +148,7 @@ namespace Battle
                 if (player.hp <= 0) yield break;
             }
         
-            Modifier.Move();
+            TurnLog.Log();
 
             if (!player.Stunned())
             {

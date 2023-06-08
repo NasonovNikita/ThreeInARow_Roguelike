@@ -7,21 +7,27 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "TimeStop", menuName = "Spells/TimeStop")]
     public class TimeStop : Spell
     {
+        [SerializeField] private Modifier stunMod;
+        
         public override void Cast()
         {
             if (CantCast()) return;
         
-            manager.player.mana -= manaCost;
-        
-            switch (unitRelated)
+            unit.mana -= manaCost;
+
+            switch (unit)
             {
                 case Player:
-                    foreach (Enemy enemy in manager.enemies)
+                {
+                    foreach (Enemy enemy in BattleManager.enemies)
                     {
-                        enemy.statusModifiers.Add(new Modifier(moves, ModType.Stun));
+                        stunMod.Use(enemy);
                     }
+
                     break;
+                }
                 case Enemy:
+                    stunMod.Use(BattleManager.player);
                     break;
             }
         }

@@ -1,80 +1,76 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using Battle;
 using Battle.Match3;
 using Battle.Units;
-using Battle.Units.Enemies;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Battle
 {
-    public static class BattleLog
+    public class BattleBeginLog : Log
     {
-        private static readonly List<ILog> Logs = new();
-
-        public static List<T> GetLogs<T>() => Logs.Where(log => log is T).Cast<T>().ToList();
-
-        public static List<ILog> GetAllLogs() => Logs;
-
-        public static ILog GetLastLog() => Logs[-1];
-
-        public static void Clear() => Logs.Clear();
-
-        internal static void AddLog(ILog log) => Logs.Add(log);
+        public static void Log() => AddLog(new BattleBeginLog());
     }
-
-    public class GridLog : ILog
-    {
-        private readonly Dictionary<GemType, int> _table;
     
-        public static void Log(Dictionary<GemType, int> table) => ILog.AddLog(new GridLog(table));
+    [Serializable]
+    public class TurnLog : Log
+    {
+        public static void Log() => AddLog(new TurnLog());
+    }
+    
+    [Serializable]
+    public class GridLog : Log
+    {
+        private Dictionary<GemType, int> _table;
+    
+        public static void Log(Dictionary<GemType, int> table) => AddLog(new GridLog(table));
 
-        public Dictionary<GemType, int> GetData() => _table;
+        public Dictionary<GemType, int> Data() => _table;
 
         private GridLog(Dictionary<GemType, int> table) => _table = table;
     }
 
-    public class DeathLog : ILog
+    [Serializable]
+    public class DeathLog : Log
     {
-        private readonly Unit _unit;
+        [SerializeField] private Unit unit;
     
-        public static void Log(Unit unit) => ILog.AddLog(new DeathLog(unit));
+        public static void Log(Unit unit) => AddLog(new DeathLog(unit));
 
-        public Unit GetData() => _unit;
+        public Unit Data() => unit;
 
-        private DeathLog(Unit unit) => _unit = unit;
+        private DeathLog(Unit unit) => this.unit = unit;
     }
 
-    public class PToEDamageLog : DamageLog, ILog
+    [Serializable]
+    public class DamageLog : Log
     {
-        public static void Log(Enemy enemy, Player player, int damage) => ILog.AddLog(new PToEDamageLog(enemy, player, damage));
+        [SerializeField] [CanBeNull] private Unit applicator;
+        [SerializeField] [CanBeNull] private Unit target;
+        [SerializeField] private int damage;
 
-        private PToEDamageLog(Enemy enemy, Player player, int damage) : base(enemy, player, damage) {}
-    }
+        public static void Log([CanBeNull] Unit applicator, [CanBeNull] Unit target, int damage) =>
+            AddLog(new DamageLog(applicator, target, damage));
 
-    public class EToPDamageLog : DamageLog, ILog
-    {
-        public static void Log(Enemy enemy, Player player, int damage) => ILog.AddLog(new EToPDamageLog(enemy, player, damage));
+        public (Unit, Unit, int) Data() => (applicator, target, damage);
 
-        private EToPDamageLog(Enemy enemy, Player player, int damage) : base(enemy, player, damage) {}
-    }
-
-    public class DamageLog
-    {
-        private readonly Enemy _enemy;
-        private readonly Player _player;
-        private readonly int _damage;
-    
-        public (Enemy, Player, int) GetData() => (_enemy, _player, _damage);
-
-        protected DamageLog(Enemy enemy, Player player, int damage)
+        private DamageLog(Unit applicator, Unit target, int damage)
         {
-            _enemy = enemy;
-            _player = player;
-            _damage = damage;
+            this.applicator = applicator;
+            this.target = target;
+            this.damage = damage;
         }
     }
 
-    public interface ILog
+    public class Log
     {
-        protected internal static void AddLog(ILog log) => BattleLog.AddLog(log);
+        public static AddedLog logger;
+        protected static void AddLog(Log log)
+        {
+            BattleManager.Logs.Add(log);
+            logger?.Invoke(log);
+        }
     }
 }
+public delegate void AddedLog(Log log);
