@@ -1,5 +1,4 @@
 using System;
-using Battle.Units;
 using UnityEngine;
 
 namespace Battle
@@ -8,9 +7,9 @@ namespace Battle
     public class ActiveAction
     {
         [SerializeField] private ActionType type;
-
+        
         [SerializeField] private int value;
-
+        
         [SerializeField] private int stunMoves;
 
         public void Use(Unit unit)

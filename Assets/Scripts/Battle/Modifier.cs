@@ -27,14 +27,14 @@ namespace Battle
         private bool _connected;
 
         public static void CreateModifier(int moves, Unit unit, ModType type, float value = 1,
-            FuncAffect funcAffect = FuncAffect.None, UnitStat statAffect = UnitStat.Hp)
+            FuncAffect funcAffect = FuncAffect.Add, UnitStat statAffect = UnitStat.Hp)
         {
             Modifier mod = new Modifier(moves, type, value, funcAffect, statAffect);
             mod.Use(unit);
         }
         
         public Modifier(int moves, ModType type, float value = 1,
-            FuncAffect funcAffect = FuncAffect.None, UnitStat statAffect = UnitStat.Hp)
+            FuncAffect funcAffect = FuncAffect.Add, UnitStat statAffect = UnitStat.Hp)
         {
             this.moves = moves;
             this.type = type;
@@ -71,8 +71,7 @@ namespace Battle
     {
         Add,
         Sub,
-        Get,
-        None
+        Get
     }
     
     public enum ModType
