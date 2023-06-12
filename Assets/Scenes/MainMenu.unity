@@ -1382,6 +1382,7 @@ MonoBehaviour:
   generator: {fileID: 0}
   randomSeed: 1
   seed: 2147483647
+  data: {fileID: 11400000, guid: 3f96aa6be5c76504ab7539bb441b44c0, type: 2}
 --- !u!4 &1350526673
 Transform:
   m_ObjectHideFlags: 0

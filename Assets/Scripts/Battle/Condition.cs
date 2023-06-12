@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Battle.Units;
 using Battle.Units.Enemies;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 namespace Battle
 {
     [Serializable]
+    [SuppressMessage("ReSharper", "Unity.NoNullPropagation")]
     public class Condition
     {
         [SerializeField] private ModOrAction modOrAction;
@@ -16,7 +18,7 @@ namespace Battle
         
         [SerializeField] private CondType condType;
 
-        [SerializeField] private UnitStat statType;
+        [SerializeField] private StatType statTypeType;
 
         [SerializeField] private CompareMethod compareMethod;
 
@@ -83,7 +85,7 @@ namespace Battle
                     if (log is TurnLog) UseToTargets();
                     break;
                 case CondType.Stat:
-                    stat = _attachedUnit.StatByType(statType);
+                    stat = _attachedUnit.StatByType(statTypeType);
                     switch (_checkedStat)
                     {
                         case false when Compare((int)stat, value):
@@ -96,7 +98,7 @@ namespace Battle
                     }
                     break;
                 case CondType.GottenDamage:
-                    if (log is DamageLog gottenDamage && gottenDamage.Data().Item2.type == unitType &&
+                    if (log is DamageLog gottenDamage && gottenDamage.Data().Item2?.type == unitType &&
                         Compare(gottenDamage.Data().Item3, value))
                     {
                         _attachedUnit = gottenDamage.Data().Item2;
@@ -104,7 +106,7 @@ namespace Battle
                     }
                     break;
                 case CondType.DoneDamage:
-                    if (log is DamageLog doneDamage && doneDamage.Data().Item1.type == unitType &&
+                    if (log is DamageLog doneDamage && doneDamage.Data().Item1?.type == unitType &&
                         Compare(doneDamage.Data().Item3, value)) UseToTargets();
                     break;
                 case CondType.OnceAtTheBeginning:
@@ -113,7 +115,7 @@ namespace Battle
                 case CondType.EveryTurnStat:
                     if (log is TurnLog)
                     {
-                        stat = _attachedUnit.StatByType(statType);
+                        stat = _attachedUnit.StatByType(statTypeType);
                         if (Compare((int) stat, value)) UseToTargets();
                     }
                     break;

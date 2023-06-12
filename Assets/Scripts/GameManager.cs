@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public int seed;
 
+    public PlayerData data;
+
     private bool _generated;
     public void Awake()
     {
@@ -93,7 +95,7 @@ public class GameManager : MonoBehaviour
     private void ResetAll()
     {
         MapManager.currentVertex = -1;
-        Player.data = Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"));
+        Player.data = Instantiate(data);
         
         if (randomSeed) seed = Random.Range(0, 10000000);
         GenerateMap();

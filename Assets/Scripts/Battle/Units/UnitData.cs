@@ -41,7 +41,7 @@ namespace Battle.Units
             unit.hp = hp;
             unit.mana = mana;
             unit.damage = damage;
-            unit.statusModifiers = statusModifiers;
+            unit.stateModifiers = statusModifiers;
             unit.items = items;
             unit.spells = spells;
         }

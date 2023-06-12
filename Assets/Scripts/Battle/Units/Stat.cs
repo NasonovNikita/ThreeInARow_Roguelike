@@ -162,7 +162,7 @@ namespace Battle.Units
         }
     }
 
-    public enum UnitStat
+    public enum StatType
     {
         Hp,
         Mana,

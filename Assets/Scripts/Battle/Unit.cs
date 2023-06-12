@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Battle.Units;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace Battle
 {
@@ -11,7 +12,7 @@ namespace Battle
         public Stat mana;
         public Stat damage;
 
-        public List<Modifier> statusModifiers = new();
+        public List<Modifier> stateModifiers = new();
 
         public List<Item> items;
 
@@ -56,17 +57,17 @@ namespace Battle
 
         public bool Stunned()
         {
-            return statusModifiers.Exists(mod => mod.Type == ModType.Stun && mod.Value != 0);
+            return stateModifiers.Exists(state => state.Type == ModType.Stun && state.Value != 0);
         }
 
-        public Stat StatByType(UnitStat statType)
+        public Stat StatByType(StatType statTypeType)
         {
             
-            return statType switch
+            return statTypeType switch
             {
-                UnitStat.Hp => hp,
-                UnitStat.Mana => mana,
-                UnitStat.Damage => damage,
+                StatType.Hp => hp,
+                StatType.Mana => mana,
+                StatType.Damage => damage,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

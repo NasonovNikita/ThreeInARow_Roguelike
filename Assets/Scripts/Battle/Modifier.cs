@@ -22,19 +22,19 @@ namespace Battle
         
         [SerializeField] private FuncAffect funcAffect;
 
-        [SerializeField] private UnitStat statAffect;
+        [SerializeField] private StatType statAffect;
 
         private bool _connected;
 
         public static void CreateModifier(int moves, Unit unit, ModType type, float value = 1,
-            FuncAffect funcAffect = FuncAffect.Add, UnitStat statAffect = UnitStat.Hp)
+            FuncAffect funcAffect = FuncAffect.Add, StatType statAffect = StatType.Hp)
         {
             Modifier mod = new Modifier(moves, type, value, funcAffect, statAffect);
             mod.Use(unit);
         }
         
         public Modifier(int moves, ModType type, float value = 1,
-            FuncAffect funcAffect = FuncAffect.Add, UnitStat statAffect = UnitStat.Hp)
+            FuncAffect funcAffect = FuncAffect.Add, StatType statAffect = StatType.Hp)
         {
             this.moves = moves;
             this.type = type;
@@ -52,7 +52,7 @@ namespace Battle
         {
             if (!_connected) Log.logger += Move;
             _connected = true;
-            if (Type is ModType.Stun) unit.statusModifiers.Add(this);
+            if (Type is ModType.Stun) unit.stateModifiers.Add(this);
             else
             {
                 Stat stat = unit.StatByType(statAffect);

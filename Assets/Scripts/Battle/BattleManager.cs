@@ -117,6 +117,7 @@ namespace Battle
             grid.Block();
             player.Save();
             Player.data.money += group.reward;
+            Debug.unityLogger.Log(Logs);
             Logs.Clear();
             Log.logger = null;
             Modifier.mods.Clear();

@@ -62,7 +62,7 @@ namespace Battle.Units
             hp = data.hp;
             mana = data.mana;
             damage = data.damage;
-            statusModifiers = data.statusModifiers;
+            stateModifiers = data.statusModifiers;
             items = data.items;
             spells = data.spells;
         }
@@ -73,7 +73,7 @@ namespace Battle.Units
             data.hp = hp;
             data.mana = mana;
             data.damage = damage;
-            data.statusModifiers = statusModifiers;
+            data.statusModifiers = stateModifiers;
             data.items = items;
             data.spells = spells;
         }
