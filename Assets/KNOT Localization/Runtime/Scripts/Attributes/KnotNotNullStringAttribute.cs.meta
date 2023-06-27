@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e18c55381c808f44c95b3c8eb6228f70
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Attributes/KnotNotNullStringAttribute.cs
+  uploadId: 596086

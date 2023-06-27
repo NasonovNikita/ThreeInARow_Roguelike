@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 76449ce1f97c73b4a8b9bd7ee8b84c4e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Addons/Metadata/Builtin/Runtime/KnotCustomFontMetadata.cs
+  uploadId: 596086

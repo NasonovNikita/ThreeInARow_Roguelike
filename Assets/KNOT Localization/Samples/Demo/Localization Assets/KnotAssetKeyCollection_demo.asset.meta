@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b2de87d3e5efbef43af7853fa23c91f5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Localization Assets/KnotAssetKeyCollection_demo.asset
+  uploadId: 596086

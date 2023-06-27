@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c2698d2366c6bdf45a9f5bd0c3264e39
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Editor/Scripts/UI/Property Drawers/KnotNotNullStringDrawer.cs
+  uploadId: 596086

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 64b27f32e3054f64eb92ca5074f279eb
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Prefabs/UI/Pages/Page_6_remote_text_collection.prefab
+  uploadId: 596086

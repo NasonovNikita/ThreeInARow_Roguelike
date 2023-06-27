@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9dae449646f11534f81928346b3b6341
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: a68660a4a7ab0134fa2cec7cb2665e82, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Addons/Localized Components/Text Mesh Pro/Runtime/KnotLocalizedTextMeshProUGUI.cs
+  uploadId: 596086

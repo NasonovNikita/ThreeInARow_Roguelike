@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2131bb1f5a18cb4459e3c2438820bf94
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Data/Collection Providers/IKnotRuntimeItemCollectionProvider.cs
+  uploadId: 596086

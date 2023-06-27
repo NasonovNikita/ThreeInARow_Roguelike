@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d5fc4a0cc452da048af45642bb06a49e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Data/KnotKeyData.cs
+  uploadId: 596086

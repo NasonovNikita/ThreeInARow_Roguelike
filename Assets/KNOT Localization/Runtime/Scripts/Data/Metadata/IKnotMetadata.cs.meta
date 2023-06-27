@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c71697c808c390b499148459f6e34147
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Data/Metadata/IKnotMetadata.cs
+  uploadId: 596086

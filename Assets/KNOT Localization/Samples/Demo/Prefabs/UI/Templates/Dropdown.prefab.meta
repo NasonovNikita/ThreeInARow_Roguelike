@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 834de4078195caf4fac4e8ea9e92d182
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Prefabs/UI/Templates/Dropdown.prefab
+  uploadId: 596086

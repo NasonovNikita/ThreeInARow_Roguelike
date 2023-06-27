@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2c0cb08cb0b49d644bf868417d3edecb
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Prefabs/UI/Pages/Page_0_introduction.prefab
+  uploadId: 596086

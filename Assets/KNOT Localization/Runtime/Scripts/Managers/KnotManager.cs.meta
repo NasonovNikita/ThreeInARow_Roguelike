@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9633491696b2c044db75d2edcf897edd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Managers/KnotManager.cs
+  uploadId: 596086

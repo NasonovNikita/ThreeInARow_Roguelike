@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 76e5ec9c028c6184387e521a2f5f7ffa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Controllers/Values/KnotText.cs
+  uploadId: 596086

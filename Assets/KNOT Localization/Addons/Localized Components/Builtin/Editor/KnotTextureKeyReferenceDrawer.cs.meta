@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 570ac70780c70904f89e7e5482f3324f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Addons/Localized Components/Builtin/Editor/KnotTextureKeyReferenceDrawer.cs
+  uploadId: 596086

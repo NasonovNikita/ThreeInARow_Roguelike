@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a63ae8fbdaf2c7c4e90f9792bd4114e1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Data/Assets/KnotItemCollection.cs
+  uploadId: 596086

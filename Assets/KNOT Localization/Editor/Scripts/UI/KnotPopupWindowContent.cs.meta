@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6e7ee26cdf067a74fa74961151a35754
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Editor/Scripts/UI/KnotPopupWindowContent.cs
+  uploadId: 596086

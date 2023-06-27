@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9bc729f968cb81a44879968e347c0e33
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/CHANGELOG.md
+  uploadId: 596086

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9dcb648d00f102d41a3345a7d13f1924
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Scripts/KnotDemoPageToggle.cs
+  uploadId: 596086

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 76d9780d7b8fb9644bb195d250a53a1e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Prefabs/UI/Pages/Page_1_fallback_lang.prefab
+  uploadId: 596086

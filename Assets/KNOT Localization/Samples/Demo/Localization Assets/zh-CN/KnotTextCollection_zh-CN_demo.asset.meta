@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9bd472c9adfbff547baabdd5cd39be4c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Localization Assets/zh-CN/KnotTextCollection_zh-CN_demo.asset
+  uploadId: 596086

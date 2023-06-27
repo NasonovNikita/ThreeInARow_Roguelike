@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2344ecbb9f5ceb74e9ac912ba5ff04bb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Editor/Scripts/UI/KnotTextItemViewEditor.cs
+  uploadId: 596086

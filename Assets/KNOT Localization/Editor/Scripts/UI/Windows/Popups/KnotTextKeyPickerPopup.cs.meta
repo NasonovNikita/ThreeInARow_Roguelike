@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 059690d888b26704f8c82fafd9805875
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Editor/Scripts/UI/Windows/Popups/KnotTextKeyPickerPopup.cs
+  uploadId: 596086

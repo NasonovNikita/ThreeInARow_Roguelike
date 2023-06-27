@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7fb1b6df253aca643931532f4cc2e145
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Addons/Collection Providers/Addressables/Runtime/KnotAddressableItemCollectionReference.cs
+  uploadId: 596086

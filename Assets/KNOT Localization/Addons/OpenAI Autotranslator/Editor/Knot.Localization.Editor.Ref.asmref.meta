@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2a35c243b259cf148a13cd43b7143bfb
+AssemblyDefinitionReferenceImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Addons/OpenAI Autotranslator/Editor/Knot.Localization.Editor.Ref.asmref
+  uploadId: 596086

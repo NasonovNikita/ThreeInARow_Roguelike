@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aba33ff25c3b5db49adc81f27d823216
+AssemblyDefinitionReferenceImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Addons/Collection Providers/Resource/Runtime/Knot.Localization.Ref.asmref
+  uploadId: 596086

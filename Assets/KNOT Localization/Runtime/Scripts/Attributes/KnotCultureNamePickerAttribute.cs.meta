@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: da39b6d9bff9e6e4e80b6e5135ec1add
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Runtime/Scripts/Attributes/KnotCultureNamePickerAttribute.cs
+  uploadId: 596086

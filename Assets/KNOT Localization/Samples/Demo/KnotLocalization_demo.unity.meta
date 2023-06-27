@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e3f6237cced91534da1c513432ae3839
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/KnotLocalization_demo.unity
+  uploadId: 596086

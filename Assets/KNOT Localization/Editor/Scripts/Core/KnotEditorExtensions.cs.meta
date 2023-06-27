@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 787d6e405af2aed4a9ff82e0028f68ed
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Editor/Scripts/Core/KnotEditorExtensions.cs
+  uploadId: 596086

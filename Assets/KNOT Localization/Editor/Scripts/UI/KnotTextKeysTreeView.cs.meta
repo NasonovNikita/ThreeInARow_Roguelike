@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1b83fd6f8f02eed4f9ae17e5c9329e86
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Editor/Scripts/UI/KnotTextKeysTreeView.cs
+  uploadId: 596086

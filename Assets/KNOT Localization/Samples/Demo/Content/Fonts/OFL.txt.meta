@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c77301f1c90a3f248bc93a77db59f852
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Samples/Demo/Content/Fonts/OFL.txt
+  uploadId: 596086

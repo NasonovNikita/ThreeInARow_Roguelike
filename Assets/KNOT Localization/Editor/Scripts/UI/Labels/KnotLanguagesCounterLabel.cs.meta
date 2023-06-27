@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7189db2c7247b444c864ea1c3cc08cb8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 187603
+  packageName: KNOT Localization
+  packageVersion: 1.2.0
+  assetPath: Assets/KNOT Localization/Editor/Scripts/UI/Labels/KnotLanguagesCounterLabel.cs
+  uploadId: 596086
