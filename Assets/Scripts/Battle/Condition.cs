@@ -16,11 +16,11 @@ namespace Battle
 
         [SerializeField] public ActiveAction action;
         
-        [SerializeField] private CondType condType;
+        [SerializeField] private CondType condType = CondType.EveryTurn;
 
-        [SerializeField] private StatType statTypeType;
+        [SerializeField] private StatType statType = StatType.Hp;
 
-        [SerializeField] private CompareMethod compareMethod;
+        [SerializeField] private CompareMethod compareMethod = CompareMethod.AtLeast;
 
         [SerializeField] private int value;
 
@@ -85,7 +85,7 @@ namespace Battle
                     if (log is TurnLog) UseToTargets();
                     break;
                 case CondType.Stat:
-                    stat = _attachedUnit.StatByType(statTypeType);
+                    stat = _attachedUnit.StatByType(statType);
                     switch (_checkedStat)
                     {
                         case false when Compare((int)stat, value):
@@ -115,7 +115,7 @@ namespace Battle
                 case CondType.EveryTurnStat:
                     if (log is TurnLog)
                     {
-                        stat = _attachedUnit.StatByType(statTypeType);
+                        stat = _attachedUnit.StatByType(statType);
                         if (Compare((int) stat, value)) UseToTargets();
                     }
                     break;
