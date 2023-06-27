@@ -130,11 +130,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: No Spell
+      value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 144.8
+      value: 148.95
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_margin.w
@@ -347,11 +347,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: No Spell
+      value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 162.45
+      value: 167.15
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -468,11 +468,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Main menu
+      value: "\u041C\u0435\u043D\u044E"
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 106.5
+      value: 107.25
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_margin.w
@@ -614,11 +614,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: No Spell
+      value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 162.45
+      value: 167.15
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -911,11 +911,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: No Spell
+      value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 162.45
+      value: 167.15
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -1463,10 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea46fceb872af13469a785c2968139bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   grid: {fileID: 0}
-  target: {fileID: 0}
-  enemies: []
 --- !u!4 &2081847657
 Transform:
   m_ObjectHideFlags: 0

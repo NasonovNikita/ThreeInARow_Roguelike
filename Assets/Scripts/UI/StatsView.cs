@@ -2,7 +2,7 @@ using Battle.Units;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Map
+namespace UI
 {
     [RequireComponent(typeof(Text))]
     public class StatsView : MonoBehaviour
@@ -15,7 +15,7 @@ namespace Map
 
         public void Start()
         {
-            _text.text = $"Hp/Mana: {Player.data.hp.GetValue()}/{Player.data.mana.GetValue()}  Cash: {Player.data.money}";
+            _text.text = $"ХП/Мана: {Player.data.hp.GetValue()}/{Player.data.mana.GetValue()}  Золото: {Player.data.money}";
         }
     }
 }

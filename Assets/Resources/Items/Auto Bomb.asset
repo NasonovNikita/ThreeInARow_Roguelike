@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
   m_Name: Auto Bomb
   m_EditorClassIdentifier: 
-  title: Auto Bomb
+  title: "\u0410\u0432\u0442\u043E\u0431\u043E\u043C\u0431\u0430"
   cond:
     modOrAction: 1
     mod:
@@ -26,7 +26,7 @@ MonoBehaviour:
       value: 20
       stunMoves: 0
     condType: 3
-    statType: 1
+    statType: 0
     compareMethod: 1
     value: 60
     targetType: 2

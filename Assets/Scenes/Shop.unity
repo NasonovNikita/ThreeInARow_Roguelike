@@ -551,11 +551,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Back
+      value: "\u0412\u044B\u0439\u0442\u0438"
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 195.75
+      value: 149.1
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -844,11 +844,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Main menu
+      value: "\u041C\u0435\u043D\u044E"
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 106.15
+      value: 106.9
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_margin.w

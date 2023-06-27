@@ -1,8 +1,9 @@
+using Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Shop
+namespace UI
 {
     public class GoodBox : MonoBehaviour
     {
@@ -19,14 +20,14 @@ namespace Shop
             }
             catch
             {
-                button.GetComponentInChildren<TMP_Text>().text = "Sorry, we are out";
+                button.GetComponentInChildren<TMP_Text>().text = "Распродано";
             }
         }
 
         private void OnBuy()
         {
             if (!good.bought) return;
-            button.GetComponentInChildren<TMP_Text>().text = "Sorry, we are out";
+            button.GetComponentInChildren<TMP_Text>().text = "Распродано";
             button.onClick.RemoveAllListeners();
         }
     }

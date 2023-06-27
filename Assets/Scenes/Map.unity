@@ -380,7 +380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: "\u041D\u0430\u0447\u0430\u043B\u043E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4430134270da4c2469b96f92d7c4a56c, type: 2}
   m_sharedMaterial: {fileID: -7839705856966583628, guid: 4430134270da4c2469b96f92d7c4a56c, type: 2}
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 152.15
+  m_fontSize: 143.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -520,11 +520,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
-      value: Main menu
+      value: "\u041C\u0435\u043D\u044E"
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_fontSize
-      value: 106.65
+      value: 107.35
       objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_margin.w
@@ -877,7 +877,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Finish
+  m_text: "\u041A\u043E\u043D\u0435\u0446"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4430134270da4c2469b96f92d7c4a56c, type: 2}
   m_sharedMaterial: {fileID: -7839705856966583628, guid: 4430134270da4c2469b96f92d7c4a56c, type: 2}
@@ -904,7 +904,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 116.65
+  m_fontSize: 141.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

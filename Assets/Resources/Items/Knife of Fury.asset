@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
   m_Name: Knife of Fury
   m_EditorClassIdentifier: 
-  title: Knife Of Fury
+  title: "\u0413\u043D\u0435\u0432\u043D\u044B\u0439 \u043C\u0435\u0447"
   cond:
     modOrAction: 0
     mod:

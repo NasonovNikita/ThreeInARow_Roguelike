@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
   m_Name: Plain Shield
   m_EditorClassIdentifier: 
-  title: Plain Shield
+  title: "\u041F\u0440\u043E\u0441\u0442\u043E\u0439 \u0449\u0438\u0442"
   cond:
     modOrAction: 0
     mod:
@@ -25,10 +25,9 @@ MonoBehaviour:
       type: 0
       value: 0
       stunMoves: 0
-      target: {fileID: 0}
     condType: 0
     statType: 0
     compareMethod: 0
     value: 0
-    whoGotDamage: 0
-    unit: {fileID: 0}
+    targetType: 0
+    unitType: 0

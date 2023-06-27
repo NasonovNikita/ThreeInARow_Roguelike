@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagicShield
   m_EditorClassIdentifier: 
   manaCost: 30
-  title: Magic Shield
+  title: "\u041C\u0430\u0433\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0449\u0438\u0442"
   shieldMod:
     moves: 1
     type: 1

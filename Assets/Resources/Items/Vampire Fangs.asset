@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a99ce65821304a949437ebf6d81b3, type: 3}
   m_Name: Vampire Fangs
   m_EditorClassIdentifier: 
-  title: Vampire Fangs
+  title: "\u041A\u043B\u044B\u043A\u0438 \u0432\u0430\u043C\u043F\u0438\u0440\u0430"
   cond:
     modOrAction: 1
     mod:

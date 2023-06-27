@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TimeStop
   m_EditorClassIdentifier: 
   manaCost: 50
-  title: Time Stop
+  title: "\u041E\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0430 \u0432\u0440\u0435\u043C\u0435\u043D\u0438"
   stunMod:
     moves: 1
     type: 2
