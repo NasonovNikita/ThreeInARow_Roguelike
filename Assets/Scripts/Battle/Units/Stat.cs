@@ -40,22 +40,26 @@ public class Stat
         Norm();
     }
 
-    public Stat(int v, Stat stat)
+    public Stat(float v, Stat stat)
     {
         value = v;
         borderUp = stat.borderUp;
         borderDown = stat.borderDown;
+        mods = stat.mods;
         Norm();
     }
+    
+    
 
     public Stat(Stat stat)
     {
         value = stat.borderUp;
         borderUp = stat.borderUp;
         borderDown = stat.borderDown;
+        mods = stat.mods;
     }
 
-    public Stat(int v)
+    public Stat(float v)
     {
         value = v;
         borderUp = value;
@@ -85,10 +89,11 @@ public class Stat
         return UseMods(ModAffect.Get, value, mods);
     }
 
-    private static float UseMods(ModAffect type, float value, Dictionary<ModAffect, List<Modifier>> mods)
+    private static float UseMods(ModAffect type, float value, IReadOnlyDictionary<ModAffect, List<Modifier>> mods)
     {
         float mulValue = 1 + mods[type].Sum(mod => mod.type == ModType.Mul ? mod.Use() : 0);
         int addValue = (int) mods[type].Sum(mod => mod.type == ModType.Add ? mod.Use() : 0);
+
         return value * mulValue + addValue;
     }
 
@@ -125,13 +130,13 @@ public class Stat
     public static Stat operator + (Stat stat, float n)
     {
         n = UseMods(ModAffect.Add, n, stat.mods);
-        return new Stat(stat.value + n, stat.borderUp, stat.borderDown);
+        return new Stat(stat.value + n, stat);
     }
 
     public static Stat operator - (Stat stat, float n)
     {
         n = UseMods(ModAffect.Sub, n, stat.mods);
-        return new Stat(stat.value - n, stat.borderUp, stat.borderDown);
+        return new Stat(stat.value - n, stat);
     }
 
     public static explicit operator int(Stat stat)

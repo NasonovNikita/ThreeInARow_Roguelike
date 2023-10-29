@@ -10,7 +10,7 @@ public class PoweredKick : Spell
         
         manager.player.mana -= manaCost;
         manager.player.statusModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
-        manager.player.damage.AddMod(new Modifier(moves + 1, ModType.Mul,new List<Condition>(), value), ModAffect.Get);
+        ApplyToDamage(manager.player, new Modifier(moves + 1, ModType.Mul,new List<Condition>(), value), ModAffect.Get);
         manager.EndTurn();
     }
 }

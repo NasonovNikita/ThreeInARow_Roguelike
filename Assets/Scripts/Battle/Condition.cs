@@ -37,7 +37,7 @@ public class Condition
                 {
                     UnitStat.Hp => checkUnit.hp,
                     UnitStat.Mana => checkUnit.mana,
-                    UnitStat.Damage => checkUnit.damage,
+                    //UnitStat.Damage => checkUnit.damage,
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 return Compare((int)checkStat, value);

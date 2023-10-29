@@ -21,7 +21,7 @@ public class Item : ScriptableObject
                 unitBelong.mana.AddMod(mod, affects);
                 break;
             case UnitStat.Damage:
-                unitBelong.damage.AddMod(mod, affects);
+                //unitBelong.damage.AddMod(mod, affects);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

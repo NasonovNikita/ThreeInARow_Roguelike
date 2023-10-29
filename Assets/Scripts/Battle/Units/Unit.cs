@@ -1,11 +1,20 @@
 using System.Collections.Generic;
+using System.Linq;
+using Battle;
 using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
     public Stat hp;
     public Stat mana;
-    public Stat damage;
+
+    public Stat fDmg;
+    public Stat cDmg;
+    public Stat pDmg;
+    public Stat lDmg;
+    public Stat phDmg;
+
+    protected Dictionary<DmgType, Stat> damage;
 
     public List<Modifier> statusModifiers = new();
 
@@ -18,9 +27,21 @@ public abstract class Unit : MonoBehaviour
     protected void TurnOn()
     {
         manager = FindFirstObjectByType<BattleManager>();
+        
         hp.Init();
         mana.Init();
-        damage.Init();
+        damage = new Dictionary<DmgType, Stat>
+        {
+            { DmgType.Fire, fDmg },
+            { DmgType.Cold, cDmg },
+            { DmgType.Poison, pDmg },
+            { DmgType.Light, lDmg },
+            { DmgType.Physic, phDmg }
+        };
+        foreach (Stat stat in damage.Values)
+        {
+            stat.Init();
+        }
 
         foreach (Item item in items)
         {
@@ -34,8 +55,9 @@ public abstract class Unit : MonoBehaviour
     }
     
 
-    public virtual void DoDamage(int value)
+    public virtual void DoDamage(Damage dmg)
     {
+        int value = dmg.Get().Values.Sum();
         hp -= value;
 
         if (hp == 0)

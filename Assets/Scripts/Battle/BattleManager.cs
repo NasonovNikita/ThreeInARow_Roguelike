@@ -142,7 +142,7 @@ public class BattleManager : MonoBehaviour
         if (!player.Stunned())
         {
             State = BattleState.Turn;
-            grid.destroyed.Clear();
+            grid.ClearDestroyed();
             grid.Unlock();
         }
         else

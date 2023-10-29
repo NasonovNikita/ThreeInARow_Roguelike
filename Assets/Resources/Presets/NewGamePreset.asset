@@ -20,7 +20,23 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 100
     value: 100
-  damage:
+  fDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  cDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  pDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  lDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  phDmg:
     borderDown: 0
     borderUp: 20
     value: 20
@@ -30,5 +46,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
   - {fileID: 11400000, guid: dd0f598eea0867f4fbe8092103e08786, type: 2}
   - {fileID: 11400000, guid: 1af1f60f705b24c44b9842b0a7b87e54, type: 2}
+  - {fileID: 11400000, guid: fe61290e14dbad848ba9382bf779200f, type: 2}
   manaPerGem: 20
   money: 20

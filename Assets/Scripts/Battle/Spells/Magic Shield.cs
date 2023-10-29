@@ -9,6 +9,6 @@ public class MagicShield : Spell
         if (CantCast()) return;
         
         manager.player.mana -= manaCost;
-        manager.player.hp.AddMod(new Modifier(moves, ModType.Mul, new List<Condition>()), ModAffect.Sub);
+        manager.player.hp.AddMod(new Modifier(moves, ModType.Mul, new List<Condition>(), value), ModAffect.Sub);
     }
 }

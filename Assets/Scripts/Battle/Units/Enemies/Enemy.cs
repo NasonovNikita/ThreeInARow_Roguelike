@@ -1,4 +1,6 @@
 using System;
+using Battle;
+using UnityEngine;
 
 [Serializable]
 public class Enemy : Unit
@@ -11,22 +13,18 @@ public class Enemy : Unit
 
         _player = FindFirstObjectByType<Player>();
     }
-    public override void DoDamage(int value)
+    public override void DoDamage(Damage dmg)
     {
-        base.DoDamage(value);
-
-        if (value != 0)
-        {
-            AudioManager.instance.Play(AudioEnum.EnemyHit);
-        }
+        base.DoDamage(dmg);
+        AudioManager.instance.Play(AudioEnum.EnemyHit);
     }
 
     public override void Act()
     {
         if (Stunned() || manager.State == BattleState.End) return;
-        int doneDamage = (int)damage.GetValue();
+        Damage doneDamage = new Damage(0, 0, 0, 0, (int) phDmg.GetValue());
         EToPDamageLog.Log(this, _player, doneDamage);
-        _player.DoDamage(doneDamage);
+        _player.DoDamage(doneDamage);;
     }
 
     protected override void NoHp()

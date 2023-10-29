@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 30
   title: Magic Shield
-  value: -0.25
+  value: -0.5
   moves: 1

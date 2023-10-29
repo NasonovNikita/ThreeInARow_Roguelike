@@ -20,10 +20,26 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 0
     value: 0
-  damage:
+  fDmg:
     borderDown: 0
-    borderUp: 10
-    value: 10
+    borderUp: 0
+    value: 0
+  cDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  pDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  lDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  phDmg:
+    borderDown: 0
+    borderUp: 15
+    value: 15
   statusModifiers: []
   items: []
   spells: []
