@@ -1,17 +1,18 @@
 using System;
 using Battle;
+using Battle.Units.AI;
 using UnityEngine;
 
 [Serializable]
+[RequireComponent(typeof(EnemyAI))]
 public class Enemy : Unit
 {
-    private Player _player;
-
+    private EnemyAI _ai;
     public new void TurnOn()
     {
         base.TurnOn();
-
-        _player = FindFirstObjectByType<Player>();
+        
+        _ai = GetComponent<EnemyAI>();
     }
     public override void DoDamage(Damage dmg)
     {
@@ -22,9 +23,7 @@ public class Enemy : Unit
     public override void Act()
     {
         if (Stunned() || manager.State == BattleState.End) return;
-        Damage doneDamage = new Damage(0, 0, 0, 0, (int) phDmg.GetValue());
-        EToPDamageLog.Log(this, _player, doneDamage);
-        _player.DoDamage(doneDamage);;
+        _ai.Act();
     }
 
     protected override void NoHp()

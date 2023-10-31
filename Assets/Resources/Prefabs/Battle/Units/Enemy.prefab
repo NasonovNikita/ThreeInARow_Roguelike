@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3774242113098308368, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
@@ -25,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4783039333239394354, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4783039333239394354, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -167,9 +168,17 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5052228978710871272, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 5312084455693575710, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_fontSize
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312084455693575710, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 7489409898708674812, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -180,6 +189,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4783039333239394353, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4776826382455203890}
+    - targetCorrespondingSourceObject: {fileID: 4783039333239394353, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5824538754916616872}
   m_SourcePrefab: {fileID: 100100000, guid: 0d183c337b2e4854bab64b5e6a2db75c, type: 3}
 --- !u!1 &2888797528861525951 stripped
 GameObject:
@@ -206,8 +224,39 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 0
     value: 0
-  damage:
+  manaPerGem: 0
+  fDmg:
     borderDown: 0
-    borderUp: 15
-    value: 15
+    borderUp: 0
+    value: 0
+  cDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  pDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  lDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  phDmg:
+    borderDown: 0
+    borderUp: 7
+    value: 7
   statusModifiers: []
+  items: []
+  spells: []
+--- !u!114 &5824538754916616872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888797528861525951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b80fe5dfd3d4cd40b0bbf609b2e40e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

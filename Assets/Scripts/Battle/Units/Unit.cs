@@ -8,11 +8,15 @@ public abstract class Unit : MonoBehaviour
     public Stat hp;
     public Stat mana;
 
+    public int manaPerGem;
+
     public Stat fDmg;
     public Stat cDmg;
     public Stat pDmg;
     public Stat lDmg;
     public Stat phDmg;
+    
+    
 
     protected Dictionary<DmgType, Stat> damage;
 
@@ -50,7 +54,7 @@ public abstract class Unit : MonoBehaviour
 
         foreach (Spell spell in spells)
         {
-            spell.Init();
+            spell.Init(this);
         }
     }
     

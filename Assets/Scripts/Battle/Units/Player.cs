@@ -1,90 +1,93 @@
 using System;
 using System.Linq;
-using Battle;
-using UnityEngine;
+using Grid = Battle.Match3.Grid;
 
-[Serializable]
-public class Player : Unit
+namespace Battle.Units
 {
-    public static PlayerData data;
-    
-    public int manaPerGem;
-
-    private Grid _grid;
-
-    public new void TurnOn()
+    [Serializable]
+    public class Player : Unit
     {
-        base.TurnOn();
-        _grid = FindFirstObjectByType<Grid>();
-    }
+        public static PlayerData data;
 
-    private int CountMana()
-    {
-        return _grid.destroyed.ContainsKey(GemType.Mana) ? _grid.destroyed[GemType.Mana] * manaPerGem : 0;
-    }
+        private Grid _grid;
 
-    private Damage CountDamage()
-    {
-        return new Damage(
-            (int) damage[DmgType.Fire].GetValue() * _grid.destroyed[GemType.Red],
-            (int) damage[DmgType.Cold].GetValue() * _grid.destroyed[GemType.Blue],
-            (int) damage[DmgType.Poison].GetValue() * _grid.destroyed[GemType.Green],
-            (int) damage[DmgType.Light].GetValue() * _grid.destroyed[GemType.Yellow],
-            (int) damage[DmgType.Physic].GetValue() * _grid.destroyed.Sum(gems => gems.Key != GemType.Mana ? gems.Value : 0)
-        );
-    }
+        public new void TurnOn()
+        {
+            base.TurnOn();
+            _grid = FindFirstObjectByType<Grid>();
+        }
 
-    public override void Act()
-    {
-        mana += CountMana();
-        Damage doneDamage = CountDamage();
+        private int CountMana()
+        {
+            return _grid.destroyed.ContainsKey(GemType.Mana) ? _grid.destroyed[GemType.Mana] * manaPerGem : 0;
+        }
 
-        if (doneDamage.IsZero()) return;
+        private Damage CountDamage()
+        {
+            Damage dmg =  new Damage(
+                (int) damage[DmgType.Fire].GetValue() * _grid.destroyed[GemType.Red],
+                (int) damage[DmgType.Cold].GetValue() * _grid.destroyed[GemType.Blue],
+                (int) damage[DmgType.Poison].GetValue() * _grid.destroyed[GemType.Green],
+                (int) damage[DmgType.Light].GetValue() * _grid.destroyed[GemType.Yellow],
+                (int) damage[DmgType.Physic].GetValue() * _grid.destroyed.Sum(gems => gems.Key != GemType.Mana ? gems.Value : 0)
+            );
+            return dmg;
+        }
+
+        public override void Act()
+        {
+            mana += CountMana();
+            Damage doneDamage = CountDamage();
         
-        PToEDamageLog.Log(manager.target, this, doneDamage);
-        manager.target.DoDamage(doneDamage);
-    }
+            _grid.ClearDestroyed();
 
-    public override void DoDamage(Damage dmg)
-    {
-        base.DoDamage(dmg);
+            if (doneDamage.IsZero()) return;
         
-        AudioManager.instance.Play(AudioEnum.PlayerHit);
-    }
+            PToEDamageLog.Log(manager.target, this, doneDamage);
+            manager.target.DoDamage(doneDamage);
+        }
 
-    protected override void NoHp()
-    {
-        DeathLog.Log(this);
-        StartCoroutine(manager.Die());
-    }
+        public override void DoDamage(Damage dmg)
+        {
+            base.DoDamage(dmg);
+        
+            AudioManager.instance.Play(AudioEnum.PlayerHit);
+        }
 
-    public void Load()
-    {
-        manaPerGem = data.manaPerGem;
-        hp = data.hp;
-        mana = data.mana;
-        fDmg = data.fDmg;
-        cDmg = data.cDmg;
-        pDmg = data.pDmg;
-        lDmg = data.lDmg;
-        phDmg = data.phDmg;
-        statusModifiers = data.statusModifiers;
-        items = data.items;
-        spells = data.spells;
-    }
+        protected override void NoHp()
+        {
+            DeathLog.Log(this);
+            StartCoroutine(manager.Die());
+        }
 
-    public void Save()
-    {
-        data.manaPerGem = manaPerGem;
-        data.hp = hp;
-        data.mana = mana;
-        data.fDmg = fDmg;
-        data.cDmg = cDmg;
-        data.pDmg = pDmg;
-        data.lDmg = lDmg;
-        data.phDmg = phDmg;
-        data.statusModifiers = statusModifiers;
-        data.items = items;
-        data.spells = spells;
+        public void Load()
+        {
+            manaPerGem = data.manaPerGem;
+            hp = data.hp;
+            mana = data.mana;
+            fDmg = data.fDmg;
+            cDmg = data.cDmg;
+            pDmg = data.pDmg;
+            lDmg = data.lDmg;
+            phDmg = data.phDmg;
+            statusModifiers = data.statusModifiers;
+            items = data.items;
+            spells = data.spells;
+        }
+
+        public void Save()
+        {
+            data.manaPerGem = manaPerGem;
+            data.hp = hp;
+            data.mana = mana;
+            data.fDmg = fDmg;
+            data.cDmg = cDmg;
+            data.pDmg = pDmg;
+            data.lDmg = lDmg;
+            data.phDmg = phDmg;
+            data.statusModifiers = statusModifiers;
+            data.items = items;
+            data.spells = spells;
+        }
     }
 }

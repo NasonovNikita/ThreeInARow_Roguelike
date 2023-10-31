@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle;
+using Battle.Units;
 
 public static class BattleLog
 {

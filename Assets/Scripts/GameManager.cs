@@ -1,3 +1,5 @@
+using Battle;
+using Battle.Units;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -76,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveData()
     {
-        PlayerPrefs.SetInt("vertex", Map.currentVertex);
+        PlayerPrefs.SetInt("vertex", Map.Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(Player.data));
         PlayerPrefs.SetInt("seed", seed);
@@ -86,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     private void ResetAll()
     {
-        Map.currentVertex = -1;
+        Map.Map.currentVertex = -1;
         Player.data = Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"));
         
         if (randomSeed) seed = Random.Range(0, 10000000);
@@ -97,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadSave()
     {
-        Map.currentVertex = PlayerPrefs.GetInt("vertex");
+        Map.Map.currentVertex = PlayerPrefs.GetInt("vertex");
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
         seed = PlayerPrefs.GetInt("seed");
         BattleManager.group = ScriptableObject.CreateInstance<EnemyGroup>();
@@ -108,7 +110,7 @@ public class GameManager : MonoBehaviour
     private void GenerateMap()
     {
         generator = FindFirstObjectByType<MapGenerator>();
-        Map.map = generator.GetMap(seed);
+        Map.Map.map = generator.GetMap(seed);
         generated = true;
     }
 }

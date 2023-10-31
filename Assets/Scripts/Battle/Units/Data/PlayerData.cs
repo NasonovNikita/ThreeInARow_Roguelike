@@ -8,8 +8,6 @@ using UnityEngine;
 public class PlayerData : UnitData
 {
     [SerializeField]
-    public int manaPerGem;
-    [SerializeField]
     public int money;
 
 

@@ -1,3 +1,4 @@
+using Battle;
 using UnityEngine.SceneManagement;
 
 public class BattleVertex : Vertex

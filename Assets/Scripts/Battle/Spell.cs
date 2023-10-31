@@ -1,3 +1,4 @@
+using Battle;
 using UnityEngine;
 
 public abstract class Spell : ScriptableObject
@@ -10,10 +11,13 @@ public abstract class Spell : ScriptableObject
 
     [SerializeField] protected int moves;
 
+    protected Unit attachedUnit;
+
     protected BattleManager manager;
 
-    public void Init()
+    public void Init(Unit unit)
     {
+        attachedUnit = unit;
         manager = FindFirstObjectByType<BattleManager>();
     }
 
@@ -24,7 +28,7 @@ public abstract class Spell : ScriptableObject
         return manager.State != BattleState.Turn || manager.player.mana < manaCost;
     }
 
-    protected void ApplyToDamage(Unit unit, Modifier mod, ModAffect affects)
+    protected static void ApplyToDamage(Unit unit, Modifier mod, ModAffect affects)
     {
         unit.fDmg.AddMod(mod, affects);
         unit.cDmg.AddMod(mod, affects);

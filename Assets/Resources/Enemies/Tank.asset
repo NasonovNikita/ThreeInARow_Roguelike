@@ -38,8 +38,10 @@ MonoBehaviour:
     value: 0
   phDmg:
     borderDown: 0
-    borderUp: 15
-    value: 15
+    borderUp: 6
+    value: 6
   statusModifiers: []
   items: []
   spells: []
+  manaPerGem: 0
+  img: {fileID: 2800000, guid: 971e34c8f4462fd40832b3be53cfa24a, type: 3}

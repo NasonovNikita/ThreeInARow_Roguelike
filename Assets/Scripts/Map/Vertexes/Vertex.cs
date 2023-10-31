@@ -8,12 +8,12 @@ public class Vertex: MonoBehaviour, IPointerClickHandler
     
     public List<Vertex> next;
 
-    private Map map;
+    private Map.Map map;
 
     public void Awake()
     {
         prefab = Resources.Load<Edge>("Prefabs/Map/Edge");
-        map = FindFirstObjectByType<Map>();
+        map = FindFirstObjectByType<Map.Map>();
     }
 
     public void Start()

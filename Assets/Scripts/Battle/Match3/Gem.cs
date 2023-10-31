@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Grid = Battle.Match3.Grid;
 
 public class Gem : MonoBehaviour, IPointerClickHandler
 {

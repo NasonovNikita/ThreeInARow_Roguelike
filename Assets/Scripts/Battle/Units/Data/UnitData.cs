@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Battle;
 using UnityEngine;
 
 [Serializable]
@@ -16,7 +15,8 @@ public class UnitData : ScriptableObject
     [SerializeField] public List<Modifier> statusModifiers;
     [SerializeField] public List<Item> items;
     [SerializeField] public List<Spell> spells;
-
+    [SerializeField] public int manaPerGem;
+    [SerializeField] public Texture img;
 
     public UnitData(Stat hp, Stat mana, Stat fDmg, Stat cDmg, Stat pDmg, Stat lDmg, Stat phDmg, List<Modifier> statusModifiers, List<Item> items,
         List<Spell> spells)

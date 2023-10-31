@@ -1,5 +1,7 @@
 using System;
+using Battle;
 using UnityEngine;
+using Grid = Battle.Match3.Grid;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 

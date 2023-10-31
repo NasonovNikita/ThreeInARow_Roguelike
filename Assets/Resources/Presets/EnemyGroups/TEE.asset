@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TEE
   m_EditorClassIdentifier: 
   enemiesData:
-  - {fileID: 11400000, guid: 4318076025b33494d9609237a90280ed, type: 2}
-  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
-  - {fileID: 11400000, guid: 4cb2166510607ab4690b128f6bc8978f, type: 2}
+  - {fileID: 3989360704843497647, guid: f8fa735f578585e43903bc7bedc81d81, type: 3}
+  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
   difficulty: 35
   reward: 40

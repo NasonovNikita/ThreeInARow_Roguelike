@@ -1,0 +1,434 @@
+fileFormatVersion: 2
+guid: 51d2e9edafd107b47ab2316d6bd5fa97
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1209435552944673662
+    second: FireElemental-Sheet_0
+  - first:
+      213: 4011486526788397727
+    second: FireElemental-Sheet_1
+  - first:
+      213: -3617533845902208579
+    second: FireElemental-Sheet_2
+  - first:
+      213: 52974576043447296
+    second: FireElemental-Sheet_3
+  - first:
+      213: 1159548649198553611
+    second: FireElemental-Sheet_4
+  - first:
+      213: 5460683436858526099
+    second: FireElemental-Sheet_5
+  - first:
+      213: 8913840580636150263
+    second: FireElemental-Sheet_6
+  - first:
+      213: -8922479794609625070
+    second: FireElemental-Sheet_7
+  - first:
+      213: -9178210366649830443
+    second: FireElemental-Sheet_8
+  - first:
+      213: -825160373582555291
+    second: FireElemental-Sheet_9
+  - first:
+      213: -259096649943267483
+    second: FireElemental-Sheet_10
+  - first:
+      213: -6743371737597524893
+    second: FireElemental-Sheet_11
+  - first:
+      213: -3909215098922686003
+    second: FireElemental-Sheet_12
+  - first:
+      213: 2237976870567127445
+    second: FireElemental-Sheet_13
+  - first:
+      213: 3246302916921643107
+    second: FireElemental-Sheet_14
+  - first:
+      213: -2672936403581866395
+    second: FireElemental-Sheet_15
+  - first:
+      213: 1842594411984962956
+    second: FireElemental-Sheet_16
+  - first:
+      213: -1987713993066523396
+    second: FireElemental-Sheet_17
+  - first:
+      213: 802818947370454090
+    second: FireElemental-Sheet_18
+  - first:
+      213: 6494098131781523490
+    second: FireElemental-Sheet_19
+  - first:
+      213: 3169128436942986082
+    second: FireElemental-Sheet_20
+  - first:
+      213: 2945355566348839129
+    second: FireElemental-Sheet_21
+  - first:
+      213: -4931548260783856146
+    second: FireElemental-Sheet_22
+  - first:
+      213: -1170819990618636134
+    second: FireElemental-Sheet_23
+  - first:
+      213: 8181193513722992816
+    second: FireElemental-Sheet_24
+  - first:
+      213: 5714340828675707715
+    second: FireElemental-Sheet_25
+  - first:
+      213: -113518277532630779
+    second: FireElemental-Sheet_26
+  - first:
+      213: -7778350828868371249
+    second: FireElemental-Sheet_27
+  - first:
+      213: 3021078689997693484
+    second: FireElemental-Sheet_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FireElemental-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11931ea7172c29843a246983ba16e345
+      internalID: 1916889144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4fc2752d750557429375e7188efe810
+      internalID: 831244208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4e7fec52ba6af5438567d0900032be9
+      internalID: -1166148762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b4f1e811d8a8e145b428debfe0efbfa
+      internalID: -1308684006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c613cd3d102275c489ae1248421b25df
+      internalID: 1901442281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8d9a77304b78741abcc349913bff6f
+      internalID: -1916101561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dccf530015a55d48b4ec08acdff1ec7
+      internalID: 1173242512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f2490f736af9314797c5a01d06d6289
+      internalID: 1350032282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14d5320952ebda74a9b720291123b1ee
+      internalID: -1323113925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireElemental-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff14cd59d7e2ea74f9e9ffb5e90e4001
+      internalID: 1793198091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 034a89c0f4b2f874ab84aaa9be42f31d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      FireElemental-Sheet_0: 1916889144
+      FireElemental-Sheet_1: 831244208
+      FireElemental-Sheet_2: -1166148762
+      FireElemental-Sheet_3: -1308684006
+      FireElemental-Sheet_4: 1901442281
+      FireElemental-Sheet_5: -1916101561
+      FireElemental-Sheet_6: 1173242512
+      FireElemental-Sheet_7: 1350032282
+      FireElemental-Sheet_8: -1323113925
+      FireElemental-Sheet_9: 1793198091
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

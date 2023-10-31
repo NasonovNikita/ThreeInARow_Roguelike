@@ -7,13 +7,13 @@ using UnityEngine;
 [Serializable]
 public class EnemyGroup : ScriptableObject
 {
-    [SerializeField] private List<EnemyData> enemiesData;
+    [SerializeField] private List<Enemy> enemiesData;
     [SerializeField] private int difficulty;
     [SerializeField] public int reward;
 
     public List<Enemy> GetEnemies()
     {
-        return enemiesData.Select(data => data.Init()).ToList();
+        return enemiesData;
     }
 
     public int GetReward()
