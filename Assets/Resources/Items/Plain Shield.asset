@@ -17,6 +17,6 @@ MonoBehaviour:
   mod:
     moves: -1
     type: 1
-    value: -0.2
+    value: -0.1
     conditions: []
   title: Plain Shield

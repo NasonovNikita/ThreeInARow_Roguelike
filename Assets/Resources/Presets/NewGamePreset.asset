@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   hp:
     borderDown: 0
-    borderUp: 200
-    value: 200
+    borderUp: 300
+    value: 300
   mana:
     borderDown: 0
     borderUp: 100

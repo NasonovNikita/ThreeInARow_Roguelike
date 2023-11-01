@@ -165,6 +165,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+      propertyPath: mana.value
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+      propertyPath: manaPerGem
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
       propertyPath: hp.borderUp
       value: 80
       objectReference: {fileID: 0}
@@ -175,6 +183,10 @@ PrefabInstance:
     - target: {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
       propertyPath: fDmg.borderUp
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+      propertyPath: mana.borderUp
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
       propertyPath: phDmg.borderUp

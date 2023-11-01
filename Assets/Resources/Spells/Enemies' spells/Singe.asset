@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b860f079090ce174382e1328fdaecf33, type: 3}
   m_Name: Singe
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 30
   title: Singe
-  value: 0
-  moves: 0
+  value: 15
+  moves: 2

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Grid = Battle.Match3.Grid;
 
@@ -21,6 +22,8 @@ namespace Battle.Units.AI
 
         private IEnumerator<WaitUntil> Attack()
         {
+            UseSpells();
+            
             UseGrid();
 
             yield return new WaitUntil(() => _grid.state == GridState.Blocked);
@@ -121,6 +124,17 @@ namespace Battle.Units.AI
                 (int)_attachedEnemy.lDmg * counts[GemType.Yellow] +
                 (int)_attachedEnemy.phDmg * deleted.Count(val => val.Type != GemType.Mana);
             return dmg;
+        }
+
+        private void UseSpells()
+        {
+            if (_attachedEnemy.spells.Count == 0) return;
+            
+            var possibleSpells = _attachedEnemy.spells.Where(spell => _attachedEnemy.mana >= spell.manaCost).ToList();
+
+            if (possibleSpells.Count == 0) return;
+            Spell chosenSpell = possibleSpells[Random.Range(0, possibleSpells.Count)];
+            chosenSpell.Cast();
         }
 
         public void Act()

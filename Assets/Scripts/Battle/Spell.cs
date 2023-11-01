@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Spell : ScriptableObject
 {
-    [SerializeField] protected int manaCost;
+    [SerializeField] public int manaCost;
 
     [SerializeField] public string title;
 

@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef3e2910637b849aed3c5275120762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 10
+  difficulty: 12
   depth: 5
   minWidth: 2
   maxWidth: 3

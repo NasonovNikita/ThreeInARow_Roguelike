@@ -1,5 +1,6 @@
 using Battle;
 using Battle.Units;
+using Map;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public MapGenerator generator;
+    [SerializeField]
+    private MapGenerator generator;
 
     public bool randomSeed;
 
