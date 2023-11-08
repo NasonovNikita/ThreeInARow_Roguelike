@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle;
+using Battle.Units;
+using Other;
 using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
@@ -15,12 +17,12 @@ public abstract class Unit : MonoBehaviour
     public Stat pDmg;
     public Stat lDmg;
     public Stat phDmg;
-    
-    
+
+    private StateAnimationController stateAnimationController;
 
     protected Dictionary<DmgType, Stat> damage;
 
-    public List<Modifier> statusModifiers = new();
+    public List<Modifier> stateModifiers = new();
 
     public List<Item> items;
 
@@ -28,9 +30,16 @@ public abstract class Unit : MonoBehaviour
 
     protected BattleManager manager;
 
+    public void Update()
+    {
+        if (!stateModifiers.Exists(mod => mod.type == ModType.Burning && mod.Use() != 0)) StopBurning();
+    }
+
     protected void TurnOn()
     {
         manager = FindFirstObjectByType<BattleManager>();
+
+        stateAnimationController = GetComponentInChildren<StateAnimationController>();
         
         hp.Init();
         mana.Init();
@@ -46,12 +55,16 @@ public abstract class Unit : MonoBehaviour
         {
             stat.Init();
         }
+        
+        Tools.InstantiateAll(items);
 
         foreach (Item item in items)
         {
             item.Use(this);
         }
 
+        Tools.InstantiateAll(spells);
+        
         foreach (Spell spell in spells)
         {
             spell.Init(this);
@@ -76,10 +89,26 @@ public abstract class Unit : MonoBehaviour
 
     public bool Stunned()
     {
-        return statusModifiers.Exists(mod => mod.type == ModType.Stun && mod.Use() != 0);
+        return stateModifiers.Exists(mod => mod.type == ModType.Stun && mod.Use() != 0);
+    }
+
+    public void StartBurning(int moves)
+    {
+        stateModifiers.Add(new Modifier(moves, ModType.Burning, onMove: () => {DoDamage(new Damage(10));}));
+        stateAnimationController.AddState(UnitStates.Burning);
+    }
+
+    public void StopBurning()
+    {
+        stateAnimationController.DeleteState(UnitStates.Burning);
     }
 
     public abstract void Act();
 
     protected abstract void NoHp();
+}
+
+public enum UnitStates
+{
+    Burning
 }

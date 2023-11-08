@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PrefabsContainer : MonoBehaviour
 {
-    public Enemy enemy;
-
     public GameObject winMessage;
 
     public GameObject loseMessage;

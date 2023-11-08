@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TE
   m_EditorClassIdentifier: 
   enemiesData:
-  - {fileID: 3989360704843497647, guid: f8fa735f578585e43903bc7bedc81d81, type: 3}
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+  - {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+  - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
   difficulty: 25
   reward: 18

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,18 +12,18 @@ public class GoodBox : MonoBehaviour
         {
             button.onClick.AddListener(good.Buy);
             button.onClick.AddListener(OnBuy);
-            button.GetComponentInChildren<TMP_Text>().text = $"{good.GetName()} {good.price}";
+            button.GetComponentInChildren<Text>().text = $"{good.GetName()} {good.price}";
         }
         catch
         {
-            button.GetComponentInChildren<TMP_Text>().text = "Sorry, we are out";
+            button.GetComponentInChildren<Text>().text = "Sorry, we are out";
         }
     }
 
     private void OnBuy()
     {
         if (!good.bought) return;
-        button.GetComponentInChildren<TMP_Text>().text = "Sorry, we are out";
+        button.GetComponentInChildren<Text>().text = "Sorry, we are out";
         button.onClick.RemoveAllListeners();
     }
 }

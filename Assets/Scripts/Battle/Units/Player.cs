@@ -70,7 +70,6 @@ namespace Battle.Units
             pDmg = data.pDmg;
             lDmg = data.lDmg;
             phDmg = data.phDmg;
-            statusModifiers = data.statusModifiers;
             items = data.items;
             spells = data.spells;
         }
@@ -85,7 +84,6 @@ namespace Battle.Units
             data.pDmg = pDmg;
             data.lDmg = lDmg;
             data.phDmg = phDmg;
-            data.statusModifiers = statusModifiers;
             data.items = items;
             data.spells = spells;
         }

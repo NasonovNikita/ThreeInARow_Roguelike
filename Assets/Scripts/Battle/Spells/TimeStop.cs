@@ -12,7 +12,7 @@ public class TimeStop : Spell
         
         foreach (Enemy enemy in manager.enemies)
         {
-            enemy.statusModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
+            enemy.stateModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
         }
     }
 }

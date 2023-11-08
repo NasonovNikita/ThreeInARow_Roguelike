@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,6 +27,7 @@ namespace Battle
     
         public BattleState State { get; private set; }
 
+        public List<Enemy> enemiesPrefabs;
         public List<Enemy> enemies;
 
         private Coroutine _battle;
@@ -51,11 +51,11 @@ namespace Battle
 
             LoadSpells();
 
-            enemies = group.GetEnemies();
+            enemiesPrefabs = group.GetEnemies();
 
-            for (int i = 0; i < enemies.Count; i++)
+            for (int i = 0; i < enemiesPrefabs.Count; i++)
             {
-                enemies[i] = LoadEnemy(i);
+                enemies.Add(LoadEnemy(i));
             }
 
             _placer.enemiesToPlace = enemies;
@@ -73,9 +73,13 @@ namespace Battle
     
         public void EndTurn()
         {
-            if (State == BattleState.Turn)
+            if (State == BattleState.Turn && !player.Stunned())
             {
                 StartCoroutine(PlayerAct());
+            }
+            else if (State != BattleState.EnemiesAct)
+            {
+                StartCoroutine(EnemiesAct());
             }
         }
 
@@ -121,13 +125,11 @@ namespace Battle
 
         private IEnumerator<WaitForSeconds> PlayerAct()
         {
-            if (!player.Stunned())
-            {
-                State = BattleState.PlayerAct;
+            State = BattleState.PlayerAct;
 
-                player.Act();
-                yield return new WaitForSeconds(FightTime);
-            }
+            player.Act();
+            yield return new WaitForSeconds(FightTime);
+            
 
             StartCoroutine(EnemiesAct());
         }
@@ -174,7 +176,7 @@ namespace Battle
 
         private Enemy LoadEnemy(int i)
         {
-            Enemy enemy = Instantiate(enemies[i], _canvas.transform, false);
+            Enemy enemy = Instantiate(enemiesPrefabs[i], _canvas.transform, false);
             enemy.TurnOn();
             return enemy;
         }
@@ -188,7 +190,7 @@ namespace Battle
                 Button btn = spellButtons[i];
                 Spell spell = player.spells[i];
                 btn.onClick.AddListener(spell.Cast);
-                TMP_Text text = btn.GetComponentInChildren<TMP_Text>();
+                Text text = btn.GetComponentInChildren<Text>();
                 text.text = spell.title;
             }
         }

@@ -17,12 +17,15 @@ public class Modifier
     [SerializeField]
     private List<Condition> conditions;
 
-    public Modifier(int moves, ModType type, List<Condition> conditions, float value = 1)
+    private Action onMove;
+
+    public Modifier(int moves, ModType type, List<Condition> conditions = null, float value = 1, Action onMove = null)
     {
         this.moves = moves;
         this.type = type;
-        this.conditions = conditions;
+        this.conditions = conditions ?? new List<Condition>();
         this.value = value;
+        this.onMove = onMove;
         mods.Add(this);
     }
 
@@ -35,6 +38,7 @@ public class Modifier
     {
         foreach (Modifier mod in mods.ToList())
         {
+            mod.onMove();
             mod.moves -= 1;
             if (mod.moves != 0) continue;
             mods.Remove(mod);

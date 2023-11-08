@@ -10,6 +10,8 @@ namespace Map
 {
     public class MapGenerator : MonoBehaviour
     {
+        public static MapGenerator instance;
+        
         public int difficulty;
         public int depth;
         public int minWidth;
@@ -37,6 +39,15 @@ namespace Map
         
         public void Awake()
         {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        
             DontDestroyOnLoad(gameObject);
         }
     

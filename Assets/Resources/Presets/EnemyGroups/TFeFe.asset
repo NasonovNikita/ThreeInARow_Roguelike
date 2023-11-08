@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TFeFe
   m_EditorClassIdentifier: 
   enemiesData:
-  - {fileID: 3989360704843497647, guid: f8fa735f578585e43903bc7bedc81d81, type: 3}
-  - {fileID: 3416277369943136895, guid: b80453a8240353c439b7bb1a3fcf5b35, type: 3}
-  - {fileID: 3416277369943136895, guid: b80453a8240353c439b7bb1a3fcf5b35, type: 3}
+  - {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+  - {fileID: 1482011888949459127, guid: a0c9c1a60b0067d499a832e104163416, type: 3}
+  - {fileID: 1482011888949459127, guid: a0c9c1a60b0067d499a832e104163416, type: 3}
   difficulty: 38
   reward: 45

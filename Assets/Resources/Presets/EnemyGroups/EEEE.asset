@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: EEEE
   m_EditorClassIdentifier: 
   enemiesData:
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
-  - {fileID: 4776826382455203890, guid: 80bcec47f27931b4cbf92a1cfd071148, type: 3}
+  - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+  - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+  - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+  - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
   difficulty: 34
   reward: 30

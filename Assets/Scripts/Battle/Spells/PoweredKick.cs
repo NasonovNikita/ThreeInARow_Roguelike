@@ -9,7 +9,7 @@ public class PoweredKick : Spell
         if (CantCast()) return;
         
         manager.player.mana -= manaCost;
-        manager.player.statusModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
+        manager.player.stateModifiers.Add(new Modifier(moves, ModType.Stun, new List<Condition>()));
         ApplyToDamage(manager.player, new Modifier(moves + 1, ModType.Mul,new List<Condition>(), value), ModAffect.Get);
         manager.EndTurn();
     }

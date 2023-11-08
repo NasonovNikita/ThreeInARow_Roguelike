@@ -10,9 +10,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField]
-    private MapGenerator generator;
-
     public bool randomSeed;
 
     public int seed;
@@ -111,8 +108,7 @@ public class GameManager : MonoBehaviour
 
     private void GenerateMap()
     {
-        generator = FindFirstObjectByType<MapGenerator>();
-        Map.Map.map = generator.GetMap(seed);
+        Map.Map.map = MapGenerator.instance.GetMap(seed);
         generated = true;
     }
 }

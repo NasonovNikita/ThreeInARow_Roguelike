@@ -52,7 +52,7 @@ public class UnitData : ScriptableObject
         unit.pDmg = pDmg;
         unit.lDmg = lDmg;
         unit.phDmg = phDmg;
-        unit.statusModifiers = statusModifiers;
+        unit.stateModifiers = statusModifiers;
         unit.items = items;
         unit.spells = spells;
     }

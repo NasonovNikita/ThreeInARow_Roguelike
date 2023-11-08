@@ -10,7 +10,7 @@ namespace Battle.Spells
             attachedUnit.mana -= manaCost;
             Damage dmg = new Damage(fDmg: (int) value);
             manager.player.DoDamage(dmg);
-            //TODO Apply burning
+            manager.player.StartBurning(1);
         }
     }
 }

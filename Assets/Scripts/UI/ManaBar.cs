@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,7 @@ public class ManaBar : MonoBehaviour
     private Unit unit;
 
     [SerializeField]
-    private TMP_Text text;
+    private Text text;
 
     private void Start()
     {
