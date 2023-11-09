@@ -8,8 +8,6 @@ namespace Battle.Spells
         public override void Cast()
         {
             attachedUnit.mana -= manaCost;
-            Damage dmg = new Damage(fDmg: (int) value);
-            manager.player.DoDamage(dmg);
             manager.player.StartBurning(1);
         }
     }

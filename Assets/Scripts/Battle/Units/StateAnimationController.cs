@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,22 +11,30 @@ namespace Battle.Units
 
         [SerializeField]
         private Animator animatorPrefab;
-        
-        private readonly Dictionary<UnitStates, Animator> currentStates = new();
+
+        private Dictionary<UnitStates, Animator> currentStates = new();
 
         private readonly Dictionary<UnitStates, string> statesCodes = new ()
         {
             { UnitStates.Burning, "burning" }
         };
 
+        public void Awake()
+        {
+            currentStates = new Dictionary<UnitStates, Animator>()
+            {
+                { UnitStates.Burning, Instantiate(animatorPrefab, transform)}
+            };
+            
+            foreach (Animator animator in currentStates.Values)
+            {
+                animator.runtimeAnimatorController = controller;
+            }
+        }
+
         public void AddState(UnitStates state)
         {
-            if (currentStates.ContainsKey(state)) return;
-            
-            Animator animator = Instantiate(animatorPrefab, transform);
-            animator.runtimeAnimatorController = controller;
-            animator.SetBool(statesCodes[state], true);
-            currentStates.Add(state, animator);
+            currentStates[state].SetBool(statesCodes[state], true);
         }
 
         public void DeleteState(UnitStates state)

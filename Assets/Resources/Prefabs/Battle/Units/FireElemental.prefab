@@ -61,6 +61,10 @@ PrefabInstance:
       value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: manaPerGem
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: hp.borderUp
       value: 80
       objectReference: {fileID: 0}

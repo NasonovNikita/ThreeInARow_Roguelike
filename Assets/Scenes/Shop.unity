@@ -240,6 +240,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 463646563}
     m_Modifications:
+    - target: {fileID: 1364171466821853445, guid: 00eea4540e3a9c04c821498879aea0da, type: 3}
+      propertyPath: m_Text
+      value: No Good
+      objectReference: {fileID: 0}
     - target: {fileID: 2673946526694602188, guid: 00eea4540e3a9c04c821498879aea0da, type: 3}
       propertyPath: m_Name
       value: GoodBox (1)
@@ -701,6 +705,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 463646563}
     m_Modifications:
+    - target: {fileID: 1364171466821853445, guid: 00eea4540e3a9c04c821498879aea0da, type: 3}
+      propertyPath: m_Text
+      value: No Good
+      objectReference: {fileID: 0}
     - target: {fileID: 2673946526694602188, guid: 00eea4540e3a9c04c821498879aea0da, type: 3}
       propertyPath: m_Name
       value: GoodBox

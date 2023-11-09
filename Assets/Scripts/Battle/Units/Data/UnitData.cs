@@ -16,10 +16,8 @@ public class UnitData : ScriptableObject
     [SerializeField] public List<Item> items;
     [SerializeField] public List<Spell> spells;
     [SerializeField] public int manaPerGem;
-    [SerializeField] public Texture img;
 
-    public UnitData(Stat hp, Stat mana, Stat fDmg, Stat cDmg, Stat pDmg, Stat lDmg, Stat phDmg, List<Modifier> statusModifiers, List<Item> items,
-        List<Spell> spells)
+    public UnitData(Stat hp, Stat mana, Stat fDmg, Stat cDmg, Stat pDmg, Stat lDmg, Stat phDmg, List<Modifier> statusModifiers, List<Item> items)
     {
         this.hp = hp;
         this.mana = mana;
@@ -30,7 +28,6 @@ public class UnitData : ScriptableObject
         this.phDmg = phDmg;
         this.statusModifiers = statusModifiers;
         this.items = items;
-        this.spells = spells;
     }
 
     public UnitData()

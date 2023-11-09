@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Grid = Battle.Match3.Grid;
 
@@ -70,8 +71,8 @@ namespace Battle.Units
             pDmg = data.pDmg;
             lDmg = data.lDmg;
             phDmg = data.phDmg;
-            items = data.items;
-            spells = data.spells;
+            items = new List<Item>(data.items);
+            spells = new List<Spell>(data.spells);
         }
 
         public void Save()
@@ -84,8 +85,6 @@ namespace Battle.Units
             data.pDmg = pDmg;
             data.lDmg = lDmg;
             data.phDmg = phDmg;
-            data.items = items;
-            data.spells = spells;
         }
     }
 }

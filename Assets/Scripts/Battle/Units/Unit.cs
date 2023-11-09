@@ -94,7 +94,12 @@ public abstract class Unit : MonoBehaviour
 
     public void StartBurning(int moves)
     {
-        stateModifiers.Add(new Modifier(moves, ModType.Burning, onMove: () => {DoDamage(new Damage(10));}));
+        stateModifiers.Add(new Modifier(
+            moves,
+            ModType.Burning,
+            onMove: () => { DoDamage(new Damage(10)); },
+            delay: true)
+        );
         stateAnimationController.AddState(UnitStates.Burning);
     }
 

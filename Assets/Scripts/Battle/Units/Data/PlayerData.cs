@@ -11,8 +11,7 @@ public class PlayerData : UnitData
     public int money;
 
 
-    public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat fDmg, Stat cDmg, Stat pDmg, Stat lDmg, Stat phDmg, List<Modifier> statusModifiers, List<Item> items,
-        List<Spell> spells, int money) : base(hp, mana, fDmg, cDmg, pDmg, lDmg, phDmg, statusModifiers, items, spells)
+    public PlayerData(int manaPerGem, Stat hp, Stat mana, Stat fDmg, Stat cDmg, Stat pDmg, Stat lDmg, Stat phDmg, List<Modifier> statusModifiers, List<Item> items, int money) : base(hp, mana, fDmg, cDmg, pDmg, lDmg, phDmg, statusModifiers, items)
     {
         this.manaPerGem = manaPerGem;
         this.money = money;
