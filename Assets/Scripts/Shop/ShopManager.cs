@@ -1,21 +1,25 @@
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+namespace Shop
 {
-    public static List<Good> goods = new();
-    public void Awake()
+    public class ShopManager : MonoBehaviour
     {
-        AudioManager.instance.StopAll();
-        
-        GameManager.instance.SaveData();
-
-        var goodBoxes = FindObjectsByType<GoodBox>(FindObjectsSortMode.None);
-        for (int i = 0; i < goods.Count && i < 4; i++)
+        public static List<Good> goods = new();
+        public void Awake()
         {
-            goodBoxes[i].good = goods[i];
-        }
+            AudioManager.instance.StopAll();
+        
+            GameManager.instance.SaveData();
 
-        AudioManager.instance.Play(AudioEnum.Shop);
+            var goodBoxes = FindObjectsByType<GoodBox>(FindObjectsSortMode.None);
+            for (int i = 0; i < goods.Count && i < 4; i++)
+            {
+                goodBoxes[i].good = goods[i];
+            }
+
+            AudioManager.instance.Play(AudioEnum.Shop);
+        }
     }
 }

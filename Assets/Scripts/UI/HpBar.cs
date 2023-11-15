@@ -1,27 +1,30 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HpBar : MonoBehaviour
+namespace UI
 {
-    private Slider _slider;
+    public class HpBar : MonoBehaviour
+    {
+        private Slider _slider;
     
-    [SerializeField]
-    private Unit unit;
+        [SerializeField]
+        private Unit unit;
 
-    [SerializeField]
-    private Text text;
+        [SerializeField]
+        private Text text;
 
-    private void Start()
-    {
-        _slider = GetComponent<Slider>();
-        _slider.maxValue = unit.hp.borderUp;
-        _slider.minValue = unit.hp.borderDown;
-        _slider.value = unit.hp.GetValue();
-    }
+        private void Start()
+        {
+            _slider = GetComponent<Slider>();
+            _slider.maxValue = unit.hp.borderUp;
+            _slider.minValue = unit.hp.borderDown;
+            _slider.value = unit.hp.GetValue();
+        }
 
-    private void Update()
-    {
-        _slider.value = unit.hp.GetValue();
-        text.text = $"{_slider.value}/{unit.hp.borderUp}";
+        private void Update()
+        {
+            _slider.value = unit.hp.GetValue();
+            text.text = $"{_slider.value}/{unit.hp.borderUp}";
+        }
     }
 }

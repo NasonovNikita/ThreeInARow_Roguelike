@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -21,6 +20,11 @@ public class MenuButtons : MonoBehaviour
     public void MainMenu()
     {
         GameManager.instance.MainMenu();
+    }
+
+    public void Settings()
+    {
+        GameManager.instance.Settings();
     }
 
     public void EnterMap()

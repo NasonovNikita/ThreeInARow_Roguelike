@@ -1,10 +1,12 @@
-public enum AudioEnum
+namespace Audio
 {
-    PlayerHit,
-    EnemyHit,
-    EnemyDeath,
-    MainMenu,
-    Map,
-    Battle,
-    Shop
+    public enum AudioEnum
+    {
+        PlayerHit,
+        EnemyHit,
+        MainMenu,
+        Map,
+        Battle,
+        Shop
+    }
 }

@@ -1,18 +1,18 @@
+using System;
+using Audio;
 using Battle;
 using Battle.Units;
 using Map;
+using Shop;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
-    public bool randomSeed;
-
-    public int seed;
 
     private bool generated;
     public void Awake()
@@ -31,13 +31,20 @@ public class GameManager : MonoBehaviour
         Player.data = ScriptableObject.CreateInstance<PlayerData>();
     }
 
+    public void Start()
+    {
+        SettingsManager.LoadSettings();
+    }
+
     public void MainMenu()
     {
-        AudioManager.instance.StopAll();
-        
         SceneManager.LoadScene("MainMenu");
         
+        AudioManager.instance.StopAll();
+        
         AudioManager.instance.Play(AudioEnum.MainMenu);
+        
+        SettingsManager.SaveSettings();
     }
     
     public void NewGame()
@@ -61,6 +68,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Settings()
+    {
+        SceneManager.LoadScene("Settings");
+    }
+
     public void Exit()
     {
         #if UNITY_EDITOR
@@ -80,7 +92,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("vertex", Map.Map.currentVertex);
         PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(Player.data));
-        PlayerPrefs.SetInt("seed", seed);
+        PlayerPrefs.SetInt("seed", Globals.instance.seed);
         PlayerPrefs.SetString("group", JsonUtility.ToJson(BattleManager.group));
         PlayerPrefs.SetString("goods", JsonUtility.ToJson(ShopManager.goods));
     }
@@ -90,7 +102,7 @@ public class GameManager : MonoBehaviour
         Map.Map.currentVertex = -1;
         Player.data = Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"));
         
-        if (randomSeed) seed = Random.Range(0, 10000000);
+        if (Globals.instance.randomSeed) Globals.instance.seed = Random.Range(0, 10000000);
         GenerateMap();
         
         PlayerPrefs.DeleteAll();
@@ -100,7 +112,7 @@ public class GameManager : MonoBehaviour
     {
         Map.Map.currentVertex = PlayerPrefs.GetInt("vertex");
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
-        seed = PlayerPrefs.GetInt("seed");
+        Globals.instance.seed = PlayerPrefs.GetInt("seed");
         BattleManager.group = ScriptableObject.CreateInstance<EnemyGroup>();
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("group"), BattleManager.group);
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("goods"), ShopManager.goods);
@@ -108,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     private void GenerateMap()
     {
-        Map.Map.map = MapGenerator.instance.GetMap(seed);
+        Map.Map.map = MapGenerator.instance.GetMap(Globals.instance.seed);
         generated = true;
     }
 }

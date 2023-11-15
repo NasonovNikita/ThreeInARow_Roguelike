@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Shop;
 using UnityEngine.SceneManagement;
 
 public class ShopVertex : Vertex

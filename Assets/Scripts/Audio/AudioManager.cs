@@ -1,62 +1,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+namespace Audio
 {
-    public static AudioManager instance;
-
-    private Dictionary<AudioEnum, AudioPlayer> sounds;
-
-    public void Awake()
+    public class AudioManager : MonoBehaviour
     {
-        if (instance == null)
+        public static AudioManager instance;
+
+        private Dictionary<AudioEnum, AudioPlayer> sounds;
+
+        public void Awake()
         {
-            instance = this;
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        
+            DontDestroyOnLoad(gameObject);
+
+            sounds = new Dictionary<AudioEnum, AudioPlayer>();
+            foreach (AudioPlayer snd in GetComponentsInChildren<AudioPlayer>())
+            {
+                sounds[snd.audioName] = snd;
+            }
         }
-        else
+
+        public void Play(AudioEnum soundEnum)
         {
-            Destroy(gameObject);
+            AudioPlayer sound = GetAudio(soundEnum);
+        
+            sound.Play();
         }
-        
-        DontDestroyOnLoad(gameObject);
 
-        sounds = new Dictionary<AudioEnum, AudioPlayer>();
-        foreach (AudioPlayer snd in GetComponentsInChildren<AudioPlayer>())
+        public void Stop(AudioEnum soundEnum)
         {
-            sounds[snd.audioName] = snd;
-        }
-    }
-
-    public void Play(AudioEnum soundEnum)
-    {
-        AudioPlayer sound = GetAudio(soundEnum);
+            AudioPlayer sound = GetAudio(soundEnum);
         
-        sound.Play();
-        
-        //Debug.unityLogger.Log($"Play {soundEnum}");
-    }
-
-    public void Stop(AudioEnum soundEnum)
-    {
-        AudioPlayer sound = GetAudio(soundEnum);
-        
-        sound.Stop();
-        
-        //Debug.unityLogger.Log($"Stop {soundEnum}");
-    }
-
-    public void StopAll()
-    {
-        foreach (AudioPlayer sound in sounds.Values)
-        {
             sound.Stop();
         }
-        
-        //Debug.unityLogger.Log("StopAll");
-    }
 
-    private AudioPlayer GetAudio(AudioEnum soundEnum)
-    {
-        return sounds[soundEnum];
+        public void StopAll()
+        {
+            foreach (AudioPlayer sound in sounds.Values)
+            {
+                sound.Stop();
+            }
+        }
+
+        private AudioPlayer GetAudio(AudioEnum soundEnum)
+        {
+            return sounds[soundEnum];
+        }
     }
 }

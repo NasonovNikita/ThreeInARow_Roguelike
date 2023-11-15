@@ -13,7 +13,9 @@ namespace Map
         public static MapGenerator instance;
         
         public int difficulty;
+        
         public int depth;
+        
         public int minWidth;
         public int maxWidth;
 
@@ -50,7 +52,12 @@ namespace Map
         
             DontDestroyOnLoad(gameObject);
         }
-    
+
+        public void Update()
+        {
+            difficulty = (int) Globals.instance.difficulty;
+        }
+
         public KeyValuePair<List<List<VertexData>>, List<List<KeyValuePair<int, int>>>> GetMap(int seed)
         {
             Random.InitState(seed);

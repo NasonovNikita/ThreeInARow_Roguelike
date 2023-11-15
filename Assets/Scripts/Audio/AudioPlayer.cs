@@ -1,23 +1,32 @@
 using UnityEngine;
 
-public class AudioPlayer : MonoBehaviour
+namespace Audio
 {
-    public AudioEnum audioName;
+    [RequireComponent(typeof(AudioSource))]
+    public class AudioPlayer : MonoBehaviour
+    {
+        public AudioEnum audioName;
   
-    private AudioSource source;
+        private AudioSource source;
 
-    public void Awake()
-    {
-        source = GetComponent<AudioSource>();
-    }
+        public void Awake()
+        {
+            source = GetComponent<AudioSource>();
+        }
 
-    public void Play()
-    {
-        source.Play();
-    }
+        public void Update()
+        {
+            source.volume = Globals.instance.volume / 100;
+        }
 
-    public void Stop()
-    {
-        source.Stop();
+        public void Play()
+        {
+            source.Play();
+        }
+
+        public void Stop()
+        {
+            source.Stop();
+        }
     }
 }
