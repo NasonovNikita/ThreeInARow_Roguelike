@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using Other;
 using UnityEditor;
+using UnityEngine;
 
 namespace Editor
 {
@@ -10,14 +10,53 @@ namespace Editor
     {
         public override void OnInspectorGUI()
         {
-            var fields = new List<string>(typeof(Globals).GetFields().Select(val => val.Name));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("fromPromised"));
 
-            int selected = EditorGUILayout.Popup(fields.IndexOf(serializedObject.FindProperty("currentField").stringValue), fields.ToArray());
-
-            if (selected >= 0 && selected <= fields.Count)
+            if (serializedObject.FindProperty("fromPromised").boolValue)
             {
-                serializedObject.FindProperty("currentField").stringValue = fields[selected];
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("promisedObject"));
             }
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("obj"));
+            
+            serializedObject.ApplyModifiedProperties();
+            
+            FieldReference reference = (FieldReference)target;
+            
+            if (reference.obj == null) return;
+
+            #region choosing component
+            
+            var componentNames = reference.obj.GetComponents<Component>().Select(val => val.GetType().Name).ToList();
+
+            int currentComponent = componentNames.IndexOf(serializedObject.FindProperty("component").stringValue);
+            currentComponent = currentComponent == -1 ? 0 : currentComponent;
+
+            int chosenComponent = EditorGUILayout.Popup(currentComponent, componentNames.ToArray());
+
+            serializedObject.FindProperty("component").stringValue = componentNames[chosenComponent];
+            
+            #endregion
+
+            serializedObject.ApplyModifiedProperties();
+            
+            if (reference.component == "") return;
+            
+            #region choosing field
+            
+            var fieldNames = reference.obj.GetComponent(reference.component)
+                .GetType().GetFields().Select(val => val.Name).ToList();
+            
+            if (fieldNames.Count == 0) return;
+
+            int currentField = fieldNames.IndexOf(serializedObject.FindProperty("field").stringValue);
+            currentField = currentField == -1 ? 0 : currentField;
+
+            int chosenField = EditorGUILayout.Popup(currentField, fieldNames.ToArray());
+
+            serializedObject.FindProperty("field").stringValue = fieldNames[chosenField];
+
+            #endregion
 
             serializedObject.ApplyModifiedProperties();
         }

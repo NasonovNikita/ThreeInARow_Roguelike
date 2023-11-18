@@ -5,16 +5,16 @@ using UnityEngine.UI;
 namespace UI
 {
     [RequireComponent(typeof(Slider))]
-    [RequireComponent(typeof(FieldReference))]
+    [RequireComponent(typeof(FieldReferenceOld))]
     public class ConnectedSlider : MonoBehaviour
     {
         private Slider _slider;
-        private FieldReference _value;
+        private FieldReferenceOld _value;
 
         public void Awake()
         {
             _slider = GetComponent<Slider>();
-            _value = GetComponent<FieldReference>();
+            _value = GetComponent<FieldReferenceOld>();
             _slider.value = _value.GetValue<float>();
         }
 

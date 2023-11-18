@@ -1,21 +1,28 @@
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Other
 {
     public class FieldReference : MonoBehaviour
     {
-        public string currentField;
+        public GameObject obj;
 
-        public void SetValue<T>(T value)
-        {
-            typeof(Globals).GetField(currentField).SetValue(Globals.instance, value);
-        }
+        public string component;
+        public string field;
+
+        public bool fromPromised;
+        [SerializeField]
+        private PromisedObject promisedObject;
 
         public T GetValue<T>()
         {
-            return (T) typeof(Globals).GetField(currentField).GetValue(Globals.instance);
+            Component cmp = obj.GetComponent(component);
+            return (T)cmp.GetType().GetField(field).GetValue(cmp);
+        }
+
+        public void SetValue<T>(T value)
+        {
+            Component cmp = obj.GetComponent(component);
+            cmp.GetType().GetField(field).SetValue(cmp, value);
         }
     }
 }
