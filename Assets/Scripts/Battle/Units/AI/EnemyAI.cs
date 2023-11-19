@@ -17,13 +17,13 @@ namespace Battle.Units.AI
         {
             _attachedEnemy = GetComponent<Enemy>();
             _player = FindFirstObjectByType<Player>();
-            _grid = FindFirstObjectByType<Grid>();
         }
 
         private IEnumerator<WaitUntil> Attack()
         {
             UseSpells();
-            
+
+            _grid = FindFirstObjectByType<Grid>();
             UseGrid();
 
             yield return new WaitUntil(() => _grid.state == GridState.Blocked);

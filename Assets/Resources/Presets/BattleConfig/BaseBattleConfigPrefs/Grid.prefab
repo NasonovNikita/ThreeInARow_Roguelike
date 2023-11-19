@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1277617876952430967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2607305433956521472}
+  - component: {fileID: 3065744424074189288}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2607305433956521472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277617876952430967}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: -1.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3065744424074189288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277617876952430967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1706f635693ed0d4caf56228f2e5a677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeX: 7
+  sizeY: 7
+  stepX: {x: 1, y: 0}
+  stepY: {x: 0, y: 1}
+  baseScale: {x: 0.7, y: 0.7, z: 0.7}
+  chosenScale: {x: 0.8, y: 0.8, z: 0.8}
+  prefabs:
+  - {fileID: 1917038237409578163, guid: 11ca37aca5bd3fe47a26bc15b03cb876, type: 3}
+  - {fileID: -1593909840676541764, guid: 0fd2726e2139b674886186f5384f46a7, type: 3}
+  - {fileID: 7005791935035994931, guid: fc4667ed736e3494dbc1b85c9b2c9075, type: 3}
+  - {fileID: -8985318442100394132, guid: 04759e64b6de29d4f93084eeb36acee3, type: 3}
+  - {fileID: 6560272084204752305, guid: 8c866997fb6788a45befd66edca5fc79, type: 3}
+  moveTime: 0.2
+  scaleTime: 0.1
+  refreshTime: 0.5
+  manager: {fileID: 0}
+  state: 0

@@ -9,23 +9,22 @@ namespace Battle.Match3
 {
     public class Grid : MonoBehaviour
     {
-        [SerializeField]
-        private int sizeX;
-        [SerializeField]
-        private int sizeY;
+        [SerializeField] private int sizeX;
+        [SerializeField] private int sizeY;
     
-        [SerializeField]
-        private Vector2 stepX;
-        [SerializeField]
-        private Vector2 stepY;
+        [SerializeField] private Vector2 stepX;
+        [SerializeField] private Vector2 stepY;
+        [SerializeField] private Vector3 baseScale;
+        [SerializeField] private Vector3 chosenScale;
+        
     
         [SerializeField]
         private Gem[] prefabs;
 
         [SerializeField] internal float moveTime;
         [SerializeField] internal float scaleTime;
-        [SerializeField]
-        private float refreshTime;
+        [SerializeField] private float refreshTime;
+        
 
         public Dictionary<GemType, int> destroyed;
 
@@ -38,22 +37,33 @@ namespace Battle.Match3
     
         private Gem[,] _box;
 
-        private void Awake()
+        public void Awake()
         {
             manager = FindFirstObjectByType<BattleManager>();
-        
-            manager.grid = this;
         
             _box = new Gem[sizeY, sizeX];
             SmartGenGems();
             ClearDestroyed();
         }
 
+        public void OnDestroy()
+        {
+            foreach (var gem in _box)
+            {
+                if (gem == null) return;
+                Destroy(gem.gameObject);
+            }
+        }
+
         private Gem GenGem(int i, int j, int type = 0)
         {
             Gem gem = prefabs[type != 0 ? type : Random.Range(0, prefabs.Length)];
-            gem.transform.position = (Vector2)transform.position + stepX * j + stepY * i;
+            var gemTransform = gem.transform;
+            gemTransform.position = (Vector2)transform.position + stepX * j + stepY * i;
             gem.grid = this;
+            gemTransform.localScale = baseScale;
+            gem.BaseScale = baseScale;
+            gem.ChosenScale = chosenScale;
             return gem;
         }
 

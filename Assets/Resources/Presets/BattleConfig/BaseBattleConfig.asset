@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebfe7e30f8208f4a87be4b2868074cf, type: 3}
+  m_Name: BaseBattleConfig
+  m_EditorClassIdentifier: 
+  spells: {fileID: 8170549455734597551, guid: b63d2ed33b4e80841852a37317cbb631, type: 3}
+  player: {fileID: 8543869779031223855, guid: 31b38ea9933279c4bbebc838db1ba84f, type: 3}
+  enemies: {fileID: 2898395111538234687, guid: f67193151e8b05a45be738b8bb65912a, type: 3}
+  grid: {fileID: 3065744424074189288, guid: 84eab04c18847fc48b15943408fefb93, type: 3}
+  gemBaseScale: {x: 0.7, y: 0.7, z: 0.7}
+  gemChosenScale: {x: 0.8, y: 0.8, z: 0.8}
+  mark: 0

@@ -1,3 +1,4 @@
+using Other;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Grid = Battle.Match3.Grid;
@@ -11,12 +12,20 @@ public class Gem : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Vector3 baseScale;
 
-    public Vector3 BaseScale => baseScale;
-    
+    public Vector3 BaseScale
+    {
+        get => baseScale;
+        set => baseScale = value;
+    }
+
     [SerializeField]
     private Vector3 chosenScale;
 
-    public Vector3 ChosenScale => chosenScale;
+    public Vector3 ChosenScale
+    {
+        get => chosenScale;
+        set => chosenScale = value;
+    }
 
     public Grid grid;
     

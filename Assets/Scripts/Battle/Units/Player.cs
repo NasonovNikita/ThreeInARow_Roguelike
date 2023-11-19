@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
+using Battle.Units.Data;
 using Grid = Battle.Match3.Grid;
 
 namespace Battle.Units
@@ -16,7 +17,6 @@ namespace Battle.Units
         public new void TurnOn()
         {
             base.TurnOn();
-            _grid = FindFirstObjectByType<Grid>();
         }
 
         private int CountMana()
@@ -38,6 +38,7 @@ namespace Battle.Units
 
         public override void Act()
         {
+            _grid = FindFirstObjectByType<Grid>();
             mana += CountMana();
             Damage doneDamage = CountDamage();
         

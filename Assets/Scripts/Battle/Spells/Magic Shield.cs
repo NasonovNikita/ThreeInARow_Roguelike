@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Battle;
+using Battle.Modifiers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MagicShield", menuName = "Spells/MagicShield")]

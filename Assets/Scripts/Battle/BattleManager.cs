@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
+using Battle.Config;
+using Battle.Modifiers;
 using Battle.Units;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,13 +19,13 @@ namespace Battle
     
         public Grid grid;
     
-        private EnemyPlacement _placer;
+        private EnemyPlacer _placer;
     
         private Canvas _canvas;
 
         private const float FightTime = 0.2f;
 
-        public static EnemyGroup group = ScriptableObject.CreateInstance<EnemyGroup>();
+        public static EnemyGroup group;
 
         public Enemy target;
     
@@ -41,16 +44,14 @@ namespace Battle
         public void Awake()
         {
             AudioManager.instance.StopAll();
+            
         
             _canvas = FindFirstObjectByType<Canvas>();
             player = FindFirstObjectByType<Player>();
             grid = FindFirstObjectByType<Grid>();
-            _placer = FindFirstObjectByType<EnemyPlacement>();
 
             player.Load();
             player.TurnOn();
-
-            LoadSpells();
 
             enemiesPrefabs = group.GetEnemies();
 
@@ -58,10 +59,6 @@ namespace Battle
             {
                 enemies.Add(LoadEnemy(i));
             }
-
-            _placer.enemiesToPlace = enemies;
-        
-            _placer.Place();
         
             target = enemies[0];
 
@@ -69,6 +66,10 @@ namespace Battle
         
             GameManager.instance.SaveData();
         
+            //TEMP
+            BattleInterfacePlacement placement = FindFirstObjectByType<BattleInterfacePlacement>();
+            placement.Place();
+            
             State = BattleState.Turn;
         }
     
@@ -112,6 +113,15 @@ namespace Battle
             player.Delete();
         
             Lose();
+        }
+
+        public void ApplyConfig()
+        {
+            LoadSpells();
+            _placer = FindFirstObjectByType<EnemyPlacer>();
+            _placer.enemiesToPlace = enemies;
+            _placer.Place();
+            grid = FindFirstObjectByType<Grid>();
         }
 
         private void Win()
@@ -184,7 +194,7 @@ namespace Battle
 
         private void LoadSpells()
         {
-            var spells = GameObject.Find("Spells");
+            var spells = FindFirstObjectByType<SpellsContainer>();
             var spellButtons = spells.GetComponentsInChildren<Button>();
             for (int i = 0; i < player.spells.Count && i < 4; i++)
             {

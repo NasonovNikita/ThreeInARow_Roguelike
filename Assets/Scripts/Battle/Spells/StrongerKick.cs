@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Battle;
+using Battle.Modifiers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StrongerKick", menuName = "Spells/StrongerKick")]
