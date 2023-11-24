@@ -12,6 +12,9 @@ namespace Battle.Config
 
         public void Place()
         {
+            //TEMP
+            chosenConfig = Globals.instance.altBattleUI ? BattleConfigs.BigGridConfig : BattleConfigs.BaseConfig;
+            //TEMP
             BattleConfig cfg = configs.Find(val => val.mark == chosenConfig);
             cfg.Apply();
         }

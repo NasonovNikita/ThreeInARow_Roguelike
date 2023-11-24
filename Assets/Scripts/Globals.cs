@@ -12,6 +12,8 @@ public class Globals : MonoBehaviour
     public float volume;
 
     public float difficulty;
+
+    public bool altBattleUI;
     
     public void Awake()
     {

@@ -29,10 +29,10 @@ namespace Battle.Config
             plTransform.localPosition = playerTransform.localPosition;
             plTransform.localScale = playerTransform.localScale;
 
-            Destroy(FindFirstObjectByType<SpellsContainer>());
+            Destroy(FindFirstObjectByType<SpellsContainer>().gameObject);
             Instantiate(spells, canvas.transform, false);
             
-            Destroy(FindFirstObjectByType<EnemyPlacer>());
+            Destroy(FindFirstObjectByType<EnemyPlacer>().gameObject);
             EnemyPlacer placer = Instantiate(enemies, canvas.transform, false);
             placer.Place();
 

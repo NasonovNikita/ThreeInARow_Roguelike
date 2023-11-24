@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebfe7e30f8208f4a87be4b2868074cf, type: 3}
   m_Name: BigGridConfig
   m_EditorClassIdentifier: 
-  spells: {fileID: 0}
-  player: {fileID: 0}
-  enemies: {fileID: 0}
-  grid: {fileID: 0}
+  spells: {fileID: 7444161312057627360, guid: 60ddb274c5d643b4cad64ecb04e7652e, type: 3}
+  player: {fileID: 1265412047051064741, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+  enemies: {fileID: 4684981674051370246, guid: 57a7c7d67391aaa4b8e103021604373d, type: 3}
+  grid: {fileID: 727020640912584690, guid: 500557c61f2640141b014b13d4f3407b, type: 3}
   mark: 1
