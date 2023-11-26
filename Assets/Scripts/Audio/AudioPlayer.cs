@@ -9,6 +9,8 @@ namespace Audio
   
         private AudioSource source;
 
+        [SerializeField] private float volumeRatio = 1;
+
         public void Awake()
         {
             source = GetComponent<AudioSource>();
@@ -16,7 +18,7 @@ namespace Audio
 
         public void Update()
         {
-            source.volume = Globals.instance.volume / 100;
+            source.volume = Globals.instance.volume * volumeRatio / 100;
         }
 
         public void Play()

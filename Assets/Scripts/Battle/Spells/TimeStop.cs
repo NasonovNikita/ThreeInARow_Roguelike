@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Battle;
 using Battle.Modifiers;
+using Battle.Units.Enemies;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TimeStop", menuName = "Spells/TimeStop")]

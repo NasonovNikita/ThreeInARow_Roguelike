@@ -1,7 +1,12 @@
-public enum ModType
+namespace Battle.Modifiers
 {
-    Add,
-    Mul,
-    Stun,
-    Burning
+    public enum ModType
+    {
+        Add,
+        Mul,
+        Stun,
+        Burning,
+        Poisoning,
+        Frozen
+    }
 }

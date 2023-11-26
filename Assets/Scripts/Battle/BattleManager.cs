@@ -5,6 +5,7 @@ using Audio;
 using Battle.Config;
 using Battle.Modifiers;
 using Battle.Units;
+using Battle.Units.Enemies;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Units.Enemies;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyGroup", menuName = "Enemy Group")]

@@ -4,19 +4,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class BackToMainMenu
+namespace ShortScripts
 {
-    private static bool _returned;
-    
-    [RuntimeInitializeOnLoadMethod]
-    public static void MainMenu()
+    public static class BackToMainMenu
     {
-        if (!_returned && SceneManager.GetActiveScene().name != "MainMenu")
+        private static bool _returned;
+    
+        [RuntimeInitializeOnLoadMethod]
+        public static void MainMenu()
         {
-            //SceneManager.LoadScene("MainMenu");
-        }
+            if (!_returned && SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                //SceneManager.LoadScene("MainMenu");
+            }
 
-        _returned = true;
+            _returned = true;
+        }
     }
 }
 

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,14 +15,18 @@ namespace Battle.Units
 
         private readonly Dictionary<UnitStates, string> statesCodes = new ()
         {
-            { UnitStates.Burning, "burning" }
+            { UnitStates.Burning, "burning" },
+            { UnitStates.Poisoning, "poisoning"},
+            { UnitStates.Frozen, "frozen"}
         };
 
         public void Awake()
         {
-            currentStates = new Dictionary<UnitStates, Animator>()
+            currentStates = new Dictionary<UnitStates, Animator>
             {
-                { UnitStates.Burning, Instantiate(animatorPrefab, transform)}
+                { UnitStates.Burning, Instantiate(animatorPrefab, transform)},
+                { UnitStates.Poisoning, Instantiate(animatorPrefab, transform)},
+                { UnitStates.Frozen, Instantiate(animatorPrefab, transform)}
             };
             
             foreach (Animator animator in currentStates.Values)

@@ -212,6 +212,12 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 7
     value: 7
+  a:
+    keys: 00000000
+    values:
+    - borderDown: 0
+      borderUp: 0
+      value: 0
   stateModifiers: []
   items: []
   spells: []

@@ -1,4 +1,3 @@
-
 using Battle.Units;
 using UI;
 using UnityEngine;
@@ -26,9 +25,10 @@ namespace Battle.Config
             Player playerToMove = canvas.GetComponentInChildren<Player>();
             var playerTransform = player.transform;
             var plTransform = playerToMove.transform;
+            
             plTransform.localPosition = playerTransform.localPosition;
             plTransform.localScale = playerTransform.localScale;
-
+            
             Destroy(FindFirstObjectByType<SpellsContainer>().gameObject);
             Instantiate(spells, canvas.transform, false);
             
