@@ -1,6 +1,12 @@
-public enum ModAffect
+namespace Battle.Modifiers
 {
-    Add,
-    Sub,
-    Get
+    public enum ModAffect
+    {
+        ValueAdd,
+        ValueMul,
+        ValueSub,
+        ValueGet,
+        MinValueGet,
+        MaxValueGet
+    }
 }

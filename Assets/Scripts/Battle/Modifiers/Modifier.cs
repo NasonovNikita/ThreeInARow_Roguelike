@@ -8,8 +8,6 @@ namespace Battle.Modifiers
     [Serializable]
     public class Modifier
     {
-        public static List<Modifier> mods = new();
-
         public int moves;
 
         public ModType type;
@@ -18,41 +16,34 @@ namespace Battle.Modifiers
 
         private bool delay;
 
-        [SerializeField]
-        private List<Condition> conditions;
-
         private Action onMove;
 
-        public Modifier(int moves, ModType type, List<Condition> conditions = null, float value = 1, Action onMove = null, bool delay = false)
+        public Modifier(int moves, ModType type, float value = 1, Action onMove = null, bool delay = false)
         {
             this.moves = moves;
             this.type = type;
-            this.conditions = conditions ?? new List<Condition>();
             this.value = value;
             this.onMove = onMove;
             this.delay = delay;
-            mods.Add(this);
+            ILog.OnLog += Move;
         }
 
         public float Use()
         {
-            bool res = conditions.Aggregate(true, (current, cond) => current && cond.Use());
-            return res && moves != 0 ? value : 0;
+            return moves != 0 ? value : 0;
         }
-        public static void Move()
+        private void Move(ILog log)
         {
-            foreach (Modifier mod in mods.ToList())
+            if (log is not TurnLog) return;
+            
+            if (delay)
             {
-                if (mod.delay)
-                {
-                    mod.delay = false;
-                    return;
-                }
-                mod.onMove?.Invoke();
-                mod.moves -= 1;
-                if (mod.moves != 0) continue;
-                mods.Remove(mod);
+                delay = false;
+                return;
             }
+            if (moves == 0) return;
+            onMove?.Invoke();
+            moves -= 1;
         }
     }
 }

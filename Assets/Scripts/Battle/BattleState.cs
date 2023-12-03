@@ -1,7 +1,10 @@
-public enum BattleState
+namespace Battle
 {
-    Turn,
-    PlayerAct,
-    EnemiesAct,
-    End
+    public enum BattleState
+    {
+        Turn,
+        PlayerAct,
+        EnemiesAct,
+        End
+    }
 }

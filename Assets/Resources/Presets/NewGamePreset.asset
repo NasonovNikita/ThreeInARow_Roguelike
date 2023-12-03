@@ -40,11 +40,9 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 20
     value: 20
-  statusModifiers: []
+  stateModifiers: []
   items: []
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
-  - {fileID: 11400000, guid: 1af1f60f705b24c44b9842b0a7b87e54, type: 2}
-  - {fileID: 11400000, guid: dd0f598eea0867f4fbe8092103e08786, type: 2}
   manaPerGem: 20
   money: 20

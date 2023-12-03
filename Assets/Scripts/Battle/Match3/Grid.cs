@@ -24,7 +24,8 @@ namespace Battle.Match3
         [SerializeField] internal float moveTime;
         [SerializeField] internal float scaleTime;
         [SerializeField] private float refreshTime;
-        
+
+        public static Action onEnd;
 
         public Dictionary<GemType, int> destroyed;
 
@@ -141,7 +142,7 @@ namespace Battle.Match3
             }
         }
 
-        public IEnumerator EnemyChoose(int i, int j)
+        public IEnumerator Choose(int i, int j)
         {
             if (state != GridState.EnemyChoosing1 && state != GridState.EnemyChoosing2)
             {
@@ -237,8 +238,8 @@ namespace Battle.Match3
             if (toDelete.Count == 0)
             {
                 GridLog.Log(destroyed);
+                onEnd?.Invoke();
                 Block();
-                manager.EndTurn();
                 yield break;
             }
         

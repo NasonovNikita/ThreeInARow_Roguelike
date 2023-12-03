@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31fd308d574f9c4091b22062415680e, type: 3}
   m_Name: PoweredKick
   m_EditorClassIdentifier: 
-  manaCost: 45
+  useCost: 20
   title: Powered Kick
   value: 2
-  moves: 1
+  count: 0

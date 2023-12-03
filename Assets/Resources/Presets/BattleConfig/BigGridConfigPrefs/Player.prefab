@@ -807,6 +807,22 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 0
     value: 0
+  mDmg:
+    borderDown: 0
+    borderUp: 0
+    value: 0
+  burnChance:
+    borderDown: 0
+    borderUp: 1
+    value: 1
+  poisonChance:
+    borderDown: 0
+    borderUp: 100
+    value: 100
+  freezeChance:
+    borderDown: 0
+    borderUp: 1
+    value: 1
   stateModifiers: []
   items: []
   spells: []

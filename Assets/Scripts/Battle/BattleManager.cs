@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
 using Battle.Config;
-using Battle.Modifiers;
+using Battle.Spells;
 using Battle.Units;
 using Battle.Units.Enemies;
 using UI;
@@ -46,7 +47,6 @@ namespace Battle
         {
             AudioManager.instance.StopAll();
             
-        
             _canvas = FindFirstObjectByType<Canvas>();
             player = FindFirstObjectByType<Player>();
             grid = FindFirstObjectByType<Grid>();
@@ -67,13 +67,24 @@ namespace Battle
         
             GameManager.instance.SaveData();
         
-            //TEMP
             BattleInterfacePlacement placement = FindFirstObjectByType<BattleInterfacePlacement>();
             placement.Place();
             
             State = BattleState.Turn;
+            
+            BattleLog.Clear();
         }
-    
+
+        public void OnEnable()
+        {
+            Grid.onEnd += EndTurn;
+        }
+
+        public void OnDisable()
+        {
+            Grid.onEnd -= EndTurn;
+        }
+
         public void EndTurn()
         {
             if (State == BattleState.Turn && !player.Stunned())
@@ -100,10 +111,14 @@ namespace Battle
             }
 
             target = enemies[0];
-
+            
             yield return new WaitForSeconds(FightTime);
         
             enemy.Delete();
+
+            yield return new WaitForSeconds(FightTime);
+            
+            OnEnemiesShuffle();
         }
 
         public IEnumerator Die()
@@ -125,13 +140,19 @@ namespace Battle
             grid = FindFirstObjectByType<Grid>();
         }
 
-        private void Win()
+        public void OnEnemiesShuffle()
+        {
+            _placer.enemiesToPlace = enemies;
+            _placer.Place();
+            target = enemies[0];
+        }
+
+        public void Win()
         {
             grid.Block();
             player.Save();
             Player.data.money += group.reward;
             BattleLog.Clear();
-            Modifier.mods.Clear();
             SceneManager.LoadScene("Map");
         }
 
@@ -141,7 +162,6 @@ namespace Battle
 
             player.Act();
             yield return new WaitForSeconds(FightTime);
-            
 
             StartCoroutine(EnemiesAct());
         }
@@ -159,8 +179,8 @@ namespace Battle
             
                 if (player.hp <= 0) yield break;
             }
-        
-            Modifier.Move();
+
+            TurnLog.Log();
             if (!player.Stunned())
             {
                 State = BattleState.Turn;

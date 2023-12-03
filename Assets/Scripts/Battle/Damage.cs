@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +7,7 @@ namespace Battle
     {
         private readonly Dictionary<DmgType, int> parts;
 
-        public Damage(int fDmg=0, int cDmg=0, int pDmg=0, int lDmg=0, int phDmg=0)
+        public Damage(int fDmg=0, int cDmg=0, int pDmg=0, int lDmg=0, int phDmg=0, int mDmg=0)
         {
             parts = new Dictionary<DmgType, int>
             {
@@ -16,7 +15,8 @@ namespace Battle
                 { DmgType.Cold, cDmg },
                 { DmgType.Poison, pDmg },
                 { DmgType.Light, lDmg },
-                { DmgType.Physic, phDmg }
+                { DmgType.Physic, phDmg },
+                { DmgType.Magic, mDmg}
             };
         }
         
@@ -37,6 +37,7 @@ namespace Battle
         Cold,
         Poison,
         Light,
-        Physic
+        Physic,
+        Magic
     }
 }

@@ -1,16 +1,18 @@
 using System.Collections.Generic;
-using Battle;
 using Battle.Modifiers;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MagicShield", menuName = "Spells/MagicShield")]
-public class MagicShield : Spell
+namespace Battle.Spells
 {
-    public override void Cast()
+    [CreateAssetMenu(fileName = "MagicShield", menuName = "Spells/MagicShield")]
+    public class MagicShield : Spell
     {
-        if (CantCast()) return;
+        public override void Cast()
+        {
+            if (CantCast()) return;
         
-        manager.player.mana -= manaCost;
-        manager.player.hp.AddMod(new Modifier(moves, ModType.Mul, new List<Condition>(), value), ModAffect.Sub);
+            manager.player.mana -= useCost;
+            manager.player.hp.AddMod(new Modifier(count, ModType.Mul, value: value), ModAffect.ValueSub);
+        }
     }
 }

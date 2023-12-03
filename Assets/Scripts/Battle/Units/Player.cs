@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
+using Battle.Items;
+using Battle.Spells;
 using Battle.Units.Data;
 using Grid = Battle.Match3.Grid;
 
@@ -45,7 +47,7 @@ namespace Battle.Units
             _grid.ClearDestroyed();
 
             if (doneDamage.IsZero()) return;
-        
+
             PToEDamageLog.Log(manager.target, this, doneDamage);
             manager.target.DoDamage(doneDamage);
         }

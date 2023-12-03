@@ -7,6 +7,9 @@ namespace Battle.Modifiers
         Stun,
         Burning,
         Poisoning,
-        Frozen
+        Frozen,
+        Blind,
+        Irritated,
+        Ignition
     }
 }

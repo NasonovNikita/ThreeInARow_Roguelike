@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Modifiers;
+using Battle.Spells;
 using Battle.Units.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -48,7 +50,6 @@ namespace Battle.Units.AI
         private void UseGrid()
         {
             var box = _grid.BoxCopy();
-
             for (int i = 0; i < box.GetLength(0); i++)
             {
                 for (int j = 0; j < box.GetLength(1); j++)
@@ -64,19 +65,26 @@ namespace Battle.Units.AI
                     {
                         (box[i, j], box[i, j + 1]) = (box[i, j + 1], box[i, j]);
                         profits.Add((CountProfit(box), i, j, i, j + 1));
-                        (box[i, j], box[i, j + 1]) = (box[i, j + 1], box[i, j]);
-                    }
+                        (box[i, j], box[i, j + 1]) = (box[i, j + 1], box[i, j]); 
+                    } 
                 }
             }
-            
+
 
             int max = profits.Max(val => val.Item1);
             var goodOnes = profits.Where(val => val.Item1 == max).ToList();
             var chosen = goodOnes[Random.Range(0, goodOnes.Count)];
+
+            if (_attachedEnemy.stateModifiers.Exists(mod => mod.type == ModType.Blind && mod.Use() != 0))
+            {
+                chosen = profits[Random.Range(0, profits.Count)];
+            }
             profits = new List<(int, int, int, int, int)>();
+
+
+            StartCoroutine(_grid.Choose(chosen.Item2, chosen.Item3));
+            StartCoroutine(_grid.Choose(chosen.Item4, chosen.Item5));
             
-            StartCoroutine(_grid.EnemyChoose(chosen.Item2, chosen.Item3));
-            StartCoroutine(_grid.EnemyChoose(chosen.Item4, chosen.Item5));
         }
 
         private int CountProfit(Gem[,] box)
@@ -131,7 +139,7 @@ namespace Battle.Units.AI
         {
             if (_attachedEnemy.spells.Count == 0) return;
             
-            var possibleSpells = _attachedEnemy.spells.Where(spell => _attachedEnemy.mana >= spell.manaCost).ToList();
+            var possibleSpells = _attachedEnemy.spells.Where(spell => _attachedEnemy.mana >= spell.useCost).ToList();
 
             if (possibleSpells.Count == 0) return;
             Spell chosenSpell = possibleSpells[Random.Range(0, possibleSpells.Count)];

@@ -7,7 +7,7 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            attachedUnit.mana -= manaCost;
+            attachedUnit.mana -= useCost;
             manager.player.StartBurning(1);
         }
     }

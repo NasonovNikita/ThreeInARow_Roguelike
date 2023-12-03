@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Items;
 using Battle.Modifiers;
+using Battle.Spells;
 using Other;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Battle.Units
 {
@@ -18,6 +22,12 @@ namespace Battle.Units
         public Stat pDmg;
         public Stat lDmg;
         public Stat phDmg;
+        public Stat mDmg;
+
+        
+        [NonSerialized] public Stat burnChance = new (10);
+        [NonSerialized] public Stat poisonChance = new (10);
+        [NonSerialized] public Stat freezeChance = new (10);
 
         private StateAnimationController stateAnimationController;
 
@@ -52,7 +62,8 @@ namespace Battle.Units
                 { DmgType.Cold, cDmg },
                 { DmgType.Poison, pDmg },
                 { DmgType.Light, lDmg },
-                { DmgType.Physic, phDmg }
+                { DmgType.Physic, phDmg },
+                { DmgType.Magic, mDmg }
             };
             foreach (Stat stat in damage.Values)
             {
@@ -78,14 +89,19 @@ namespace Battle.Units
         public virtual void DoDamage(Damage dmg)
         {
             int value = dmg.Get().Values.Sum();
-            if (dmg.Get()[DmgType.Fire] != 0 && 0 <= Random.Range(0, 101) && Random.Range(0, 101) <= 10)
+            if (dmg.Get()[DmgType.Fire] != 0 && burnChance >= Random.Range(0, 101))
             {
                 StartBurning(1);
             }
-            if (dmg.Get()[DmgType.Poison] != 0 && 0 <= Random.Range(0, 101) && Random.Range(0, 101) <= 10)
+            if (dmg.Get()[DmgType.Poison] != 0 && poisonChance >= Random.Range(0, 101))
             {
-                StartBurning(1);
+                StartPoisoning(1);
             }
+            if (dmg.Get()[DmgType.Cold] != 0 && freezeChance >= Random.Range(0, 101))
+            {
+                Freeze(1);
+            }
+            
             hp -= value;
 
             if (hp == 0)

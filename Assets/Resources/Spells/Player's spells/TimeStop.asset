@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c772b0a5b60ec4f92c99ada5909ddf, type: 3}
   m_Name: TimeStop
   m_EditorClassIdentifier: 
-  manaCost: 50
+  useCost: 50
   title: Time Stop
   value: 0
-  moves: 1
+  count: 1
