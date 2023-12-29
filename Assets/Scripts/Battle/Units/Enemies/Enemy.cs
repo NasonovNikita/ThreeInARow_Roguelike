@@ -27,26 +27,8 @@ namespace Battle.Units.Enemies
             AudioManager.instance.Play(AudioEnum.EnemyHit);
         }
 
-        public virtual void Act()
+        public void Act()
         {
-            if (allMods.Exists(val => val.type == ModType.Burning && val.Use() != 0)
-                && 0 <= Random.Range(0, 101) && Random.Range(0, 101) <= 10)
-            {
-                int index = manager.enemies.IndexOf(this);
-                if (index == 0)
-                {
-                    manager.enemies[1].StartBurning(1);
-                }
-                else if (index == manager.enemies.Count - 1)
-                {
-                    manager.enemies[^1].StartBurning(1);
-                }
-                else
-                {
-                    manager.enemies[index - 1].StartBurning(1);
-                    manager.enemies[index + 1].StartBurning(1);
-                }
-            }
             if (Stunned() || manager.State == BattleState.End) return;
             _ai.Act();
         }

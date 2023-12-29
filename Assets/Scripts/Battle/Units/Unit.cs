@@ -7,6 +7,8 @@ using Battle.Spells;
 using Battle.Units.Stats;
 using Other;
 using UnityEngine;
+using Grid = Battle.Match3.Grid;
+using Random = UnityEngine.Random;
 
 namespace Battle.Units
 {
@@ -25,11 +27,16 @@ namespace Battle.Units
 
         public List<Modifier> allMods = new();
 
+        private Grid grid;
+
         public List<Item> items;
 
         public List<Spell> spells;
 
         protected BattleManager manager;
+
+        protected bool IsMissingOnFreeze =>
+            Random.Range(0, 101) <= (allMods.Exists(v => v.type is ModType.Freezing) ? 40 : 100);
 
         public void Update()
         {
@@ -41,6 +48,7 @@ namespace Battle.Units
         protected void TurnOn()
         {
             manager = FindFirstObjectByType<BattleManager>();
+            grid = FindFirstObjectByType<Grid>();
 
             stateAnimationController = GetComponentInChildren<StateAnimationController>();
         
@@ -59,6 +67,19 @@ namespace Battle.Units
             }
         }
     
+        public void Act(Unit target)
+        {
+            mana.Refill(CountMana());
+            Damage dmg = unitDamage.GetGemsDamage(grid.destroyed);
+            
+            if (dmg.IsZero() && IsMissingOnFreeze)
+            {
+                UseElementOnDestroyed(grid.destroyed, target);
+                target.DoDamage(dmg);
+            }
+            
+            grid.ClearDestroyed();
+        }
 
         public virtual void DoDamage(Damage dmg)
         {
@@ -101,6 +122,11 @@ namespace Battle.Units
                 case DmgType.Magic:
                     break;
             }
+        }
+
+        protected int CountMana()
+        {
+            return grid.destroyed[GemType.Mana] * manaPerGem;
         }
 
         public void StartBurning(int moves)

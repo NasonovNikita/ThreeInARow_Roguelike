@@ -20,25 +20,9 @@ namespace Battle.Units
             base.TurnOn();
         }
 
-        private int CountMana()
+        public void Act()
         {
-            return grid.destroyed.ContainsKey(GemType.Mana) ? grid.destroyed[GemType.Mana] * manaPerGem : 0;
-        }
-
-        public virtual void Act()
-        {
-            grid = FindFirstObjectByType<Grid>();
-            mana.Refill(CountMana());
-            Damage dmg = unitDamage.GetGemsDamage(grid.destroyed);
-
-            UseElementOnDestroyed(grid.destroyed, Target);
-
-            grid.ClearDestroyed();
-
-            if (dmg.IsZero()) return;
-
-            PToEDamageLog.Log(manager.target, this, dmg);
-            manager.target.DoDamage(dmg);
+            base.Act(Target);
         }
 
         public override void DoDamage(Damage dmg)

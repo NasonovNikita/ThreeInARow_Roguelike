@@ -14,14 +14,12 @@ namespace Battle.Units.AI
     public class EnemyAI : MonoBehaviour
     {
         private Enemy attachedEnemy;
-        private Player player;
         private Grid grid;
         private List<(int, int, int, int, int)> profits = new ();
 
         public void Awake()
         {
             attachedEnemy = GetComponent<Enemy>();
-            player = FindFirstObjectByType<Player>();
         }
 
         private IEnumerator<WaitUntil> Attack()
@@ -33,15 +31,7 @@ namespace Battle.Units.AI
 
             yield return new WaitUntil(() => grid.state == GridState.Blocked);
 
-            Damage dmg = attachedEnemy.unitDamage.GetGemsDamage(grid.destroyed);
-            
-            attachedEnemy.UseElementOnDestroyed(grid.destroyed, attachedEnemy.Target);
-            
-            grid.ClearDestroyed();
-            if (dmg.IsZero()) yield break;
-            
-            player.DoDamage(dmg);
-            EToPDamageLog.Log(attachedEnemy, player, dmg);
+            attachedEnemy.Act(attachedEnemy.Target);
         }
 
         private void UseGrid()
