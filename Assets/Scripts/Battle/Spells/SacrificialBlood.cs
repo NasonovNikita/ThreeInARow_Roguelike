@@ -1,3 +1,4 @@
+using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -9,7 +10,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            manager.player.hp -= useCost;
+            manager.player.unitHp = (UnitHp) (manager.player.unitHp - (int)value);
             manager.Win();
         }
     }

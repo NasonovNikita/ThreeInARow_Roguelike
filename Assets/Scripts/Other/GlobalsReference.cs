@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Other
 {
-    public class FieldReferenceOld : MonoBehaviour
+    public class GlobalsReference : MonoBehaviour
     {
         public string currentField;
 

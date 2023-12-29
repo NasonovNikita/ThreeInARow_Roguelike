@@ -10,8 +10,8 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            manager.player.mana -= useCost;
-            manager.target.stateModifiers.Add(new Modifier(count, ModType.Blind));
+            manager.player.mana.Waste(useCost);
+            manager.target.AddMod(new Modifier(count, ModType.Blind));
         }
     }
 }

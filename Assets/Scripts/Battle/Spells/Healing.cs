@@ -1,4 +1,5 @@
 using Battle.Units;
+using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -12,14 +13,14 @@ namespace Battle.Spells
             if (offBattle)
             {
                 if (Player.data.mana <= useCost) return;
-                Player.data.mana -= useCost;
-                Player.data.hp += Player.data.hp.GetValue() * value;
+                Player.data.mana.Waste(useCost);
+                Player.data.unitHp = (UnitHp) (Player.data.unitHp + (int) (Player.data.unitHp.value * value));
             }
             else
             {
                 if (CantCast()) return;
-                attachedUnit.mana -= useCost;
-                attachedUnit.hp += attachedUnit.hp.GetValue() * value;
+                attachedUnit.mana.Waste(useCost);
+                attachedUnit.unitHp = (UnitHp) (attachedUnit.unitHp + (int) (attachedUnit.unitHp.value * value));
             }
         }
     }

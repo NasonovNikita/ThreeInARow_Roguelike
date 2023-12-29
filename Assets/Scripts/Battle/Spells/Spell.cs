@@ -1,6 +1,7 @@
 using System;
 using Battle.Modifiers;
 using Battle.Units;
+using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -35,12 +36,14 @@ namespace Battle.Spells
 
         protected static void ApplyToDamage(Unit unit, Modifier mod, ModAffect affects)
         {
+            /*
             unit.fDmg.AddMod(mod, affects);
             unit.cDmg.AddMod(mod, affects);
             unit.pDmg.AddMod(mod, affects);
             unit.lDmg.AddMod(mod, affects);
             unit.phDmg.AddMod(mod, affects);
             unit.mDmg.AddMod(mod, affects);
+            */
         }
     }
 }

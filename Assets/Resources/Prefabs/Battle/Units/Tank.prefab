@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: m_Name
-      value: FixedUnitBox Variant
+      value: Tank
       objectReference: {fileID: 0}
     - target: {fileID: 7336055003925287548, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: m_Pivot.x
@@ -121,8 +121,24 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: unitHp.value
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: phDmg.borderUp
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: unitHp.borderUp
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: unitDamage.phDmg.value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: unitDamage.phDmg.borderUp
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

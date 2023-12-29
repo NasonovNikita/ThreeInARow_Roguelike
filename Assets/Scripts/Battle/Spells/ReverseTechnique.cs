@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Modifiers;
 
 namespace Battle.Spells
@@ -9,8 +10,11 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            attachedUnit.mana -= useCost;
-            attachedUnit.stateModifiers = new List<Modifier>();
+            attachedUnit.mana.Waste(useCost);
+            foreach (Modifier mod in attachedUnit.allMods.Where(v => !v.IsPositive))
+            {
+                mod.TurnOff();
+            }
         }
     }
 }

@@ -1,55 +1,52 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Enemies;
-using Unity.VisualScripting;
+using Battle.Units.Stats;
 using UnityEngine;
 using Grid = Battle.Match3.Grid;
+using Random = UnityEngine.Random;
 
 namespace Battle.Units.AI
 {
     public class EnemyAI : MonoBehaviour
     {
-        private Enemy _attachedEnemy;
-        private Player _player;
-        private Grid _grid;
+        private Enemy attachedEnemy;
+        private Player player;
+        private Grid grid;
         private List<(int, int, int, int, int)> profits = new ();
 
         public void Awake()
         {
-            _attachedEnemy = GetComponent<Enemy>();
-            _player = FindFirstObjectByType<Player>();
+            attachedEnemy = GetComponent<Enemy>();
+            player = FindFirstObjectByType<Player>();
         }
 
         private IEnumerator<WaitUntil> Attack()
         {
             UseSpells();
 
-            _grid = FindFirstObjectByType<Grid>();
+            grid = FindFirstObjectByType<Grid>();
             UseGrid();
 
-            yield return new WaitUntil(() => _grid.state == GridState.Blocked);
-            
-            Damage dmg = new Damage(
-                (int) _attachedEnemy.fDmg * _grid.destroyed[GemType.Red], 
-                (int) _attachedEnemy.cDmg * _grid.destroyed[GemType.Blue],
-                (int) _attachedEnemy.pDmg * _grid.destroyed[GemType.Green],
-                (int) _attachedEnemy.lDmg * _grid.destroyed[GemType.Yellow],
-                (int) _attachedEnemy.phDmg * _grid.destroyed.Sum(t => t.Key != GemType.Mana ? t.Value : 0)
-                );
+            yield return new WaitUntil(() => grid.state == GridState.Blocked);
 
-            _attachedEnemy.mana += _grid.destroyed[GemType.Mana] * _attachedEnemy.manaPerGem;
-            _grid.ClearDestroyed();
+            Damage dmg = attachedEnemy.unitDamage.GetGemsDamage(grid.destroyed);
+            
+            attachedEnemy.UseElementOnDestroyed(grid.destroyed, attachedEnemy.Target);
+            
+            grid.ClearDestroyed();
             if (dmg.IsZero()) yield break;
             
-            _player.DoDamage(dmg);
-            EToPDamageLog.Log(_attachedEnemy, _player, dmg);
+            player.DoDamage(dmg);
+            EToPDamageLog.Log(attachedEnemy, player, dmg);
         }
 
         private void UseGrid()
         {
-            var box = _grid.BoxCopy();
+            var box = grid.BoxCopy();
             for (int i = 0; i < box.GetLength(0); i++)
             {
                 for (int j = 0; j < box.GetLength(1); j++)
@@ -75,15 +72,15 @@ namespace Battle.Units.AI
             var goodOnes = profits.Where(val => val.Item1 == max).ToList();
             var chosen = goodOnes[Random.Range(0, goodOnes.Count)];
 
-            if (_attachedEnemy.stateModifiers.Exists(mod => mod.type == ModType.Blind && mod.Use() != 0))
+            if (attachedEnemy.allMods.Exists(mod => mod.type == ModType.Blind && mod.Use() != 0))
             {
                 chosen = profits[Random.Range(0, profits.Count)];
             }
             profits = new List<(int, int, int, int, int)>();
 
 
-            StartCoroutine(_grid.Choose(chosen.Item2, chosen.Item3));
-            StartCoroutine(_grid.Choose(chosen.Item4, chosen.Item5));
+            StartCoroutine(grid.Choose(chosen.Item2, chosen.Item3));
+            StartCoroutine(grid.Choose(chosen.Item4, chosen.Item5));
             
         }
 
@@ -126,20 +123,15 @@ namespace Battle.Units.AI
                 counts[gem.Type] += 1;
             }
 
-            int dmg =
-                (int)_attachedEnemy.fDmg * counts[GemType.Red] +
-                (int)_attachedEnemy.cDmg * counts[GemType.Blue] +
-                (int)_attachedEnemy.pDmg * counts[GemType.Green] +
-                (int)_attachedEnemy.lDmg * counts[GemType.Yellow] +
-                (int)_attachedEnemy.phDmg * deleted.Count(val => val.Type != GemType.Mana);
+            int dmg = attachedEnemy.unitDamage.GetGemsDamage(counts).Get().Sum(v => v.Value);
             return dmg;
         }
 
         private void UseSpells()
         {
-            if (_attachedEnemy.spells.Count == 0) return;
+            if (attachedEnemy.spells.Count == 0) return;
             
-            var possibleSpells = _attachedEnemy.spells.Where(spell => _attachedEnemy.mana >= spell.useCost).ToList();
+            var possibleSpells = attachedEnemy.spells.Where(spell => attachedEnemy.mana >= spell.useCost).ToList();
 
             if (possibleSpells.Count == 0) return;
             Spell chosenSpell = possibleSpells[Random.Range(0, possibleSpells.Count)];

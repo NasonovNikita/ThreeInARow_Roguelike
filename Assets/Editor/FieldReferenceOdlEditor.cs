@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace Editor
 {
-    [CustomEditor(typeof(FieldReferenceOld))]
+    [CustomEditor(typeof(GlobalsReference))]
     public class FieldReferenceOdlEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()

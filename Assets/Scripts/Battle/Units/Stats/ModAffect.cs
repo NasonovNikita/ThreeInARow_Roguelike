@@ -1,4 +1,4 @@
-namespace Battle.Modifiers
+namespace Battle.Units.Stats
 {
     public enum ModAffect
     {

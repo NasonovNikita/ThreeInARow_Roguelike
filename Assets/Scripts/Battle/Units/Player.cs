@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Audio;
-using Battle.Items;
-using Battle.Spells;
-using Battle.Units.Data;
+using Battle.Units.Enemies;
 using Grid = Battle.Match3.Grid;
 
 namespace Battle.Units
@@ -14,48 +10,41 @@ namespace Battle.Units
     {
         public static PlayerData data;
 
-        private Grid _grid;
+        public Enemy Target => manager.target;
+
+        private Grid grid;
 
         public new void TurnOn()
         {
+            data.Init(this);
             base.TurnOn();
         }
 
         private int CountMana()
         {
-            return _grid.destroyed.ContainsKey(GemType.Mana) ? _grid.destroyed[GemType.Mana] * manaPerGem : 0;
+            return grid.destroyed.ContainsKey(GemType.Mana) ? grid.destroyed[GemType.Mana] * manaPerGem : 0;
         }
 
-        private Damage CountDamage()
+        public virtual void Act()
         {
-            Damage dmg =  new Damage(
-                (int) damage[DmgType.Fire].GetValue() * _grid.destroyed[GemType.Red],
-                (int) damage[DmgType.Cold].GetValue() * _grid.destroyed[GemType.Blue],
-                (int) damage[DmgType.Poison].GetValue() * _grid.destroyed[GemType.Green],
-                (int) damage[DmgType.Light].GetValue() * _grid.destroyed[GemType.Yellow],
-                (int) damage[DmgType.Physic].GetValue() * _grid.destroyed.Sum(gems => gems.Key != GemType.Mana ? gems.Value : 0)
-            );
-            return dmg;
-        }
+            grid = FindFirstObjectByType<Grid>();
+            mana.Refill(CountMana());
+            Damage dmg = unitDamage.GetGemsDamage(grid.destroyed);
 
-        public override void Act()
-        {
-            _grid = FindFirstObjectByType<Grid>();
-            mana += CountMana();
-            Damage doneDamage = CountDamage();
-        
-            _grid.ClearDestroyed();
+            UseElementOnDestroyed(grid.destroyed, Target);
 
-            if (doneDamage.IsZero()) return;
+            grid.ClearDestroyed();
 
-            PToEDamageLog.Log(manager.target, this, doneDamage);
-            manager.target.DoDamage(doneDamage);
+            if (dmg.IsZero()) return;
+
+            PToEDamageLog.Log(manager.target, this, dmg);
+            manager.target.DoDamage(dmg);
         }
 
         public override void DoDamage(Damage dmg)
         {
             base.DoDamage(dmg);
-        
+            
             AudioManager.instance.Play(AudioEnum.PlayerHit);
         }
 
@@ -65,30 +54,9 @@ namespace Battle.Units
             StartCoroutine(manager.Die());
         }
 
-        public void Load()
-        {
-            manaPerGem = data.manaPerGem;
-            hp = data.hp;
-            mana = data.mana;
-            fDmg = data.fDmg;
-            cDmg = data.cDmg;
-            pDmg = data.pDmg;
-            lDmg = data.lDmg;
-            phDmg = data.phDmg;
-            items = new List<Item>(data.items);
-            spells = new List<Spell>(data.spells);
-        }
-
         public void Save()
         {
-            data.manaPerGem = manaPerGem;
-            data.hp = hp;
-            data.mana = mana;
-            data.fDmg = fDmg;
-            data.cDmg = cDmg;
-            data.pDmg = pDmg;
-            data.lDmg = lDmg;
-            data.phDmg = phDmg;
+            data = PlayerData.NewData(this, data);
         }
     }
 }

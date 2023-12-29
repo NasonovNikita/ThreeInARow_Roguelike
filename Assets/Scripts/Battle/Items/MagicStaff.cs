@@ -5,14 +5,13 @@ using UnityEngine;
 
 namespace Battle.Items
 {
-    [CreateAssetMenu(fileName = "PlainShield", menuName = "Items/PlainShield")]
-    public class PlainShield : Item
+    [CreateAssetMenu(fileName = "MagicStaff", menuName = "Items/MagicStaff")]
+    public class MagicStaff : Item
     {
         [SerializeField] private float value;
-        
         public override void Use(Unit unitBelong)
         {
-            unitBelong.AddHpMod(new DamageMod(-1, ModType.Mul, value: value));
+            unitBelong.AddManaMod(new ManaWasteMod(-1, ModType.Mul, value));
         }
     }
 }

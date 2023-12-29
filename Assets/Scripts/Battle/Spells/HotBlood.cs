@@ -1,5 +1,6 @@
 using Battle.BattleEventHandlers;
 using Battle.Modifiers;
+using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -13,10 +14,10 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            attachedUnit.mana -= useCost;
+            attachedUnit.mana.Waste(useCost);
             
             ApplyToDamage(attachedUnit, new Modifier(-1, ModType.Add, value: value), ModAffect.ValueGet);
-            attachedUnit.stateModifiers.Add(new Modifier(count, ModType.Ignition));
+            attachedUnit.AddMod(new Modifier(count, ModType.Ignition));
             new RandomIgnitionEvent(chance, attachedUnit, count);
         }
     }

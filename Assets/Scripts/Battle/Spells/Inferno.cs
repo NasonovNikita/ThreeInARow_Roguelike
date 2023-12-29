@@ -9,7 +9,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            manager.player.mana -= useCost;
+            manager.player.mana.Waste(useCost);
             foreach (var enemy in manager.enemies)
             {
                 enemy.DoDamage(new Damage(fDmg: (int) value));

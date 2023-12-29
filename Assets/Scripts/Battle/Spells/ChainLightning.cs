@@ -11,7 +11,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            manager.player.mana -= useCost;
+            manager.player.mana.Waste(useCost);
             for (int i = 0; i < manager.enemies.Count; i++)
             {
                 manager.enemies[i].DoDamage(new Damage(mDmg: (int) (value * Math.Pow(rise, i))));

@@ -5,6 +5,7 @@ namespace Battle.Modifiers
         Add,
         Mul,
         Stun,
+        Freezing,
         Burning,
         Poisoning,
         Frozen,

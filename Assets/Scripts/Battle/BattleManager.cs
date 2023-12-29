@@ -51,7 +51,6 @@ namespace Battle
             player = FindFirstObjectByType<Player>();
             grid = FindFirstObjectByType<Grid>();
 
-            player.Load();
             player.TurnOn();
 
             enemiesPrefabs = group.GetEnemies();
@@ -177,7 +176,7 @@ namespace Battle
                 yield return new WaitUntil(() => grid.state == GridState.Blocked);
                 yield return new WaitForSeconds(FightTime);
             
-                if (player.hp <= 0) yield break;
+                if (player.unitHp <= 0) yield break;
             }
 
             TurnLog.Log();

@@ -2,7 +2,6 @@ using System;
 using Audio;
 using Battle;
 using Battle.Units;
-using Battle.Units.Data;
 using Map;
 using Shop;
 using UnityEditor;

@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Battle.Modifiers;
+using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -11,8 +11,8 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
         
-            manager.player.mana -= useCost;
-            manager.player.phDmg.AddMod(new Modifier(count, ModType.Mul, value: value), ModAffect.ValueGet);
+            manager.player.mana.Waste(useCost);
+            manager.player.AddDamageMod(new DamageMod(count, ModType.Mul, value: value));
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Battle.Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +16,7 @@ namespace UI
 
         public void Update()
         {
-            text.text = $"Hp/Mana: {Player.data.hp.GetValue()}/{Player.data.mana.GetValue()}  Cash: {Player.data.money}";
+            text.text = $"Hp/Mana: {Player.data.unitHp.value}/{Player.data.mana.value}  Cash: {Player.data.money}";
         }
     }
 }

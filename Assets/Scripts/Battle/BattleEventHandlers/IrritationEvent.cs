@@ -1,5 +1,6 @@
 using Battle.Modifiers;
 using Battle.Units;
+using Battle.Units.Stats;
 
 namespace Battle.BattleEventHandlers
 {
@@ -20,15 +21,7 @@ namespace Battle.BattleEventHandlers
 
             if (log is not TurnLog) return;
             if (!BattleLog.GetLastTurn().Exists(v => v is DeathLog))
-            {
-
-                unit.cDmg.AddMod(new Modifier(-1, ModType.Add, value: increaseValue), ModAffect.ValueGet);
-                unit.fDmg.AddMod(new Modifier(-1, ModType.Add, value: increaseValue), ModAffect.ValueGet);
-                unit.pDmg.AddMod(new Modifier(-1, ModType.Add, value: increaseValue), ModAffect.ValueGet);
-                unit.lDmg.AddMod(new Modifier(-1, ModType.Add, value: increaseValue), ModAffect.ValueGet);
-                unit.phDmg.AddMod(new Modifier(-1, ModType.Add, value: increaseValue), ModAffect.ValueGet);
-                unit.mDmg.AddMod(new Modifier(-1, ModType.Add, value: increaseValue), ModAffect.ValueGet);
-            }
+                unit.AddDamageMod(new DamageMod(-1, ModType.Add, value: increaseValue));
             ILog.OnLog -= Handle;
         }
     }

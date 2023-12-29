@@ -12,6 +12,9 @@ namespace Battle.Units.Enemies
     public class Enemy : Unit
     {
         private EnemyAI _ai;
+
+        public Player Target => manager.player;
+        
         public new void TurnOn()
         {
             base.TurnOn();
@@ -24,9 +27,9 @@ namespace Battle.Units.Enemies
             AudioManager.instance.Play(AudioEnum.EnemyHit);
         }
 
-        public override void Act()
+        public virtual void Act()
         {
-            if (stateModifiers.Exists(val => val.type == ModType.Burning && val.Use() != 0)
+            if (allMods.Exists(val => val.type == ModType.Burning && val.Use() != 0)
                 && 0 <= Random.Range(0, 101) && Random.Range(0, 101) <= 10)
             {
                 int index = manager.enemies.IndexOf(this);

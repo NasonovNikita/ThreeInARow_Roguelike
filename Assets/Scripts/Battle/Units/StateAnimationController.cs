@@ -17,7 +17,7 @@ namespace Battle.Units
         {
             { UnitStates.Burning, "burning" },
             { UnitStates.Poisoning, "poisoning"},
-            { UnitStates.Frozen, "frozen"}
+            { UnitStates.Freezing, "frozen"}
         };
 
         public void Awake()
@@ -26,7 +26,7 @@ namespace Battle.Units
             {
                 { UnitStates.Burning, Instantiate(animatorPrefab, transform)},
                 { UnitStates.Poisoning, Instantiate(animatorPrefab, transform)},
-                { UnitStates.Frozen, Instantiate(animatorPrefab, transform)}
+                { UnitStates.Freezing, Instantiate(animatorPrefab, transform)}
             };
             
             foreach (Animator animator in currentStates.Values)

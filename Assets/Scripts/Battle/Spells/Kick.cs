@@ -9,7 +9,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
         
-            manager.player.mana -= useCost;
+            manager.player.mana.Waste(useCost);
             PToEDamageLog.Log(manager.target, manager.player, new Damage(mDmg: (int) value));
             manager.target.DoDamage(new Damage(mDmg: (int) value));
         }

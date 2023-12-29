@@ -11,11 +11,11 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
         
-            manager.player.mana -= useCost;
+            manager.player.mana.Waste(useCost);
         
             foreach (Enemy enemy in manager.enemies)
             {
-                enemy.stateModifiers.Add(new Modifier(count, ModType.Stun));
+                enemy.AddMod(new Modifier(count, ModType.Stun));
             }
         }
     }

@@ -778,51 +778,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c79a3e73de5934da708f62fc06237d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp:
+  unitHp:
     borderDown: 0
-    borderUp: 0
-    value: 0
+    borderUp: 200
+    value: 200
   mana:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  manaPerGem: 0
-  fDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  cDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  pDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  lDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  phDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  mDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  burnChance:
-    borderDown: 0
-    borderUp: 1
-    value: 1
-  poisonChance:
     borderDown: 0
     borderUp: 100
     value: 100
-  freezeChance:
-    borderDown: 0
-    borderUp: 1
-    value: 1
+  manaPerGem: 20
+  unitDamage:
+    phDmg:
+      borderDown: 0
+      borderUp: 15
+      value: 15
+    fDmg:
+      borderDown: 0
+      borderUp: 1
+      value: 1
+    cDmg:
+      borderDown: 0
+      borderUp: 1
+      value: 1
+    pDmg:
+      borderDown: 0
+      borderUp: 1
+      value: 1
+    lDmg:
+      borderDown: 0
+      borderUp: 1
+      value: 1
+    mDmg:
+      borderDown: 0
+      borderUp: 0
+      value: 0
   stateModifiers: []
   items: []
   spells: []
