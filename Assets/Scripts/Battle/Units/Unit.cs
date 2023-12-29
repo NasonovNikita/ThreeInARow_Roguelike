@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Items;
@@ -35,8 +34,8 @@ namespace Battle.Units
 
         protected BattleManager manager;
 
-        protected bool IsMissingOnFreeze =>
-            Random.Range(0, 101) <= (allMods.Exists(v => v.type is ModType.Freezing) ? 40 : 100);
+        private bool IsMissingOnFreeze =>
+           Random.Range(1, 101) <= (allMods.Exists(v => v.type is ModType.Freezing) ? 40 : 0);
 
         public void Update()
         {
@@ -69,10 +68,11 @@ namespace Battle.Units
     
         public void Act(Unit target)
         {
+            grid = FindFirstObjectByType<Grid>();
             mana.Refill(CountMana());
             Damage dmg = unitDamage.GetGemsDamage(grid.destroyed);
             
-            if (dmg.IsZero() && IsMissingOnFreeze)
+            if (!dmg.IsZero() && !IsMissingOnFreeze)
             {
                 UseElementOnDestroyed(grid.destroyed, target);
                 target.DoDamage(dmg);
@@ -158,7 +158,6 @@ namespace Battle.Units
         {
             allMods.Add(new Modifier(moves, ModType.Freezing));
             stateAnimationController.AddState(UnitStates.Freezing);
-            // TODO missing chance 40% on freezing mod
             
             AddDamageMod(new DamageMod(moves, ModType.Mul, false, -0.25f));
         }

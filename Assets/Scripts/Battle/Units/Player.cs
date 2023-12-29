@@ -1,7 +1,6 @@
 using System;
 using Audio;
 using Battle.Units.Enemies;
-using Grid = Battle.Match3.Grid;
 
 namespace Battle.Units
 {
@@ -11,8 +10,6 @@ namespace Battle.Units
         public static PlayerData data;
 
         public Enemy Target => manager.target;
-
-        private Grid grid;
 
         public new void TurnOn()
         {

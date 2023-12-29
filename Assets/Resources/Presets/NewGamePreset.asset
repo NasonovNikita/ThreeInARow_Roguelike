@@ -12,37 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9680307e32fa50f4dbc24593a7e3dbb4, type: 3}
   m_Name: NewGamePreset
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  hp:
+  unitHp:
     borderDown: 0
-    borderUp: 300
-    value: 300
+    borderUp: 200
+    value: 200
   mana:
     borderDown: 0
     borderUp: 100
     value: 100
-  fDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  cDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  pDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  lDmg:
-    borderDown: 0
-    borderUp: 0
-    value: 0
-  phDmg:
-    borderDown: 0
-    borderUp: 20
-    value: 20
-  stateModifiers: []
+  damage:
+    phDmg:
+      borderDown: 0
+      borderUp: 0
+      value: 0
+    fDmg:
+      borderDown: 0
+      borderUp: 0
+      value: 0
+    cDmg:
+      borderDown: 0
+      borderUp: 0
+      value: 0
+    pDmg:
+      borderDown: 0
+      borderUp: 0
+      value: 0
+    lDmg:
+      borderDown: 0
+      borderUp: 0
+      value: 0
+    mDmg:
+      borderDown: 0
+      borderUp: 0
+      value: 0
   items: []
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
   manaPerGem: 20
+  chosenElement: 4
   money: 20
