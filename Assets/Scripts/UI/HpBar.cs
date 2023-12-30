@@ -17,15 +17,15 @@ namespace UI
         private void Start()
         {
             _slider = GetComponent<Slider>();
-            _slider.maxValue = unit.unitHp.borderUp;
-            _slider.minValue = unit.unitHp.borderDown;
-            _slider.value = unit.unitHp.value;
+            _slider.maxValue = unit.Hp.borderUp;
+            _slider.minValue = unit.Hp.borderDown;
+            _slider.value = unit.Hp.value;
         }
 
         private void Update()
         {
-            _slider.value = unit.unitHp.value;
-            text.text = $"{_slider.value}/{unit.unitHp.borderUp}";
+            _slider.value = unit.Hp.value;
+            text.text = $"{_slider.value}/{unit.Hp.borderUp}";
         }
     }
 }

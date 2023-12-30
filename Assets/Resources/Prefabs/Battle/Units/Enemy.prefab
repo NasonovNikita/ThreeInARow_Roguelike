@@ -153,6 +153,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8003845566927144312, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7091300843531183500}
+    - targetCorrespondingSourceObject: {fileID: 8003845566927144312, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6940314742447185259}
   m_SourcePrefab: {fileID: 100100000, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
 --- !u!1 &2658521867484571899 stripped
 GameObject:
@@ -183,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2524805ede9714a8c8b36cd08db845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitHp:
+  Hp:
     borderDown: 0
     borderUp: 100
     value: 100
@@ -217,7 +220,8 @@ MonoBehaviour:
       borderDown: 0
       borderUp: 0
       value: 0
-  stateModifiers: []
+  chosenElement: 4
+  allMods: []
   items: []
   spells: []
 --- !u!1 &6329226728874806491 stripped
@@ -298,3 +302,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6940314742447185259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6329226728874806491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309db869f240486a826e47480f005e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

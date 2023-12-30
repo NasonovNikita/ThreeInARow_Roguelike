@@ -1,4 +1,5 @@
 using System;
+using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -14,7 +15,10 @@ namespace Battle.Spells
             manager.player.mana.Waste(useCost);
             for (int i = 0; i < manager.enemies.Count; i++)
             {
-                manager.enemies[i].DoDamage(new Damage(mDmg: (int) (value * Math.Pow(rise, i))));
+                Damage dmg = new Damage(mDmg: (int)(value * Math.Pow(rise, i)));
+                Enemy enemy = manager.enemies[i];
+                enemy.DoDamage(dmg);
+                PToEDamageLog.Log(enemy, manager.player, dmg);
             }
         }
     }

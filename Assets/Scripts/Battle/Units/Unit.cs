@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Items;
+using Battle.Match3;
 using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Stats;
@@ -13,7 +14,7 @@ namespace Battle.Units
 {
     public abstract class Unit : MonoBehaviour
     {
-        public UnitHp unitHp;
+        public UnitHp Hp;
         public Mana mana;
 
         public int manaPerGem;
@@ -76,6 +77,15 @@ namespace Battle.Units
             {
                 UseElementOnDestroyed(grid.destroyed, target);
                 target.DoDamage(dmg);
+                switch (this)
+                {
+                    case Enemy:
+                        EToPDamageLog.Log((Enemy) this, (Player) target, dmg);
+                        break;
+                    case Player:
+                        PToEDamageLog.Log((Enemy) target, (Player) this, dmg);
+                        break;
+                }
             }
             
             grid.ClearDestroyed();
@@ -84,9 +94,9 @@ namespace Battle.Units
         public virtual void DoDamage(Damage dmg)
         {
 
-            unitHp.DoDamage(dmg);
+            Hp.DoDamage(dmg);
 
-            if (unitHp == 0)
+            if (Hp == 0)
             {
                 NoHp();
             }
@@ -106,7 +116,7 @@ namespace Battle.Units
             switch (chosenElement)
             {
                 case DmgType.Light when destroyed[GemType.Yellow] != 0:
-                    unitHp.Heal(5 * destroyed[GemType.Yellow]);
+                    Hp.Heal(5 * destroyed[GemType.Yellow]);
                     break;
                 case DmgType.Fire when destroyed[GemType.Red] != 0:
                     target.StartBurning(1);
@@ -134,7 +144,7 @@ namespace Battle.Units
             allMods.Add(new Modifier(
                 moves,
                 ModType.Burning,
-                onMove: () => { DoDamage(new Damage(10)); },
+                onMove: () => { DoDamage(new Damage(fDmg: 10)); },
                 delay: true)
             );
             AddHpMod(new DamageMod(moves + 1, ModType.Mul, false, 0.25f));
@@ -179,7 +189,7 @@ namespace Battle.Units
 
         public void AddHpMod(Modifier mod)
         {
-            unitHp.AddMod(mod);
+            Hp.AddMod(mod);
             allMods.Add(mod);
         }
 

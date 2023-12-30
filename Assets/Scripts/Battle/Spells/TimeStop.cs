@@ -1,5 +1,5 @@
 using Battle.Modifiers;
-using Battle.Units.Enemies;
+using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Spells

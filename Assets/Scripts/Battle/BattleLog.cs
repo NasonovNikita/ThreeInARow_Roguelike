@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Match3;
 using Battle.Units;
-using Battle.Units.Enemies;
 
 namespace Battle
 {

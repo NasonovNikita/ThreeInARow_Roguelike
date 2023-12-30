@@ -23,8 +23,8 @@ MonoBehaviour:
   damage:
     phDmg:
       borderDown: 0
-      borderUp: 0
-      value: 0
+      borderUp: 20
+      value: 20
     fDmg:
       borderDown: 0
       borderUp: 0

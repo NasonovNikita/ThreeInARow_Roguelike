@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Match3;
 using Battle.Modifiers;
 using UnityEngine;
 
@@ -21,16 +22,19 @@ namespace Battle.Units.Stats
         public Damage GetGemsDamage(Dictionary<GemType, int> gems)
         {
             Damage dmg = new Damage(
-                UseDamageMods<DamageMod>(UseDamageMods<TypedDamageMod>((int) phDmg * gems
+                UseDamageMods<DamageMod>(UseDamageMods<TypedDamageMod>((int)phDmg * gems
                     .Sum(t => t.Key != GemType.Mana ? t.Value : 0))),
-                UseDamageMods<DamageMod>(UseDamageMods<TypedDamageMod>((int) fDmg * gems[GemType.Red], DmgType.Fire)),
-                UseDamageMods<DamageMod>(UseDamageMods<TypedDamageMod>((int) cDmg * gems[GemType.Blue], DmgType.Cold)),
-                UseDamageMods<DamageMod>(UseDamageMods<TypedDamageMod>((int) pDmg * gems[GemType.Green], DmgType.Poison)),
-                UseDamageMods<DamageMod>(UseDamageMods<TypedDamageMod>((int) lDmg * gems[GemType.Yellow], DmgType.Light))
+                GetGemDamage(gems, fDmg, GemType.Red),
+                GetGemDamage(gems, cDmg, GemType.Blue),
+                GetGemDamage(gems, pDmg, GemType.Green),
+                GetGemDamage(gems, lDmg, GemType.Yellow)
             );
 
             return dmg;
         }
+
+        private int GetGemDamage(IReadOnlyDictionary<GemType, int> gems, Stat dmg, GemType type) =>
+            Math.Max(0, UseDamageMods<DamageMod>(UseDamageMods<TypedDamageMod>((int)dmg * gems[type], DmgType.Fire)));
 
         public void AddMod(Modifier mod)
         {

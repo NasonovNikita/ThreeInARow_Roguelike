@@ -1,6 +1,5 @@
 using System;
 using Audio;
-using Battle.Units.Enemies;
 
 namespace Battle.Units
 {

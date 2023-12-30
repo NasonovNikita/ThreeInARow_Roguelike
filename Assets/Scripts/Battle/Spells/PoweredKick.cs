@@ -13,7 +13,7 @@ namespace Battle.Spells
         
             manager.player.mana.Waste(useCost);
             manager.player.AddMod(new Modifier(count, ModType.Stun));
-            ApplyToDamage(manager.player, new Modifier(count + 1, ModType.Mul,value: value), ModAffect.ValueGet);
+            manager.player.AddDamageMod(new DamageMod(count + 1, ModType.Mul,value: value));
             manager.EndTurn();
         }
     }

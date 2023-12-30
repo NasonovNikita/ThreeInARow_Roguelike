@@ -24,7 +24,7 @@ namespace Battle.BattleEventHandlers
             moves -= 1;
             if (chance <= Random.Range(0, 101))
             {
-                unit.StartBurning(1);
+                unit.StartBurning(moves);
             }
         }
     }

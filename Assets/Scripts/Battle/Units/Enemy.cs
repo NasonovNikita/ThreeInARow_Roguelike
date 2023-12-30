@@ -1,11 +1,9 @@
 using System;
 using Audio;
-using Battle.Modifiers;
 using Battle.Units.AI;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Battle.Units.Enemies
+namespace Battle.Units
 {
     [Serializable]
     [RequireComponent(typeof(EnemyAI))]

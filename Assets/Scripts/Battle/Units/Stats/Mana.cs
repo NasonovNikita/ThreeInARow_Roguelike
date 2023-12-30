@@ -20,14 +20,14 @@ namespace Battle.Units.Stats
 
         public int Refill(int val)
         {
-            val = UseManaMods<ManaRefillMod>(val);
+            val = Math.Max(0, UseManaMods<ManaRefillMod>(val));
             value += val;
             return val;
         }
 
         public int Waste(int val)
         {
-            val = UseManaMods<ManaWasteMod>(val);
+            val = Math.Max(0, UseManaMods<ManaWasteMod>(val));
             value -= val;
             return val;
         }

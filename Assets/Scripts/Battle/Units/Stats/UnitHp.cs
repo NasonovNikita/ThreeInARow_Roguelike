@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Modifiers;
+using Unity.Mathematics;
 
 namespace Battle.Units.Stats
 {
@@ -20,7 +21,7 @@ namespace Battle.Units.Stats
 
         public int Heal(int val)
         {
-            val = UseHpMods<HealingMod>(val);
+            val = Math.Max(0, UseHpMods<HealingMod>(val));
             value += val;
             Norm();
             return val;
@@ -31,7 +32,7 @@ namespace Battle.Units.Stats
         {
             int doneDamage = UseHpMods<DamageMod>(((DmgType[])Enum.GetValues(typeof(DmgType))).Sum(dmgType =>
                 UseHpMods<TypedDamageMod>(dmg.Get()[dmgType], dmgType)));
-            value -= doneDamage;
+            value -= Math.Max(0, doneDamage);
             Norm();
             return doneDamage;
             // Possible logging

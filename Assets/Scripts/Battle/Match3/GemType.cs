@@ -1,11 +1,14 @@
 using System;
 
-[Serializable]
-public enum GemType
+namespace Battle.Match3
 {
-    Red,
-    Blue,
-    Yellow,
-    Green,
-    Mana
+    [Serializable]
+    public enum GemType
+    {
+        Red,
+        Blue,
+        Yellow,
+        Green,
+        Mana
+    }
 }

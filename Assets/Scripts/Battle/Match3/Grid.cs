@@ -63,8 +63,6 @@ namespace Battle.Match3
             gemTransform.position = (Vector2)transform.position + stepX * j + stepY * i;
             gem.grid = this;
             gemTransform.localScale = baseScale;
-            gem.BaseScale = baseScale;
-            gem.ChosenScale = chosenScale;
             return gem;
         }
 
@@ -85,7 +83,7 @@ namespace Battle.Match3
                 
                     _first = gem;
                 
-                    _first.Scale(gem.ChosenScale, scaleTime);
+                    _first.Scale(chosenScale, scaleTime);
                 
                     state = GridState.Choosing2;
                 
@@ -94,7 +92,7 @@ namespace Battle.Match3
             
                 case GridState.Choosing2 when gem == _first:
                 
-                    _first.Scale(gem.BaseScale, scaleTime);
+                    _first.Scale(baseScale, scaleTime);
                 
                     _first = null;
                 
@@ -111,7 +109,7 @@ namespace Battle.Match3
                     if (GemsAreNeighbours(_first, _second))
                     {
                     
-                        _second.Scale(gem.ChosenScale, scaleTime);
+                        _second.Scale(chosenScale, scaleTime);
                         yield return new WaitForSeconds(scaleTime);
                     
                         state = GridState.Moving;
@@ -122,8 +120,8 @@ namespace Battle.Match3
                     }
                     else
                     {
-                        _first.Scale(gem.BaseScale, scaleTime);
-                        _second.Scale(gem.ChosenScale, scaleTime);
+                        _first.Scale(baseScale, scaleTime);
+                        _second.Scale(chosenScale, scaleTime);
                     
                         _first = _second;
                         _second = null;
@@ -149,7 +147,7 @@ namespace Battle.Match3
                 state = GridState.EnemyChoosing1;
                 
                 _first = _box[i, j];
-                _first.Scale(_first.ChosenScale, scaleTime);
+                _first.Scale(chosenScale, scaleTime);
                 
                 yield return new WaitForSeconds(scaleTime);
             }
@@ -158,7 +156,7 @@ namespace Battle.Match3
                 state = GridState.EnemyChoosing2;
                 
                 _second = _box[i, j];
-                _second.Scale(_second.ChosenScale, scaleTime);
+                _second.Scale(chosenScale, scaleTime);
                 
                 yield return new WaitForSeconds(scaleTime);
 
@@ -202,8 +200,8 @@ namespace Battle.Match3
             _box[pos2[0], pos2[1]] = gem1;
             _box[pos1[0], pos1[1]] = gem2;
         
-            gem1.Scale(gem1.BaseScale, scaleTime);
-            gem2.Scale(gem2.BaseScale, scaleTime);
+            gem1.Scale(baseScale, scaleTime);
+            gem2.Scale(baseScale, scaleTime);
             yield return new WaitForSeconds(scaleTime);
         
             state = GridState.Refreshing;

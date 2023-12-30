@@ -10,7 +10,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            manager.player.unitHp = (UnitHp) (manager.player.unitHp - (int)value);
+            manager.player.Hp = (UnitHp) (manager.player.Hp - (int)value);
             manager.Win();
         }
     }

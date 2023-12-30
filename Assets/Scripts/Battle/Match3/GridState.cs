@@ -1,10 +1,13 @@
-public enum GridState
+namespace Battle.Match3
 {
-    Choosing1,
-    Choosing2,
-    EnemyChoosing1,
-    EnemyChoosing2,
-    Moving,
-    Refreshing,
-    Blocked
+    public enum GridState
+    {
+        Choosing1,
+        Choosing2,
+        EnemyChoosing1,
+        EnemyChoosing2,
+        Moving,
+        Refreshing,
+        Blocked
+    }
 }

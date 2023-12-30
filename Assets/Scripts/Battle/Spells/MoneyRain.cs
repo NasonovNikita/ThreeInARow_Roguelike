@@ -9,11 +9,14 @@ namespace Battle.Spells
         public override void Cast()
         {
             if (Player.data.money < useCost) return;
-
             Player.data.money -= useCost;
+            Damage dmg = new Damage(phDmg: (int) value);
+
             for (int i = 0; i < count; i++)
             {
-                manager.enemies[Random.Range(0, manager.enemies.Count)].DoDamage(new Damage(phDmg: (int) value));
+                int index = Random.Range(0, manager.enemies.Count);
+                manager.enemies[index].DoDamage(dmg);
+                PToEDamageLog.Log(manager.enemies[index], manager.player, dmg);
             }
         }
     }

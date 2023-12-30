@@ -20,7 +20,7 @@ namespace Battle.Spells
             {
                 if (CantCast()) return;
                 attachedUnit.mana.Waste(useCost);
-                attachedUnit.unitHp = (UnitHp) (attachedUnit.unitHp + (int) (attachedUnit.unitHp.value * value));
+                attachedUnit.Hp = (UnitHp) (attachedUnit.Hp + (int) (attachedUnit.Hp.value * value));
             }
         }
     }

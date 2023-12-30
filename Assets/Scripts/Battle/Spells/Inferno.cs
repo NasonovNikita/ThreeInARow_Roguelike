@@ -12,7 +12,10 @@ namespace Battle.Spells
             manager.player.mana.Waste(useCost);
             foreach (var enemy in manager.enemies)
             {
-                enemy.DoDamage(new Damage(fDmg: (int) value));
+                Damage dmg = new Damage(fDmg: (int) value);
+                enemy.DoDamage(dmg);
+
+                PToEDamageLog.Log(enemy, manager.player, dmg);
             }
         }
     }

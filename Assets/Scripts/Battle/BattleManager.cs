@@ -1,12 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
 using Battle.Config;
+using Battle.Match3;
 using Battle.Spells;
 using Battle.Units;
-using Battle.Units.Enemies;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -59,8 +58,6 @@ namespace Battle
             {
                 enemies.Add(LoadEnemy(i));
             }
-        
-            target = enemies[0];
 
             AudioManager.instance.Play(AudioEnum.Battle);
         
@@ -68,6 +65,8 @@ namespace Battle
         
             BattleInterfacePlacement placement = FindFirstObjectByType<BattleInterfacePlacement>();
             placement.Place();
+            
+            BattleTargetPicker.TurnOn();
             
             State = BattleState.Turn;
             
@@ -176,7 +175,7 @@ namespace Battle
                 yield return new WaitUntil(() => grid.state == GridState.Blocked);
                 yield return new WaitForSeconds(FightTime);
             
-                if (player.unitHp <= 0) yield break;
+                if (player.Hp <= 0) yield break;
             }
 
             TurnLog.Log();
