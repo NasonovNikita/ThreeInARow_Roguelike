@@ -220,6 +220,28 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6820505945704367172, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: text
+      value: There are two raws of enemies. Left column is "front raw". You can hit
+        them (press an enemy to choose it as a target). Other raw is pickable only
+        after beating the front one. This one is sneaky. He can make you burn!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1.8700001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.9519043
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.8700001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.9519043
+      objectReference: {fileID: 0}
     - target: {fileID: 8775783378175348237, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: m_Enabled
       value: 1

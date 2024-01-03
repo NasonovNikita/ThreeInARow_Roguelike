@@ -108,6 +108,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7794689748232265049, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: text
+      value: There are two raws of enemies. Left column is "front raw". You can hit
+        them (press an enemy to choose it as a target). Other raw is pickable only
+        after beating the front one. A little tanky
+      objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: Hp.value
       value: 150

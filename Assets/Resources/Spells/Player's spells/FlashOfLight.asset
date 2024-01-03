@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a5a6bd7f8bd4f0f8a5ac8e7d4609828, type: 3}
+  m_Name: FlashOfLight
+  m_EditorClassIdentifier: 
+  useCost: 47
+  title: Flash of light
+  description: Enemies can't see the grid (they do random things)
+  value: 1
+  count: 1

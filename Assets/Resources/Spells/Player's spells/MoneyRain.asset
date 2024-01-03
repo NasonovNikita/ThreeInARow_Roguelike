@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7093ceb38a8e4b32acc6d34daf466b07, type: 3}
+  m_Name: MoneyRain
+  m_EditorClassIdentifier: 
+  useCost: 10
+  title: Money rain
+  description: Coins fall and deal 7 damage each
+  value: 7
+  count: 10

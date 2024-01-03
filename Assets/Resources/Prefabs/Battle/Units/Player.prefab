@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 119610435692062446}
   - component: {fileID: 3946998785159023057}
   - component: {fileID: 5230621974912033291}
+  - component: {fileID: 5476912581878218050}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -314,6 +315,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5476912581878218050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107619056183508261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: It's you? Do you like your vessel?
 --- !u!1 &2159894049746006241
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +802,7 @@ MonoBehaviour:
     value: 100
   manaPerGem: 20
   unitDamage:
+    mods: []
     phDmg:
       borderDown: 0
       borderUp: 20
@@ -816,6 +831,7 @@ MonoBehaviour:
   allMods: []
   items: []
   spells: []
+  canFullyFreeze: 0
 --- !u!1 &8477324846360364515
 GameObject:
   m_ObjectHideFlags: 0

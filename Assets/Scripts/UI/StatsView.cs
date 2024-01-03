@@ -16,7 +16,10 @@ namespace UI
 
         public void Update()
         {
-            text.text = $"Hp/Mana: {Player.data.unitHp.value}/{Player.data.mana.value}  Cash: {Player.data.money}";
+            text.text =
+                $"Hp/Mana: {Player.data.unitHp.value}/{Player.data.mana.value}\n" +
+                $"Cash: {Player.data.money}\n" +
+                $"Element: {Player.data.chosenElement}";
         }
     }
 }

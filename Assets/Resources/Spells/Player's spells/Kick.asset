@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 25
   title: Kick
+  description: Deal 25 dmg
   value: 25
   count: 0

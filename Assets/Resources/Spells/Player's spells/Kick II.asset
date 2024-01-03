@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 45
   title: Kick II
+  description: Deal 55 dmg
   value: 55
   count: 0

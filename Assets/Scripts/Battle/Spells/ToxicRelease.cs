@@ -10,7 +10,8 @@ namespace Battle.Spells
             if (CantCast()) return;
 
             manager.player.mana.Waste(useCost);
-            manager.target.StartPoisoning(count);
+            LogUsage();
+            manager.player.Target.StartPoisoning(count);
         }
     }
 }

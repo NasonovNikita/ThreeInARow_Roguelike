@@ -113,8 +113,9 @@ namespace Battle.Units.AI
                 counts[gem.Type] += 1;
             }
 
-            int dmg = attachedEnemy.unitDamage.GetGemsDamage(counts).Get().Sum(v => v.Value);
-            return dmg;
+            int profit = attachedEnemy.unitDamage.GetGemsDamage(counts).Get().Sum(v => v.Value)
+                      + counts[GemType.Mana] * 5;
+            return profit;
         }
 
         private void UseSpells()

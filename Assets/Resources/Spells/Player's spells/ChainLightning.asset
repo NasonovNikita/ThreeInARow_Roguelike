@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f52e2d0a8bc47cc9b688d4bc0136e7b, type: 3}
+  m_Name: ChainLightning
+  m_EditorClassIdentifier: 
+  useCost: 47
+  title: Chain Lighning
+  description: Deals 35 damage each enemy. additional 20% dmg to every next enemy
+  value: 35
+  count: 0
+  rise: 1.2

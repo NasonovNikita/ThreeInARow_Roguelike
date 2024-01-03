@@ -1,6 +1,5 @@
 using Battle.Modifiers;
 using Battle.Units;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Items
@@ -9,9 +8,11 @@ namespace Battle.Items
     public class MagicStaff : Item
     {
         [SerializeField] private float value;
-        public override void Use(Unit unitBelong)
+        public override void Use(Unit unitBelong) {}
+
+        public override void OnBuy()
         {
-            unitBelong.AddManaMod(new ManaWasteMod(-1, ModType.Mul, value));
+            Player.data.mana.AddMod(new Modifier(-1, ModType.Mul, ModClass.ManaWaste, value: -value));
         }
     }
 }

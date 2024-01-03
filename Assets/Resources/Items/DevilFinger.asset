@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28627f0b92a405689e260fc9bafb1f0, type: 3}
+  m_Name: DevilFinger
+  m_EditorClassIdentifier: 
+  title: Devil Finger
+  description: If you don't use any spells in a fight you gain 2 physical dmg forever
+  value: 2

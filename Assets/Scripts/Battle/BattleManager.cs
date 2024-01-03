@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using Battle.Match3;
 using Battle.Spells;
 using Battle.Units;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -50,7 +52,6 @@ namespace Battle
             player = FindFirstObjectByType<Player>();
             grid = FindFirstObjectByType<Grid>();
 
-            player.TurnOn();
 
             enemiesPrefabs = group.GetEnemies();
 
@@ -58,6 +59,8 @@ namespace Battle
             {
                 enemies.Add(LoadEnemy(i));
             }
+            BattleTargetPicker.ResetPick();
+            player.TurnOn();
 
             AudioManager.instance.Play(AudioEnum.Battle);
         
@@ -66,7 +69,6 @@ namespace Battle
             BattleInterfacePlacement placement = FindFirstObjectByType<BattleInterfacePlacement>();
             placement.Place();
             
-            BattleTargetPicker.TurnOn();
             
             State = BattleState.Turn;
             
@@ -97,23 +99,17 @@ namespace Battle
 
         public IEnumerator KillEnemy(Enemy enemy)
         {
-            enemies.Remove(enemy);
-        
-            if (enemies.Count == 0)
+            yield return new WaitForSeconds(FightTime);
+            
+            enemy.Delete();
+            
+            if (enemies.All(v => v == null))
             {
                 State = BattleState.End;
-                yield return new WaitForSeconds(FightTime);
-                enemy.Delete();
                 Win();
                 yield break;
             }
-
-            target = enemies[0];
-            
-            yield return new WaitForSeconds(FightTime);
-        
-            enemy.Delete();
-
+            BattleTargetPicker.PickNextPossible();
             yield return new WaitForSeconds(FightTime);
             
             OnEnemiesShuffle();
@@ -142,15 +138,17 @@ namespace Battle
         {
             _placer.enemiesToPlace = enemies;
             _placer.Place();
-            target = enemies[0];
+            BattleTargetPicker.PickNextPossible();
         }
 
         public void Win()
         {
+            BattleEndLog.Log();
             grid.Block();
             player.Save();
             Player.data.money += group.reward;
             BattleLog.Clear();
+            Log.UnAttach();
             SceneManager.LoadScene("Map");
         }
 
@@ -168,7 +166,7 @@ namespace Battle
         {
             State = BattleState.EnemiesAct;
 
-            foreach (var enemy in enemies.Where(enemy => !enemy.Stunned()))
+            foreach (var enemy in enemies.Where(enemy => enemy != null && !enemy.Stunned()))
             {
                 enemy.Act();
 
@@ -206,6 +204,7 @@ namespace Battle
 
         private Enemy LoadEnemy(int i)
         {
+            if (enemiesPrefabs[i] == null) return null;
             Enemy enemy = Instantiate(enemiesPrefabs[i], _canvas.transform, false);
             enemy.TurnOn();
             return enemy;
@@ -219,9 +218,11 @@ namespace Battle
             {
                 Button btn = spellButtons[i];
                 Spell spell = player.spells[i];
+                btn.AddComponent<DevDebugAbleObject>();
+                btn.GetComponent<DevDebugAbleObject>().text = spell.Description;
                 btn.onClick.AddListener(spell.Cast);
                 Text text = btn.GetComponentInChildren<Text>();
-                text.text = spell.title;
+                text.text = spell.Title + " " + spell.useCost;
             }
         }
     }

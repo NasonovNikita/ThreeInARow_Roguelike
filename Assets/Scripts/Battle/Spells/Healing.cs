@@ -1,26 +1,27 @@
 using Battle.Units;
 using Battle.Units.Stats;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Battle.Spells
 {
     [CreateAssetMenu(fileName = "Healing", menuName = "Spells/Healing")]
     public class Healing : Spell
     {
-        public bool offBattle;
         public override void Cast()
         {
-            if (offBattle)
+            if (SceneManager.GetActiveScene().name == "Map")
             {
                 if (Player.data.mana <= useCost) return;
                 Player.data.mana.Waste(useCost);
-                Player.data.unitHp = (UnitHp) (Player.data.unitHp + (int) (Player.data.unitHp.value * value));
+                Player.data.unitHp.Heal((int) (Player.data.unitHp.value * value));
             }
             else
             {
                 if (CantCast()) return;
                 attachedUnit.mana.Waste(useCost);
-                attachedUnit.Hp = (UnitHp) (attachedUnit.Hp + (int) (attachedUnit.Hp.value * value));
+                LogUsage();
+                attachedUnit.Hp.Heal((int) (attachedUnit.Hp.value * value));
             }
         }
     }

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -10,10 +11,12 @@ namespace Battle.Spells
             if (CantCast()) return;
 
             manager.player.mana.Waste(useCost);
-            foreach (var enemy in manager.enemies)
+            LogUsage();
+            Damage dmg = new Damage(fDmg: (int) value);
+            foreach (var enemy in manager.enemies.Where(v => v != null))
             {
-                Damage dmg = new Damage(fDmg: (int) value);
                 enemy.DoDamage(dmg);
+                enemy.StartBurning(2);
 
                 PToEDamageLog.Log(enemy, manager.player, dmg);
             }

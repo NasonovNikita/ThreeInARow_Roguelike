@@ -12,7 +12,8 @@ namespace Battle.Spells
             if (CantCast()) return;
         
             manager.player.mana.Waste(useCost);
-            manager.player.AddHpMod(new DamageMod(count, ModType.Mul, value: value));
+            LogUsage();
+            manager.player.AddHpMod(new Modifier(count, ModType.Mul, ModClass.DamageBase, value: -value));
         }
     }
 }

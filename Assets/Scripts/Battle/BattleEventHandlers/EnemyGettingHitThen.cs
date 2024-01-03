@@ -1,4 +1,5 @@
 using System;
+using Battle.Units;
 
 namespace Battle.BattleEventHandlers
 {
@@ -11,9 +12,9 @@ namespace Battle.BattleEventHandlers
             this.onAppear = onAppear;
         }
 
-        protected override void Handle(ILog log)
+        protected override void Handle(Log log)
         {
-            if (log is not PToEDamageLog) return;
+            if ((log as GotDamageLog)?.GetData.Item1 is not Enemy) return;
             onAppear?.Invoke();
         }
     }

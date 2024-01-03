@@ -7,6 +7,7 @@ namespace Shop
     public class ShopManager : MonoBehaviour
     {
         public static List<Good> goods = new();
+        public static float salePrice = 0.8f;
         public void Awake()
         {
             AudioManager.instance.StopAll();
@@ -18,6 +19,7 @@ namespace Shop
             {
                 goodBoxes[i].good = goods[i];
             }
+            goods[0].price = (int) (goods[0].price * salePrice);
 
             AudioManager.instance.Play(AudioEnum.Shop);
         }

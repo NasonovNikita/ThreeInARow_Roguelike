@@ -1,4 +1,5 @@
 using Battle.Units;
+using Other;
 using UnityEngine;
 
 namespace Battle.BattleEventHandlers
@@ -16,13 +17,12 @@ namespace Battle.BattleEventHandlers
             this.moves = moves;
         }
 
-        protected override void Handle(ILog log)
+        protected override void Handle(Log log)
         {
-            base.Handle(log);
             if (log is not TurnLog) return;
             
             moves -= 1;
-            if (chance <= Random.Range(0, 101))
+            if (Tools.RandomChance(chance))
             {
                 unit.StartBurning(moves);
             }

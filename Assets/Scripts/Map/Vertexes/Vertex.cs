@@ -3,54 +3,57 @@ using Other;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Vertex: MonoBehaviour, IPointerClickHandler
+namespace Map.Vertexes
 {
-    private Edge prefab;
+    public class Vertex: MonoBehaviour, IPointerClickHandler
+    {
+        private Edge prefab;
     
-    public List<Vertex> next;
+        public List<Vertex> next;
 
-    private Map.Map map;
+        private global::Map.Map map;
 
-    public void Awake()
-    {
-        prefab = Resources.Load<Edge>("Prefabs/Map/Edge");
-        map = FindFirstObjectByType<Map.Map>();
-    }
-
-    public void Start()
-    {
-        foreach (Vertex vertex in next)
+        public void Awake()
         {
-            Edge edge = Instantiate(prefab);
-            edge.Draw(transform.position, vertex.transform.position);
+            prefab = Resources.Load<Edge>("Prefabs/Map/Edge");
+            map = FindFirstObjectByType<global::Map.Map>();
         }
-    }
 
-    public bool BelongsToNext(Vertex vertex)
-    {
-        return next.Contains(vertex);
-    }
+        public void Start()
+        {
+            foreach (Vertex vertex in next)
+            {
+                Edge edge = Instantiate(prefab);
+                edge.Draw(transform.position, vertex.transform.position);
+            }
+        }
 
-    public virtual void OnArrive()
-    {
+        public bool BelongsToNext(Vertex vertex)
+        {
+            return next.Contains(vertex);
+        }
+
+        public virtual void OnArrive()
+        {
         
-    }
+        }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        map.OnClick(this);
-    }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left) map.OnClick(this);
+        }
     
-    // ReSharper disable Unity.PerformanceAnalysis
-    public void ScaleUp(Vector3 endScale, float time)
-    {
-        ObjectScaler scaler = GetComponent<ObjectScaler>();
-        scaler.StartScale(endScale, time, OnArrive);
-    }
+        // ReSharper disable Unity.PerformanceAnalysis
+        public void ScaleUp(Vector3 endScale, float time)
+        {
+            ObjectScaler scaler = GetComponent<ObjectScaler>();
+            scaler.StartScale(endScale, time, OnArrive);
+        }
     
-    public void ScaleDown(Vector3 endScale, float time)
-    {
-        ObjectScaler scaler = GetComponent<ObjectScaler>();
-        scaler.StartScale(endScale, time);
+        public void ScaleDown(Vector3 endScale, float time)
+        {
+            ObjectScaler scaler = GetComponent<ObjectScaler>();
+            scaler.StartScale(endScale, time);
+        }
     }
 }

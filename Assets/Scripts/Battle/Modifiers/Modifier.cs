@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Battle.Modifiers
 {
@@ -8,24 +9,31 @@ namespace Battle.Modifiers
         public int moves;
 
         public ModType type;
+        public ModClass workPattern;
+        public DmgType dmgType;
+        private bool always;
     
         public float value;
         
         public bool IsPositive { get; private set; }
 
-        private bool delay;
+        [SerializeField] private bool delay;
 
         private Action onMove;
 
-        public Modifier(int moves, ModType type, bool isPositive = true, float value = 1, Action onMove = null, bool delay = false)
+        public Modifier(int moves, ModType type, ModClass workPattern = ModClass.Standard, DmgType dmgType = DmgType.Physic, bool isPositive = true, float value = 1, Action onMove = null,
+            bool delay = false, bool always = false)
         {
             this.moves = moves;
             this.type = type;
+            this.workPattern = workPattern;
+            this.dmgType = dmgType;
             this.value = value;
             this.onMove = onMove;
             this.delay = delay;
+            this.always = always;
             IsPositive = isPositive;
-            ILog.OnLog += Move;
+            Log.OnLog += Move;
         }
 
         public float Use()
@@ -38,8 +46,13 @@ namespace Battle.Modifiers
             moves = 0;
         }
         
-        private void Move(ILog log)
+        private void Move(Log log)
         {
+            if (log is BattleEndLog && !always)
+            {
+                TurnOff();
+                return;
+            } 
             if (log is not TurnLog) return;
             
             if (delay)
@@ -49,7 +62,19 @@ namespace Battle.Modifiers
             }
             if (moves == 0) return;
             onMove?.Invoke();
+            if (moves <= 0) return;
             moves -= 1;
         }
+    }
+
+    public enum ModClass
+    {
+        DamageBase,
+        DamageTyped,
+        DamageTypedStat,
+        HpHealing,
+        ManaRefill,
+        ManaWaste,
+        Standard
     }
 }

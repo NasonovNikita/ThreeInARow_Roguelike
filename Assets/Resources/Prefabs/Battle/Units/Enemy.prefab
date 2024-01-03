@@ -77,6 +77,18 @@ PrefabInstance:
       value: 688.3334
       objectReference: {fileID: 0}
     - target: {fileID: 6703702768177847263, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6703702768177847263, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6703702768177847263, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6703702768177847263, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -124,6 +136,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6703702768177847263, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6850886815456022245, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -131,6 +147,34 @@ PrefabInstance:
     - target: {fileID: 6850886815456022245, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 8.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 7.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8604846959831588170, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_Sprite
@@ -156,6 +200,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8003845566927144312, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6940314742447185259}
+    - targetCorrespondingSourceObject: {fileID: 8003845566927144312, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7794689748232265049}
   m_SourcePrefab: {fileID: 100100000, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
 --- !u!1 &2658521867484571899 stripped
 GameObject:
@@ -196,6 +243,7 @@ MonoBehaviour:
     value: 0
   manaPerGem: 0
   unitDamage:
+    mods: []
     phDmg:
       borderDown: 0
       borderUp: 5
@@ -224,6 +272,7 @@ MonoBehaviour:
   allMods: []
   items: []
   spells: []
+  canFullyFreeze: 0
 --- !u!1 &6329226728874806491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8003845566927144312, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
@@ -314,3 +363,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309db869f240486a826e47480f005e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7794689748232265049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6329226728874806491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: There are two raws of enemies. Left column is "front raw". You can hit them
+    (press an enemy to choose it as a target). Other raw is pickable only after beating
+    the front one. Regular enemy

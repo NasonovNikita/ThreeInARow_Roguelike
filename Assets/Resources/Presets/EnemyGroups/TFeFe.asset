@@ -15,6 +15,7 @@ MonoBehaviour:
   enemiesData:
   - {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
   - {fileID: 1482011888949459127, guid: a0c9c1a60b0067d499a832e104163416, type: 3}
+  - {fileID: 0}
   - {fileID: 1482011888949459127, guid: a0c9c1a60b0067d499a832e104163416, type: 3}
   difficulty: 38
   reward: 45

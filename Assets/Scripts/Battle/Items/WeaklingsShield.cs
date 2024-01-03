@@ -10,10 +10,12 @@ namespace Battle.Items
     {
         [SerializeField] private int lostDamage;
         [SerializeField] private int notGottenDamage;
-        public override void Use(Unit unitBelong)
+        public override void Use(Unit unitBelong) {}
+
+        public override void OnBuy()
         {
-            unitBelong.AddDamageMod(new DamageMod(-1, ModType.Add, false, -lostDamage));
-            unitBelong.AddHpMod(new DamageMod(-1, ModType.Add, value: -notGottenDamage));
+            Player.data.damage.phDmg.ChangeBorderUp(-lostDamage, -lostDamage);
+            Player.data.unitHp.AddMod(new Modifier(-1, ModType.Add, ModClass.DamageBase, value: -notGottenDamage));
         }
     }
 }

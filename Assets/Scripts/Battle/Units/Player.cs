@@ -30,7 +30,6 @@ namespace Battle.Units
 
         protected override void NoHp()
         {
-            DeathLog.Log(this);
             StartCoroutine(manager.Die());
         }
 

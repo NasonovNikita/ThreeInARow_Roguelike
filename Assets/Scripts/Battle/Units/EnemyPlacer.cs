@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace Battle.Units
@@ -15,7 +16,7 @@ namespace Battle.Units
             for (int i = 0; i < enemiesToPlace.Count; i++)
             {
                 Enemy enemy = enemiesToPlace[i];
-                if (enemy == null) return;
+                if (enemy == null) continue;
                 enemy.transform.position = points[i].transform.position;
             }
         }

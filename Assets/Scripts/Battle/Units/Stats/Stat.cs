@@ -61,6 +61,13 @@ namespace Battle.Units.Stats
             }
         }
 
+        public void ChangeBorderUp(int dBorder, int dValue = 0)
+        {
+            borderUp += dBorder;
+            value += dValue;
+            Norm();
+        }
+
         protected static int UseMods(float value, List<Modifier> mods)
         {
             float mulValue = 1 + mods.Sum(mod => mod.type == ModType.Mul ? mod.Use() : 0);

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 30
   title: Singe
+  description: 
   value: 15
-  count: 0
+  count: 1

@@ -20,14 +20,14 @@ namespace Battle.Units.Stats
 
         public int Refill(int val)
         {
-            val = Math.Max(0, UseManaMods<ManaRefillMod>(val));
+            val = Math.Max(0, UseManaMods(val, ModClass.ManaRefill));
             value += val;
             return val;
         }
 
         public int Waste(int val)
         {
-            val = Math.Max(0, UseManaMods<ManaWasteMod>(val));
+            val = Math.Max(0, UseManaMods(val, ModClass.ManaWaste));
             value -= val;
             return val;
         }
@@ -37,30 +37,14 @@ namespace Battle.Units.Stats
             manaMods.Add(mod);
         }
 
-        private int UseManaMods<T>(int val)
+        private int UseManaMods(int val, ModClass workPattern)
         {
             if (manaMods == null) return val;
             
-            var where = manaMods.Where(v => v.GetType() is T).ToList();
+            var where = manaMods.Where(v => v.workPattern == workPattern).ToList();
             float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use());
             int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use());
             return (int)(val * mulVal) + addVal;
-        }
-    }
-
-    public class ManaRefillMod : Modifier
-    {
-        public ManaRefillMod(int moves, ModType type, float value = 1, bool isPositive = true, Action onMove = null,
-            bool delay = false) : base(moves, type, isPositive, value, onMove, delay)
-        {
-        }
-    }
-
-    public class ManaWasteMod : Modifier
-    {
-        public ManaWasteMod(int moves, ModType type, float value = 1, bool isPositive = true, Action onMove = null,
-            bool delay = false) : base(moves, type, isPositive, value, onMove, delay)
-        {
         }
     }
 }

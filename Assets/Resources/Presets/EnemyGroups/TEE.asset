@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesData:
   - {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+  - {fileID: 0}
   - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+  - {fileID: 0}
   - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
   difficulty: 35
   reward: 40

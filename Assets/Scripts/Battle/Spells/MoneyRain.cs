@@ -11,10 +11,12 @@ namespace Battle.Spells
             if (Player.data.money < useCost) return;
             Player.data.money -= useCost;
             Damage dmg = new Damage(phDmg: (int) value);
+            LogUsage();
 
             for (int i = 0; i < count; i++)
             {
                 int index = Random.Range(0, manager.enemies.Count);
+                while (manager.enemies[index] == null) index = Random.Range(0, manager.enemies.Count);
                 manager.enemies[index].DoDamage(dmg);
                 PToEDamageLog.Log(manager.enemies[index], manager.player, dmg);
             }

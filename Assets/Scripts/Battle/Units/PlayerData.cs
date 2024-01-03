@@ -39,7 +39,7 @@ namespace Battle.Units
             data.damage = damage;
             data.manaPerGem = manaPerGem;
             data.chosenElement = chosenElement;
-            if (oldData == null) return data;
+            if (oldData is null) return data;
             data.spells = oldData.spells;
             data.items = oldData.items;
             data.money = oldData.money;

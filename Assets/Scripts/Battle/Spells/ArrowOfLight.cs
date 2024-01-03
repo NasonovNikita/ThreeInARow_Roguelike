@@ -10,6 +10,7 @@ namespace Battle.Spells
             if (CantCast()) return;
             
             manager.player.mana.Waste(useCost);
+            LogUsage();
             PToEDamageLog.Log(manager.target, manager.player, new Damage(lDmg: 30));
             manager.target.DoDamage(new Damage(lDmg: 30));
         }

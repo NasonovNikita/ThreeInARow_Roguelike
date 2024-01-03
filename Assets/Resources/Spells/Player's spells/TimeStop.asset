@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 50
   title: Time Stop
-  value: 0
+  description: Enemies skip this turn
+  value: 1
   count: 1

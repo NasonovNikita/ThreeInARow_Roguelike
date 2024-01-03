@@ -12,8 +12,10 @@ namespace Battle.Spells
             if (CantCast()) return;
         
             manager.player.mana.Waste(useCost);
+            LogUsage();
             manager.player.AddMod(new Modifier(count, ModType.Stun));
-            manager.player.AddDamageMod(new DamageMod(count + 1, ModType.Mul,value: value));
+            manager.player.AddDamageMod(new Modifier(count + 1, ModType.Mul, 
+                ModClass.DamageBase, value: value));
             manager.EndTurn();
         }
     }

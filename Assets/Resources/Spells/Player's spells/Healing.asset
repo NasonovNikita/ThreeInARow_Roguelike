@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 31
   title: Healing
+  description: Heal 10% of maximum hp
   value: 0.1
   count: 0

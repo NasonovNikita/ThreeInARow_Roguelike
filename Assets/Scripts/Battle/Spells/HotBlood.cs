@@ -16,7 +16,9 @@ namespace Battle.Spells
 
             attachedUnit.mana.Waste(useCost);
             
-            attachedUnit.AddDamageMod(new DamageMod(-1, ModType.Add, value: value));
+            LogUsage();
+            attachedUnit.AddDamageMod(new Modifier(-1, ModType.Add,
+                ModClass.DamageTypedStat, value: value));
             attachedUnit.AddMod(new Modifier(count, ModType.Ignition));
             new RandomIgnitionEvent(chance, attachedUnit, count);
         }

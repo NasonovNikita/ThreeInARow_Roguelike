@@ -21,6 +21,7 @@ MonoBehaviour:
     borderUp: 100
     value: 100
   damage:
+    mods: []
     phDmg:
       borderDown: 0
       borderUp: 20

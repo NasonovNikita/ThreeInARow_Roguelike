@@ -1,4 +1,3 @@
-using System;
 using Audio;
 using Battle;
 using Battle.Units;
@@ -15,6 +14,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     private bool generated;
+
+    private bool loaded;
     public void Awake()
     {
         if (instance == null)
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
         }
         
         DontDestroyOnLoad(gameObject);
+        
+        SettingsManager.LoadSettings();
 
         Player.data = ScriptableObject.CreateInstance<PlayerData>();
     }
@@ -38,6 +41,11 @@ public class GameManager : MonoBehaviour
 
     public void MainMenu()
     {
+        if (SceneManager.GetActiveScene().name == "Battle")
+        {
+            Log.UnAttach();
+        }
+        
         SceneManager.LoadScene("MainMenu");
         
         AudioManager.instance.StopAll();
@@ -63,8 +71,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ResetAll();
-            SceneManager.LoadScene("Map");
+            NewGame();
         }
     }
 
@@ -106,12 +113,27 @@ public class GameManager : MonoBehaviour
         GenerateMap();
         
         PlayerPrefs.DeleteAll();
+        loaded = false;
     }
 
     private void LoadSave()
     {
         Map.Map.currentVertex = PlayerPrefs.GetInt("vertex");
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
+        
+        #if UNITY_EDITOR
+            if (!loaded)
+            {
+                foreach (var item in Player.data.items)
+                {
+                    item.OnBuy();
+                }
+
+                loaded = true;
+                
+            }
+        #endif
+        
         Globals.instance.seed = PlayerPrefs.GetInt("seed");
         BattleManager.group = ScriptableObject.CreateInstance<EnemyGroup>();
         JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("group"), BattleManager.group);

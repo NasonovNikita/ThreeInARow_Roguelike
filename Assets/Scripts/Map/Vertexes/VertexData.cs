@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public abstract class VertexData
+namespace Map.Vertexes
 {
-    public Vector3 position;
+    [Serializable]
+    public abstract class VertexData
+    {
+        public Vector3 position;
 
-    public abstract VertexType Type { get; }
+        public abstract VertexType Type { get; }
+    }
 }

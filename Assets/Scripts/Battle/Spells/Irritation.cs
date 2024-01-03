@@ -12,7 +12,8 @@ namespace Battle.Spells
             if (CantCast()) return;
 
             attachedUnit.mana.Waste(useCost);
-            attachedUnit.AddMod(new Modifier(count, ModType.Irritated, value: value));
+            LogUsage();
+            attachedUnit.AddMod(new Modifier(-1, ModType.Irritated, value: value));
             new IrritationEvent(value, attachedUnit);
         }
     }

@@ -12,7 +12,7 @@ namespace Battle.Items
         
         public override void Use(Unit unitBelong)
         {
-            unitBelong.AddHpMod(new DamageMod(-1, ModType.Mul, value: value));
+            unitBelong.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.DamageBase, value: -value));
         }
     }
 }

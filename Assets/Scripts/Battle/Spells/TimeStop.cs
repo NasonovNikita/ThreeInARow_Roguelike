@@ -1,3 +1,4 @@
+using System.Linq;
 using Battle.Modifiers;
 using Battle.Units;
 using UnityEngine;
@@ -12,8 +13,9 @@ namespace Battle.Spells
             if (CantCast()) return;
         
             manager.player.mana.Waste(useCost);
+            LogUsage();
         
-            foreach (Enemy enemy in manager.enemies)
+            foreach (Enemy enemy in manager.enemies.Where(v => v != null))
             {
                 enemy.AddMod(new Modifier(count, ModType.Stun));
             }

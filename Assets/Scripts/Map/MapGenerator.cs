@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Map.Vertexes;
 using Shop;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,7 +34,7 @@ namespace Map
         private readonly Dictionary<VertexType, int> vertexesByChance = new ()
         {
             [VertexType.Battle] = 13,
-            [VertexType.Shop] = 4
+            [VertexType.Shop] = 9
         };
         private int vertexesFrequencySum;
 
@@ -210,7 +211,7 @@ namespace Map
 
         private Good ChooseGood(int layer)
         {
-            int choice = Random.Range(0, goodsFrequencySum);
+            int choice = Random.Range(1, goodsFrequencySum);
             foreach (Good good in goods)
             {
                 if (choice >= good.frequency)
@@ -225,12 +226,12 @@ namespace Map
                 }
             }
 
-            return null;
+            return goods[^1];
         }
 
         private VertexData ChooseVertex(int layer)
         {
-            int choice = Random.Range(0, vertexesFrequencySum);
+            int choice = Random.Range(1, vertexesFrequencySum);
             VertexType type = VertexType.Battle;
             foreach (var vertex in vertexesByChance)
             {

@@ -21,7 +21,7 @@ namespace Battle.Units.Stats
 
         public int Heal(int val)
         {
-            val = Math.Max(0, UseHpMods<HealingMod>(val));
+            val = Math.Max(0, UseHpMods(val, ModClass.HpHealing));
             value += val;
             Norm();
             return val;
@@ -30,21 +30,22 @@ namespace Battle.Units.Stats
 
         public int DoDamage(Damage dmg)
         {
-            int doneDamage = UseHpMods<DamageMod>(((DmgType[])Enum.GetValues(typeof(DmgType))).Sum(dmgType =>
-                UseHpMods<TypedDamageMod>(dmg.Get()[dmgType], dmgType)));
+            int doneDamage =
+                UseHpMods(
+                    ((DmgType[])Enum.GetValues(typeof(DmgType))).Sum(dmgType =>
+                        UseHpMods(dmg.Get()[dmgType], ModClass.DamageTyped, dmgType)),
+                    ModClass.DamageBase);
             value -= Math.Max(0, doneDamage);
             Norm();
             return doneDamage;
             // Possible logging
         }
 
-        private int UseHpMods<T>(int val, DmgType type = DmgType.Physic)
+        private int UseHpMods(int val, ModClass workPattern, DmgType type = DmgType.Physic)
         {
             if (hpMods == null) return val;
-            
-            var where = hpMods.Where(v =>
-                    v.GetType() is T && (!(typeof(T) == typeof(TypedDamageMod)) || ((TypedDamageMod)v).dmgType == type))
-                .ToList();
+
+            var where = hpMods.Where(v => v.workPattern == workPattern && v.dmgType == type).ToList();
             float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use());
             int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use());
             return (int)(val * mulVal) + addVal;
@@ -54,15 +55,6 @@ namespace Battle.Units.Stats
         {
             hpMods ??= new List<Modifier>();
             hpMods.Add(mod);
-        }
-    }
-
-    public class HealingMod : Modifier
-    {
-        public HealingMod(int moves, ModType type, bool isPositive = true, float value = 1, Action onMove = null,
-            bool delay = false) : base(moves, type, isPositive, value, onMove, delay)
-        {
-            
         }
     }
 }

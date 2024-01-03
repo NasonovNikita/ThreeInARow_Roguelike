@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 50
   title: Irritation
+  description: If no enemy dies in this turn gain +5 Pysical damage (per gem)
   value: 5
   count: 1

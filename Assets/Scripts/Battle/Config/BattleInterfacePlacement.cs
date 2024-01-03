@@ -12,7 +12,7 @@ namespace Battle.Config
 
         public void Place()
         {
-            //TEMP
+            //TEMP          UPD: not temp if there won't be any other configs
             chosenConfig = Globals.instance.altBattleUI ? BattleConfigs.BigGridConfig : BattleConfigs.BaseConfig;
             //TEMP
             BattleConfig cfg = configs.Find(val => val.mark == chosenConfig);

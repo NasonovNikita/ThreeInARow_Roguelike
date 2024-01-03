@@ -18,7 +18,7 @@ namespace Battle.BattleEventHandlers
             this.onAppear = onAppear;
         }
 
-        protected override void Handle(ILog log)
+        protected override void Handle(Log log)
         {
             if (log is not DamageLog) return;
             

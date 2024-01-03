@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 20
   title: Powered Kick
-  value: 2
-  count: 0
+  description: Skip one turn and make *2.5 dmg next turn
+  value: 2.5
+  count: 1

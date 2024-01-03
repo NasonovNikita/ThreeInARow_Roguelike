@@ -33,16 +33,20 @@ namespace Battle.Units
 
         public List<Spell> spells;
 
+        public bool IsBurning => allMods.Exists(v => v.type is ModType.Burning);
+
         protected BattleManager manager;
 
         private bool IsMissingOnFreeze =>
            Random.Range(1, 101) <= (allMods.Exists(v => v.type is ModType.Freezing) ? 40 : 0);
 
+        public bool canFullyFreeze;
+
         public void Update()
         {
             if (!allMods.Exists(mod => mod.type == ModType.Burning && mod.Use() != 0)) StopBurning();
             if (!allMods.Exists(mod => mod.type == ModType.Poisoning && mod.Use() != 0)) StopPoisoning();
-            if (!allMods.Exists(mod => mod.type == ModType.Frozen && mod.Use() != 0)) UnFreeze();
+            if (!allMods.Exists(mod => mod.type == ModType.Freezing && mod.Use() != 0)) StopFreezing();
         }
 
         protected void TurnOn()
@@ -75,7 +79,6 @@ namespace Battle.Units
             
             if (!dmg.IsZero() && !IsMissingOnFreeze)
             {
-                UseElementOnDestroyed(grid.destroyed, target);
                 target.DoDamage(dmg);
                 switch (this)
                 {
@@ -86,6 +89,7 @@ namespace Battle.Units
                         PToEDamageLog.Log((Enemy) target, (Player) this, dmg);
                         break;
                 }
+                UseElementOnDestroyed(grid.destroyed, target);
             }
             
             grid.ClearDestroyed();
@@ -94,7 +98,7 @@ namespace Battle.Units
         public virtual void DoDamage(Damage dmg)
         {
 
-            Hp.DoDamage(dmg);
+            GotDamageLog.Log(this, Hp.DoDamage(dmg));
 
             if (Hp == 0)
             {
@@ -103,7 +107,7 @@ namespace Battle.Units
         }
         public void Delete()
         {
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
         }
 
         public bool Stunned()
@@ -111,7 +115,7 @@ namespace Battle.Units
             return allMods.Exists(mod => mod.type == ModType.Stun && mod.Use() != 0);
         }
 
-        public void UseElementOnDestroyed(Dictionary<GemType, int> destroyed, Unit target)
+        private void UseElementOnDestroyed(IReadOnlyDictionary<GemType, int> destroyed, Unit target)
         {
             switch (chosenElement)
             {
@@ -122,7 +126,12 @@ namespace Battle.Units
                     target.StartBurning(1);
                     break;
                 case DmgType.Cold when destroyed[GemType.Blue] != 0:
-                    target.StartFreezing(1);
+                    if (canFullyFreeze && Tools.RandomChance(50))
+                    {
+                        target.Stun(1);
+                        target.AddMod(new Modifier(1, ModType.Frozen));
+                    }
+                    else target.StartFreezing(1);
                     break;
                 case DmgType.Poison when destroyed[GemType.Green] != 0:
                     target.StartPoisoning(1);
@@ -139,15 +148,22 @@ namespace Battle.Units
             return grid.destroyed[GemType.Mana] * manaPerGem;
         }
 
+        public void Stun(int moves)
+        {
+            allMods.Add(new Modifier(moves, ModType.Stun, isPositive: false));
+        }
+
         public void StartBurning(int moves)
         {
             allMods.Add(new Modifier(
                 moves,
                 ModType.Burning,
+                isPositive: false,
                 onMove: () => { DoDamage(new Damage(fDmg: 10)); },
                 delay: true)
             );
-            AddHpMod(new DamageMod(moves + 1, ModType.Mul, false, 0.25f));
+            AddHpMod(new Modifier(moves + 1, ModType.Mul,
+                ModClass.DamageBase, isPositive: false, value: 0.25f));
             stateAnimationController.AddState(UnitStates.Burning);
         }
 
@@ -156,20 +172,29 @@ namespace Battle.Units
             allMods.Add(new Modifier(
                 moves,
                 ModType.Poisoning,
+                isPositive: false,
                 onMove: () => { DoDamage(new Damage(cDmg: 15)); },
                 delay: true)
             );
-            
-            allMods.First(v => v.IsPositive).TurnOff();
+            try
+            {
+                allMods.First(v => v.IsPositive).TurnOff();
+            }
+            catch
+            {
+                // ignored
+            }
+
             stateAnimationController.AddState(UnitStates.Poisoning);
         }
 
         public void StartFreezing(int moves)
         {
-            allMods.Add(new Modifier(moves, ModType.Freezing));
+            allMods.Add(new Modifier(moves, ModType.Freezing, isPositive: false));
             stateAnimationController.AddState(UnitStates.Freezing);
             
-            AddDamageMod(new DamageMod(moves, ModType.Mul, false, -0.25f));
+            AddDamageMod(new Modifier(moves, ModType.Mul,
+                ModClass.DamageBase, isPositive: false, value: -0.25f));
         }
 
         public void StopBurning()
@@ -182,7 +207,7 @@ namespace Battle.Units
             stateAnimationController.DeleteState(UnitStates.Poisoning);
         }
 
-        public void UnFreeze()
+        public void StopFreezing()
         {
             stateAnimationController.DeleteState(UnitStates.Freezing);
         }
@@ -210,7 +235,10 @@ namespace Battle.Units
             allMods.Add(mod);
         }
 
-        protected abstract void NoHp();
+        protected virtual void NoHp()
+        {
+            DeathLog.Log(this);
+        }
     }
 
     public enum UnitStates

@@ -11,6 +11,7 @@ namespace Battle.Spells
             if (CantCast()) return;
 
             manager.player.mana.Waste(useCost);
+            LogUsage();
             manager.target.AddMod(new Modifier(count, ModType.Blind));
         }
     }

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCost: 25
   title: Stronger Kick
+  description: Deal 30% more dmg this turn
   value: 0.3
   count: 0

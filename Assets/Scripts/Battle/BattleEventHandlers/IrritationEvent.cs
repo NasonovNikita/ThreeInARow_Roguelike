@@ -15,14 +15,14 @@ namespace Battle.BattleEventHandlers
             this.unit = unit;
         }
         
-        protected override void Handle(ILog log)
+        protected override void Handle(Log log)
         {
-            base.Handle(log);
-
             if (log is not TurnLog) return;
             if (!BattleLog.GetLastTurn().Exists(v => v is DeathLog))
-                unit.AddDamageMod(new DamageMod(-1, ModType.Add, value: increaseValue));
-            ILog.OnLog -= Handle;
+                unit.AddDamageMod(
+                    new Modifier(-1, ModType.Add,  ModClass.DamageTypedStat, DmgType.Physic, value: increaseValue)
+                    );
+            Log.OnLog -= Handle;
         }
     }
 }

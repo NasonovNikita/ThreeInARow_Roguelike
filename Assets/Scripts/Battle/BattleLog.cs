@@ -8,14 +8,14 @@ namespace Battle
 {
     public static class BattleLog
     {
-        private static readonly List<ILog> Logs = new();
+        private static readonly List<Log> Logs = new();
         public static List<T> GetLogs<T>() => Logs.Where(log => log is T).Cast<T>().ToList();
 
-        public static List<ILog> GetAllLogs() => Logs;
+        public static List<Log> GetAllLogs() => Logs;
 
-        public static ILog GetLastLog() => Logs[-1];
+        public static Log GetLastLog() => Logs[-1];
 
-        public static List<ILog> GetLastTurn()
+        public static List<Log> GetLastTurn()
         {
             if (!Logs.Exists(v => v is TurnLog) || Logs.Count(val => val is TurnLog) == 1)
             {
@@ -34,58 +34,98 @@ namespace Battle
 
         public static void Clear() => Logs.Clear();
 
-        internal static void AddLog(ILog log) => Logs.Add(log);
+        internal static void AddLog(Log log) => Logs.Add(log);
     }
 
-    public class GridLog : ILog
+    public class GridLog : Log
     {
         private readonly Dictionary<GemType, int> _table;
     
-        public static void Log(Dictionary<GemType, int> table) => ILog.AddLog(new GridLog(table));
+        public static void Log(Dictionary<GemType, int> table) => AddLog(new GridLog(table));
 
-        public Dictionary<GemType, int> GetData() => _table;
+        public Dictionary<GemType, int> GetData => _table;
 
         private GridLog(Dictionary<GemType, int> table) => _table = table;
     }
-    
-    public class TurnLog : ILog
+
+    public class SpellUsageLog : Log
     {
-        public static void Log() => ILog.AddLog(new TurnLog());
+        private Unit unit;
+
+        private int wasted;
+
+        public (Unit, int) GetData => (unit, wasted);
         
+        public static void Log(Unit unit, int wasted) => AddLog(new SpellUsageLog(unit, wasted));
+
+        private SpellUsageLog(Unit unit, int wasted)
+        {
+            this.unit = unit;
+            this.wasted = wasted;
+        }
+    }
+    
+    public class TurnLog : Log
+    {
+        public static void Log() => AddLog(new TurnLog());
     }
 
-    public class DeathLog : ILog
+    public class BattleEndLog : Log
+    {
+        public static void Log() => AddLog(new BattleEndLog());
+    }
+
+    public class DeathLog : Log
     {
         private readonly Unit _unit;
     
-        public static void Log(Unit unit) => ILog.AddLog(new DeathLog(unit));
+        public static void Log(Unit unit) => AddLog(new DeathLog(unit));
 
-        public Unit GetData() => _unit;
+        public Unit GetData => _unit;
 
         private DeathLog(Unit unit) => _unit = unit;
     }
 
-    public class PToEDamageLog : DamageLog, ILog
+    public class PToEDamageLog : DamageLog
     {
-        public static void Log(Enemy enemy, Player player, Damage damage) => ILog.AddLog(new PToEDamageLog(enemy, player, damage));
+        public static void Log(Enemy enemy, Player player, Damage damage) => AddLog(new PToEDamageLog(enemy, player, damage));
 
         private PToEDamageLog(Enemy enemy, Player player, Damage damage) : base(enemy, player, damage) {}
+        
+        // TODO Log for getting real int damage
     }
 
-    public class EToPDamageLog : DamageLog, ILog
+    public class EToPDamageLog : DamageLog
     {
-        public static void Log(Enemy enemy, Player player, Damage damage) => ILog.AddLog(new EToPDamageLog(enemy, player, damage));
+        public static void Log(Enemy enemy, Player player, Damage damage) =>
+            AddLog(new EToPDamageLog(enemy, player, damage));
 
         private EToPDamageLog(Enemy enemy, Player player, Damage damage) : base(enemy, player, damage) {}
     }
 
-    public class DamageLog
+    public class GotDamageLog : Log
+    {
+
+        private readonly Unit unit;
+        private readonly int damage;
+
+        public (Unit, int) GetData => (unit, damage);
+        private GotDamageLog(Unit unit, int damage)
+        {
+            this.unit = unit;
+            this.damage = damage;
+        }
+
+        public static void Log(Unit unit, int damage) => AddLog(new GotDamageLog(unit, damage));
+    }
+
+    public class DamageLog : Log
     {
         private readonly Enemy _enemy;
         private readonly Player _player;
         private readonly Damage _damage;
     
-        public (Enemy, Player, Damage) GetData() => (_enemy, _player, _damage);
+        public (Enemy, Player, Damage) GetData => (_enemy, _player, _damage);
 
         protected DamageLog(Enemy enemy, Player player, Damage damage)
         {
@@ -95,15 +135,19 @@ namespace Battle
         }
     }
 
-    public interface ILog
+    public class Log
     {
-        public delegate void OnLogDelegate(ILog log);
-
+        public delegate void OnLogDelegate(Log log);
         public static event OnLogDelegate OnLog;
-        protected internal static void AddLog(ILog log)
+        protected static void AddLog(Log log)
         {
             BattleLog.AddLog(log);
             OnLog?.Invoke(log);
+        }
+
+        public static void UnAttach()
+        {
+            OnLog = null;
         }
     }
 }

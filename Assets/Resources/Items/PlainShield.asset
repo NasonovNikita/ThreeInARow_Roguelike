@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: PlainShield
   m_EditorClassIdentifier: 
   title: Plain Shield
-  value: -0.3
+  description: -30% dmg
+  value: 0.3
