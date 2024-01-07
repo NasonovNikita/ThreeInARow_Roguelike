@@ -1,4 +1,6 @@
 using Battle;
+using Battle.Units;
+using Core;
 using UnityEngine.SceneManagement;
 
 namespace Map.Vertexes
@@ -11,6 +13,11 @@ namespace Map.Vertexes
         {
             BattleManager.group = group;
             SceneManager.LoadScene("Battle");
+        }
+
+        public static BattleVertex Create()
+        {
+            return (BattleVertex) Vertex.Create(PrefabsContainer.instance.battleVertex);
         }
     }
 }

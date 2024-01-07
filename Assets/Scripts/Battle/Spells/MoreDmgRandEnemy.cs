@@ -14,7 +14,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            attachedUnit.mana.Waste(useCost);
+            unitBelong.mana.Waste(useCost);
             LogUsage();
             var possible = manager.enemies.Where(v => v != null).Where(enemy =>
                     !enemy.unitDamage.GetGemsDamage(new Dictionary<GemType, int>

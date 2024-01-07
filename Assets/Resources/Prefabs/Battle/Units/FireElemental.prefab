@@ -227,6 +227,14 @@ PrefabInstance:
         after beating the front one. This one is sneaky. He can make you burn!
       objectReference: {fileID: 0}
     - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1779933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.12402615
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
       value: 1.8700001
       objectReference: {fileID: 0}

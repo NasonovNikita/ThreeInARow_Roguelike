@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e8467fe041c941b2b46f2f041a81b, type: 3}
   m_Name: EBE
   m_EditorClassIdentifier: 
-  enemiesData: []
-  difficulty: 0
-  reward: 0
+  enemiesData:
+  - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+  - {fileID: 9210170007692870374, guid: b2d185b7dc604914db234482b8339565, type: 3}
+  - {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+  difficulty: 24
+  reward: 25
+  isBoss: 0

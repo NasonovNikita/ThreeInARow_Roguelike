@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Match3;
 using Battle.Modifiers;
 using Battle.Spells;
-using Battle.Units.Stats;
 using UnityEngine;
 using Grid = Battle.Match3.Grid;
 using Random = UnityEngine.Random;
@@ -114,7 +112,7 @@ namespace Battle.Units.AI
             }
 
             int profit = attachedEnemy.unitDamage.GetGemsDamage(counts).Get().Sum(v => v.Value)
-                      + counts[GemType.Mana] * 5;
+                      + counts[GemType.Mana] * attachedEnemy.manaPerGem;
             return profit;
         }
 

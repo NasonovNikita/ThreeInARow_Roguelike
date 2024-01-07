@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle;
 using Battle.Units;
+using Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -15,7 +17,8 @@ namespace UI
         private static Dictionary<int, bool> isFrontRaw;
 
         private Enemy enemy;
-        
+
+        private static Image previousAim;
         public static void ResetPick()
         {
             manager = FindFirstObjectByType<BattleManager>();
@@ -41,7 +44,15 @@ namespace UI
             
             manager.target = manager.enemies[index];
             
-            // TODO Drawing pick
+            DrawAim(manager.enemies[index]);
+        }
+
+        private static void DrawAim(Enemy enemy)
+        {
+            
+            if (previousAim != null) Destroy(previousAim.gameObject);
+            previousAim = Instantiate(PrefabsContainer.instance.pickerAim, FindFirstObjectByType<Canvas>().transform);
+            previousAim.transform.localPosition = enemy.transform.localPosition;
         }
 
         public static void PickNextPossible()

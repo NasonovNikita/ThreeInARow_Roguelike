@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core;
 using Shop;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,11 @@ namespace Map.Vertexes
         {
             ShopManager.goods = goods;
             SceneManager.LoadScene("Shop");
+        }
+
+        public static ShopVertex Create()
+        {
+            return (ShopVertex)Vertex.Create(PrefabsContainer.instance.shopVertex);
         }
     }
 }

@@ -1,12 +1,13 @@
 using System;
 using Battle.Units;
+using Other;
 using Shop;
 using UnityEngine;
 
 namespace Battle.Items
 {
     [Serializable]
-    public abstract class Item : ScriptableObject, IGood
+    public abstract class Item : ScriptableObject, IGetAble
     {
         [SerializeField] private string title;
         [SerializeField] private string description;
@@ -16,6 +17,6 @@ namespace Battle.Items
         
         public string Title => title;
         public string Description => description;
-        public virtual void OnBuy() {}
+        public virtual void OnGet() {}
     }
 }

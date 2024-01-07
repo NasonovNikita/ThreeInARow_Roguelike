@@ -7,6 +7,7 @@ namespace Audio
         MainMenu,
         Map,
         Battle,
-        Shop
+        Shop,
+        Treasure
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Audio;
+using Core;
 using UnityEngine;
 
 namespace Shop

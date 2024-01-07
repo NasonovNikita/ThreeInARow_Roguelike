@@ -14,13 +14,13 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            attachedUnit.mana.Waste(useCost);
+            unitBelong.mana.Waste(useCost);
             
             LogUsage();
-            attachedUnit.AddDamageMod(new Modifier(-1, ModType.Add,
+            unitBelong.AddDamageMod(new Modifier(-1, ModType.Add,
                 ModClass.DamageTypedStat, value: value));
-            attachedUnit.AddMod(new Modifier(count, ModType.Ignition));
-            new RandomIgnitionEvent(chance, attachedUnit, count);
+            unitBelong.AddMod(new Modifier(count, ModType.Ignition));
+            new RandomIgnitionEvent(chance, unitBelong, count);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Battle.Items
         [SerializeField] private float sale;
         public override void Use(Unit unitBelong) {}
 
-        public override void OnBuy()
+        public override void OnGet()
         {
             ShopManager.salePrice = sale;
         }

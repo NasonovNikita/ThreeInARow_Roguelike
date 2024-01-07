@@ -2,7 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using Battle.Units;
+using Core;
 using Map.Vertexes;
+using Other;
 using Shop;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,10 +20,10 @@ namespace Map
         
         public int difficulty;
         
-        public int depth;
-        
-        public int minWidth;
-        public int maxWidth;
+        [SerializeField] private int depth;
+
+        [SerializeField] private int minWidth;
+        [SerializeField] private int maxWidth;
 
         [SerializeField] private GameObject up;
         [SerializeField] private GameObject down;
@@ -29,17 +33,16 @@ namespace Map
         private readonly Vector3 dX = new (0.01f, 0, 0);
         private readonly Vector3 dY = new (0, 0.01f, 0);
 
-        private readonly Dictionary<int, List<EnemyGroup>> groups = new();
+        private List<EnemyGroup> enemyGroups = new();
     
-        private readonly Dictionary<VertexType, int> vertexesByChance = new ()
+        private readonly List<(VertexType, int)> vertexesByChance = new ()
         {
-            [VertexType.Battle] = 13,
-            [VertexType.Shop] = 9
+            (VertexType.Battle, 13),
+            (VertexType.Shop, 9),
+            (VertexType.Treasure, 3)
         };
-        private int vertexesFrequencySum;
 
-        private Good[] goods;
-        private int goodsFrequencySum;
+        private List<Good> allGoods;
         
         public void Awake()
         {
@@ -60,56 +63,71 @@ namespace Map
             difficulty = (int) Globals.instance.difficulty;
         }
 
-        public KeyValuePair<List<List<VertexData>>, List<List<KeyValuePair<int, int>>>> GetMap(int seed)
+        public List<Vertex> GetMap(int seed)
         {
             Random.InitState(seed);
 
-            foreach (EnemyGroup group in Resources.LoadAll<EnemyGroup>("Presets/EnemyGroups"))
-            {
-                if (!groups.TryAdd(group.Difficulty(), new List<EnemyGroup> {group}))
-                {
-                    groups[group.Difficulty()].Add(group);
-                }
-            }
+            enemyGroups = Resources.LoadAll<EnemyGroup>("Presets/EnemyGroups").ToList();
 
-            goods = Resources.LoadAll<Good>("Goods");
-            foreach (Good good in goods)
-            {
-                goodsFrequencySum += good.frequency;
-            }
-
-            foreach (var vertex in vertexesByChance)
-            {
-                vertexesFrequencySum += vertex.Value;
-            }
+            allGoods = Resources.LoadAll<Good>("Goods").ToList();
 
             var layers =  Generate();
-        
-        
+            
             var bounds = BindLayers(layers);
 
         
             Random.InitState((int) DateTime.Now.Ticks);
-            return new KeyValuePair<List<List<VertexData>>, List<List<KeyValuePair<int, int>>>>(layers, bounds);
+            
+            return InitMap(layers, bounds);
         }
 
-        private List<List<VertexData>> Generate()
+        private List<List<Vertex>> Generate()
         {
-            List<List<VertexData>> layers = new() { new List<VertexData> {GenBattle(0)} };
+            List<List<Vertex>> layers = new() { new List<Vertex> { GenTreasure(0)} };
 
             for (int i = 1; i < depth - 1; i++)
             {
                 layers.Add(GenLayer(i));
             }
 
-            layers.Add(new List<VertexData> {GenBattle(depth)});
+            layers.Add(new List<Vertex> { GenBoss(depth) });
         
             PlaceVertexes(layers);
 
             return layers;
         }
+        
+        private List<Vertex> InitMap(List<List<Vertex>> layers, List<List<(int, int)>> bonds)
+        {
+            List<Vertex> resultVertexes = new();
+            
+            List<List<Vertex>> layeredVertexes = new();
+            
+            for (int i = 0; i < layers.Count; i++)
+            {
+                layeredVertexes.Add(new List<Vertex>());
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    var vertex = layers[i][j];
+                    layeredVertexes[i].Add(vertex);
+                    resultVertexes.Add(vertex);
+                }
+            }
 
-        private void PlaceVertexes(IReadOnlyList<List<VertexData>> layers)
+            for (int i = 0; i < bonds.Count; i++)
+            {
+                var oldLayer = layeredVertexes[i];
+                var newLayer = layeredVertexes[i + 1];
+                foreach (var bounds in bonds[i])
+                {
+                    oldLayer[bounds.Item1].next.Add(newLayer[bounds.Item2]);
+                }
+            }
+
+            return resultVertexes;
+        }
+
+        private void PlaceVertexes(IReadOnlyList<List<Vertex>> layers)
         {
             Vector3 yStep = (up.transform.position - down.transform.position) / (layers.Count - 1);
             int width = layers.Max(layer => layer.Count);
@@ -123,33 +141,34 @@ namespace Map
             }
         }
 
-        private void PlaceLayer(IReadOnlyList<VertexData> layer, int i, Vector3 xStep, Vector3 yStep)
+        private void PlaceLayer(IReadOnlyList<Vertex> layer, int i, Vector3 xStep, Vector3 yStep)
         {
             int k = layer.Count;
-            layer[0].position = down.transform.position + i * yStep + ((float) k - 1) / 2 * -xStep;
+            layer[0].transform.position = down.transform.position + i * yStep + ((float) k - 1) / 2 * -xStep;
             for (int j = 1; j < k; j++)
             {
-                layer[j].position = layer[j - 1].position + xStep + Random.Range(-25, 26) * dX + Random.Range(-25, 26) * dY;
+                layer[j].transform.position = layer[j - 1].transform.position + xStep + Random.Range(-25, 26) * dX +
+                                    Random.Range(-25, 26) * dY;
             }
         }
 
-        private List<VertexData> GenLayer(int layer)
+        private List<Vertex> GenLayer(int layer)
         {
-            List<VertexData> resultLayer = new();
+            List<Vertex> resultLayer = new();
 
             int width = Random.Range(minWidth, maxWidth + 1);
 
             for (int i = 0; i < width; i++)
             {
-                resultLayer.Add(ChooseVertex(layer));
+                resultLayer.Add(GenVertex(layer));
             }
 
             return resultLayer;
         }
 
-        private List<List<KeyValuePair<int, int>>> BindLayers(IReadOnlyList<List<VertexData>> layers)
+        private List<List<(int, int)>> BindLayers(List<List<Vertex>> layers)
         {
-            List<List<KeyValuePair<int, int>>> bounds = new();
+            List<List<(int, int)>> bounds = new();
             for (int i = 0; i < depth - 1; i++)
             {
                 bounds.Add(Bind2Layers(layers[i], layers[i + 1]));
@@ -158,44 +177,45 @@ namespace Map
             return bounds;
         }
 
-        private static List<KeyValuePair<int, int>> Bind2Layers(ICollection oldLayer, ICollection newLayer)
+        private static List<(int, int)> Bind2Layers(ICollection oldLayer, ICollection newLayer)
         {
             HashSet<int> boundVertexes = new();
 
-            List<KeyValuePair<int, int>> bounds = new();
+            List<(int, int)> bounds = new();
 
             while (boundVertexes.Count != oldLayer.Count + newLayer.Count)
             {
                 int a = Random.Range(0, oldLayer.Count);
                 int b = Random.Range(0, newLayer.Count);
-            
-                if (CrossExists(bounds, a, b) || bounds.Exists(pair => pair.Key == a && pair.Value == b)) continue;
-                bounds.Add(new KeyValuePair<int, int>(a, b));
+
+                if (CrossExists(bounds, a, b) ||
+                    bounds.Exists(pair => pair.Item1 == a && pair.Item2 == b)) continue;
+                bounds.Add((a, b));
                 boundVertexes.AddRange(new[] { a, -b - 1 });
             }
 
             return bounds;
         }
 
-        private BattleVertexData GenBattle(int layer)
+        private BattleVertex GenBattle(int layer)
         {
-            BattleVertexData vertex = new();
+            var vertex = BattleVertex.Create();
+            var allowedGroups = enemyGroups.Where(v => !v.isBoss).ToList();
 
             int battleDifficulty = difficulty + layer * difficulty / 3 + Random.Range(-5, 6);
-            int chosenKey = groups.Keys.Aggregate(
-                (min, next) => Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next
-            );
+            int chosenDifficulty = allowedGroups.Select(v => v.Difficulty).Aggregate((min, next) =>
+                Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
 
-        
-            EnemyGroup group = Instantiate(groups[chosenKey][Random.Range(0, groups[chosenKey].Count)]);
-            vertex.group = group;
-        
+            vertex.group = Tools.RandomChoose(
+                allowedGroups.Where(v => v.Difficulty == chosenDifficulty).ToList()
+                );
+
             return vertex;
         }
 
-        private ShopVertexData GenShop(int layer)
+        private ShopVertex GenShop(int layer)
         {
-            ShopVertexData vertex = new();
+            var vertex = ShopVertex.Create();
 
             List<Good> currentGoods = new();
 
@@ -209,56 +229,68 @@ namespace Map
             return vertex;
         }
 
-        private Good ChooseGood(int layer)
+        private TreasureVertex GenTreasure(int layer)
         {
-            int choice = Random.Range(1, goodsFrequencySum);
-            foreach (Good good in goods)
-            {
-                if (choice >= good.frequency)
-                {
-                    choice -= good.frequency;
-                }
-                else
-                {
-                    Good goodCopy = Instantiate(good);
-                    goodCopy.price = (int)(goodCopy.price * (1 + 0.1f * layer + 0.01f * difficulty));
-                    return goodCopy;
-                }
-            }
+            TreasureVertex vertex = TreasureVertex.Create();
 
-            return goods[^1];
+            GetAble treasure = ChooseTreasure(layer);
+
+            vertex.treasure = treasure;
+            
+            return vertex;
         }
 
-        private VertexData ChooseVertex(int layer)
+        private BattleVertex GenBoss(int layer)
         {
-            int choice = Random.Range(1, vertexesFrequencySum);
-            VertexType type = VertexType.Battle;
-            foreach (var vertex in vertexesByChance)
-            {
-                if (choice >= vertex.Value)
-                {
-                    choice -= vertex.Value;
-                }
-                else
-                {
-                    type = vertex.Key;
-                    break;
-                }
-            }
+            var vertex = BattleVertex.Create();
+            var allowedGroups = enemyGroups.Where(v => v.isBoss).ToList();
+
+            int battleDifficulty = difficulty + layer * difficulty / 3 + Random.Range(-5, 6);
+            int chosenDifficulty = allowedGroups.Select(v => v.Difficulty).Aggregate((min, next) =>
+                Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
+
+            vertex.group = Tools.RandomChoose(
+                allowedGroups.Where(v => v.Difficulty == chosenDifficulty).ToList()
+            );
+
+            return vertex;
+        }
+
+        private Good ChooseGood(int layer)
+        {
+            List<(Good, int)> chances = allGoods
+                .Select(good => (good, (int) Math.Pow(good.frequency, -layer))).ToList();
+
+            return Tools.RandomChooseWithChances(chances);
+        }
+
+        private GetAble ChooseTreasure(int layer)
+        {
+            var treasures = Resources.LoadAll<GetAble>("Goods")
+                .Select(tr => (tr, (int) Math.Pow(tr.frequency, -layer))).ToList();
+
+            return Tools.RandomChooseWithChances(treasures);
+        }
+
+        private Vertex GenVertex(int layer)
+        {
+            VertexType type = Tools.RandomChooseWithChances(vertexesByChance);
 
             return type switch
             {
                 VertexType.Battle => GenBattle(layer),
                 VertexType.Shop => GenShop(layer),
+                VertexType.Treasure => GenTreasure(layer),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
 
-        private static bool CrossExists(IEnumerable<KeyValuePair<int, int>> bounds, int c, int d)
+        private static bool CrossExists(List<(int, int)> bounds, int c, int d)
         {
             bool res = false;
-        
-            foreach (var unused in bounds.Where(bound => (bound.Key - c) * (bound.Value - d) < 0))
+
+            foreach (var unused in bounds
+                         .Where(bound => (bound.Item1 - c) * (bound.Item2 - d) < 0))
             {
                 res = true;
             }

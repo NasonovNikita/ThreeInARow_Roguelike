@@ -1,19 +1,16 @@
-using System;
 using System.Collections.Generic;
 using Audio;
+using Core;
 using Map.Vertexes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Map
 {
     public class Map : MonoBehaviour
     {
-        public static KeyValuePair<List<List<VertexData>>, List<List<KeyValuePair<int, int>>>> map;
-
-        private readonly List<List<Vertex>> layeredVertexes = new();
-
-        [SerializeField] private List<Vertex> vertexes = new();
+        public static List<Vertex> vertexes = new();
 
         public static int currentVertex = -1;
 
@@ -21,54 +18,43 @@ namespace Map
         public Vector3 chosenScale;
         public float timeScale;
 
-        public BattleVertex battlePrefab;
-        public ShopVertex shopPrefab;
-
         public Canvas canvas;
 
         public void Awake()
         {
             AudioManager.instance.StopAll();
 
-            for (int i = 0; i < map.Key.Count; i++)
-            {
-                layeredVertexes.Add(new List<Vertex>());
-                for (int j = 0; j < map.Key[i].Count; j++)
-                {
-                    Vertex vertex = map.Key[i][j].Type switch
-                    {
-                        VertexType.Battle => ((BattleVertexData)map.Key[i][j]).Init(battlePrefab),
-                        VertexType.Shop => ((ShopVertexData)map.Key[i][j]).Init(shopPrefab),
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
-                    layeredVertexes[i].Add(vertex);
-                    vertexes.Add(vertex);
-                }
-            }
-
-            for (int i = 0; i < map.Value.Count; i++)
-            {
-                var oldLayer = layeredVertexes[i];
-                var newLayer = layeredVertexes[i + 1];
-                foreach (var bounds in map.Value[i])
-                {
-                    oldLayer[bounds.Key].next.Add(newLayer[bounds.Value]);
-                }
-            }
-
             if (currentVertex == vertexes.Count - 1)
             {
                 Win();
             }
+            
+            InitVertexes();
 
             if (currentVertex != -1)
             {
-                CurrentVertex_().transform.localScale = chosenScale;
+                CurrentVertex().transform.localScale = chosenScale;
             }
         
             GameManager.instance.SaveData();
         
             AudioManager.instance.Play(AudioEnum.Map);
+        }
+
+        private void InitVertexes()
+        {
+            foreach (Vertex vertex in vertexes)
+            {
+                vertex.gameObject.SetActive(true);
+            }
+        }
+
+        public static void HideVertexes()
+        {
+            foreach (Vertex vertex in vertexes)
+            {
+                vertex.gameObject.SetActive(false);
+            }
         }
 
         public void OnClick(Vertex vertex)
@@ -78,17 +64,22 @@ namespace Map
                 if (vertexes.IndexOf(vertex) != 0) return;
             
                 currentVertex = vertexes.IndexOf(vertex);
-                vertex.ScaleUp(chosenScale, timeScale);
+                vertex.ScaleUp(chosenScale, timeScale, OnScale);
             }
-            else if (CurrentVertex_().BelongsToNext(vertex))
+            else if (CurrentVertex().BelongsToNext(vertex))
             {
-                CurrentVertex_().ScaleDown(baseScale, timeScale);
+                CurrentVertex().ScaleDown(baseScale, timeScale);
                 currentVertex = vertexes.IndexOf(vertex);
-                vertex.ScaleUp(chosenScale, timeScale);
+                vertex.ScaleUp(chosenScale, timeScale, OnScale);
+            }
+
+            void OnScale()
+            {
+                vertex.OnArrive();
             }
         }
 
-        public Vertex CurrentVertex_()
+        public Vertex CurrentVertex()
         {
             return vertexes[currentVertex];
         }

@@ -19,9 +19,9 @@ namespace Battle.Spells
             else
             {
                 if (CantCast()) return;
-                attachedUnit.mana.Waste(useCost);
+                unitBelong.mana.Waste(useCost);
                 LogUsage();
-                attachedUnit.Hp.Heal((int) (attachedUnit.Hp.value * value));
+                unitBelong.Hp.Heal((int) (unitBelong.Hp.value * value));
             }
         }
     }

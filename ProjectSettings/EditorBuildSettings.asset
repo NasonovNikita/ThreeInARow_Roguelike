@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Settings.unity
     guid: 524832f29c4221c4080687a94ec7c99c
+  - enabled: 1
+    path: Assets/Scenes/Treasure.unity
+    guid: 2188e52134f502547aa2fe6001a8a618
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

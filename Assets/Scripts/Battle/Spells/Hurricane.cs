@@ -10,7 +10,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            attachedUnit.mana.Waste(useCost);
+            unitBelong.mana.Waste(useCost);
             LogUsage();
             manager.enemies = manager.enemies.OrderBy(_ => Random.Range(0, 10000000)).ToList();
             manager.OnEnemiesShuffle();

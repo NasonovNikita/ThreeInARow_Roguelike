@@ -10,7 +10,7 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            manager.player.Hp = (UnitHp) (manager.player.Hp - useCost);
+            manager.player.Hp.DoDamage(new Damage(useCost));
             LogUsage();
             manager.Win();
         }

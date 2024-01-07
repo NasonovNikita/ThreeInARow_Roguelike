@@ -11,7 +11,7 @@ namespace Battle.Items
         [SerializeField] private int value;
         public override void Use(Unit unitBelong) {}
 
-        public override void OnBuy()
+        public override void OnGet()
         {
             Player.data.damage.AddMod(new Modifier(-1, ModType.Add,
                 ModClass.DamageTypedStat, DmgType.Physic, value: value));

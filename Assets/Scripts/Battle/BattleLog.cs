@@ -91,8 +91,6 @@ namespace Battle
         public static void Log(Enemy enemy, Player player, Damage damage) => AddLog(new PToEDamageLog(enemy, player, damage));
 
         private PToEDamageLog(Enemy enemy, Player player, Damage damage) : base(enemy, player, damage) {}
-        
-        // TODO Log for getting real int damage
     }
 
     public class EToPDamageLog : DamageLog

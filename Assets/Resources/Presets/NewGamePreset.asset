@@ -49,6 +49,7 @@ MonoBehaviour:
   items: []
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
+  - {fileID: 11400000, guid: 4812d4e9ff18604418ed730626cd323f, type: 2}
   manaPerGem: 20
   chosenElement: 4
   money: 20

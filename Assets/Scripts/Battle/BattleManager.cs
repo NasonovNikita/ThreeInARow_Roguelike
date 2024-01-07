@@ -7,6 +7,7 @@ using Battle.Config;
 using Battle.Match3;
 using Battle.Spells;
 using Battle.Units;
+using Core;
 using UI;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -59,7 +60,6 @@ namespace Battle
             {
                 enemies.Add(LoadEnemy(i));
             }
-            BattleTargetPicker.ResetPick();
             player.TurnOn();
 
             AudioManager.instance.Play(AudioEnum.Battle);
@@ -69,8 +69,8 @@ namespace Battle
             BattleInterfacePlacement placement = FindFirstObjectByType<BattleInterfacePlacement>();
             placement.Place();
             
-            
             State = BattleState.Turn;
+            BattleTargetPicker.ResetPick();
             
             BattleLog.Clear();
         }

@@ -2,13 +2,14 @@ using System;
 using Battle.Modifiers;
 using Battle.Units;
 using Battle.Units.Stats;
+using Other;
 using Shop;
 using UnityEngine;
 
 namespace Battle.Spells
 {
     [Serializable]
-    public abstract class Spell : ScriptableObject, IGood
+    public abstract class Spell : ScriptableObject, IGetAble
     {
         [SerializeField] public int useCost;
 
@@ -19,7 +20,7 @@ namespace Battle.Spells
 
         [SerializeField] protected int count;
 
-        protected Unit attachedUnit;
+        protected Unit unitBelong;
 
         protected BattleManager manager;
         public string Title => title;
@@ -27,7 +28,7 @@ namespace Battle.Spells
 
         public void Init(Unit unit)
         {
-            attachedUnit = unit;
+            unitBelong = unit;
             manager = FindFirstObjectByType<BattleManager>();
         }
 
@@ -35,7 +36,7 @@ namespace Battle.Spells
 
         protected void LogUsage()
         {
-            SpellUsageLog.Log(attachedUnit, useCost);
+            SpellUsageLog.Log(unitBelong, useCost);
         }
 
         protected bool CantCast()
@@ -43,6 +44,6 @@ namespace Battle.Spells
             return manager.State != BattleState.Turn || manager.player.mana < useCost;
         }
         
-        public virtual void OnBuy() {}
+        public virtual void OnGet() {}
     }
 }

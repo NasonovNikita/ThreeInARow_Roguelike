@@ -10,7 +10,7 @@ namespace Battle.Items
         [SerializeField] private float value;
         public override void Use(Unit unitBelong) {}
 
-        public override void OnBuy()
+        public override void OnGet()
         {
             Player.data.mana.AddMod(new Modifier(-1, ModType.Mul, ModClass.ManaWaste, value: -value));
         }

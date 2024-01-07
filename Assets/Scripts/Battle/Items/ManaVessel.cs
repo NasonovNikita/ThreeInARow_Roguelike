@@ -11,7 +11,7 @@ namespace Battle.Items
         
         public override void Use(Unit unitBelong) {}
 
-        public override void OnBuy()
+        public override void OnGet()
         {
             Player.data.mana.ChangeBorderUp(addToBorder, addValue);
         }

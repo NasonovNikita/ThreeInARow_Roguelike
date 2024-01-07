@@ -11,9 +11,9 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            attachedUnit.mana.Waste(useCost);
+            unitBelong.mana.Waste(useCost);
             LogUsage();
-            foreach (Modifier mod in attachedUnit.allMods.Where(v => !v.IsPositive))
+            foreach (Modifier mod in unitBelong.allMods.Where(v => !v.IsPositive))
             {
                 mod.TurnOff();
             }

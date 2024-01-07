@@ -11,10 +11,10 @@ namespace Battle.Spells
         {
             if (CantCast()) return;
 
-            attachedUnit.mana.Waste(useCost);
+            unitBelong.mana.Waste(useCost);
             LogUsage();
-            attachedUnit.AddMod(new Modifier(-1, ModType.Irritated, value: value));
-            new IrritationEvent(value, attachedUnit);
+            unitBelong.AddMod(new Modifier(-1, ModType.Irritated, value: value));
+            new IrritationEvent(value, unitBelong);
         }
     }
 }

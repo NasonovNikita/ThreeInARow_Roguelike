@@ -15,5 +15,5 @@ MonoBehaviour:
   useCost: 37
   title: Raise
   description: One of enemies deals 10 more dmg (per hit) for 1 next turn
-  value: 10
+  value: 25
   count: 1
