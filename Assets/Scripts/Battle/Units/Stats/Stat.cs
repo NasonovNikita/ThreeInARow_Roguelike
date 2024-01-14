@@ -70,8 +70,8 @@ namespace Battle.Units.Stats
 
         protected static int UseMods(float value, List<Modifier> mods)
         {
-            float mulValue = 1 + mods.Sum(mod => mod.type == ModType.Mul ? mod.Use() : 0);
-            int addValue = (int) mods.Sum(mod => mod.type == ModType.Add ? mod.Use() : 0);
+            float mulValue = 1 + mods.Sum(mod => mod.type == ModType.Mul ? mod.Use : 0);
+            int addValue = (int) mods.Sum(mod => mod.type == ModType.Add ? mod.Use : 0);
 
             return (int) (value * mulValue + addValue);
         }

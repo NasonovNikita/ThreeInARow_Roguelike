@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: HotWind
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 33bf026a886ef3b43ac5c26f6482f5a7, type: 2}
-  type: 0
+  target: {fileID: 11400000, guid: 33bf026a886ef3b43ac5c26f6482f5a7, type: 2}
   price: 23
-  frequency: 2

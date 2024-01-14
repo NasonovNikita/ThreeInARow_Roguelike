@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a900c9cedaec441be37135f9d3f6b5, type: 3}
   m_Name: Kick
   m_EditorClassIdentifier: 
-  useCost: 25
   title: Kick
   description: Deal 25 dmg
+  img: {fileID: 0}
+  frequency: 4
+  useCost: 25
   value: 25
   count: 0

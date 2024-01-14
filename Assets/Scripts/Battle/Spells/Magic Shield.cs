@@ -1,5 +1,4 @@
 using Battle.Modifiers;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -13,7 +12,7 @@ namespace Battle.Spells
         
             manager.player.mana.Waste(useCost);
             LogUsage();
-            manager.player.AddHpMod(new Modifier(count, ModType.Mul, ModClass.DamageBase, value: -value));
+            manager.player.AddHpMod(new Modifier(count, ModType.Mul, ModClass.HpDamageBase, value: -value));
         }
     }
 }

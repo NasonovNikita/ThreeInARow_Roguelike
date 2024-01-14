@@ -1,12 +1,10 @@
 using Audio;
 using Battle;
 using Battle.Units;
-using Map;
-using Shop;
+using Core.Saves;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 
 namespace Core
@@ -14,10 +12,6 @@ namespace Core
     public class GameManager : MonoBehaviour
     {
         public static GameManager instance;
-
-        private bool generated;
-
-        private bool loaded;
         public void Awake()
         {
             if (instance == null)
@@ -30,17 +24,13 @@ namespace Core
             }
         
             DontDestroyOnLoad(gameObject);
-        
-            SettingsManager.LoadSettings();
 
             Player.data = ScriptableObject.CreateInstance<PlayerData>();
-
-            SceneManager.sceneLoaded += (scene, _) => { if (scene.name != "Map") Map.Map.HideVertexes(); };
         }
 
         public void Start()
         {
-            SettingsManager.LoadSettings();
+            SavesManager.LoadSettings();
         }
 
         public void MainMenu()
@@ -56,27 +46,18 @@ namespace Core
         
             AudioManager.instance.Play(AudioEnum.MainMenu);
         
-            SettingsManager.SaveSettings();
+            SavesManager.SaveSettings();
         }
     
         public void NewGame()
         {
-            ResetAll();
-            SceneManager.LoadScene("Map");
+            GameSave newSave = new GameSave().CreateEmptySave();
+            newSave.Load();
         }
 
         public void Continue()
         {
-            if (PlayerPrefs.HasKey("vertex"))
-            {
-                LoadSave();
-                if(!generated) GenerateMap();
-                SceneManager.LoadScene(PlayerPrefs.GetString("scene"));
-            }
-            else
-            {
-                NewGame();
-            }
+            if (!SavesManager.LoadGame()) NewGame();
         }
 
         public void Settings()
@@ -88,66 +69,14 @@ namespace Core
         {
 #if UNITY_EDITOR
             EditorApplication.ExitPlaymode();
-#else
-            Application.Quit();
 #endif
+            PlayerPrefs.Save();
+            Application.Quit();
         }
 
         public void EnterMap()
         {
             SceneManager.LoadScene("Map");
-        }
-
-        public void SaveData()
-        {
-            PlayerPrefs.SetInt("vertex", Map.Map.currentVertex);
-            PlayerPrefs.SetString("scene", SceneManager.GetActiveScene().name);
-            PlayerPrefs.SetString("PlayerData", JsonUtility.ToJson(Player.data));
-            PlayerPrefs.SetInt("seed", Globals.instance.seed);
-            PlayerPrefs.SetString("group", JsonUtility.ToJson(BattleManager.group));
-            PlayerPrefs.SetString("goods", JsonUtility.ToJson(ShopManager.goods));
-        }
-
-        private void ResetAll()
-        {
-            Map.Map.currentVertex = -1;
-            Player.data = Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"));
-        
-            if (Globals.instance.randomSeed) Globals.instance.seed = Random.Range(0, 10000000);
-            GenerateMap();
-        
-            PlayerPrefs.DeleteAll();
-            loaded = false;
-        }
-
-        private void LoadSave()
-        {
-            Map.Map.currentVertex = PlayerPrefs.GetInt("vertex");
-            JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("PlayerData"), Player.data);
-        
-#if UNITY_EDITOR
-            if (!loaded)
-            {
-                foreach (var item in Player.data.items)
-                {
-                    item.OnGet();
-                }
-
-                loaded = true;
-                
-            }
-#endif
-        
-            Globals.instance.seed = PlayerPrefs.GetInt("seed");
-            BattleManager.group = ScriptableObject.CreateInstance<EnemyGroup>();
-            JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("group"), BattleManager.group);
-            JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("goods"), ShopManager.goods);
-        }
-
-        private void GenerateMap()
-        {
-            Map.Map.vertexes = MapGenerator.instance.GetMap(Globals.instance.seed);
-            generated = true;
         }
     }
 }

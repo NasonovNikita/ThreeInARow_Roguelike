@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: attachedEnemy
       value: 
       objectReference: {fileID: 1482011888949459127}
+    - target: {fileID: 845795473730810066, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1616779689905615334, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: m_Name
       value: FireElemental

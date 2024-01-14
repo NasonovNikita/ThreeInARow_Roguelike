@@ -1,5 +1,5 @@
 using Audio;
-using Core;
+using Core.Saves;
 using Other;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ namespace Treasure
         public void Awake()
         {
             AudioManager.instance.StopAll();
-            GameManager.instance.SaveData();
+            SavesManager.SaveGame();
             
             var treasureBox = FindFirstObjectByType<TreasureBox>();
             treasureBox.treasure = treasure;

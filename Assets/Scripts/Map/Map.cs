@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Audio;
 using Core;
+using Core.Saves;
 using Map.Vertexes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Map
@@ -28,17 +29,22 @@ namespace Map
             {
                 Win();
             }
-            
-            InitVertexes();
 
             if (currentVertex != -1)
             {
                 CurrentVertex().transform.localScale = chosenScale;
             }
         
-            GameManager.instance.SaveData();
+            SavesManager.SaveGame();
+            
+            InitVertexes();
         
             AudioManager.instance.Play(AudioEnum.Map);
+        }
+
+        public void OnDisable()
+        {
+            HideVertexes();
         }
 
         private void InitVertexes()
@@ -49,12 +55,18 @@ namespace Map
             }
         }
 
-        public static void HideVertexes()
+        public void HideVertexes()
         {
-            foreach (Vertex vertex in vertexes)
+            foreach (var vertex in vertexes.Where(vertex => vertex != null))
             {
                 vertex.gameObject.SetActive(false);
             }
+        }
+
+        public static void Regenerate()
+        {
+            foreach (var vertex in vertexes.Where(v => v != null)) Destroy(vertex.gameObject);
+            vertexes = MapGenerator.instance.GetMap(Globals.instance.seed);
         }
 
         public void OnClick(Vertex vertex)
@@ -79,7 +91,7 @@ namespace Map
             }
         }
 
-        public Vertex CurrentVertex()
+        public static Vertex CurrentVertex()
         {
             return vertexes[currentVertex];
         }

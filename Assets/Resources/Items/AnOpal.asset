@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: An opal
   description: When you hit an enemy it then gets 15% more damage for 3 moves (stackable)
+  img: {fileID: 0}
+  frequency: 2
   moves: 3
   value: 0.15

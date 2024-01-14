@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Long Braid
   description: You can hit enemies from any raw
+  img: {fileID: 0}
+  frequency: 2

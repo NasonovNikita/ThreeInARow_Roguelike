@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816507e4b6844338bd2540ed3be64839, type: 3}
   m_Name: Healing
   m_EditorClassIdentifier: 
-  useCost: 31
   title: Healing
   description: Heal 10% of maximum hp
+  img: {fileID: 0}
+  frequency: 1
+  useCost: 31
   value: 0.1
   count: 0

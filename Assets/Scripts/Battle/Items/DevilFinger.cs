@@ -15,7 +15,7 @@ namespace Battle.Items
             {
                 if (BattleLog.GetAllLogs()
                     .Exists(log => (log as SpellUsageLog)?.GetData.Item1 is Player)) return;
-                Player.data.damage.AddMod(new Modifier(-1, ModType.Add, 
+                Player.data.AddDamageMod(new Modifier(-1, ModType.Add, 
                     ModClass.DamageTypedStat, value: value, always: true));
             });
         }

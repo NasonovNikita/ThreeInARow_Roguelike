@@ -1,4 +1,4 @@
-using Battle.Units.Stats;
+using Map.Vertexes;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -8,9 +8,10 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
+            if (((BattleVertex)Map.Map.CurrentVertex()).group.isBoss) return;
             if (CantCast()) return;
 
-            manager.player.Hp.DoDamage(new Damage(useCost));
+            manager.player.hp.DoDamage(new Damage(useCost));
             LogUsage();
             manager.Win();
         }

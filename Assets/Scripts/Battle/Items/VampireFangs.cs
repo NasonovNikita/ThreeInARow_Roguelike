@@ -18,7 +18,7 @@ namespace Battle.Items
                 int damage = ((GotDamageLog)BattleLog.GetLastLog()).GetData.Item2;
                 if (damage >= from)
                 {
-                    unitBelong.Hp.Heal(Math.Max(minHeal, to - damage));
+                    unitBelong.hp.Heal(Math.Max(minHeal, to - damage));
                 }
             });
         }

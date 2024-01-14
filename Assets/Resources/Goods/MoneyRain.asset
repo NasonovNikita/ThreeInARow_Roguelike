@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: MoneyRain
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: acfa05dedb6878e479ca76f7bc02527b, type: 2}
-  type: 1
+  target: {fileID: 11400000, guid: acfa05dedb6878e479ca76f7bc02527b, type: 2}
   price: 27
-  frequency: 2

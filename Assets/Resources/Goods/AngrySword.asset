@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: AngrySword
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 06ce3cab4161cb64ca0ad2fb9d2efdb6, type: 2}
-  type: 0
+  target: {fileID: 11400000, guid: 06ce3cab4161cb64ca0ad2fb9d2efdb6, type: 2}
   price: 24
-  frequency: 2

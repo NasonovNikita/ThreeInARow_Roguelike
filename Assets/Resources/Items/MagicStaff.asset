@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Magic staff
   description: -10% mana wasting (on anything)
+  img: {fileID: 0}
+  frequency: 3
   value: 0.1

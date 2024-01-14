@@ -12,12 +12,13 @@ namespace Battle.Items
         public override void Use(Unit unitBelong)
         {
             BattleManager manager = FindFirstObjectByType<BattleManager>();
+            var enemies = manager.enemies;
             new EveryTurn(() => {
-                for (int i = 0; i < manager.enemies.Count; i++)
+                for (int i = 0; i < enemies.Count; i++)
                 {
-                    if (!Tools.RandomChance(chance) && !manager.enemies[i].IsBurning) continue;
-                    if (i > 0) manager.enemies[i - 1].StartBurning(1);
-                    if (i < manager.enemies.Count - 1) manager.enemies[i + 1].StartBurning(1);
+                    if (enemies[i] == null || !Tools.Random.RandomChance(chance) || !enemies[i].IsBurning) continue;
+                    if (i > 0 && enemies[i - 1] != null) enemies[i - 1].StartBurning(1);
+                    if (i < enemies.Count - 1 && enemies[i + 1] != null) enemies[i + 1].StartBurning(1);
                 }
             });
         }

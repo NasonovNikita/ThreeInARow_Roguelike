@@ -60,7 +60,7 @@ namespace Battle.Units.AI
             var goodOnes = profits.Where(val => val.Item1 == max).ToList();
             var chosen = goodOnes[Random.Range(0, goodOnes.Count)];
 
-            if (attachedEnemy.allMods.Exists(mod => mod.type == ModType.Blind && mod.Use() != 0))
+            if (attachedEnemy.allMods.Exists(mod => mod.type == ModType.Blind && mod.Use != 0))
             {
                 chosen = profits[Random.Range(0, profits.Count)];
             }

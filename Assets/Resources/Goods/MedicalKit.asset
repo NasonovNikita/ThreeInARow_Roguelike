@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: MedicalKit
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 6f3430b3816e1804aa5fa2f9a844c578, type: 2}
-  type: 0
+  target: {fileID: 11400000, guid: 6f3430b3816e1804aa5fa2f9a844c578, type: 2}
   price: 18
-  frequency: 3

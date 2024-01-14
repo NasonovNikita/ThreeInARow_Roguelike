@@ -13,7 +13,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.damage.AddMod(new Modifier(-1, ModType.Add,
+            Player.data.AddDamageMod(new Modifier(-1, ModType.Add,
                 ModClass.DamageTypedStat, DmgType.Physic, value: value));
         }
     }

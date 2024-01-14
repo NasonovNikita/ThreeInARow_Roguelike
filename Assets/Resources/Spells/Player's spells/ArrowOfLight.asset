@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd12a179353c4fb4b0dbe08a12a52036, type: 3}
   m_Name: ArrowOfLight
   m_EditorClassIdentifier: 
-  useCost: 28
   title: Arrow of light
   description: Deal 30 light dmg
+  img: {fileID: 0}
+  frequency: 3
+  useCost: 28
   value: 30
   count: 0

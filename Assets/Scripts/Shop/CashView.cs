@@ -2,19 +2,22 @@ using Battle.Units;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
-public class CashView : MonoBehaviour
+namespace Shop
 {
-    private Text text;
-
-    public void Awake()
+    [RequireComponent(typeof(Text))]
+    public class CashView : MonoBehaviour
     {
-        text = GetComponent<Text>();
-    }
+        private Text text;
+
+        public void Awake()
+        {
+            text = GetComponent<Text>();
+        }
 
     
-    public void Update()
-    {
-        text.text = $"Cash: {Player.data.money}";
+        public void Update()
+        {
+            text.text = $"Cash: {Player.data.money}";
+        }
     }
 }

@@ -15,5 +15,7 @@ MonoBehaviour:
   title: Passive bomb
   description: If at the end of the turn you have at least 60 mana you throw a bomb,
     that deals 20 fire dmg to enemies
+  img: {fileID: 0}
+  frequency: 1
   minMana: 60
   damage: 20

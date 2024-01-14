@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Hot wind
   description: Fire can spread to other enemies with 50% chance
+  img: {fileID: 0}
+  frequency: 2
   chance: 50

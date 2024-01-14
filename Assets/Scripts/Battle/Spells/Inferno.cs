@@ -16,7 +16,7 @@ namespace Battle.Spells
             foreach (var enemy in manager.enemies.Where(v => v != null))
             {
                 enemy.DoDamage(dmg);
-                enemy.StartBurning(2);
+                enemy.StartBurning(count);
 
                 PToEDamageLog.Log(enemy, manager.player, dmg);
             }

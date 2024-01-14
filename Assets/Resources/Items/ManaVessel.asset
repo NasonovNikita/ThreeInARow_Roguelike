@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Mana Vessel
   description: Increase maximum mana by 30 points and gain 15 mana
+  img: {fileID: 0}
+  frequency: 1
   addToBorder: 30
   addValue: 15

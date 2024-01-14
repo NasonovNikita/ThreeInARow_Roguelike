@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Eternal ice
   description: Cold can totally freeze enemies (stun)
+  img: {fileID: 0}
+  frequency: 2

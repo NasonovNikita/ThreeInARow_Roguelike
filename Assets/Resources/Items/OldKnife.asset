@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Old knife
   description: +4 physical dmg (per gem)
+  img: {fileID: 0}
+  frequency: 3
   value: 4

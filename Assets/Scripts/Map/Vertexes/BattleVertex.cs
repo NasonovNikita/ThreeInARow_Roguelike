@@ -11,7 +11,7 @@ namespace Map.Vertexes
     
         public override void OnArrive()
         {
-            BattleManager.group = group;
+            BattleManager.enemyGroup = group;
             SceneManager.LoadScene("Battle");
         }
 

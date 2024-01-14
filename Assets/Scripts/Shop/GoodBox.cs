@@ -1,5 +1,6 @@
 using System;
 using UI;
+using UI.MessageWindows;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,10 +17,9 @@ namespace Shop
         {
             try
             {
-                button.onClick.AddListener(good.Buy);
-                button.onClick.AddListener(OnBuy);
-                button.GetComponentInChildren<Text>().text = $"{good.Title} {good.price}";
-                button.AddComponent<DevDebugAbleObject>().text = good.Description;
+                button.onClick.AddListener(() => good.TryBuy(OnBuy));
+                button.GetComponentInChildren<Text>().text = $"{good.target.Title} {good.price}";
+                button.AddComponent<DevDebugAbleObject>().text = good.target.Description;
             }
             catch (Exception e)
             {

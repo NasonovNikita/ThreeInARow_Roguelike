@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: Hurricane
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: efb99294795ac4f43b37d90ea04afda5, type: 2}
-  type: 1
+  target: {fileID: 11400000, guid: efb99294795ac4f43b37d90ea04afda5, type: 2}
   price: 23
-  frequency: 2

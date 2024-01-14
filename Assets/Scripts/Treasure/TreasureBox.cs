@@ -1,8 +1,10 @@
+using System;
+using Battle.Spells;
+using Battle.Units;
 using Other;
-using UI;
+using UI.MessageWindows;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Treasure
@@ -14,10 +16,26 @@ namespace Treasure
 
         public void Start()
         {
-            button.onClick.AddListener(treasure.Get);
-            button.onClick.AddListener(OnGet);
-            button.GetComponentInChildren<Text>().text = treasure.Title;
+            Tools.InitButton(button, TryGet, treasure.Title);
             button.AddComponent<DevDebugAbleObject>().text = treasure.Description;
+        }
+
+        private void TryGet()
+        {
+            if (treasure is Spell spell)
+            {
+                switch (Player.data.spells.Count)
+                {
+                    case > 4:
+                        throw new Exception("Player has more then 4 spells. He couldn't have them normally");
+                    case 4:
+                        SpellGettingWarningWindow.Create(spell, OnGet);
+                        return;
+                }
+            }
+            
+            treasure.Get();
+            OnGet();
         }
 
         private void OnGet()

@@ -12,6 +12,7 @@ namespace Map.Vertexes
         public override void OnArrive()
         {
             ShopManager.goods = goods;
+            ShopManager.entered = true;
             SceneManager.LoadScene("Shop");
         }
 

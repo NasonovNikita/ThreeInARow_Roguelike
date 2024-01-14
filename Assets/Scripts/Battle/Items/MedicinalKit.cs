@@ -1,6 +1,5 @@
 using Battle.Modifiers;
 using Battle.Units;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Items

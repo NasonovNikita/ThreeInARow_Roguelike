@@ -49,14 +49,15 @@ namespace Battle.Units.Stats
 
         public void AddMod(Modifier mod)
         {
+            mods ??= new List<Modifier>();
             mods.Add(mod);
         }
 
         private int UseDamageMods(int val, ModClass workPattern, DmgType dmgType = DmgType.Physic)
         {
             var where = mods.Where(v => v.workPattern == workPattern && v.dmgType == dmgType).ToList();
-            float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use());
-            int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use());
+            float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use);
+            int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use);
             return (int)(val * mulVal) + addVal;
         }
     }

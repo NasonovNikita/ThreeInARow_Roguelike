@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9859ef63c3264248b9830eedad46916a, type: 3}
   m_Name: Irritation
   m_EditorClassIdentifier: 
-  useCost: 50
   title: Irritation
   description: If no enemy dies in this turn gain +5 Pysical damage (per gem)
+  img: {fileID: 0}
+  frequency: 2
+  useCost: 50
   value: 5
   count: 1

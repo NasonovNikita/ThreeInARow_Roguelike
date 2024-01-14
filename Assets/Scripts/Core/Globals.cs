@@ -12,7 +12,7 @@ namespace Core
 
         public float volume;
 
-        public float difficulty;
+        public float difficulty; // It must be float, not int
 
         public bool altBattleUI;
     

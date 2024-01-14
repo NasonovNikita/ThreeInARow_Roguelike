@@ -34,5 +34,10 @@ namespace UI
         {
             GameManager.instance.EnterMap();
         }
+
+        public void ShowInventory()
+        {
+            Instantiate(PrefabsContainer.instance.inventoryManager, FindFirstObjectByType<Canvas>().transform);
+        }
     }
 }

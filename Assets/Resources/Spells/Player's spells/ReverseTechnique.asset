@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d326573d7303784a91f0e97e225ba81, type: 3}
   m_Name: ReverseTechnique
   m_EditorClassIdentifier: 
-  useCost: 42
   title: Reverse technique
   description: Delete all negative mods of your's
+  img: {fileID: 0}
+  frequency: 1
+  useCost: 42
   value: 0
   count: 0

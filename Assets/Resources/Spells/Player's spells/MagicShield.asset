@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b3692f3f0def34aa93a63018bec6cf, type: 3}
   m_Name: MagicShield
   m_EditorClassIdentifier: 
-  useCost: 30
   title: Magic Shield
   description: Get 30% less damage this turn
+  img: {fileID: 0}
+  frequency: 3
+  useCost: 30
   value: 0.3
-  count: 0
+  count: 1

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle.Units
 {
@@ -8,7 +9,7 @@ namespace Battle.Units
     [Serializable]
     public class EnemyGroup : ScriptableObject
     {
-        [SerializeField] private List<Enemy> enemiesData;
+        [FormerlySerializedAs("enemiesData")] [SerializeField] private List<Enemy> enemies;
         [SerializeField] private int difficulty;
         [SerializeField] public int reward;
         [SerializeField] public bool isBoss;
@@ -16,7 +17,7 @@ namespace Battle.Units
         public int Difficulty => difficulty;
         public List<Enemy> GetEnemies()
         {
-            return enemiesData;
+            return enemies;
         }
 
         public int GetReward()

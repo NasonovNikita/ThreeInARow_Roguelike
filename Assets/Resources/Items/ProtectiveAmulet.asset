@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Protective amulet
   description: -5 magic dmg (useless haha)
+  img: {fileID: 0}
+  frequency: 3
   value: 5

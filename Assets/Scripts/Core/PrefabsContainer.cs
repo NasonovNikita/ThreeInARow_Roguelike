@@ -1,5 +1,9 @@
 using Map.Vertexes;
+using UI;
+using UI.Battle;
+using UI.MessageWindows;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Core
@@ -17,6 +21,16 @@ namespace Core
         public TreasureVertex treasureVertex;
 
         public Image pickerAim;
+
+        public InventoryItem inventoryItem;
+
+        public GameObject inventoryManager;
+
+        public SpellGettingWarningWindow spellGettingWarningWindow;
+
+        public SpellReplacingWindow spellReplacingWindow;
+
+        public ModIcon modIcon;
 
         public static PrefabsContainer instance;
         public void Awake()

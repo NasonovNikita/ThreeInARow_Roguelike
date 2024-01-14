@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: ArrowOfLight
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: dad5f4cd6be131a42806d635382d352e, type: 2}
-  type: 1
+  target: {fileID: 11400000, guid: dad5f4cd6be131a42806d635382d352e, type: 2}
   price: 18
-  frequency: 3

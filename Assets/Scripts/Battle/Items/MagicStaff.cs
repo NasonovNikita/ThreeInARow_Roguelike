@@ -12,7 +12,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.mana.AddMod(new Modifier(-1, ModType.Mul, ModClass.ManaWaste, value: -value));
+            Player.data.AddManaMod(new Modifier(-1, ModType.Mul, ModClass.ManaWaste, value: -value));
         }
     }
 }

@@ -13,11 +13,11 @@ namespace Battle.Items
         {
             new PlayerGettingHitThen(() =>
             {
-                if (unitBelong.Hp != 0) return;
+                if (unitBelong.hp != 0) return;
 
-                if (Tools.RandomChance(chance))
+                if (Tools.Random.RandomChance(chance))
                 {
-                    unitBelong.Hp.Heal(leftHp);
+                    unitBelong.hp.Heal(leftHp);
                 }
             });
         }

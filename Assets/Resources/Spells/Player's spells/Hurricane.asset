@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0649adafdf49088372830929013d29, type: 3}
   m_Name: Hurricane
   m_EditorClassIdentifier: 
-  useCost: 35
   title: Hurricane
   description: Shuffles enemies (they change raws and order)
+  img: {fileID: 0}
+  frequency: 2
+  useCost: 35
   value: 0
   count: 0

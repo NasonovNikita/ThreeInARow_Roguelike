@@ -21,7 +21,7 @@ namespace Battle.Spells
                         { { GemType.Blue, 1 }, { GemType.Green, 1 }, { GemType.Red, 1 }, { GemType.Yellow, 1 } })
                     .IsZero())
                 .ToList();
-            Tools.RandomChoose(possible).AddDamageMod(new Modifier(count, ModType.Add,
+            Tools.Random.RandomChoose(possible).AddDamageMod(new Modifier(count, ModType.Add,
                 ModClass.DamageBase, value: value, delay: true));
         }
     }

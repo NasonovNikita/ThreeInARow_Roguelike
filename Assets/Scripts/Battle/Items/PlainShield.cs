@@ -1,6 +1,5 @@
 using Battle.Modifiers;
 using Battle.Units;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Items
@@ -10,9 +9,11 @@ namespace Battle.Items
     {
         [SerializeField] private float value;
         
-        public override void Use(Unit unitBelong)
+        public override void OnGet()
         {
-            unitBelong.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.DamageBase, value: -value));
+            Player.data.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.HpDamageBase, value: -value));
         }
+
+        public override void Use(Unit unitBelong) {}
     }
 }

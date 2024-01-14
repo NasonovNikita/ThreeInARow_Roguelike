@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: MagicShield
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: fe61290e14dbad848ba9382bf779200f, type: 2}
-  type: 1
+  target: {fileID: 11400000, guid: fe61290e14dbad848ba9382bf779200f, type: 2}
   price: 30
-  frequency: 2

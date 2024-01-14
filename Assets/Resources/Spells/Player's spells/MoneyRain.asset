@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7093ceb38a8e4b32acc6d34daf466b07, type: 3}
   m_Name: MoneyRain
   m_EditorClassIdentifier: 
-  useCost: 10
   title: Money rain
   description: Coins fall and deal 7 damage each
+  img: {fileID: 0}
+  frequency: 2
+  useCost: 10
   value: 7
   count: 10

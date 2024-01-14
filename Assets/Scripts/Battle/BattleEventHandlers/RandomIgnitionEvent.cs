@@ -22,7 +22,7 @@ namespace Battle.BattleEventHandlers
             if (log is not TurnLog) return;
             
             moves -= 1;
-            if (Tools.RandomChance(chance))
+            if (Tools.Random.RandomChance(chance))
             {
                 unit.StartBurning(moves);
             }

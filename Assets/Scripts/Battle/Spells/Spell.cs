@@ -9,12 +9,9 @@ using UnityEngine;
 namespace Battle.Spells
 {
     [Serializable]
-    public abstract class Spell : ScriptableObject, IGetAble
+    public abstract class Spell : GetAble
     {
         [SerializeField] public int useCost;
-
-        [SerializeField] private string title;
-        [SerializeField] private string description;
 
         [SerializeField] protected float value;
 
@@ -23,13 +20,17 @@ namespace Battle.Spells
         protected Unit unitBelong;
 
         protected BattleManager manager;
-        public string Title => title;
-        public string Description => description;
 
         public void Init(Unit unit)
         {
             unitBelong = unit;
             manager = FindFirstObjectByType<BattleManager>();
+        }
+
+        public override void Get()
+        {
+            Player.data.spells.Add(this);
+            base.Get();
         }
 
         public abstract void Cast();
@@ -43,7 +44,5 @@ namespace Battle.Spells
         {
             return manager.State != BattleState.Turn || manager.player.mana < useCost;
         }
-        
-        public virtual void OnGet() {}
     }
 }

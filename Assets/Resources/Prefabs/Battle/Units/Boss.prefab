@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 140012415583805548, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 206104598658394738, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.000052316
@@ -35,6 +39,10 @@ PrefabInstance:
     - target: {fileID: 2027260312934949208, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104152135721967764, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3086738334417198092, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: unit
@@ -236,6 +244,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7794689748232265049}
   m_SourcePrefab: {fileID: 100100000, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+--- !u!114 &274481621398181666 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4254096913419558529, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+  m_PrefabInstance: {fileID: 4091151985480993187}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b57a46949fe450caca048e77e2f3c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2658521867484571899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2027260312934949208, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
@@ -265,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2524805ede9714a8c8b36cd08db845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp:
+  hp:
     borderDown: 0
     borderUp: 350
     value: 350
@@ -301,6 +320,7 @@ MonoBehaviour:
       borderUp: 0
       value: 0
   chosenElement: 2
+  modIconGrid: {fileID: 274481621398181666}
   allMods: []
   items: []
   spells:

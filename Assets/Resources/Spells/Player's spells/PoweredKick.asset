@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31fd308d574f9c4091b22062415680e, type: 3}
   m_Name: PoweredKick
   m_EditorClassIdentifier: 
-  useCost: 20
   title: Powered Kick
   description: Skip one turn and make *2.5 dmg next turn
+  img: {fileID: 0}
+  frequency: 3
+  useCost: 20
   value: 2.5
   count: 1

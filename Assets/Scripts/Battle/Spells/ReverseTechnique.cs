@@ -13,7 +13,7 @@ namespace Battle.Spells
 
             unitBelong.mana.Waste(useCost);
             LogUsage();
-            foreach (Modifier mod in unitBelong.allMods.Where(v => !v.IsPositive))
+            foreach (Modifier mod in unitBelong.allMods.Where(v => !v.isPositive))
             {
                 mod.TurnOff();
             }

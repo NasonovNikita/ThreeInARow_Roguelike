@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Discount coupon
   description: A good (on sale) in the shop costs now 50% instead of 80%
+  img: {fileID: 0}
+  frequency: 1
   sale: 0.5

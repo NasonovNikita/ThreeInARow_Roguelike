@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: Hypnosis
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 64fe9de317ac3f04fa48c5dfd69538a7, type: 2}
-  type: 1
+  target: {fileID: 11400000, guid: 64fe9de317ac3f04fa48c5dfd69538a7, type: 2}
   price: 19
-  frequency: 3

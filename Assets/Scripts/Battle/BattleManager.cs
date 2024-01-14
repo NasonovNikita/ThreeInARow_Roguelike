@@ -1,15 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
 using Battle.Config;
 using Battle.Match3;
-using Battle.Spells;
 using Battle.Units;
 using Core;
-using UI;
-using Unity.VisualScripting;
+using Core.Saves;
+using UI.Battle;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,7 +27,7 @@ namespace Battle
 
         private const float FightTime = 0.2f;
 
-        public static EnemyGroup group;
+        public static EnemyGroup enemyGroup = new();
 
         public Enemy target;
     
@@ -54,7 +52,7 @@ namespace Battle
             grid = FindFirstObjectByType<Grid>();
 
 
-            enemiesPrefabs = group.GetEnemies();
+            enemiesPrefabs = enemyGroup.GetEnemies();
 
             for (int i = 0; i < enemiesPrefabs.Count; i++)
             {
@@ -64,7 +62,7 @@ namespace Battle
 
             AudioManager.instance.Play(AudioEnum.Battle);
         
-            GameManager.instance.SaveData();
+            SavesManager.SaveGame();
         
             BattleInterfacePlacement placement = FindFirstObjectByType<BattleInterfacePlacement>();
             placement.Place();
@@ -127,7 +125,6 @@ namespace Battle
 
         public void ApplyConfig()
         {
-            LoadSpells();
             _placer = FindFirstObjectByType<EnemyPlacer>();
             _placer.enemiesToPlace = enemies;
             _placer.Place();
@@ -146,7 +143,7 @@ namespace Battle
             BattleEndLog.Log();
             grid.Block();
             player.Save();
-            Player.data.money += group.reward;
+            Player.data.money += enemyGroup.reward;
             BattleLog.Clear();
             Log.UnAttach();
             SceneManager.LoadScene("Map");
@@ -173,7 +170,7 @@ namespace Battle
                 yield return new WaitUntil(() => grid.state == GridState.Blocked);
                 yield return new WaitForSeconds(FightTime);
             
-                if (player.Hp <= 0) yield break;
+                if (player.hp <= 0) yield break;
             }
 
             TurnLog.Log();
@@ -195,7 +192,7 @@ namespace Battle
             State = BattleState.End;
             grid.Block();
         
-            GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, _canvas.transform, false);
+            GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, _canvas.transform);
             var buttons = menu.GetComponentsInChildren<Button>();
             buttons[0].onClick.AddListener(GameManager.instance.NewGame);
             buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
@@ -208,22 +205,6 @@ namespace Battle
             Enemy enemy = Instantiate(enemiesPrefabs[i], _canvas.transform, false);
             enemy.TurnOn();
             return enemy;
-        }
-
-        private void LoadSpells()
-        {
-            var spells = FindFirstObjectByType<SpellsContainer>();
-            var spellButtons = spells.GetComponentsInChildren<Button>();
-            for (int i = 0; i < player.spells.Count && i < 4; i++)
-            {
-                Button btn = spellButtons[i];
-                Spell spell = player.spells[i];
-                btn.AddComponent<DevDebugAbleObject>();
-                btn.GetComponent<DevDebugAbleObject>().text = spell.Description;
-                btn.onClick.AddListener(spell.Cast);
-                Text text = btn.GetComponentInChildren<Text>();
-                text.text = spell.Title + " " + spell.useCost;
-            }
         }
     }
 }

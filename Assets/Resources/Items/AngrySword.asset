@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Angry sword
   description: If you have less then 50 hp you deal 25% more dmg
+  img: {fileID: 0}
+  frequency: 2
   hpLessThen: 50
   bonus: 0.25

@@ -8,7 +8,7 @@ namespace Battle.Units.Stats
     [Serializable]
     public class Mana : Stat
     {
-        private List<Modifier> manaMods = new ();
+        private List<Modifier> mods = new ();
 
         public Mana(int value, int borderUp, int borderDown = 0) : base(value, borderUp, borderDown) {}
 
@@ -34,16 +34,17 @@ namespace Battle.Units.Stats
 
         public void AddMod(Modifier mod)
         {
-            manaMods.Add(mod);
+            mods ??= new List<Modifier>();
+            mods.Add(mod);
         }
 
         private int UseManaMods(int val, ModClass workPattern)
         {
-            if (manaMods == null) return val;
+            if (mods == null) return val;
             
-            var where = manaMods.Where(v => v.workPattern == workPattern).ToList();
-            float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use());
-            int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use());
+            var where = mods.Where(v => v.workPattern == workPattern).ToList();
+            float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use);
+            int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use);
             return (int)(val * mulVal) + addVal;
         }
     }

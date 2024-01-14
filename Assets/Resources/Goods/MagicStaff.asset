@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: MagicStaff
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 802fe485b224e8a4bbb4bc2c3061daa5, type: 2}
-  type: 0
+  target: {fileID: 11400000, guid: 802fe485b224e8a4bbb4bc2c3061daa5, type: 2}
   price: 16
-  frequency: 3

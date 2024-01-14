@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Weakling's shield
   description: You lose 1 dmg, but you get 10 less dmg from hits
+  img: {fileID: 0}
+  frequency: 2
   lostDamage: 1
   notGottenDamage: 10

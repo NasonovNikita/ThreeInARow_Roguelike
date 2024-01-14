@@ -39,8 +39,10 @@ namespace Map
         {
             (VertexType.Battle, 13),
             (VertexType.Shop, 9),
-            (VertexType.Treasure, 3)
+            //(VertexType.Treasure, 3)
         };
+
+        [SerializeField] private int treasureFrequency;
 
         private List<Good> allGoods;
         
@@ -83,11 +85,11 @@ namespace Map
 
         private List<List<Vertex>> Generate()
         {
-            List<List<Vertex>> layers = new() { new List<Vertex> { GenTreasure(0)} };
+            List<List<Vertex>> layers = new() { new List<Vertex> { GenBattle(0)} };
 
             for (int i = 1; i < depth - 1; i++)
             {
-                layers.Add(GenLayer(i));
+                layers.Add((i + 1) % treasureFrequency == 0 ? new List<Vertex>(GenTreasureLayer(i)) : GenLayer(i));
             }
 
             layers.Add(new List<Vertex> { GenBoss(depth) });
@@ -166,6 +168,20 @@ namespace Map
             return resultLayer;
         }
 
+        private List<TreasureVertex> GenTreasureLayer(int layer)
+        {
+            List<TreasureVertex> resultLayer = new();
+
+            int width = Random.Range(minWidth, maxWidth + 1);
+
+            for (int i = 0; i < width; i++)
+            {
+                resultLayer.Add(GenTreasure(layer));
+            }
+
+            return resultLayer;
+        }
+
         private List<List<(int, int)>> BindLayers(List<List<Vertex>> layers)
         {
             List<List<(int, int)>> bounds = new();
@@ -206,7 +222,7 @@ namespace Map
             int chosenDifficulty = allowedGroups.Select(v => v.Difficulty).Aggregate((min, next) =>
                 Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
 
-            vertex.group = Tools.RandomChoose(
+            vertex.group = Tools.Random.RandomChoose(
                 allowedGroups.Where(v => v.Difficulty == chosenDifficulty).ToList()
                 );
 
@@ -249,7 +265,7 @@ namespace Map
             int chosenDifficulty = allowedGroups.Select(v => v.Difficulty).Aggregate((min, next) =>
                 Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
 
-            vertex.group = Tools.RandomChoose(
+            vertex.group = Tools.Random.RandomChoose(
                 allowedGroups.Where(v => v.Difficulty == chosenDifficulty).ToList()
             );
 
@@ -259,22 +275,22 @@ namespace Map
         private Good ChooseGood(int layer)
         {
             List<(Good, int)> chances = allGoods
-                .Select(good => (good, (int) Math.Pow(good.frequency, -layer))).ToList();
+                .Select(good => (good, (int) Math.Pow(good.target.frequency, -layer))).ToList();
 
-            return Tools.RandomChooseWithChances(chances);
+            return Tools.Random.RandomChooseWithChances(chances);
         }
 
         private GetAble ChooseTreasure(int layer)
         {
-            var treasures = Resources.LoadAll<GetAble>("Goods")
-                .Select(tr => (tr, (int) Math.Pow(tr.frequency, -layer))).ToList();
+            var treasures = Resources.LoadAll<Good>("Goods")
+                .Select(good => (tr: good, (int) Math.Pow(good.target.frequency, -layer))).ToList();
 
-            return Tools.RandomChooseWithChances(treasures);
+            return Tools.Random.RandomChooseWithChances(treasures).target;
         }
 
         private Vertex GenVertex(int layer)
         {
-            VertexType type = Tools.RandomChooseWithChances(vertexesByChance);
+            VertexType type = Tools.Random.RandomChooseWithChances(vertexesByChance);
 
             return type switch
             {

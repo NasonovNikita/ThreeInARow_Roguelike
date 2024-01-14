@@ -6,7 +6,9 @@ using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Stats;
 using Other;
+using UI.Battle;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Grid = Battle.Match3.Grid;
 using Random = UnityEngine.Random;
 
@@ -14,7 +16,7 @@ namespace Battle.Units
 {
     public abstract class Unit : MonoBehaviour
     {
-        public UnitHp Hp;
+        [FormerlySerializedAs("Hp")] public Hp hp;
         public Mana mana;
 
         public int manaPerGem;
@@ -22,6 +24,8 @@ namespace Battle.Units
         public UnitDamage unitDamage;
 
         [SerializeField] protected internal DmgType chosenElement;
+
+        [SerializeField] private ModIconGrid modIconGrid;
 
         private StateAnimationController stateAnimationController;
 
@@ -38,15 +42,16 @@ namespace Battle.Units
         protected BattleManager manager;
 
         private bool IsMissingOnFreeze =>
-           Random.Range(1, 101) <= (allMods.Exists(v => v.type is ModType.Freezing) ? 40 : 0);
+            Random.Range(1, 101) <=
+            (allMods.Exists(v => v.type is ModType.Freezing) ? Modifier.MissingOnFreezingChance : 0);
 
         public bool canFullyFreeze;
 
         public void Update()
         {
-            if (!allMods.Exists(mod => mod.type == ModType.Burning && mod.Use() != 0)) StopBurning();
-            if (!allMods.Exists(mod => mod.type == ModType.Poisoning && mod.Use() != 0)) StopPoisoning();
-            if (!allMods.Exists(mod => mod.type == ModType.Freezing && mod.Use() != 0)) StopFreezing();
+            if (!allMods.Exists(mod => mod.type == ModType.Burning && mod.Use != 0)) StopBurning();
+            if (!allMods.Exists(mod => mod.type == ModType.Poisoning && mod.Use != 0)) StopPoisoning();
+            if (!allMods.Exists(mod => mod.type == ModType.Freezing && mod.Use != 0)) StopFreezing();
         }
 
         protected void TurnOn()
@@ -57,6 +62,8 @@ namespace Battle.Units
             stateAnimationController = GetComponentInChildren<StateAnimationController>();
         
             Tools.InstantiateAll(items);
+            
+            ShowPermanentMods();
 
             foreach (Item item in items)
             {
@@ -98,9 +105,9 @@ namespace Battle.Units
         public virtual void DoDamage(Damage dmg)
         {
 
-            GotDamageLog.Log(this, Hp.DoDamage(dmg));
+            GotDamageLog.Log(this, hp.DoDamage(dmg));
 
-            if (Hp == 0)
+            if (hp == 0)
             {
                 NoHp();
             }
@@ -112,7 +119,7 @@ namespace Battle.Units
 
         public bool Stunned()
         {
-            return allMods.Exists(mod => mod.type == ModType.Stun && mod.Use() != 0);
+            return allMods.Exists(mod => mod.type == ModType.Stun && mod.Use != 0);
         }
 
         private void UseElementOnDestroyed(IReadOnlyDictionary<GemType, int> destroyed, Unit target)
@@ -120,13 +127,13 @@ namespace Battle.Units
             switch (chosenElement)
             {
                 case DmgType.Light when destroyed[GemType.Yellow] != 0:
-                    Hp.Heal(5 * destroyed[GemType.Yellow]);
+                    hp.Heal(5 * destroyed[GemType.Yellow]);
                     break;
                 case DmgType.Fire when destroyed[GemType.Red] != 0:
                     target.StartBurning(1);
                     break;
                 case DmgType.Cold when destroyed[GemType.Blue] != 0:
-                    if (canFullyFreeze && Tools.RandomChance(50))
+                    if (canFullyFreeze && Tools.Random.RandomChance(50))
                     {
                         target.Stun(1);
                         target.AddMod(new Modifier(1, ModType.Frozen));
@@ -163,7 +170,7 @@ namespace Battle.Units
                 delay: true)
             );
             AddHpMod(new Modifier(moves + 1, ModType.Mul,
-                ModClass.DamageBase, isPositive: false, value: 0.25f));
+                ModClass.HpDamageBase, isPositive: false, value: 0.25f));
             stateAnimationController.AddState(UnitStates.Burning);
         }
 
@@ -178,7 +185,7 @@ namespace Battle.Units
             );
             try
             {
-                allMods.First(v => v.IsPositive).TurnOff();
+                allMods.First(v => v.isPositive).TurnOff();
             }
             catch
             {
@@ -214,25 +221,34 @@ namespace Battle.Units
 
         public void AddHpMod(Modifier mod)
         {
-            Hp.AddMod(mod);
-            allMods.Add(mod);
+            hp.AddMod(mod);
+            AddMod(mod);
         }
 
         public void AddDamageMod(Modifier mod)
         {
             unitDamage.AddMod(mod);
-            allMods.Add(mod);
+            AddMod(mod);
         }
 
         public void AddManaMod(Modifier mod)
         {
             mana.AddMod(mod);
-            allMods.Add(mod);
+            AddMod(mod);
         }
 
         public void AddMod(Modifier mod)
         {
             allMods.Add(mod);
+            modIconGrid.Add(mod);
+        }
+
+        private void ShowPermanentMods()
+        {
+            foreach (Modifier mod in allMods)
+            {
+                modIconGrid.Add(mod);
+            }
         }
 
         protected virtual void NoHp()

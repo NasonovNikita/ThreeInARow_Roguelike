@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: ReverseTechnique
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 8758dab389a4c5b4280eb17f88c099d8, type: 2}
-  type: 1
+  target: {fileID: 11400000, guid: 8758dab389a4c5b4280eb17f88c099d8, type: 2}
   price: 39
-  frequency: 1

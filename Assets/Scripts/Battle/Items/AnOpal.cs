@@ -17,7 +17,7 @@ namespace Battle.Items
             {
                 ((GotDamageLog)BattleLog.GetLastLog()).GetData.Item1
                     .AddHpMod(new Modifier(moves, ModType.Mul,
-                        ModClass.DamageBase, isPositive: false, value: value));
+                        ModClass.HpDamageBase, isPositive: false, value: value));
             });
         }
     }

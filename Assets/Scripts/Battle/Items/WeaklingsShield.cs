@@ -15,7 +15,7 @@ namespace Battle.Items
         public override void OnGet()
         {
             Player.data.damage.phDmg.ChangeBorderUp(-lostDamage, -lostDamage);
-            Player.data.unitHp.AddMod(new Modifier(-1, ModType.Add, ModClass.DamageBase, value: -notGottenDamage));
+            Player.data.AddHpMod(new Modifier(-1, ModType.Add, ModClass.HpDamageBase, value: -notGottenDamage));
         }
     }
 }

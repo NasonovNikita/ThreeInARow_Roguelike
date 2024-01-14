@@ -14,14 +14,14 @@ namespace Battle.Spells
             {
                 if (Player.data.mana <= useCost) return;
                 Player.data.mana.Waste(useCost);
-                Player.data.unitHp.Heal((int) (Player.data.unitHp.value * value));
+                Player.data.hp.Heal((int) (Player.data.hp.value * value));
             }
             else
             {
                 if (CantCast()) return;
                 unitBelong.mana.Waste(useCost);
                 LogUsage();
-                unitBelong.Hp.Heal((int) (unitBelong.Hp.value * value));
+                unitBelong.hp.Heal((int) (unitBelong.hp.value * value));
             }
         }
     }

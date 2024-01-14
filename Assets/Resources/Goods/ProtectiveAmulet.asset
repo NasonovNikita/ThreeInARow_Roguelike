@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: ProtectiveAmulet
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: b5ec2131d1ed1ff4184d29ff6c22bfd4, type: 2}
-  type: 0
+  target: {fileID: 11400000, guid: b5ec2131d1ed1ff4184d29ff6c22bfd4, type: 2}
   price: 15
-  frequency: 3

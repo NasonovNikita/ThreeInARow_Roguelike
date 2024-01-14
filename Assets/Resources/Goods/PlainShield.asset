@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: PlainShield
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 54e8cced75ce78b42888b86f0b84f181, type: 2}
-  type: 0
+  target: {fileID: 11400000, guid: 54e8cced75ce78b42888b86f0b84f181, type: 2}
   price: 14
-  frequency: 3

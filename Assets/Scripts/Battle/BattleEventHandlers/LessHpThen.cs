@@ -24,11 +24,11 @@ namespace Battle.BattleEventHandlers
             
             switch (worked)
             {
-                case false when unit.Hp <= value:
+                case false when unit.hp <= value:
                     onAppear?.Invoke();
                     worked = true;
                     break;
-                case true when unit.Hp > value:
+                case true when unit.hp > value:
                     worked = false;
                     break;
             }

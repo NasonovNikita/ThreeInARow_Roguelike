@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
   m_Name: WeaklingsShield
   m_EditorClassIdentifier: 
-  good: {fileID: 11400000, guid: 8365e57a2b8b5824597fc9d74c2c2149, type: 2}
-  type: 0
+  target: {fileID: 11400000, guid: 8365e57a2b8b5824597fc9d74c2c2149, type: 2}
   price: 20
-  frequency: 2

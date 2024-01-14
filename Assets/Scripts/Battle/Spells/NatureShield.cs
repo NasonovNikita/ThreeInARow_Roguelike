@@ -12,7 +12,7 @@ namespace Battle.Spells
 
             unitBelong.mana.Waste(useCost);
             LogUsage();
-            unitBelong.AddHpMod(new Modifier(count, ModType.Add, ModClass.DamageBase, value: -value));
+            unitBelong.AddHpMod(new Modifier(count, ModType.Add, ModClass.HpDamageBase, value: -value));
         }
     }
 }
