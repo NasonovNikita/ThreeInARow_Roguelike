@@ -14,5 +14,9 @@ namespace Battle.Spells
             LogUsage();
             manager.target.AddMod(new Modifier(count, ModType.Blind));
         }
+
+        public override string Title => "Hypnosis";
+
+        public override string Description => "Chosen enemy can't see the grid (he does random things)";
     }
 }

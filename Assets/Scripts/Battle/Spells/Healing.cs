@@ -1,5 +1,4 @@
 using Battle.Units;
-using Battle.Units.Stats;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,5 +23,9 @@ namespace Battle.Spells
                 unitBelong.hp.Heal((int) (unitBelong.hp.value * value));
             }
         }
+
+        public override string Title => "Healing";
+
+        public override string Description => $"Heal {Other.Tools.Percents(value)}% of maximum hp";
     }
 }

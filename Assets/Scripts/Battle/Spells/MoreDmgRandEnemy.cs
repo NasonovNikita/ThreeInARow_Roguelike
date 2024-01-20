@@ -24,5 +24,9 @@ namespace Battle.Spells
             Tools.Random.RandomChoose(possible).AddDamageMod(new Modifier(count, ModType.Add,
                 ModClass.DamageBase, value: value, delay: true));
         }
+
+        public override string Title => throw new System.NotImplementedException();
+
+        public override string Description => throw new System.NotImplementedException();
     }
 }

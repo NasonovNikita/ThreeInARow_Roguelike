@@ -11,5 +11,9 @@ namespace Battle.Spells
             LogUsage();
             manager.player.StartBurning(count);
         }
+
+        public override string Title => throw new System.NotImplementedException();
+
+        public override string Description => throw new System.NotImplementedException();
     }
 }

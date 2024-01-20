@@ -1,5 +1,4 @@
 using Battle.Modifiers;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -18,5 +17,9 @@ namespace Battle.Spells
                 ModClass.DamageBase, value: value));
             manager.EndTurn();
         }
+
+        public override string Title => "Powered Kick";
+
+        public override string Description => $"Skip one turn and make *{value} dmg next turn";
     }
 }

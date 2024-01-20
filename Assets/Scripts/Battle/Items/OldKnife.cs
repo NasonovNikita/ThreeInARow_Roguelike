@@ -1,6 +1,5 @@
 using Battle.Modifiers;
 using Battle.Units;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Items
@@ -10,6 +9,10 @@ namespace Battle.Items
     {
         [SerializeField] private int value;
         public override void Use(Unit unitBelong) {}
+
+        public override string Title => "Old Knife";
+
+        public override string Description => $"+{value} physical dmg (per gem)";
 
         public override void OnGet()
         {

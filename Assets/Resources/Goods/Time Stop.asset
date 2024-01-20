@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Time Stop
   m_EditorClassIdentifier: 
   target: {fileID: 11400000, guid: 2194ff7baed3251429da792785f7051a, type: 2}
-  price: 35
+  price: 70

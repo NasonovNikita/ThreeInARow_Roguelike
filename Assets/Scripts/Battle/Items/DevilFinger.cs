@@ -19,5 +19,10 @@ namespace Battle.Items
                     ModClass.DamageTypedStat, value: value, always: true));
             });
         }
+
+        public override string Title => "Devil Finger";
+
+        public override string Description =>
+            $"If you don't use any spells in a fight you gain {value} physical dmg forever";
     }
 }

@@ -13,5 +13,9 @@ namespace Battle.Spells
             LogUsage();
             manager.player.Target.StartPoisoning(count);
         }
+
+        public override string Title => "Toxic Release";
+
+        public override string Description => $"Enemy gets poisoned for {count} turns";
     }
 }

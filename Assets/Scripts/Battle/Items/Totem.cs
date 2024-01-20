@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Battle.Items
 {
+    [CreateAssetMenu(fileName = "Totem", menuName = "Items/Totem")]
     public class Totem : Item
     {
         [SerializeField] private int chance;
@@ -21,5 +22,8 @@ namespace Battle.Items
                 }
             });
         }
+
+        public override string Title => "Totem";
+        public override string Description => "You are immortal... or not";
     }
 }

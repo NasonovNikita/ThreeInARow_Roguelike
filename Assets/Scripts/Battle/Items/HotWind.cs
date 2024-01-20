@@ -16,11 +16,15 @@ namespace Battle.Items
             new EveryTurn(() => {
                 for (int i = 0; i < enemies.Count; i++)
                 {
-                    if (enemies[i] == null || !Tools.Random.RandomChance(chance) || !enemies[i].IsBurning) continue;
+                    if (enemies[i] == null || !enemies[i].IsBurning || !Tools.Random.RandomChance(chance)) continue;
                     if (i > 0 && enemies[i - 1] != null) enemies[i - 1].StartBurning(1);
                     if (i < enemies.Count - 1 && enemies[i + 1] != null) enemies[i + 1].StartBurning(1);
                 }
             });
         }
+
+        public override string Title => "Hot Wind";
+
+        public override string Description => $"Fire can spread to other enemies with {chance}% chance";
     }
 }

@@ -1,6 +1,5 @@
 using Battle.BattleEventHandlers;
 using Battle.Modifiers;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -22,5 +21,11 @@ namespace Battle.Spells
             unitBelong.AddMod(new Modifier(count, ModType.Ignition));
             new RandomIgnitionEvent(chance, unitBelong, count);
         }
+
+        public override string Title => "Hot Blood";
+
+        public override string Description =>
+            $"You may start burning at any of next {count} turns wih chance {Other.Tools.Percents(chance)}% each." +
+            $"Gain {(int)value} physical dmg (per gem)";
     }
 }

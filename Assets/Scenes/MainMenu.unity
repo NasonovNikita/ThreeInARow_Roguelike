@@ -659,7 +659,14 @@ MonoBehaviour:
   damageMod: {fileID: -460376368110710891, guid: 27afab3641c169b428409c0e136685c0, type: 3}
   manaMod: {fileID: 7946027417908342247, guid: d08bbbebaf761954bb19bc3ec975123d, type: 3}
   shield: {fileID: -4471335532245260209, guid: b995ee947cebe454a8db8e1c55fb8efc, type: 3}
-  empty: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  shieldBroken: {fileID: -2178008437945911462, guid: 7252fe79edb0e9943be11046c2987f06, type: 3}
+  hpHealing: {fileID: -3094117710451779448, guid: 284e30720a629de4697c930bf25d6c18, type: 3}
+  stun: {fileID: -1937328843035238197, guid: e67749658568bdc41bb42430f9752772, type: 3}
+  blind: {fileID: 3982692101418181550, guid: c3392904f7e254b4a8ef5ece290a4de3, type: 3}
+  irritation: {fileID: -4733730143810245763, guid: bbd974a0f96397f4ea4f879813f7d12c, type: 3}
+  ignition: {fileID: -8821602397545208518, guid: 4c2e3660853cfb142bf8963cf51b41b4, type: 3}
+  frozen: {fileID: -3155156524847520945, guid: bf0246b39d4736741b858dba63f03d7f, type: 3}
+  empty: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
 --- !u!4 &377600849
 Transform:
   m_ObjectHideFlags: 0
@@ -2257,6 +2264,7 @@ MonoBehaviour:
   down: {fileID: 1833940878}
   left: {fileID: 1373263762}
   right: {fileID: 1880848633}
+  goodsCountInShop: 4
   treasureFrequency: 3
 --- !u!4 &1979068991
 Transform:

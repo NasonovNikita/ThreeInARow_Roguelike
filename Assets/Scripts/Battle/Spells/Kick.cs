@@ -14,5 +14,9 @@ namespace Battle.Spells
             PToEDamageLog.Log(manager.target, manager.player, new Damage(mDmg: (int) value));
             manager.target.DoDamage(new Damage(mDmg: (int) value));
         }
+
+        public override string Title => "Kick";
+
+        public override string Description => $"Deal {value} dmg";
     }
 }

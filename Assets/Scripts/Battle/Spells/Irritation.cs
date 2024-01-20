@@ -16,5 +16,10 @@ namespace Battle.Spells
             unitBelong.AddMod(new Modifier(-1, ModType.Irritated, value: value));
             new IrritationEvent(value, unitBelong);
         }
+
+        public override string Title => "Irritation";
+
+        public override string Description =>
+            $"If no enemy dies in this turn gain +{(int)value} Physical damage (per gem)";
     }
 }

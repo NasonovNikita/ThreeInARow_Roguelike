@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f52e2d0a8bc47cc9b688d4bc0136e7b, type: 3}
   m_Name: ChainLightning
   m_EditorClassIdentifier: 
-  title: Chain Lighning
-  description: Deals 35 damage each enemy. additional 20% dmg to every next enemy
+  rarity: 2
   img: {fileID: 0}
-  frequency: 1
   useCost: 47
   value: 35
   count: 0

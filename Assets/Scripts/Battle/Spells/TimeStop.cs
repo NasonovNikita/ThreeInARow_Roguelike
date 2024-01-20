@@ -20,5 +20,9 @@ namespace Battle.Spells
                 enemy.AddMod(new Modifier(count, ModType.Stun));
             }
         }
+
+        public override string Title => "Time Stop";
+
+        public override string Description => "Enemies skip this turn";
     }
 }

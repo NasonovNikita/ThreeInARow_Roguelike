@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96db2085b7a54305b25f7a509c0d4df7, type: 3}
   m_Name: Inferno
   m_EditorClassIdentifier: 
-  title: Inferno
-  description: BURN THEM ALL
+  rarity: 3
   img: {fileID: 0}
-  frequency: 1
   useCost: 95
   value: 65
   count: 2

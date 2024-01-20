@@ -14,5 +14,9 @@ namespace Battle.Spells
             PToEDamageLog.Log(manager.target, manager.player, new Damage(lDmg: 30));
             manager.target.DoDamage(new Damage(lDmg: 30));
         }
+
+        public override string Title => "Arrow Of Light";
+
+        public override string Description => $"Deal {value} light dmg";
     }
 }

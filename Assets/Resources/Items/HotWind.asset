@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8547d042fb4785b01a35cf2b0ba023, type: 3}
   m_Name: HotWind
   m_EditorClassIdentifier: 
-  title: Hot wind
-  description: Fire can spread to other enemies with 50% chance
-  img: {fileID: 0}
-  frequency: 2
+  rarity: 1
+  img: {fileID: 3684674694779866792, guid: 540a7d1d647255d4eafb4b4947a94fa6, type: 3}
   chance: 50

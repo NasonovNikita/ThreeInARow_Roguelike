@@ -11,7 +11,7 @@ namespace Shop
     [Serializable]
     public class Good : ScriptableObject
     {
-        [SerializeField] public GetAble target;
+        [SerializeField] public LootItem target;
         [SerializeField] public int price;
 
         public void TryBuy(Action onBuy)

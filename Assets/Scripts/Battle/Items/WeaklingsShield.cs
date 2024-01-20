@@ -1,6 +1,5 @@
 using Battle.Modifiers;
 using Battle.Units;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Items
@@ -12,10 +11,16 @@ namespace Battle.Items
         [SerializeField] private int notGottenDamage;
         public override void Use(Unit unitBelong) {}
 
+        public override string Title => "Weaklings Shield";
+
+        public override string Description =>
+            $"You lose {lostDamage} dmg, but you get {notGottenDamage} less dmg from hits";
+
         public override void OnGet()
         {
             Player.data.damage.phDmg.ChangeBorderUp(-lostDamage, -lostDamage);
-            Player.data.AddHpMod(new Modifier(-1, ModType.Add, ModClass.HpDamageBase, value: -notGottenDamage));
+            Player.data.AddHpMod(new Modifier(-1, ModType.Add, 
+                ModClass.HpDamageBase, value: -notGottenDamage));
         }
     }
 }

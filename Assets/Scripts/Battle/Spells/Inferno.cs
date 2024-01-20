@@ -21,5 +21,9 @@ namespace Battle.Spells
                 PToEDamageLog.Log(enemy, manager.player, dmg);
             }
         }
+
+        public override string Title => "Inferno";
+
+        public override string Description => "BURN THEM ALL";
     }
 }

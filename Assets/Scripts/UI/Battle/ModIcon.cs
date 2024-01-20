@@ -29,6 +29,7 @@ namespace UI.Battle
 
         public static void Create(Modifier mod, Transform parentTransform)
         {
+            if (mod.Sprite is null) return;
             ModIcon icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);
             icon.mod = mod;
             icon.img.sprite = mod.Sprite;

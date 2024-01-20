@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb7dbc860c947d381bcbfd23aff530c, type: 3}
   m_Name: AngrySword
   m_EditorClassIdentifier: 
-  title: Angry sword
-  description: If you have less then 50 hp you deal 25% more dmg
-  img: {fileID: 0}
-  frequency: 2
+  rarity: 1
+  img: {fileID: -9145872144641401073, guid: 1081d644ac468a34b84de0c1c4ff1490, type: 3}
   hpLessThen: 50
   bonus: 0.25

@@ -22,5 +22,10 @@ namespace Battle.Items
                 }
             });
         }
+
+        public override string Title => "Vampire Fangs";
+
+        public override string Description =>
+            $"If you dealt more than {from} you heal {to}-[dealt dmg], but not less than {minHeal}";
     }
 }

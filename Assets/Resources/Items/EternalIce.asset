@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0760ac3605aa4d979996261bd6311ef5, type: 3}
   m_Name: EternalIce
   m_EditorClassIdentifier: 
-  title: Eternal ice
-  description: Cold can totally freeze enemies (stun)
-  img: {fileID: 0}
-  frequency: 2
+  rarity: 1
+  img: {fileID: -4063696478675185403, guid: efb2a969113516c4daff7f6249e78594, type: 3}

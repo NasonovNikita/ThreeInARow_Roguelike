@@ -7,17 +7,32 @@ namespace Map.Vertexes
 {
     public class BattleVertex : Vertex
     {
-        public EnemyGroup group;
-    
+        public bool isBoss;
+        
         public override void OnArrive()
         {
-            BattleManager.enemyGroup = group;
+            SetRandom();
+
+            BattleManager.enemyGroup = isBoss ? generator.ChooseBoss(layer) : generator.ChooseBattleEnemyGroup(layer);
+            
             SceneManager.LoadScene("Battle");
+            
+            ResetRandom();
         }
 
-        public static BattleVertex Create()
+        public static BattleVertex Create(int layer, int randomSeed)
         {
-            return (BattleVertex) Vertex.Create(PrefabsContainer.instance.battleVertex);
+            BattleVertex vertex =
+                (BattleVertex)Vertex.Create(PrefabsContainer.instance.battleVertex, layer, randomSeed);
+            return vertex;
+        }
+        
+        public static BattleVertex CreateBoss(int layer, int randomSeed)
+        {
+            BattleVertex vertex =
+                (BattleVertex)Vertex.Create(PrefabsContainer.instance.battleVertex, layer, randomSeed);
+            vertex.isBoss = true;
+            return vertex;
         }
     }
 }

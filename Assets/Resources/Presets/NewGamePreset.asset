@@ -47,11 +47,9 @@ MonoBehaviour:
       borderUp: 0
       value: 0
   items:
-  - {fileID: 11400000, guid: 802fe485b224e8a4bbb4bc2c3061daa5, type: 2}
-  - {fileID: 11400000, guid: 54e8cced75ce78b42888b86f0b84f181, type: 2}
+  - {fileID: 11400000, guid: 06ce3cab4161cb64ca0ad2fb9d2efdb6, type: 2}
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
-  - {fileID: 11400000, guid: 1af1f60f705b24c44b9842b0a7b87e54, type: 2}
   allMods: []
   manaPerGem: 20
   chosenElement: 4

@@ -14,5 +14,9 @@ namespace Battle.Spells
             LogUsage();
             manager.player.AddHpMod(new Modifier(count, ModType.Mul, ModClass.HpDamageBase, value: -value));
         }
+
+        public override string Title => "Magic Shield";
+
+        public override string Description => $"Get {Other.Tools.Percents(value)}% less damage this turn";
     }
 }

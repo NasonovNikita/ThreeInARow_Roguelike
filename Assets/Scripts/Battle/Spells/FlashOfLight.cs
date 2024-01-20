@@ -18,5 +18,9 @@ namespace Battle.Spells
                 enemy.AddMod(new Modifier(count, ModType.Blind));
             }
         }
+
+        public override string Title => "Flash Of Light";
+
+        public override string Description => "Enemies can't see the grid (they do random things)";
     }
 }

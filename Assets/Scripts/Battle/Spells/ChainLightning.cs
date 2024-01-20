@@ -27,5 +27,11 @@ namespace Battle.Spells
                 PToEDamageLog.Log(enemy, manager.player, dmg);
             }
         }
+
+        public override string Title => "Chain Lightning";
+
+        public override string Description =>
+            $"Deals {value} damage each enemy." +
+            $"Additional {Other.Tools.Percents(rise)}% dmg to every next enemy";
     }
 }

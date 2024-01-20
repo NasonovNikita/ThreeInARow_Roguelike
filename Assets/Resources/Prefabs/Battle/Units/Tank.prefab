@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 2735305886077348151, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4123007537647643087, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

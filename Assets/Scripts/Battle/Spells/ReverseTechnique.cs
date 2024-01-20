@@ -18,5 +18,9 @@ namespace Battle.Spells
                 mod.TurnOff();
             }
         }
+
+        public override string Title => "Reverse Technique";
+
+        public override string Description => "Delete all your negative mods";
     }
 }

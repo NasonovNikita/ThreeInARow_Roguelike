@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f2068c99554e64aaafa2f887cfd102, type: 3}
   m_Name: Weakling'sShield
   m_EditorClassIdentifier: 
-  title: Weakling's shield
-  description: You lose 1 dmg, but you get 10 less dmg from hits
+  rarity: 1
   img: {fileID: 0}
-  frequency: 2
   lostDamage: 1
   notGottenDamage: 10

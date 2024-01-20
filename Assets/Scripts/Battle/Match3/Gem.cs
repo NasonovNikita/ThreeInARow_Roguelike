@@ -36,7 +36,7 @@ namespace Battle.Match3
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            StartCoroutine(grid.OnClick(this));
+            if (eventData.button == PointerEventData.InputButton.Left) StartCoroutine(grid.OnClick(this));
         }
     }
 }

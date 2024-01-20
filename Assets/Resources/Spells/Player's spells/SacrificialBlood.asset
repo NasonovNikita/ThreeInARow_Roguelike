@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a46c20946045a29bc5791b99c703cf, type: 3}
   m_Name: SacrificialBlood
   m_EditorClassIdentifier: 
+  rarity: 4
+  img: {fileID: 0}
   useCost: 10
-  title: Sacrificial blood
-  description: NO ONE ESCAPES
   value: 0
   count: 0

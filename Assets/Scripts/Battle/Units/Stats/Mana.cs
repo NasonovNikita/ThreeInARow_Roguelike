@@ -22,6 +22,7 @@ namespace Battle.Units.Stats
         {
             val = Math.Max(0, UseManaMods(val, ModClass.ManaRefill));
             value += val;
+            Norm();
             return val;
         }
 

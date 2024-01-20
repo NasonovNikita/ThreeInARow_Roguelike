@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f286bd72834f4fdfba2984e832ce892f, type: 3}
-  m_Name: LongBraid
+  m_Name: LongScythe
   m_EditorClassIdentifier: 
-  title: Long Braid
-  description: You can hit enemies from any raw
+  rarity: 1
   img: {fileID: 0}
-  frequency: 2

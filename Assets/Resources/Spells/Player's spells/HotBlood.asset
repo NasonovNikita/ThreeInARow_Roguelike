@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef9d2e8c1894dae99ace08e2c93f94c, type: 3}
   m_Name: HotBlood
   m_EditorClassIdentifier: 
-  title: Hot blood
-  description: You may start burning at any of next 3 turns wih chance 30% each.
-    Gain 3 physical dmg (per gem)
+  rarity: 1
   img: {fileID: 0}
-  frequency: 2
   useCost: 53
   value: 3
   count: 3

@@ -21,5 +21,9 @@ namespace Battle.Spells
                 PToEDamageLog.Log(manager.enemies[index], manager.player, dmg);
             }
         }
+
+        public override string Title => "Money Rain";
+
+        public override string Description => $"Coins fall and deal {(int) value} damage each";
     }
 }

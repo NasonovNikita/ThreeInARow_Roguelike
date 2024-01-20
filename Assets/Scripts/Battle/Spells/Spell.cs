@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Battle.Spells
 {
     [Serializable]
-    public abstract class Spell : GetAble
+    public abstract class Spell : LootItem
     {
         [SerializeField] public int useCost;
 
@@ -42,7 +42,12 @@ namespace Battle.Spells
 
         protected bool CantCast()
         {
-            return manager.State != BattleState.Turn || manager.player.mana < useCost;
+            return unitBelong switch
+            {
+                Player => manager.State != BattleState.Turn || unitBelong.mana <= useCost,
+                Enemy => unitBelong.mana <= useCost,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

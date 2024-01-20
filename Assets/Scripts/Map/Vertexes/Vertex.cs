@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Other;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 namespace Map.Vertexes
 {
@@ -14,7 +15,13 @@ namespace Map.Vertexes
 
         private Map map;
 
+        protected MapGenerator generator;
+
         private readonly List<Edge> edges = new();
+
+        protected int layer;
+
+        private int randomSeed;
 
         public void Awake()
         {
@@ -43,9 +50,12 @@ namespace Map.Vertexes
             }
         }
 
-        protected static Vertex Create(Vertex prefab)
+        protected static Vertex Create(Vertex prefab, int layer, int randomSeed)
         {
             Vertex vertex = Instantiate(prefab);
+            vertex.layer = layer;
+            vertex.randomSeed = randomSeed;
+            vertex.generator = FindFirstObjectByType<MapGenerator>();
             GameObject gameObject = vertex.gameObject;
             DontDestroyOnLoad(gameObject);
             gameObject.SetActive(false);
@@ -53,10 +63,17 @@ namespace Map.Vertexes
             return vertex;
         }
 
-        public bool BelongsToNext(Vertex vertex)
+        protected void SetRandom()
         {
-            return next.Contains(vertex);
+            Random.InitState(randomSeed);
         }
+
+        protected void ResetRandom()
+        {
+            Tools.Random.ResetRandom();
+        }
+
+        public bool BelongsToNext(Vertex vertex) => next.Contains(vertex);
 
         public abstract void OnArrive();
 

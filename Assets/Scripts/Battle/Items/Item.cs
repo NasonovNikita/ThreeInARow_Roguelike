@@ -5,7 +5,7 @@ using Other;
 namespace Battle.Items
 {
     [Serializable]
-    public abstract class Item : GetAble
+    public abstract class Item : LootItem
     {
         public abstract void Use(Unit unitBelong);
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using Battle.Units;
 using Core;
 using Map.Vertexes;
@@ -19,6 +18,8 @@ namespace Map
         public static MapGenerator instance;
         
         public int difficulty;
+
+        private int RandSeed => Random.Range(0, 100000);
         
         [SerializeField] private int depth;
 
@@ -29,6 +30,8 @@ namespace Map
         [SerializeField] private GameObject down;
         [SerializeField] private GameObject left;
         [SerializeField] private GameObject right;
+
+        [SerializeField] private int goodsCountInShop;
 
         private readonly Vector3 dX = new (0.01f, 0, 0);
         private readonly Vector3 dY = new (0, 0.01f, 0);
@@ -78,7 +81,7 @@ namespace Map
             var bounds = BindLayers(layers);
 
         
-            Random.InitState((int) DateTime.Now.Ticks);
+            Tools.Random.ResetRandom();
             
             return InitMap(layers, bounds);
         }
@@ -213,81 +216,6 @@ namespace Map
             return bounds;
         }
 
-        private BattleVertex GenBattle(int layer)
-        {
-            var vertex = BattleVertex.Create();
-            var allowedGroups = enemyGroups.Where(v => !v.isBoss).ToList();
-
-            int battleDifficulty = difficulty + layer * difficulty / 3 + Random.Range(-5, 6);
-            int chosenDifficulty = allowedGroups.Select(v => v.Difficulty).Aggregate((min, next) =>
-                Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
-
-            vertex.group = Tools.Random.RandomChoose(
-                allowedGroups.Where(v => v.Difficulty == chosenDifficulty).ToList()
-                );
-
-            return vertex;
-        }
-
-        private ShopVertex GenShop(int layer)
-        {
-            var vertex = ShopVertex.Create();
-
-            List<Good> currentGoods = new();
-
-            for (int i = 0; i < 4; i++)
-            {
-                currentGoods.Add(ChooseGood(layer));
-            }
-
-            vertex.goods = currentGoods;
-
-            return vertex;
-        }
-
-        private TreasureVertex GenTreasure(int layer)
-        {
-            TreasureVertex vertex = TreasureVertex.Create();
-
-            GetAble treasure = ChooseTreasure(layer);
-
-            vertex.treasure = treasure;
-            
-            return vertex;
-        }
-
-        private BattleVertex GenBoss(int layer)
-        {
-            var vertex = BattleVertex.Create();
-            var allowedGroups = enemyGroups.Where(v => v.isBoss).ToList();
-
-            int battleDifficulty = difficulty + layer * difficulty / 3 + Random.Range(-5, 6);
-            int chosenDifficulty = allowedGroups.Select(v => v.Difficulty).Aggregate((min, next) =>
-                Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
-
-            vertex.group = Tools.Random.RandomChoose(
-                allowedGroups.Where(v => v.Difficulty == chosenDifficulty).ToList()
-            );
-
-            return vertex;
-        }
-
-        private Good ChooseGood(int layer)
-        {
-            List<(Good, int)> chances = allGoods
-                .Select(good => (good, (int) Math.Pow(good.target.frequency, -layer))).ToList();
-
-            return Tools.Random.RandomChooseWithChances(chances);
-        }
-
-        private GetAble ChooseTreasure(int layer)
-        {
-            var treasures = Resources.LoadAll<Good>("Goods")
-                .Select(good => (tr: good, (int) Math.Pow(good.target.frequency, -layer))).ToList();
-
-            return Tools.Random.RandomChooseWithChances(treasures).target;
-        }
-
         private Vertex GenVertex(int layer)
         {
             VertexType type = Tools.Random.RandomChooseWithChances(vertexesByChance);
@@ -300,6 +228,87 @@ namespace Map
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
+
+        private BattleVertex GenBattle(int layer) => BattleVertex.Create(layer, RandSeed);
+
+        public EnemyGroup ChooseBattleEnemyGroup(int layer)
+        {
+            var allowedGroups = enemyGroups.Where(v => !v.isBoss).ToList();
+            int battleDifficulty = difficulty + layer * difficulty / 3 + Random.Range(-5, 6);
+            int chosenDifficulty = allowedGroups.Select(v => v.Difficulty).Aggregate((min, next) =>
+                Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
+
+            return Tools.Random.RandomChoose(
+                allowedGroups.Where(v => v.Difficulty == chosenDifficulty).ToList()
+                );
+        }
+
+        private BattleVertex GenBoss(int layer)
+        {
+            var vertex = BattleVertex.CreateBoss(layer, RandSeed);
+            
+            return vertex;
+        }
+
+        public EnemyGroup ChooseBoss(int layer)
+        {
+            var allowedGroups = enemyGroups.Where(v => v.isBoss).ToList();
+            return ChooseGroup(allowedGroups, layer);
+        }
+
+        private EnemyGroup ChooseGroup(List<EnemyGroup> groups, int layer)
+        {
+            int battleDifficulty = difficulty + layer * difficulty / 3 + Random.Range(-5, 6);
+            int chosenDifficulty = groups.Select(v => v.Difficulty).Aggregate((min, next) =>
+                Math.Abs(min - battleDifficulty) < Math.Abs(next - battleDifficulty) ? min : next);
+
+            return Tools.Random.RandomChoose(
+                groups.Where(v => v.Difficulty == chosenDifficulty).ToList()
+            );
+        }
+
+        private ShopVertex GenShop(int layer) => ShopVertex.Create(layer, RandSeed);
+
+        private TreasureVertex GenTreasure(int layer) => TreasureVertex.Create(layer, RandSeed);
+
+        public List<Good> ChooseGoods(int layer)
+        {
+            List<Good> currentGoods = new();
+
+            if (allGoods.Count(good => !PlayerHasLootItem(good.target)) <= goodsCountInShop)
+            {
+                return allGoods.Where(good => !PlayerHasLootItem(good.target)).ToList();
+            }
+
+            while (new HashSet<Good>(currentGoods).Count < goodsCountInShop)
+            {
+                currentGoods = new List<Good>();
+                for (int i = 0; i < goodsCountInShop; i++) currentGoods.Add(ChooseGood(layer));
+            }
+
+            return currentGoods;
+        }
+
+        private Good ChooseGood(int layer)
+        {
+            var chances = allGoods.Where(good => !PlayerHasLootItem(good.target))
+                .Select(good => (good, LayerPow(good.target.Frequency, layer))).ToList();
+
+            return Tools.Random.RandomChooseWithChances(chances);
+        }
+
+        private bool PlayerHasLootItem(LootItem item) =>
+            Player.data.spells.Contains(item) || Player.data.items.Contains(item);
+
+        public LootItem ChooseTreasure(int layer)
+        {
+            var treasures = Resources.LoadAll<Good>("Goods").Where(treasure => !PlayerHasLootItem(treasure.target))
+                .Select(good => (tr: good, LayerPow(good.target.Frequency, layer))).ToList();
+
+            return Tools.Random.RandomChooseWithChances(treasures).target;
+        }
+
+        private float LayerPow(int freq, int layer) => (float) Math.Pow(freq, layer != 0 ? 1 / (float)layer : 1);
 
         private static bool CrossExists(List<(int, int)> bounds, int c, int d)
         {

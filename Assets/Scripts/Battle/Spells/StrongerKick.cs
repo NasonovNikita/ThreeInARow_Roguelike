@@ -1,5 +1,4 @@
 using Battle.Modifiers;
-using Battle.Units.Stats;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -15,5 +14,9 @@ namespace Battle.Spells
             LogUsage();
             manager.player.AddDamageMod(new Modifier(count, ModType.Mul, ModClass.DamageBase, value: value));
         }
+
+        public override string Title => "Stronger Kick";
+
+        public override string Description => $"Deal {Other.Tools.Percents(value)}% more dmg this turn";
     }
 }

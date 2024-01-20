@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28627f0b92a405689e260fc9bafb1f0, type: 3}
   m_Name: DevilFinger
   m_EditorClassIdentifier: 
-  title: Devil Finger
-  description: If you don't use any spells in a fight you gain 2 physical dmg forever
+  rarity: 2
+  img: {fileID: 0}
   value: 2

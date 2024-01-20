@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c772b0a5b60ec4f92c99ada5909ddf, type: 3}
   m_Name: TimeStop
   m_EditorClassIdentifier: 
-  title: Time Stop
-  description: Enemies skip this turn
+  rarity: 3
   img: {fileID: 0}
-  frequency: 1
   useCost: 50
   value: 1
   count: 1

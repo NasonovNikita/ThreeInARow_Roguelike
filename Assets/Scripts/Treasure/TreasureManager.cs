@@ -7,7 +7,7 @@ namespace Treasure
 {
     public class TreasureManager : MonoBehaviour
     {
-        public static GetAble treasure;
+        public static LootItem treasure;
 
         public void Awake()
         {

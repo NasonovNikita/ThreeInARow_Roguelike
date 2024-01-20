@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a45ce9dea8478f9fd2a5c45ffa04ee, type: 3}
   m_Name: DiscountCoupon
   m_EditorClassIdentifier: 
-  title: Discount coupon
-  description: A good (on sale) in the shop costs now 50% instead of 80%
-  img: {fileID: 0}
-  frequency: 1
+  rarity: 2
+  img: {fileID: -3772210135567121431, guid: e4eafd996a2a596449b70df5739f5a23, type: 3}
   sale: 0.5

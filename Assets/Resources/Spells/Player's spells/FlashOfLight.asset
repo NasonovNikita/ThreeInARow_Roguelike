@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5a6bd7f8bd4f0f8a5ac8e7d4609828, type: 3}
   m_Name: FlashOfLight
   m_EditorClassIdentifier: 
-  title: Flash of light
-  description: Enemies can't see the grid (they do random things)
+  rarity: 1
   img: {fileID: 0}
-  frequency: 2
   useCost: 47
   value: 1
   count: 1

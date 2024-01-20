@@ -8,8 +8,8 @@ namespace UI
 {
     public class InventoryItem : MonoBehaviour
     {
-        private GetAble item;
-        public static void Create(GetAble targetItem, Transform parentTransform)
+        private LootItem item;
+        public static void Create(LootItem targetItem, Transform parentTransform)
         {
             InventoryItem res = Instantiate(PrefabsContainer.instance.inventoryItem, parentTransform);
             res.item = targetItem;
@@ -18,7 +18,7 @@ namespace UI
         public void Start()
         {
             GetComponentInChildren<Text>().text = item.Title;
-            if (item.img != null) GetComponentInChildren<Image>().sprite = item.img;
+            GetComponentInChildren<Image>().sprite = item.img != null ? item.img : SpritesContainer.instance.empty;
             GetComponent<DevDebugAbleObject>().text = item.Description;
         }
     }

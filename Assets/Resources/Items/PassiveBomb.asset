@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b45e58271649d78953fea7217aa336, type: 3}
   m_Name: PassiveBomb
   m_EditorClassIdentifier: 
-  title: Passive bomb
-  description: If at the end of the turn you have at least 60 mana you throw a bomb,
-    that deals 20 fire dmg to enemies
+  rarity: 2
   img: {fileID: 0}
-  frequency: 1
   minMana: 60
   damage: 20

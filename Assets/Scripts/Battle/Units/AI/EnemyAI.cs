@@ -119,8 +119,9 @@ namespace Battle.Units.AI
         private void UseSpells()
         {
             if (attachedEnemy.spells.Count == 0) return;
-            
-            var possibleSpells = attachedEnemy.spells.Where(spell => attachedEnemy.mana >= spell.useCost).ToList();
+
+            var possibleSpells =
+                attachedEnemy.spells.Where(spell => attachedEnemy.mana >= spell.useCost).ToList();
 
             if (possibleSpells.Count == 0) return;
             Spell chosenSpell = possibleSpells[Random.Range(0, possibleSpells.Count)];

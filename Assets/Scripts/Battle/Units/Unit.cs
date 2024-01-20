@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Items;
@@ -62,7 +63,8 @@ namespace Battle.Units
             stateAnimationController = GetComponentInChildren<StateAnimationController>();
         
             Tools.InstantiateAll(items);
-            
+
+            if (modIconGrid == null) throw new Exception("Unit must have modIconGrid");
             ShowPermanentMods();
 
             foreach (Item item in items)

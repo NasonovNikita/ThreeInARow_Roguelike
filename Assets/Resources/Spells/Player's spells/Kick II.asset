@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a900c9cedaec441be37135f9d3f6b5, type: 3}
   m_Name: Kick II
   m_EditorClassIdentifier: 
-  title: Kick II
-  description: Deal 55 dmg
+  rarity: 2
   img: {fileID: 0}
-  frequency: 2
   useCost: 45
   value: 55
   count: 0

@@ -15,5 +15,9 @@ namespace Battle.Spells
             manager.enemies = manager.enemies.OrderBy(_ => Random.Range(0, 10000000)).ToList();
             manager.OnEnemiesShuffle();
         }
+
+        public override string Title => "Hurricane";
+
+        public override string Description => "Shuffles enemies (they change raws and order)";
     }
 }

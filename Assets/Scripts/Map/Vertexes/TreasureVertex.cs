@@ -7,16 +7,15 @@ namespace Map.Vertexes
 {
     public class TreasureVertex : Vertex
     {
-        public GetAble treasure;
         public override void OnArrive()
         {
-            TreasureManager.treasure = treasure;
+            TreasureManager.treasure = generator.ChooseTreasure(layer);
             SceneManager.LoadScene("Treasure");
         }
 
-        public static TreasureVertex Create()
+        public static TreasureVertex Create(int layer, int randomSeed)
         {
-            return (TreasureVertex)Vertex.Create(PrefabsContainer.instance.treasureVertex);
+            return (TreasureVertex)Vertex.Create(PrefabsContainer.instance.treasureVertex, layer, randomSeed);
         }
     }
 }

@@ -9,6 +9,13 @@ namespace Core
         public Sprite damageMod;
         public Sprite manaMod;
         public Sprite shield;
+        public Sprite shieldBroken;
+        public Sprite hpHealing;
+        public Sprite stun;
+        public Sprite blind;
+        public Sprite irritation;
+        public Sprite ignition;
+        public Sprite frozen;
         public Sprite empty;
         public void Awake()
         {

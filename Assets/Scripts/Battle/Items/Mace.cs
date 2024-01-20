@@ -1,13 +1,13 @@
 using Battle.BattleEventHandlers;
 using Battle.Modifiers;
 using Battle.Units;
-using Battle.Units.Stats;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
 {
-    [CreateAssetMenu(fileName = "AnOpal", menuName = "Items/AnOpal")]
-    public class AnOpal : Item
+    [CreateAssetMenu(fileName = "Mace", menuName = "Items/AnOpal")]
+    public class Mace : Item
     {
         [SerializeField] private int moves;
         [SerializeField] private float value;
@@ -20,5 +20,10 @@ namespace Battle.Items
                         ModClass.HpDamageBase, isPositive: false, value: value));
             });
         }
+
+        public override string Title => "Mace";
+
+        public override string Description =>
+            $"When you hit an enemy it then gets {Tools.Percents(value)}% more damage for {moves} moves (stackable)";
     }
 }

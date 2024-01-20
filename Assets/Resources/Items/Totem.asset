@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e38b2988ce4098b9647f4d734c1db3, type: 3}
-  m_Name: AnOpal
+  m_Script: {fileID: 11500000, guid: afa0f09f6c864d28b3c392ddd070bc61, type: 3}
+  m_Name: Totem
   m_EditorClassIdentifier: 
-  title: An opal
-  description: When you hit an enemy it then gets 15% more damage for 3 moves (stackable)
+  rarity: 3
   img: {fileID: 0}
-  frequency: 2
-  moves: 3
-  value: 0.15
+  chance: 80
+  leftHp: 1

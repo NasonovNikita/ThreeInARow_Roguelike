@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,6 +33,25 @@ namespace Other
                 return toChoose[UnityRandom.Range(0, toChoose.Count)];
             }
 
+            public static T RandomChooseWithChances<T>(List<(T, float)> chances)
+            {
+                float sum = chances.Sum(v => v.Item2);
+                float chosenChance = UnityRandom.Range(0, sum);
+
+                T result = default(T);
+                foreach (var chance in chances)
+                {
+                    if (chosenChance > chance.Item2) chosenChance -= chance.Item2;
+                    else 
+                    {
+                        result = chance.Item1;
+                        break;
+                    }
+                }
+
+                return result;
+            }
+            
             public static T RandomChooseWithChances<T>(List<(T, int)> chances)
             {
                 int sum = chances.Sum(v => v.Item2);
@@ -49,6 +69,11 @@ namespace Other
                 }
 
                 return result;
+            }
+
+            public static void ResetRandom()
+            {
+                UnityRandom.InitState((int) DateTime.Now.Ticks);
             }
         }
 
@@ -122,5 +147,7 @@ namespace Other
                 return elements;
             }
         }
+
+        public static int Percents(float v) => (int)(v * 100);
     }
 }

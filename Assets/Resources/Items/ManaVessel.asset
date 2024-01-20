@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60466563f0774a01b515c58f941afd6a, type: 3}
   m_Name: ManaVessel
   m_EditorClassIdentifier: 
-  title: Mana Vessel
-  description: Increase maximum mana by 30 points and gain 15 mana
+  rarity: 2
   img: {fileID: 0}
-  frequency: 1
   addToBorder: 30
   addValue: 15

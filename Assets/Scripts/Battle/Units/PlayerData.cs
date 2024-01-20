@@ -44,6 +44,7 @@ namespace Battle.Units
             data.manaPerGem = manaPerGem;
             data.chosenElement = chosenElement;
             if (oldData is null) return data;
+            data.allMods = oldData.allMods;
             data.spells = oldData.spells;
             data.items = oldData.items;
             data.money = oldData.money;
