@@ -176,6 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 1
+  waitBeforeShowTime: 0.5
   text: 
 --- !u!1 &3223541614221064083
 GameObject:

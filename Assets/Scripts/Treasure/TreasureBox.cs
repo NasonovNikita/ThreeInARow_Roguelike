@@ -17,7 +17,7 @@ namespace Treasure
         public void Start()
         {
             Tools.InitButton(button, TryGet, treasure.Title);
-            button.AddComponent<DevDebugAbleObject>().text = treasure.Description;
+            button.AddComponent<ObjectWithInfo>().text = treasure.Description;
         }
 
         private void TryGet()

@@ -159,7 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: A treasure. [FIX ICON]
+  actAfterTime: 0
+  waitBeforeShowTime: 0
+  text: A treasure
 --- !u!114 &-2121221672186399286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,4 +175,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: []
-  treasure: {fileID: 0}

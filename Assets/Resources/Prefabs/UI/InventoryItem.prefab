@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 1
+  waitBeforeShowTime: 1
   text: IsClickable
 --- !u!114 &3409028896318203545
 MonoBehaviour:
