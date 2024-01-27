@@ -477,6 +477,34 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
+  - _key: MapHealInfo
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Mana
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Hp
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Cash
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Element
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Physic
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Magic
+    _metadata:
+      _runtime: []
+      _editor: []
   references:
     version: 2
     RefIds: []

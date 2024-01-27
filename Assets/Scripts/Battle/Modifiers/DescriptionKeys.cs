@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Battle.Modifiers
 {
-    public class ModifiersDescriptionKeys : MonoBehaviour
+    public class DescriptionKeys : MonoBehaviour
     {
-        public static ModifiersDescriptionKeys instance;
+        public static DescriptionKeys instance;
         
         public KnotTextKeyReference blind;
         public KnotTextKeyReference stun;
@@ -26,6 +26,13 @@ namespace Battle.Modifiers
         public KnotTextKeyReference more;
         public KnotTextKeyReference less;
 
+        public KnotTextKeyReference fires;
+        public KnotTextKeyReference colds;
+        public KnotTextKeyReference poisons;
+        public KnotTextKeyReference lights;
+        public KnotTextKeyReference physics;
+        public KnotTextKeyReference magics;
+        
         public KnotTextKeyReference fire;
         public KnotTextKeyReference cold;
         public KnotTextKeyReference poison;
@@ -33,6 +40,20 @@ namespace Battle.Modifiers
         public KnotTextKeyReference light_;
         public KnotTextKeyReference physic;
         public KnotTextKeyReference magic;
+
+        public string DmgTypeOf(DmgType dmgType)
+        {
+            return dmgType switch
+            {
+                Battle.DmgType.Fire => fires.Value,
+                Battle.DmgType.Cold => colds.Value,
+                Battle.DmgType.Poison => poisons.Value,
+                Battle.DmgType.Light => lights.Value,
+                Battle.DmgType.Physic => physics.Value,
+                Battle.DmgType.Magic => magics.Value,
+                _ => throw new ArgumentOutOfRangeException(nameof(dmgType), dmgType, null)
+            };
+        }
 
         public string DmgType(DmgType dmgType)
         {

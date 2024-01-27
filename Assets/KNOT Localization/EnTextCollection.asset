@@ -257,3 +257,17 @@ MonoBehaviour:
     _rawText: Weakling's Shield
   - _key: WeaklingsShieldDescription
     _rawText: Deal {0} less dmg, but get {1} less dmg
+  - _key: MapHealInfo
+    _rawText: You may heal at map. Still wastes mana
+  - _key: Mana
+    _rawText: Mana
+  - _key: Hp
+    _rawText: Hp
+  - _key: Cash
+    _rawText: Cash
+  - _key: Element
+    _rawText: Element
+  - _key: Physic
+    _rawText: Physic
+  - _key: Magic
+    _rawText: Magic

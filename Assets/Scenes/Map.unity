@@ -282,6 +282,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbc6b1a3b788124db2a1af730a684c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp:
+    _key: Hp
+    _formatters: []
+  mana:
+    _key: Mana
+    _formatters: []
+  cash:
+    _key: Cash
+    _formatters: []
+  element:
+    _key: Element
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &320565863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,13 +450,42 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 350070464}
   m_SourcePrefab: {fileID: 100100000, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
 --- !u!224 &350070462 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
   m_PrefabInstance: {fileID: 350070461}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &350070463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+  m_PrefabInstance: {fileID: 350070461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &350070464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350070463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actAfterTime: 0
+  waitBeforeShowTime: 0
+  text: 
+  keyReference:
+    _key: MapHealInfo
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &396258525
 GameObject:
   m_ObjectHideFlags: 0

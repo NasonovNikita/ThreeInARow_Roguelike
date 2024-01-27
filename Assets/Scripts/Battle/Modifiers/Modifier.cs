@@ -55,37 +55,37 @@ namespace Battle.Modifiers
             }
         }
 
-        private string DmgTypeString => ModifiersDescriptionKeys.instance.DmgType(dmgType);
+        private string DmgTypeString => DescriptionKeys.instance.DmgTypeOf(dmgType);
 
         public string Description
         {
             get
             {
                 string moreLess = value > 0
-                    ? ModifiersDescriptionKeys.instance.more.Value
-                    : ModifiersDescriptionKeys.instance.less.Value;
+                    ? DescriptionKeys.instance.more.Value
+                    : DescriptionKeys.instance.less.Value;
                 string changeInfo;
                 switch (type)
                 {
                     case ModType.Blind:
-                        return ModifiersDescriptionKeys.instance.blind.Value;
+                        return DescriptionKeys.instance.blind.Value;
                     case ModType.Stun:
-                        return ModifiersDescriptionKeys.instance.stun.Value;
+                        return DescriptionKeys.instance.stun.Value;
                     case ModType.Freezing:
-                        return string.Format(ModifiersDescriptionKeys.instance.freezing.Value,
+                        return string.Format(DescriptionKeys.instance.freezing.Value,
                             ElementsProperties.MissingOnFreezeChance);
                     case ModType.Burning:
-                        return string.Format(ModifiersDescriptionKeys.instance.burning.Value,
+                        return string.Format(DescriptionKeys.instance.burning.Value,
                             ElementsProperties.FireDamage);
                     case ModType.Poisoning:
-                        return string.Format(ModifiersDescriptionKeys.instance.poisoning.Value,
+                        return string.Format(DescriptionKeys.instance.poisoning.Value,
                             ElementsProperties.PoisonDamage);
                     case ModType.Frozen:
-                        return ModifiersDescriptionKeys.instance.frozen.Value;
+                        return DescriptionKeys.instance.frozen.Value;
                     case ModType.Irritated:
-                        return string.Format(ModifiersDescriptionKeys.instance.irritated.Value, (int) value);
+                        return string.Format(DescriptionKeys.instance.irritated.Value, (int) value);
                     case ModType.Ignition:
-                        return ModifiersDescriptionKeys.instance.ignition.Value;
+                        return DescriptionKeys.instance.ignition.Value;
                     case ModType.Add:
                         changeInfo = $"{Math.Abs(Use)} {moreLess}";
                         break;
@@ -98,21 +98,21 @@ namespace Battle.Modifiers
                 
                 return workPattern switch
                 {
-                    ModClass.DamageBase => string.Format(ModifiersDescriptionKeys.instance.dealDmg.Value,
+                    ModClass.DamageBase => string.Format(DescriptionKeys.instance.dealDmg.Value,
                         changeInfo),
-                    ModClass.DamageTyped => string.Format(ModifiersDescriptionKeys.instance.dealDmg.Value,
+                    ModClass.DamageTyped => string.Format(DescriptionKeys.instance.dealDmg.Value,
                         $"{changeInfo} {DmgTypeString}"),
-                    ModClass.DamageTypedStat => string.Format(ModifiersDescriptionKeys.instance.dealDmgPerGem.Value,
+                    ModClass.DamageTypedStat => string.Format(DescriptionKeys.instance.dealDmgPerGem.Value,
                         $"{changeInfo} {DmgTypeString}"),
-                    ModClass.HpDamageBase => string.Format(ModifiersDescriptionKeys.instance.getDmg.Value,
+                    ModClass.HpDamageBase => string.Format(DescriptionKeys.instance.getDmg.Value,
                         changeInfo),
-                    ModClass.HpDamageTyped => string.Format(ModifiersDescriptionKeys.instance.getDmg.Value,
+                    ModClass.HpDamageTyped => string.Format(DescriptionKeys.instance.getDmg.Value,
                         $"{changeInfo} {DmgTypeString}"),
-                    ModClass.HpHealing => string.Format(ModifiersDescriptionKeys.instance.healHp.Value,
+                    ModClass.HpHealing => string.Format(DescriptionKeys.instance.healHp.Value,
                         changeInfo),
-                    ModClass.ManaRefill => string.Format(ModifiersDescriptionKeys.instance.refillMana.Value,
+                    ModClass.ManaRefill => string.Format(DescriptionKeys.instance.refillMana.Value,
                         changeInfo),
-                    ModClass.ManaWaste => string.Format(ModifiersDescriptionKeys.instance.wasteMana.Value,
+                    ModClass.ManaWaste => string.Format(DescriptionKeys.instance.wasteMana.Value,
                         changeInfo),
                     ModClass.Standard => 
                         throw new Exception("can't be standard because no standard type was caught"),

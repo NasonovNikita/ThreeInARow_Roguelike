@@ -20,7 +20,7 @@ namespace UI
             {
                 Healing spell = (Healing) Instantiate(Player.data.spells.Find(spell => spell is Healing));
                 btn.onClick.AddListener(spell.Cast);
-                btn.GetComponentInChildren<Text>().text = spell.Title;
+                btn.GetComponentInChildren<Text>().text = $"{spell.Title} {spell.useCost}";
             }
             else
             {

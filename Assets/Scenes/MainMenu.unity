@@ -929,23 +929,41 @@ MonoBehaviour:
   less:
     _key: less
     _formatters: []
-  fire:
+  fires:
     _key: Fire's
     _formatters: []
-  cold:
+  colds:
     _key: Cold's
     _formatters: []
-  poison:
+  poisons:
     _key: Poison's
     _formatters: []
-  light_:
+  lights:
     _key: Light's
     _formatters: []
-  physic:
+  physics:
     _key: Physic's
     _formatters: []
-  magic:
+  magics:
     _key: Magic's
+    _formatters: []
+  fire:
+    _key: Fire
+    _formatters: []
+  cold:
+    _key: Cold
+    _formatters: []
+  poison:
+    _key: Poison
+    _formatters: []
+  light_:
+    _key: Light
+    _formatters: []
+  physic:
+    _key: Physic
+    _formatters: []
+  magic:
+    _key: Magic
     _formatters: []
   references:
     version: 2
