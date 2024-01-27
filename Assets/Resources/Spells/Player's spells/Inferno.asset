@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 3
   img: {fileID: 0}
+  titleKeyRef:
+    _key: Inferno
+    _formatters: []
+  descriptionKeyRef:
+    _key: InfernoDescription
+    _formatters: []
   useCost: 95
   value: 65
   count: 2
+  references:
+    version: 2
+    RefIds: []

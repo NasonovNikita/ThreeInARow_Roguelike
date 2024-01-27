@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7954d6e5f550204dbd0d4396f58ebfb, type: 3}
   m_Name: StrongerKick
   m_EditorClassIdentifier: 
-  title: Stronger Kick
-  description: Deal 30% more dmg this turn
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: StrongerKick
+    _formatters: []
+  descriptionKeyRef:
+    _key: StrongerKickDescription
+    _formatters: []
   useCost: 25
   value: 0.3
   count: 1
+  references:
+    version: 2
+    RefIds: []

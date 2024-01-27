@@ -11,10 +11,11 @@ namespace Battle.Items
         [SerializeField] private float value;
         public override void Use(Unit unitBelong) {}
 
-        public override string Title => "Magic Staff";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"-{Tools.Percents(value)}% mana wasting (on anything)";
-
+        public override string Description => string.Format(descriptionKeyRef.Value, Tools.Percents(value));
+        
         public override void OnGet()
         {
             Player.data.AddManaMod(new Modifier(-1, ModType.Mul, ModClass.ManaWaste, value: -value));

@@ -15,8 +15,8 @@ namespace Battle.Spells
             manager.player.AddDamageMod(new Modifier(count, ModType.Mul, ModClass.DamageBase, value: value));
         }
 
-        public override string Title => "Stronger Kick";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Deal {Other.Tools.Percents(value)}% more dmg this turn";
+        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
     }
 }

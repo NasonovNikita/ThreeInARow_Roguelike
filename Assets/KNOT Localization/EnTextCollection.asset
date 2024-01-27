@@ -1,0 +1,259 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecacf7bdd7e77b2419e140cb5ded6aa5, type: 3}
+  m_Name: EnTextCollection
+  m_EditorClassIdentifier: 
+  _items:
+  - _key: Continue
+    _rawText: Continue
+  - _key: NewGame
+    _rawText: New Game
+  - _key: Settings
+    _rawText: Settings
+  - _key: Exit
+    _rawText: Exit
+  - _key: Menu
+    _rawText: Menu
+  - _key: Volume
+    _rawText: Volume
+  - _key: Difficulty
+    _rawText: Difficulty
+  - _key: AltBattleUI
+    _rawText: "Alternative Battle UI\t"
+  - _key: Inventory
+    _rawText: Inventory
+  - _key: Kick
+    _rawText: Kick
+  - _key: KickDescription
+    _rawText: Deal {0} dmg
+  - _key: Language(NativeLanguage)
+    _rawText: Language
+  - _key: Fire
+    _rawText: Fire
+  - _key: Cold
+    _rawText: Cold
+  - _key: Poison
+    _rawText: Poison
+  - _key: Light
+    _rawText: Light
+  - _key: FireDescription
+    _rawText: 'Fire deals {0} dmg per turn (1 next move)
+
+      Unit on fire gets
+      *{1} dmg (2 moves including the getting on fire one)'
+  - _key: ColdDescription
+    _rawText: 'Freezing units have {0}% chance to miss
+
+      and deal {1}% less
+      dmg'
+  - _key: PoisonDescription
+    _rawText: 'Poison deals {0} dmg per turn (1 next move)
+
+      Poisoned units
+      lose 1 positive mod (if exists)'
+  - _key: LightDescription
+    _rawText: Light heals you for {0} hp per gem
+  - _key: BattleDescription
+    _rawText: Battle. You get money at the and as a reward
+  - _key: ShopDescription
+    _rawText: Shop. You may buy some stuff here.
+  - _key: TreasureDescription
+    _rawText: A treasure
+  - _key: MenuDescription
+    _rawText: Exit to the main menu. Progress is saved
+  - _key: Start
+    _rawText: Start
+  - _key: BlindDescription
+    _rawText: Can't see the grid
+  - _key: StunDescription
+    _rawText: Skips turn
+  - _key: FreezingDescription
+    _rawText: Misses with {0}% chance
+  - _key: BurningDescription
+    _rawText: Takes {0} fire dmg every turn
+  - _key: PoisoningDescription
+    _rawText: Takes {0} poison dmg every turn
+  - _key: FrozenDescription
+    _rawText: Skips turn
+  - _key: IrritatedDescription
+    _rawText: Will deal {0} more physical dmg per gem if nobody dies this turn
+  - _key: IgnitionDescription
+    _rawText: Can get on fire randomly
+  - _key: DealDmg
+    _rawText: Deals {0} dmg
+  - _key: DealDmgPerGem
+    _rawText: Deals {0} dmg per gem
+  - _key: GetDmg
+    _rawText: Gets {0} dmg
+  - _key: HealHp
+    _rawText: Heals {0} hp
+  - _key: RefillMana
+    _rawText: Refills {0} mana
+  - _key: WasteMana
+    _rawText: Wastes {0} mana
+  - _key: more
+    _rawText: more
+  - _key: less
+    _rawText: less
+  - _key: Physic's
+    _rawText: Physic
+  - _key: Magic's
+    _rawText: Magic
+  - _key: Fire's
+    _rawText: Fire
+  - _key: Cold's
+    _rawText: Cold
+  - _key: Poison's
+    _rawText: Poison
+  - _key: Light's
+    _rawText: Light
+  - _key: Finish
+    _rawText: Finish
+  - _key: ArrowOfLight
+    _rawText: Arrow Of Light
+  - _key: ArrowOfLightDescription
+    _rawText: Deal {0} light dmg
+  - _key: ChainLightning
+    _rawText: Chain Lightning
+  - _key: ChainLightningDescription
+    _rawText: Deal {0} dmg each enemy. Additional {1}% dmg to every next enemy
+  - _key: FlashOfLight
+    _rawText: FlashOfLight
+  - _key: FlashOfLightDescription
+    _rawText: Enemies become Blind
+  - _key: Healing
+    _rawText: Healing
+  - _key: HealingDescription
+    _rawText: Heal {0}% of maximum hp
+  - _key: HotBlood
+    _rawText: Hot Blood
+  - _key: HotBloodDescription
+    _rawText: Gain {0} physical dmg per gem. You may start burning at any of next
+      {1} turns with {2}% chance each
+  - _key: Hurricane
+    _rawText: Hurricane
+  - _key: HurricaneDescription
+    _rawText: Shuffles enemies (they change raws and order)
+  - _key: Hypnosis
+    _rawText: Hypnosis
+  - _key: HypnosisDescription
+    _rawText: Enemy becomes Blind
+  - _key: Inferno
+    _rawText: Inferno
+  - _key: InfernoDescription
+    _rawText: BURN THEM ALL
+  - _key: Irritation
+    _rawText: Irritation
+  - _key: IrritationDescription
+    _rawText: If no one dies this turn, gain +{0} physical d,g per gem
+  - _key: MagicShield
+    _rawText: Magic Shield
+  - _key: MagicShieldDescription
+    _rawText: Get {0}% less dmg this turn
+  - _key: MoneyRain
+    _rawText: Money Rain
+  - _key: MoneyRainDescription
+    _rawText: Coins fall and deal {0} dmg each
+  - _key: PoweredKick
+    _rawText: Powered Kick
+  - _key: PoweredKickDescription
+    _rawText: Skip {0} turn(s) and deal *{1} dmg next turn
+  - _key: ReverseTechnique
+    _rawText: Revesre Technique
+  - _key: ReverseTechniqueDescription
+    _rawText: Delete all your negative mods
+  - _key: SacrificialBlood
+    _rawText: Sacrificial Blood
+  - _key: SacrificialBloodDescription
+    _rawText: NO ONE ESCAPES
+  - _key: StrongerKick
+    _rawText: Stronger Kick
+  - _key: StrongerKickDescription
+    _rawText: Deal {0}% more dmg this turn
+  - _key: TimeStop
+    _rawText: Time Stop
+  - _key: ToxicRelease
+    _rawText: ToxicRelease
+  - _key: TimeStopDescription
+    _rawText: Enemies skip this turn
+  - _key: ToxicReleaseDescription
+    _rawText: Enemy get poisoned for {0} turns
+  - _key: AngrySword
+    _rawText: Sword Of Hatred
+  - _key: AngrySwordDescription
+    _rawText: If you have less then {0} hp you deal {1}% more dmg
+  - _key: DevilFinger
+    _rawText: Devil's finger
+  - _key: DevilFingerDescription
+    _rawText: If you don't use any spells in a fight you gain {0} physical dmg forever
+  - _key: DiscountCoupon
+    _rawText: Discount Coupon
+  - _key: DiscountCouponDescription
+    _rawText: A good on sale in the shop costs now {0}% instead of {1}%
+  - _key: EternalIce
+    _rawText: Eternal Ice
+  - _key: EternalIceDescription
+    _rawText: Cold can totaly freeze an enemy
+  - _key: HotWind
+    _rawText: Hot Wind
+  - _key: HotWindDescription
+    _rawText: Fire can spread to other enemies with {0}% chance
+  - _key: LongScythe
+    _rawText: Long Scythe
+  - _key: LongScytheDescription
+    _rawText: You can hit enemies from any raw
+  - _key: Mace
+    _rawText: Mace
+  - _key: MaceDescription
+    _rawText: When you hit enemy it then gets {0}% more damage for {1} moves (stackable)
+  - _key: MagicStaff
+    _rawText: Magic Staff
+  - _key: MagicStaffDescription
+    _rawText: -{0} mana wasting
+  - _key: ManaVessel
+    _rawText: Mana Vessel
+  - _key: ManaVesselDescription
+    _rawText: Increase max mana by {0} points and gain {1} mana
+  - _key: MedicalKit
+    _rawText: Medical Kit
+  - _key: MedicalKitDescription
+    _rawText: '{0}% more healing'
+  - _key: OldKnife
+    _rawText: Old Knife
+  - _key: OldKnifeDescription
+    _rawText: +{0} physical dmg per gem
+  - _key: PassiveBomb
+    _rawText: Passive Bomb
+  - _key: PassiveBombDescription
+    _rawText: If at the end of the turn you have at least {0} mana you throw a bomb,
+      that deals {1} fire dmg to enemies
+  - _key: PlainShield
+    _rawText: Plain Shield
+  - _key: PlainShieldDescription
+    _rawText: -{0}% incoming dmg
+  - _key: ProtectiveAmulet
+    _rawText: Protective Amulet
+  - _key: ProtectiveAmuletDescription
+    _rawText: -{0} magic dmg (useless ha-ha)
+  - _key: Totem
+    _rawText: Totem
+  - _key: TotemDescription
+    _rawText: You are immortal... or not
+  - _key: VampireFangs
+    _rawText: Vampire Fangs
+  - _key: VampireFangsDescription
+    _rawText: If you deal more than {0} dmg you heal {1}-[dealt dmg], but not less
+      than {2}
+  - _key: WeaklingsShield
+    _rawText: Weakling's Shield
+  - _key: WeaklingsShieldDescription
+    _rawText: Deal {0} less dmg, but get {1} less dmg

@@ -1,7 +1,9 @@
+using System.Linq;
 using Audio;
 using Battle;
 using Battle.Units;
 using Core.Saves;
+using Knot.Localization;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +28,12 @@ namespace Core
             DontDestroyOnLoad(gameObject);
 
             Player.data = ScriptableObject.CreateInstance<PlayerData>();
+            /*
+            KnotLocalization.Manager.LoadLanguage(
+                KnotLocalization.Manager.Languages
+                    .FirstOrDefault(d => d.SystemLanguage == Application.systemLanguage));
+                    */
+            // TODO in-game language choose
         }
 
         public void Start()
@@ -57,7 +65,7 @@ namespace Core
 
         public void Continue()
         {
-            if (!SavesManager.LoadGame()) NewGame();
+            if (!SavesManager.TryLoadGameOrFail()) NewGame();
         }
 
         public void Settings()

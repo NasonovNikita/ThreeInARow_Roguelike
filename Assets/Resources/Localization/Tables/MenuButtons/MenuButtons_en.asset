@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: MenuButtons_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: b7110bc7cb9a87e469c2feb5d088f55f, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 184001269760
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 940997644288
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7014635048960
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7264032559104
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10025503592448
+    m_Localized: Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12011493953536
+    m_Localized: Inventory
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

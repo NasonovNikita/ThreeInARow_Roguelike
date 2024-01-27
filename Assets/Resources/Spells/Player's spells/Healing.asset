@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 2
   img: {fileID: 0}
+  titleKeyRef:
+    _key: Healing
+    _formatters: []
+  descriptionKeyRef:
+    _key: HealingDescription
+    _formatters: []
   useCost: 31
   value: 0.1
   count: 0
+  references:
+    version: 2
+    RefIds: []

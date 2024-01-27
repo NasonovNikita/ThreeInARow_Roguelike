@@ -22,8 +22,8 @@ namespace Battle.Spells
             }
         }
 
-        public override string Title => "Money Rain";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Coins fall and deal {(int) value} damage each";
+        public override string Description => string.Format(descriptionKeyRef.Value, (int)value);
     }
 }

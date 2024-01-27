@@ -9,9 +9,10 @@ namespace Battle.Items
     {
         [SerializeField] private float value;
 
-        public override string Title => "Plain Shield";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"-{Other.Tools.Percents(value)}% dmg";
+        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
 
         public override void OnGet()
         {

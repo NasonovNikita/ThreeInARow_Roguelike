@@ -23,7 +23,8 @@ namespace Battle.Items
             });
         }
 
-        public override string Title => "Totem";
-        public override string Description => "You are immortal... or not";
+        public override string Title => titleKeyRef.Value;
+        public override string Description => descriptionKeyRef.Value;
+        
     }
 }

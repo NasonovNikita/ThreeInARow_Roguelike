@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c003d6ae5a46d78a54f57593e87e50, type: 3}
   m_Name: ToxicRelease
   m_EditorClassIdentifier: 
-  title: Toxic release
-  description: Enemy gets poisoned for 2 turns
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: ToxicRelease
+    _formatters: []
+  descriptionKeyRef:
+    _key: ToxicReleaseDescription
+    _formatters: []
   useCost: 30
   value: 0
   count: 2
+  references:
+    version: 2
+    RefIds: []

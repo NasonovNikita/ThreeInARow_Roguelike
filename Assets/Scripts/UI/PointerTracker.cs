@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 namespace UI
 {
     public abstract class PointerTracker : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private bool actAfterTime;
+        [SerializeField] public bool actAfterTime;
         [SerializeField] private float waitBeforeShowTime;
         private const float StandardWaitTime = 2f;
         private float TmeBeforeAct => waitBeforeShowTime != 0 ? waitBeforeShowTime : StandardWaitTime;
@@ -18,22 +17,16 @@ namespace UI
 
         private bool spentTime;
         
-        private Camera mainCamera;
+        private Camera MainCamera => Camera.main;
         protected Vector3 MousePosition
         {
             get
             {
-                Vector3 position = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 position = MainCamera.ScreenToWorldPoint(Input.mousePosition);
                 float x = position.x;
                 float y = position.y;
                 return new Vector3(x, y, 0);
             }
-        }
-
-        private void Awake()
-        {
-            mainCamera = Camera.main;
-            SceneManager.sceneLoaded += (_, _) => mainCamera = Camera.main;
         }
 
         public void Update()

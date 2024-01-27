@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8666714abd4b7fa135af7196d88d8b, type: 3}
   m_Name: Hypnosis
   m_EditorClassIdentifier: 
-  title: Hypnosis
-  description: Chosen enemy can't see the grid (he does random things)
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: Hypnosis
+    _formatters: []
+  descriptionKeyRef:
+    _key: HypnosisDescription
+    _formatters: []
   useCost: 33
   value: 1
   count: 1
+  references:
+    version: 2
+    RefIds: []

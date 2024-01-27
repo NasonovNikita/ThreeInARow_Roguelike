@@ -14,3 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 1
   img: {fileID: -4063696478675185403, guid: efb2a969113516c4daff7f6249e78594, type: 3}
+  titleKeyRef:
+    _key: EternalIce
+    _formatters: []
+  descriptionKeyRef:
+    _key: EternalIceDescription
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []

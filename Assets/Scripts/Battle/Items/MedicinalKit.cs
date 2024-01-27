@@ -13,8 +13,9 @@ namespace Battle.Items
             unitBelong.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.HpHealing, value: value));
         }
 
-        public override string Title => "Medical Kit";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"{Other.Tools.Percents(value)}% more healing";
+        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
     }
 }

@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 587587672}
   - component: {fileID: 587587674}
   - component: {fileID: 587587673}
+  - component: {fileID: 587587675}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -654,6 +655,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587587671}
   m_CullTransparentMesh: 1
+--- !u!114 &587587675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587587671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b14f482705e624ca79a1ed61669ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyReference:
+    _key: AltBattleUI
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &693831519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,13 +1161,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3138720706166487295, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1603624820}
   m_SourcePrefab: {fileID: 100100000, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
 --- !u!224 &1603624817 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
   m_PrefabInstance: {fileID: 1603624816}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1603624818 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3138720706166487295, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+  m_PrefabInstance: {fileID: 1603624816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1603624820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603624818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b14f482705e624ca79a1ed61669ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyReference:
+    _key: Menu
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1725564451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1205,7 @@ GameObject:
   - component: {fileID: 1725564452}
   - component: {fileID: 1725564454}
   - component: {fileID: 1725564453}
+  - component: {fileID: 1725564455}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -1228,6 +1274,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725564451}
   m_CullTransparentMesh: 1
+--- !u!114 &1725564455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725564451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b14f482705e624ca79a1ed61669ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyReference:
+    _key: Difficulty
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1814406636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1303,7 @@ GameObject:
   - component: {fileID: 1814406637}
   - component: {fileID: 1814406639}
   - component: {fileID: 1814406638}
+  - component: {fileID: 1814406640}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -1307,6 +1372,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814406636}
   m_CullTransparentMesh: 1
+--- !u!114 &1814406640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814406636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b14f482705e624ca79a1ed61669ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyReference:
+    _key: Volume
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!224 &2062858672 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1171153382865487831, guid: 29a169bf787dbc744a193655533fa0a3, type: 3}

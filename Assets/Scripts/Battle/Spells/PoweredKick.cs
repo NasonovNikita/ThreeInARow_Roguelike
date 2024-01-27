@@ -18,8 +18,8 @@ namespace Battle.Spells
             manager.EndTurn();
         }
 
-        public override string Title => "Powered Kick";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Skip one turn and make *{value} dmg next turn";
+        public override string Description => string.Format(descriptionKeyRef.Value, count, 1 + value);
     }
 }

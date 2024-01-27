@@ -1,0 +1,482 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1ff9c661913424893eef705ffbbc73, type: 3}
+  m_Name: KeyCollection
+  m_EditorClassIdentifier: 
+  _keyData:
+  - _key: Continue
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: NewGame
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Settings
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Exit
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Menu
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Volume
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Difficulty
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: AltBattleUI
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Inventory
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Kick
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: KickDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Language(NativeLanguage)
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Fire
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Cold
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Poison
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Light
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FireDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ColdDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PoisonDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: LightDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: BattleDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ShopDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: TreasureDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MenuDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Start
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: BlindDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: StunDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FreezingDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: BurningDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PoisoningDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FrozenDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: IrritatedDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: IgnitionDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DealDmg
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DealDmgPerGem
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: GetDmg
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HealHp
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: RefillMana
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: WasteMana
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: more
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: less
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Physic's
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Magic's
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Fire's
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Cold's
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Poison's
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Light's
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Finish
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ArrowOfLight
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ArrowOfLightDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ChainLightning
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ChainLightningDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FlashOfLight
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FlashOfLightDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Healing
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HealingDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HotBlood
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HotBloodDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Hurricane
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HurricaneDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Hypnosis
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HypnosisDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Inferno
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: InfernoDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Irritation
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: IrritationDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MagicShield
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MagicShieldDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MoneyRain
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MoneyRainDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PoweredKick
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PoweredKickDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ReverseTechnique
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ReverseTechniqueDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: SacrificialBlood
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: SacrificialBloodDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: StrongerKick
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: StrongerKickDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: TimeStop
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ToxicRelease
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: TimeStopDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ToxicReleaseDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: AngrySword
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: AngrySwordDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DevilFinger
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DevilFingerDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DiscountCoupon
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DiscountCouponDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: EternalIce
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: EternalIceDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HotWind
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HotWindDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: LongScythe
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: LongScytheDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Mace
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MaceDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MagicStaff
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MagicStaffDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ManaVessel
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ManaVesselDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MedicalKit
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MedicalKitDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: OldKnife
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: OldKnifeDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PassiveBomb
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PassiveBombDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PlainShield
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PlainShieldDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ProtectiveAmulet
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ProtectiveAmuletDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Totem
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: TotemDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: VampireFangs
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: VampireFangsDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: WeaklingsShield
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: WeaklingsShieldDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  references:
+    version: 2
+    RefIds: []

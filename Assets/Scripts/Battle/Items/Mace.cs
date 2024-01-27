@@ -21,9 +21,9 @@ namespace Battle.Items
             });
         }
 
-        public override string Title => "Mace";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description =>
-            $"When you hit an enemy it then gets {Tools.Percents(value)}% more damage for {moves} moves (stackable)";
+        public override string Description => string.Format(descriptionKeyRef.Value, Tools.Percents(value), moves);
     }
 }

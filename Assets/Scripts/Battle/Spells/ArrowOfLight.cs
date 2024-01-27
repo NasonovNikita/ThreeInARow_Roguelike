@@ -11,12 +11,12 @@ namespace Battle.Spells
             
             manager.player.mana.Waste(useCost);
             LogUsage();
-            PToEDamageLog.Log(manager.target, manager.player, new Damage(lDmg: 30));
-            manager.target.DoDamage(new Damage(lDmg: 30));
+            PToEDamageLog.Log(manager.target, manager.player, new Damage(lDmg: (int) value));
+            manager.target.DoDamage(new Damage(lDmg: (int) value));
         }
 
-        public override string Title => "Arrow Of Light";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Deal {value} light dmg";
+        public override string Description => string.Format(descriptionKeyRef.Value, (int) value);
     }
 }

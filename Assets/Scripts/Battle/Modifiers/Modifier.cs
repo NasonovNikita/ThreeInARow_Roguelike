@@ -1,5 +1,6 @@
 using System;
 using Core;
+using Knot.Localization;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,8 +9,6 @@ namespace Battle.Modifiers
     [Serializable]
     public class Modifier
     {
-        public static readonly int MissingOnFreezingChance = 40;
-        
         public int moves;
 
         public ModType type;
@@ -52,40 +51,46 @@ namespace Battle.Modifiers
                         _ => throw new ArgumentOutOfRangeException()
                     },
                     _ => throw new ArgumentOutOfRangeException()
-                }; // TODO
+                };
             }
-            
         }
+
+        private string DmgTypeString => ModifiersDescriptionKeys.instance.DmgType(dmgType);
 
         public string Description
         {
             get
             {
-                string moreLess = value > 0 ? "more" : "less";
-                string val;
+                string moreLess = value > 0
+                    ? ModifiersDescriptionKeys.instance.more.Value
+                    : ModifiersDescriptionKeys.instance.less.Value;
+                string changeInfo;
                 switch (type)
                 {
                     case ModType.Blind:
-                        return "Can't see the grid";
+                        return ModifiersDescriptionKeys.instance.blind.Value;
                     case ModType.Stun:
-                        return "Skips turn";
+                        return ModifiersDescriptionKeys.instance.stun.Value;
                     case ModType.Freezing:
-                        return $"Can miss with {MissingOnFreezingChance}% chance";
+                        return string.Format(ModifiersDescriptionKeys.instance.freezing.Value,
+                            ElementsProperties.MissingOnFreezeChance);
                     case ModType.Burning:
-                        return "Takes 20 dmg every turn";
+                        return string.Format(ModifiersDescriptionKeys.instance.burning.Value,
+                            ElementsProperties.FireDamage);
                     case ModType.Poisoning:
-                        return "Takes 15 dmg every turn";
+                        return string.Format(ModifiersDescriptionKeys.instance.poisoning.Value,
+                            ElementsProperties.PoisonDamage);
                     case ModType.Frozen:
-                        return "Is stunned";
+                        return ModifiersDescriptionKeys.instance.frozen.Value;
                     case ModType.Irritated:
-                        return "Deals more damage if nobody dies this turn";
+                        return string.Format(ModifiersDescriptionKeys.instance.irritated.Value, (int) value);
                     case ModType.Ignition:
-                        return "Can get on fire randomly";
+                        return ModifiersDescriptionKeys.instance.ignition.Value;
                     case ModType.Add:
-                        val = $"{Math.Abs(Use)} {moreLess}";
+                        changeInfo = $"{Math.Abs(Use)} {moreLess}";
                         break;
                     case ModType.Mul:
-                        val = $"{(int) Math.Abs(Use * 100)}% {moreLess}";
+                        changeInfo = $"{(int) Math.Abs(Use * 100)}% {moreLess}";
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -93,14 +98,22 @@ namespace Battle.Modifiers
                 
                 return workPattern switch
                 {
-                    ModClass.DamageBase => $"Deal {val} dmg",
-                    ModClass.DamageTyped => $"Deal {val} {dmgType} dmg",
-                    ModClass.DamageTypedStat => $"Deal {val} {dmgType} dmg per gem",
-                    ModClass.HpDamageBase => $"Get {val} dmg",
-                    ModClass.HpDamageTyped => $"Get {val} {dmgType} dmg",
-                    ModClass.HpHealing => $"Heal {val} Hp",
-                    ModClass.ManaRefill => $"Refill {val} mana",
-                    ModClass.ManaWaste => $"waste {val} mana",
+                    ModClass.DamageBase => string.Format(ModifiersDescriptionKeys.instance.dealDmg.Value,
+                        changeInfo),
+                    ModClass.DamageTyped => string.Format(ModifiersDescriptionKeys.instance.dealDmg.Value,
+                        $"{changeInfo} {DmgTypeString}"),
+                    ModClass.DamageTypedStat => string.Format(ModifiersDescriptionKeys.instance.dealDmgPerGem.Value,
+                        $"{changeInfo} {DmgTypeString}"),
+                    ModClass.HpDamageBase => string.Format(ModifiersDescriptionKeys.instance.getDmg.Value,
+                        changeInfo),
+                    ModClass.HpDamageTyped => string.Format(ModifiersDescriptionKeys.instance.getDmg.Value,
+                        $"{changeInfo} {DmgTypeString}"),
+                    ModClass.HpHealing => string.Format(ModifiersDescriptionKeys.instance.healHp.Value,
+                        changeInfo),
+                    ModClass.ManaRefill => string.Format(ModifiersDescriptionKeys.instance.refillMana.Value,
+                        changeInfo),
+                    ModClass.ManaWaste => string.Format(ModifiersDescriptionKeys.instance.wasteMana.Value,
+                        changeInfo),
                     ModClass.Standard => 
                         throw new Exception("can't be standard because no standard type was caught"),
                     _ => throw new ArgumentOutOfRangeException()
@@ -112,7 +125,8 @@ namespace Battle.Modifiers
 
         private Action onMove;
 
-        public Modifier(int moves, ModType type, ModClass workPattern = ModClass.Standard, DmgType dmgType = DmgType.Physic, bool isPositive = true, float value = 1, Action onMove = null,
+        public Modifier(int moves, ModType type, ModClass workPattern = ModClass.Standard,
+            DmgType dmgType = DmgType.Physic, bool isPositive = true, float value = 1, Action onMove = null,
             bool delay = false, bool always = false)
         {
             this.moves = moves;

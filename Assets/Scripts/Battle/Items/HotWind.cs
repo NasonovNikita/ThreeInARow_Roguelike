@@ -23,8 +23,9 @@ namespace Battle.Items
             });
         }
 
-        public override string Title => "Hot Wind";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Fire can spread to other enemies with {chance}% chance";
+        public override string Description => string.Format(descriptionKeyRef.Value, chance);
     }
 }

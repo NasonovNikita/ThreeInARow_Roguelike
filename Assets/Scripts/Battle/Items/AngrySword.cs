@@ -18,8 +18,10 @@ namespace Battle.Items
                     ModClass.DamageBase,  value: bonus)));
         }
 
-        public override string Title => "Angry Sword";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"If you have less then {hpLessThen} hp you deal {Tools.Percents(bonus)}% more dmg";
+        public override string Description => 
+            string.Format(descriptionKeyRef.Value, hpLessThen, Tools.Percents(bonus));
     }
 }

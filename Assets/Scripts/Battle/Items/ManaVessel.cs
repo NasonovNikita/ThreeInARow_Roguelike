@@ -11,9 +11,10 @@ namespace Battle.Items
         
         public override void Use(Unit unitBelong) {}
 
-        public override string Title => "Mana Vessel";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Increase maximum mana by {addToBorder} points and gain {addValue} mana";
+        public override string Description => string.Format(descriptionKeyRef.Value, addToBorder, addValue);
 
         public override void OnGet()
         {

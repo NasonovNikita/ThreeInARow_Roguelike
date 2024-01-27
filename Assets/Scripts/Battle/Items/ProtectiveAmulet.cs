@@ -13,8 +13,9 @@ namespace Battle.Items
             unitBelong.AddHpMod(new Modifier(-1, ModType.Add, ModClass.DamageTyped, DmgType.Magic, value: -value));
         }
 
-        public override string Title => "Protective Amulet";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "-5 magic dmg (useless haha)";
+        public override string Description => string.Format(descriptionKeyRef.Value, value);
+        
     }
 }

@@ -21,8 +21,8 @@ namespace Battle.Spells
             }
         }
 
-        public override string Title => "Time Stop";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "Enemies skip this turn";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

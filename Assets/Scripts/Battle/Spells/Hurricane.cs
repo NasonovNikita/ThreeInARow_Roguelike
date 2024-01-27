@@ -16,8 +16,8 @@ namespace Battle.Spells
             manager.OnEnemiesShuffle();
         }
 
-        public override string Title => "Hurricane";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "Shuffles enemies (they change raws and order)";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

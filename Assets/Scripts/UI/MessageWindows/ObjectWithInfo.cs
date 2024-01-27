@@ -1,3 +1,4 @@
+using Knot.Localization;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,10 +7,13 @@ namespace UI.MessageWindows
     public class ObjectWithInfo : PointerTracker, IPointerClickHandler
     {
         public string text;
+        
+        public KnotTextKeyReference keyReference;
+        protected virtual string Text => text != "" ? text : keyReference.Value;
 
         private Vector3 Shift => DevDebugWindow.instance.WindowSize;
 
-        private void ShowInfo() => DevDebugWindow.instance.Write(text);
+        private void ShowInfo() => DevDebugWindow.instance.Write(Text);
 
         private void CloseInfo()
         {

@@ -1,4 +1,5 @@
 using System;
+using Knot.Localization;
 using UnityEngine;
 
 namespace Other
@@ -19,6 +20,9 @@ namespace Other
                 Rarity.Secret => 0,
                 _ => throw new ArgumentOutOfRangeException()
             };
+
+        [SerializeField] protected KnotTextKeyReference titleKeyRef;
+        [SerializeField] protected KnotTextKeyReference descriptionKeyRef;
 
         public abstract string Title { get; }
         public abstract string Description { get; }

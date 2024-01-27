@@ -12,8 +12,9 @@ namespace Battle.Items
             BattleTargetPicker.SetAllRawsAvailable();
         }
 
-        public override string Title => "LongScythe";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "You can hit enemies from any raw";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

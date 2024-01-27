@@ -11,11 +11,12 @@ namespace Battle.Items
         [SerializeField] private float sale;
         public override void Use(Unit unitBelong) {}
 
-        public override string Title => "Discount Coupon";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description =>
-            $"A good (on sale) in the shop costs now {Tools.Percents(sale)}% instead of {Tools.Percents(ShopManager.salePrice)}%";
-
+        public override string Description => string.Format(descriptionKeyRef.Value, Tools.Percents(sale),
+            Tools.Percents(ShopManager.salePrice));
+        
         public override void OnGet()
         {
             ShopManager.salePrice = sale;

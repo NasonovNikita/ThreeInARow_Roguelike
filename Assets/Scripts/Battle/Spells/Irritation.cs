@@ -14,12 +14,11 @@ namespace Battle.Spells
             unitBelong.mana.Waste(useCost);
             LogUsage();
             unitBelong.AddMod(new Modifier(-1, ModType.Irritated, value: value));
-            new IrritationEvent(value, unitBelong);
+            new IrritationEvent((int) value, unitBelong);
         }
 
-        public override string Title => "Irritation";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description =>
-            $"If no enemy dies in this turn gain +{(int)value} Physical damage (per gem)";
+        public override string Description => string.Format(descriptionKeyRef.Value, (int)value);
     }
 }

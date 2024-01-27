@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 4
   img: {fileID: 0}
+  titleKeyRef:
+    _key: SacrificialBlood
+    _formatters: []
+  descriptionKeyRef:
+    _key: SacrificialBloodDescription
+    _formatters: []
   useCost: 10
   value: 0
   count: 0
+  references:
+    version: 2
+    RefIds: []

@@ -14,7 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 1
   img: {fileID: 0}
+  titleKeyRef:
+    _key: HotBlood
+    _formatters: []
+  descriptionKeyRef:
+    _key: HotBloodDescription
+    _formatters: []
   useCost: 53
   value: 3
   count: 3
   chance: 30
+  references:
+    version: 2
+    RefIds: []

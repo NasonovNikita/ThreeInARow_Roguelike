@@ -15,8 +15,8 @@ namespace Battle.Spells
             manager.target.DoDamage(new Damage(mDmg: (int) value));
         }
 
-        public override string Title => "Kick";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Deal {value} dmg";
+        public override string Description => string.Format(descriptionKeyRef.Value, value);
     }
 }

@@ -1,10 +1,8 @@
 using System;
-using UI;
 using UI.MessageWindows;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 namespace Shop
 {
@@ -19,13 +17,12 @@ namespace Shop
             {
                 button.onClick.AddListener(() => good.TryBuy(OnBuy));
                 button.GetComponentInChildren<Text>().text = $"{good.target.Title} {good.price}";
-                button.AddComponent<ObjectWithInfo>().text = good.target.Description;
+                var info = button.GetComponent<ObjectWithInfo>();
+                info.text = good.target.Description;
             }
             catch (Exception e)
             {
                 button.GetComponentInChildren<Text>().text = "Sorry, we are out";
-                DevDebugWindow.instance.Write("A bug occured. Tell me, if it actually broke something. " +
-                                              $"Thrown error: {e.Message}");
             }
         }
 

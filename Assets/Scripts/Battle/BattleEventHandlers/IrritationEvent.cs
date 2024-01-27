@@ -6,10 +6,10 @@ namespace Battle.BattleEventHandlers
 {
     public class IrritationEvent : BattleEvent
     {
-        private readonly float increaseValue;
+        private readonly int increaseValue;
         private readonly Unit unit;
         
-        public IrritationEvent(float value, Unit unit) : base()    // Ilog.onLog += Handle
+        public IrritationEvent(int value, Unit unit) : base()    // Ilog.onLog += Handle
         {
             increaseValue = value;
             this.unit = unit;

@@ -19,8 +19,8 @@ namespace Battle.Spells
             }
         }
 
-        public override string Title => "Reverse Technique";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "Delete all your negative mods";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

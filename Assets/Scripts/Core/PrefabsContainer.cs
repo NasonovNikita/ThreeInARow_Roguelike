@@ -30,6 +30,8 @@ namespace Core
 
         public SpellReplacingWindow spellReplacingWindow;
 
+        public LanguageChooser languageChooser;
+
         public ModIcon modIcon;
 
         public static PrefabsContainer instance;

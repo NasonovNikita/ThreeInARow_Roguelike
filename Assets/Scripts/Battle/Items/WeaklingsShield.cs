@@ -11,10 +11,9 @@ namespace Battle.Items
         [SerializeField] private int notGottenDamage;
         public override void Use(Unit unitBelong) {}
 
-        public override string Title => "Weaklings Shield";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description =>
-            $"You lose {lostDamage} dmg, but you get {notGottenDamage} less dmg from hits";
+        public override string Description => string.Format(descriptionKeyRef.Value, lostDamage, notGottenDamage);
 
         public override void OnGet()
         {

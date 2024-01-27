@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fb7244e7e848f3b33ba5b205f8cca3, type: 3}
   m_Name: MedicalKit
   m_EditorClassIdentifier: 
-  title: Medical kit
-  description: 25% more healing
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: MedicalKit
+    _formatters: []
+  descriptionKeyRef:
+    _key: MedicalKitDescription
+    _formatters: []
   value: 0.25
+  references:
+    version: 2
+    RefIds: []

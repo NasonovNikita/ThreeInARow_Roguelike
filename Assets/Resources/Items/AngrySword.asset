@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: AngrySword
   m_EditorClassIdentifier: 
   rarity: 1
-  img: {fileID: -9145872144641401073, guid: 1081d644ac468a34b84de0c1c4ff1490, type: 3}
+  img: {fileID: 779688784274882460, guid: 1081d644ac468a34b84de0c1c4ff1490, type: 3}
+  titleKeyRef:
+    _key: AngrySword
+    _formatters: []
+  descriptionKeyRef:
+    _key: AngrySwordDescription
+    _formatters: []
   hpLessThen: 50
   bonus: 0.25
+  references:
+    version: 2
+    RefIds: []

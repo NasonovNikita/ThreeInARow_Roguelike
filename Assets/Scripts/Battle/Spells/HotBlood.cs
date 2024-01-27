@@ -22,10 +22,9 @@ namespace Battle.Spells
             new RandomIgnitionEvent(chance, unitBelong, count);
         }
 
-        public override string Title => "Hot Blood";
+        public override string Title => titleKeyRef.Value;
 
         public override string Description =>
-            $"You may start burning at any of next {count} turns wih chance {Other.Tools.Percents(chance)}% each." +
-            $"Gain {(int)value} physical dmg (per gem)";
+            string.Format(descriptionKeyRef.Value, count, Other.Tools.Percents(chance), (int)value);
     }
 }

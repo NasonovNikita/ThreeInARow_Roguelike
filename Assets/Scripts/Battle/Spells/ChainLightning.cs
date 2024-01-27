@@ -28,10 +28,9 @@ namespace Battle.Spells
             }
         }
 
-        public override string Title => "Chain Lightning";
+        public override string Title => titleKeyRef.Value;
 
         public override string Description =>
-            $"Deals {value} damage each enemy." +
-            $"Additional {Other.Tools.Percents(rise)}% dmg to every next enemy";
+            string.Format(descriptionKeyRef.Value, (int)value, Other.Tools.Percents(rise));
     }
 }

@@ -10,9 +10,10 @@ namespace Battle.Items
         [SerializeField] private int value;
         public override void Use(Unit unitBelong) {}
 
-        public override string Title => "Old Knife";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"+{value} physical dmg (per gem)";
+        public override string Description => string.Format(descriptionKeyRef.Value, value);
 
         public override void OnGet()
         {

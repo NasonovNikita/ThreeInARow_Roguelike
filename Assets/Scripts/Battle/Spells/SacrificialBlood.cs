@@ -16,8 +16,8 @@ namespace Battle.Spells
             manager.Win();
         }
 
-        public override string Title => "Sacrificial Blood";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "NO ONE ESCAPES";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

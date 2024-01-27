@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 1
   img: {fileID: 0}
+  titleKeyRef:
+    _key: Kick
+    _formatters: []
+  descriptionKeyRef:
+    _key: KickDescription
+    _formatters: []
   useCost: 25
   value: 25
   count: 0
+  references:
+    version: 2
+    RefIds: []

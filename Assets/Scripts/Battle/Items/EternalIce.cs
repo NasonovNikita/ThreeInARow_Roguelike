@@ -11,8 +11,9 @@ namespace Battle.Items
             unitBelong.canFullyFreeze = true;
         }
 
-        public override string Title => "Eternal Ice";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "Cold can totally freeze enemies (stun)";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

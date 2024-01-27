@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d96dc8527be41ab900dded8608b74f0, type: 3}
   m_Name: MagicStaff
   m_EditorClassIdentifier: 
-  title: Magic staff
-  description: -10% mana wasting (on anything)
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: MagicStaff
+    _formatters: []
+  descriptionKeyRef:
+    _key: MagicStaffDescription
+    _formatters: []
   value: 0.1
+  references:
+    version: 2
+    RefIds: []

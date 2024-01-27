@@ -19,8 +19,8 @@ namespace Battle.Spells
             }
         }
 
-        public override string Title => "Flash Of Light";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "Enemies can't see the grid (they do random things)";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

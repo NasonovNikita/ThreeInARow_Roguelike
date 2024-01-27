@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915159180b3f479dbc73ed0a36ffbd5a, type: 3}
   m_Name: PlainShield
   m_EditorClassIdentifier: 
-  title: Plain Shield
-  description: -30% dmg
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: PlainShield
+    _formatters: []
+  descriptionKeyRef:
+    _key: PlainShieldDescription
+    _formatters: []
   value: 0.3
+  references:
+    version: 2
+    RefIds: []

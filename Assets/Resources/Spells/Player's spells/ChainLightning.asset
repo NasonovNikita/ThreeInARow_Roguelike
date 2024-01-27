@@ -14,7 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 2
   img: {fileID: 0}
+  titleKeyRef:
+    _key: ChainLightning
+    _formatters: []
+  descriptionKeyRef:
+    _key: ChainLightningDescription
+    _formatters: []
   useCost: 47
   value: 35
   count: 0
   rise: 1.2
+  references:
+    version: 2
+    RefIds: []

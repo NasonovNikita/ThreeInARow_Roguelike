@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: Mace
   m_EditorClassIdentifier: 
   rarity: 1
-  img: {fileID: -2388140852057544024, guid: d44fc9ae21d95c747b5d9b9d74924f26, type: 3}
+  img: {fileID: 7054238270294593532, guid: d44fc9ae21d95c747b5d9b9d74924f26, type: 3}
+  titleKeyRef:
+    _key: Mace
+    _formatters: []
+  descriptionKeyRef:
+    _key: MaceDescription
+    _formatters: []
   moves: 3
   value: 0.15
+  references:
+    version: 2
+    RefIds: []

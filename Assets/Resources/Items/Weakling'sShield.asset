@@ -14,5 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 1
   img: {fileID: 0}
+  titleKeyRef:
+    _key: WeaklingsShield
+    _formatters: []
+  descriptionKeyRef:
+    _key: WeaklingsShieldDescription
+    _formatters: []
   lostDamage: 1
   notGottenDamage: 10
+  references:
+    version: 2
+    RefIds: []

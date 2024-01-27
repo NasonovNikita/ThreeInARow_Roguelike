@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc23f463e64d42fe89efb15c06fb3232, type: 3}
   m_Name: ProtectiveAmulet
   m_EditorClassIdentifier: 
-  title: Protective amulet
-  description: -5 magic dmg (useless haha)
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: ProtectiveAmulet
+    _formatters: []
+  descriptionKeyRef:
+    _key: ProtectiveAmuletDescription
+    _formatters: []
   value: 5
+  references:
+    version: 2
+    RefIds: []

@@ -74,7 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6615673568384073920, guid: ba3e478088371a047a585e1332be454a, type: 3}
       propertyPath: text
-      value: Battle. You get money at the end
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6615673568384073920, guid: ba3e478088371a047a585e1332be454a, type: 3}
+      propertyPath: keyReference._key
+      value: BattleDescription
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6381683219178038516, guid: ba3e478088371a047a585e1332be454a, type: 3}
@@ -102,5 +106,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e388177e6147bee42b95d933d83c75f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 0
+  waitBeforeShowTime: 0
+  text: 
+  keyReference:
+    _key: 
+    _formatters: []
   next: []
-  group: {fileID: 0}
+  isBoss: 0
+  references:
+    version: 2
+    RefIds: []

@@ -43,8 +43,9 @@ namespace Battle.Units
         protected BattleManager manager;
 
         private bool IsMissingOnFreeze =>
-            Random.Range(1, 101) <=
-            (allMods.Exists(v => v.type is ModType.Freezing) ? Modifier.MissingOnFreezingChance : 0);
+            Tools.Random.RandomChance(allMods.Exists(v => v.type is ModType.Freezing)
+            ? ElementsProperties.MissingOnFreezeChance
+            : 0);
 
         public bool canFullyFreeze;
 
@@ -129,13 +130,13 @@ namespace Battle.Units
             switch (chosenElement)
             {
                 case DmgType.Light when destroyed[GemType.Yellow] != 0:
-                    hp.Heal(5 * destroyed[GemType.Yellow]);
+                    hp.Heal(ElementsProperties.LightHealRate * destroyed[GemType.Yellow]);
                     break;
                 case DmgType.Fire when destroyed[GemType.Red] != 0:
                     target.StartBurning(1);
                     break;
                 case DmgType.Cold when destroyed[GemType.Blue] != 0:
-                    if (canFullyFreeze && Tools.Random.RandomChance(50))
+                    if (canFullyFreeze && Tools.Random.RandomChance(ElementsProperties.TotalFreezingChance))
                     {
                         target.Stun(1);
                         target.AddMod(new Modifier(1, ModType.Frozen));
@@ -168,11 +169,11 @@ namespace Battle.Units
                 moves,
                 ModType.Burning,
                 isPositive: false,
-                onMove: () => { DoDamage(new Damage(fDmg: 10)); },
+                onMove: () => { DoDamage(new Damage(fDmg: ElementsProperties.FireDamage)); },
                 delay: true)
             );
             AddHpMod(new Modifier(moves + 1, ModType.Mul,
-                ModClass.HpDamageBase, isPositive: false, value: 0.25f));
+                ModClass.HpDamageBase, isPositive: false, value: ElementsProperties.FiredDamageModVal));
             stateAnimationController.AddState(UnitStates.Burning);
         }
 
@@ -182,19 +183,17 @@ namespace Battle.Units
                 moves,
                 ModType.Poisoning,
                 isPositive: false,
-                onMove: () => { DoDamage(new Damage(cDmg: 15)); },
+                onMove: () => { DoDamage(new Damage(pDmg: ElementsProperties.PoisonDamage)); },
                 delay: true)
             );
             try
             {
                 allMods.First(v => v.isPositive).TurnOff();
             }
-            catch
+            finally
             {
-                // ignored
+                stateAnimationController.AddState(UnitStates.Poisoning);
             }
-
-            stateAnimationController.AddState(UnitStates.Poisoning);
         }
 
         public void StartFreezing(int moves)
@@ -203,7 +202,7 @@ namespace Battle.Units
             stateAnimationController.AddState(UnitStates.Freezing);
             
             AddDamageMod(new Modifier(moves, ModType.Mul,
-                ModClass.DamageBase, isPositive: false, value: -0.25f));
+                ModClass.DamageBase, isPositive: false, value: -ElementsProperties.ColdDamageLoss));
         }
 
         public void StopBurning()

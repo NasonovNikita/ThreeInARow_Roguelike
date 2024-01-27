@@ -20,9 +20,10 @@ namespace Battle.Items
             });
         }
 
-        public override string Title => "Devil Finger";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description =>
-            $"If you don't use any spells in a fight you gain {value} physical dmg forever";
+        public override string Description => string.Format(descriptionKeyRef.Value, value);
+
     }
 }

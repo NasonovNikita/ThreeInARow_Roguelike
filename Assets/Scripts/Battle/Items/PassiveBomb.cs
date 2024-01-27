@@ -24,9 +24,10 @@ namespace Battle.Items
             });
         }
 
-        public override string Title => "Passive Bomb";
+        
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description =>
-            $"If at the end of the turn you have at least {minMana} mana you throw a bomb, that deals {damage} fire dmg to enemies";
+        public override string Description => string.Format(descriptionKeyRef.Value, minMana, damage);
+
     }
 }

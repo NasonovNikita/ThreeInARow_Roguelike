@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e4a62800274317a6a604a2a6417ff1, type: 3}
   m_Name: OldKnife
   m_EditorClassIdentifier: 
-  title: Old knife
-  description: +4 physical dmg (per gem)
+  rarity: 0
   img: {fileID: 0}
-  frequency: 3
+  titleKeyRef:
+    _key: OldKnife
+    _formatters: []
+  descriptionKeyRef:
+    _key: OldKnifeDescription
+    _formatters: []
   value: 4
+  references:
+    version: 2
+    RefIds: []

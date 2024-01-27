@@ -14,4 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 2
   img: {fileID: 0}
+  titleKeyRef:
+    _key: DevilFinger
+    _formatters: []
+  descriptionKeyRef:
+    _key: DevilFingerDescription
+    _formatters: []
   value: 2
+  references:
+    version: 2
+    RefIds: []

@@ -26,7 +26,7 @@ namespace Core.Saves
             return Load<SettingsSave>(SettingsPath);
         }
 
-        public static bool LoadGame()
+        public static bool TryLoadGameOrFail()
         {
             return Load<GameSave>(GamePath);
         }

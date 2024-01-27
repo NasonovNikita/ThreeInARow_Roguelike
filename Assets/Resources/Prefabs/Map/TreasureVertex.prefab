@@ -161,7 +161,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actAfterTime: 0
   waitBeforeShowTime: 0
-  text: A treasure
+  text: 
+  keyReference:
+    _key: TreasureDescription
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-2121221672186399286
 MonoBehaviour:
   m_ObjectHideFlags: 0

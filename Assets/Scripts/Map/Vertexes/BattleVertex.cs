@@ -1,6 +1,6 @@
 using Battle;
-using Battle.Units;
 using Core;
+using Knot.Localization;
 using UnityEngine.SceneManagement;
 
 namespace Map.Vertexes
@@ -8,7 +8,7 @@ namespace Map.Vertexes
     public class BattleVertex : Vertex
     {
         public bool isBoss;
-        
+
         public override void OnArrive()
         {
             SetRandom();

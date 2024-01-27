@@ -14,5 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 3
   img: {fileID: 0}
+  titleKeyRef:
+    _key: Totem
+    _formatters: []
+  descriptionKeyRef:
+    _key: TotemDescription
+    _formatters: []
   chance: 80
   leftHp: 1
+  references:
+    version: 2
+    RefIds: []

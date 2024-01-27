@@ -1,5 +1,4 @@
 using Core;
-using Other;
 using Treasure;
 using UnityEngine.SceneManagement;
 

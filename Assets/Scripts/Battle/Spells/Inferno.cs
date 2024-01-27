@@ -22,8 +22,8 @@ namespace Battle.Spells
             }
         }
 
-        public override string Title => "Inferno";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => "BURN THEM ALL";
+        public override string Description => descriptionKeyRef.Value;
     }
 }

@@ -48,16 +48,12 @@ MonoBehaviour:
       value: 0
   items:
   - {fileID: 11400000, guid: 06ce3cab4161cb64ca0ad2fb9d2efdb6, type: 2}
+  - {fileID: 11400000, guid: 54e8cced75ce78b42888b86f0b84f181, type: 2}
+  - {fileID: 11400000, guid: 8c8eff371f0d5174aa46193f04de25ae, type: 2}
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
-  allMods:
-  - moves: 2
-    type: 0
-    workPattern: 1
-    dmgType: 0
-    value: 6
-    isPositive: 1
-    delay: 0
+  - {fileID: 11400000, guid: 64fe9de317ac3f04fa48c5dfd69538a7, type: 2}
+  allMods: []
   manaPerGem: 20
   chosenElement: 4
   money: 20

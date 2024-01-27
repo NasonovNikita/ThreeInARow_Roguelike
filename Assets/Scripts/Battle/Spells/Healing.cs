@@ -24,8 +24,8 @@ namespace Battle.Spells
             }
         }
 
-        public override string Title => "Healing";
+        public override string Title => titleKeyRef.Value;
 
-        public override string Description => $"Heal {Other.Tools.Percents(value)}% of maximum hp";
+        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
     }
 }

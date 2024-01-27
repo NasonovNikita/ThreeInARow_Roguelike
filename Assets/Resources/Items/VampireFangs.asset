@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 2
   img: {fileID: 0}
+  titleKeyRef:
+    _key: VampireFangs
+    _formatters: []
+  descriptionKeyRef:
+    _key: VampireFangsDescription
+    _formatters: []
   from: 80
   to: 100
   minHeal: 10
+  references:
+    version: 2
+    RefIds: []

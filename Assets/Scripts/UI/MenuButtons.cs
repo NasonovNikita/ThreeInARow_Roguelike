@@ -1,4 +1,5 @@
 using Core;
+using Other;
 using UnityEngine;
 
 namespace UI
@@ -37,7 +38,12 @@ namespace UI
 
         public void ShowInventory()
         {
-            Instantiate(PrefabsContainer.instance.inventoryManager, FindFirstObjectByType<Canvas>().transform);
+            Tools.InstantiateUI(PrefabsContainer.instance.inventoryManager);
+        }
+
+        public void ChooseLanguage()
+        {
+            Tools.InstantiateUI(PrefabsContainer.instance.languageChooser);
         }
     }
 }

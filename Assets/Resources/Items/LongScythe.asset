@@ -14,3 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 1
   img: {fileID: 0}
+  titleKeyRef:
+    _key: LongScythe
+    _formatters: []
+  descriptionKeyRef:
+    _key: LongScytheDescription
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []

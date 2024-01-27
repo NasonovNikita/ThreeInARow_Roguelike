@@ -14,4 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 2
   img: {fileID: -3772210135567121431, guid: e4eafd996a2a596449b70df5739f5a23, type: 3}
+  titleKeyRef:
+    _key: DiscountCoupon
+    _formatters: []
+  descriptionKeyRef:
+    _key: DiscountCouponDescription
+    _formatters: []
   sale: 0.5
+  references:
+    version: 2
+    RefIds: []

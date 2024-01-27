@@ -14,5 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 2
   img: {fileID: 0}
+  titleKeyRef:
+    _key: PassiveBomb
+    _formatters: []
+  descriptionKeyRef:
+    _key: PassiveBombDescription
+    _formatters: []
   minMana: 60
   damage: 20
+  references:
+    version: 2
+    RefIds: []
