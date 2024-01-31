@@ -9,10 +9,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            manager.player.mana.Waste(useCost);
-            LogUsage();
             foreach (var enemy in manager.enemies.Where(v => v != null))
             {
                 enemy.AddMod(new Modifier(count, ModType.Blind));

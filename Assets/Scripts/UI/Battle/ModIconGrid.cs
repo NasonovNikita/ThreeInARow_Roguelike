@@ -7,7 +7,7 @@ namespace UI.Battle
     {
         public void Add(Modifier mod)
         {
-            ModIcon.Create(mod, transform);
+            if (this != null) ModIcon.Create(mod, transform);
         }
     }
 }

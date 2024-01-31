@@ -8,10 +8,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            unitBelong.mana.Waste(useCost);
-            LogUsage();
             manager.enemies = manager.enemies.OrderBy(_ => Random.Range(0, 10000000)).ToList();
             manager.OnEnemiesShuffle();
         }

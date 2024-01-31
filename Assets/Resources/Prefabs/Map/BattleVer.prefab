@@ -106,14 +106,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e388177e6147bee42b95d933d83c75f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actAfterTime: 0
-  waitBeforeShowTime: 0
-  text: 
-  keyReference:
-    _key: 
-    _formatters: []
+  scaler: {fileID: 4828588063693817345}
+  prefab: {fileID: 7249814954095630152, guid: 65a9e1d1c2a96e94888abfcace706ef4, type: 3}
   next: []
   isBoss: 0
-  references:
-    version: 2
-    RefIds: []
+--- !u!114 &4828588063693817345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2324063467741416574, guid: ba3e478088371a047a585e1332be454a, type: 3}
+  m_PrefabInstance: {fileID: 7152327725055330943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321795522665952329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1850e7f761fa15842b0ac245ad22cf03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

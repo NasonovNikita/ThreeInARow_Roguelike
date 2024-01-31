@@ -11,11 +11,8 @@ namespace Battle.Spells
         
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            unitBelong.mana.Waste(useCost);
-            
-            LogUsage();
             unitBelong.AddDamageMod(new Modifier(-1, ModType.Add,
                 ModClass.DamageTypedStat, value: value));
             unitBelong.AddMod(new Modifier(count, ModType.Ignition));
@@ -25,6 +22,6 @@ namespace Battle.Spells
         public override string Title => titleKeyRef.Value;
 
         public override string Description =>
-            string.Format(descriptionKeyRef.Value, count, Other.Tools.Percents(chance), (int)value);
+            string.Format(descriptionKeyRef.Value, (int)value, count, chance);
     }
 }

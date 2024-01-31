@@ -271,3 +271,17 @@ MonoBehaviour:
     _rawText: Physic
   - _key: Magic
     _rawText: Magic
+  - _key: BattleRawsDescription
+    _rawText: There are two rows of enemies. Left row is "front". You can hit them
+      (press an enemy to choose it as a target). Other raw is pickable only after
+      beating the front one
+  - _key: DoYouLikeYourVessel
+    _rawText: It's you. Do you like your vessel?
+  - _key: YouLose
+    _rawText: You lose
+  - _key: YouWon
+    _rawText: You won
+  - _key: PlayerTurn
+    _rawText: Your turn
+  - _key: EnemyTurn
+    _rawText: Enemies' turn

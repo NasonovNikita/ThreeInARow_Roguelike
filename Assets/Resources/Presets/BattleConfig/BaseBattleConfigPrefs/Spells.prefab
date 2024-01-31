@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 220.21}
-  m_SizeDelta: {x: 0, y: 440.42}
+  m_AnchoredPosition: {x: 0, y: 200.00006}
+  m_SizeDelta: {x: 0, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5690122628516708232
 MonoBehaviour:
@@ -201,7 +201,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 0
+  waitBeforeShowTime: 0.5
   text: 
+  keyReference:
+    _key: 
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!224 &3540192593799485646 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -356,7 +364,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 0
+  waitBeforeShowTime: 0.5
   text: 
+  keyReference:
+    _key: 
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!224 &9078815981033599452 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -507,7 +523,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 0
+  waitBeforeShowTime: 0.5
   text: 
+  keyReference:
+    _key: 
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!224 &6560150636483408919 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -683,4 +707,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 0
+  waitBeforeShowTime: 0.5
   text: 
+  keyReference:
+    _key: 
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []

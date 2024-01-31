@@ -10,7 +10,9 @@ namespace Map.Vertexes
 {
     public abstract class Vertex: MonoBehaviour, IPointerClickHandler
     {
-        private Edge prefab;
+        public ObjectScaler scaler;
+        
+        [SerializeField] private Edge prefab;
     
         public List<Vertex> next;
 
@@ -23,11 +25,6 @@ namespace Map.Vertexes
         protected int layer;
 
         private int randomSeed;
-
-        public void Awake()
-        {
-            prefab = Resources.Load<Edge>("Prefabs/Map/Edge");
-        }
 
         public void OnEnable()
         {
@@ -84,16 +81,14 @@ namespace Map.Vertexes
         }
     
         // ReSharper disable Unity.PerformanceAnalysis
-        public void ScaleUp(Vector3 endScale, float time, Action onEnd = null)
+        public void ScaleUp(Vector3 endScale, Action onEnd = null)
         {
-            ObjectScaler scaler = GetComponent<ObjectScaler>();
-            scaler.StartScale(endScale, time, onEnd);
+            scaler.StartScale(endScale, onEnd);
         }
     
-        public void ScaleDown(Vector3 endScale, float time)
+        public void ScaleDown(Vector3 endScale)
         {
-            ObjectScaler scaler = GetComponent<ObjectScaler>();
-            scaler.StartScale(endScale, time);
+            scaler.StartScale(endScale);
         }
     }
 }

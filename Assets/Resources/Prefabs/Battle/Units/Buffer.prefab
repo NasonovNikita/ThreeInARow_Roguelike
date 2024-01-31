@@ -400,7 +400,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: df25e8a6ff34c8342996fbebcb6078e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -436,6 +436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: There are two raws of enemies. Left column is "front raw". You can hit them
-    (press an enemy to choose it as a target). Other raw is pickable only after beating
-    the front one. Doesn't hit you but highly rises enemie's dmg with his spell.
+  actAfterTime: 0
+  waitBeforeShowTime: 0
+  text: 
+  keyReference:
+    _key: BattleRawsDescription
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []

@@ -21,11 +21,13 @@ namespace Battle.Units.Stats
 
         public Damage GetGemsDamage(Dictionary<GemType, int> gems)
         {
+            if (gems.Sum(t => t.Key != GemType.Mana ? t.Value : 0) == 0) return Damage.Zero;
+            
             Damage dmg = new Damage(
                 UseDamageMods(
                     UseDamageMods(
-                        UseDamageMods((int)phDmg, 
-                            ModClass.DamageTypedStat) * gems.Sum(t => t.Key != GemType.Mana ? t.Value : 0),
+                        UseDamageMods((int)phDmg, ModClass.DamageTypedStat)
+                        * gems.Sum(t => t.Key != GemType.Mana ? t.Value : 0),
                         ModClass.DamageTyped),
                     ModClass.DamageBase),
                 GetGemDamage(gems, fDmg, GemType.Red, DmgType.Fire),
@@ -40,12 +42,9 @@ namespace Battle.Units.Stats
         private int GetGemDamage(IReadOnlyDictionary<GemType, int> gems, Stat dmg, GemType type, DmgType dmgType) =>
             Math.Max(0,
                 UseDamageMods(
-                    UseDamageMods(
-                        UseDamageMods((int)dmg, 
-                            ModClass.DamageTypedStat, dmgType) * gems[type],
-                        ModClass.DamageTyped, dmgType),
-                    ModClass.DamageBase)
-                );
+                    UseDamageMods((int)dmg, 
+                        ModClass.DamageTypedStat, dmgType) * gems[type],
+                    ModClass.DamageTyped, dmgType));
 
         public void AddMod(Modifier mod)
         {

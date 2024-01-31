@@ -40,14 +40,19 @@ namespace Battle.Spells
             SpellUsageLog.Log(unitBelong, useCost);
         }
 
-        protected bool CantCast()
+        protected bool CantCastOrCast()
         {
-            return unitBelong switch
+            bool cantCast =  unitBelong switch
             {
-                Player => manager.State != BattleState.Turn || unitBelong.mana <= useCost,
-                Enemy => unitBelong.mana <= useCost,
+                Player => manager.State != BattleState.Turn || unitBelong.mana < useCost,
+                Enemy => unitBelong.mana < useCost,
                 _ => throw new ArgumentOutOfRangeException()
             };
+            if (cantCast) return true;
+
+            unitBelong.WasteMana(useCost);
+            LogUsage();
+            return false;
         }
     }
 }

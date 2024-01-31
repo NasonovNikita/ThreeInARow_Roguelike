@@ -8,51 +8,50 @@ namespace Battle
 {
     public static class BattleLog
     {
-        private static readonly List<Log> Logs = new();
-        public static List<T> GetLogs<T>() => Logs.Where(log => log is T).Cast<T>().ToList();
+        public static List<T> GetLogs<T>() => AllLogs.Where(log => log is T).Cast<T>().ToList();
 
-        public static List<Log> GetAllLogs() => Logs;
+        public static List<Log> AllLogs { get; } = new();
 
-        public static Log GetLastLog() => Logs[-1];
+        public static Log LastLog => AllLogs[^1];
 
         public static List<Log> GetLastTurn()
         {
-            if (!Logs.Exists(v => v is TurnLog) || Logs.Count(val => val is TurnLog) == 1)
+            if (!AllLogs.Exists(v => v is TurnLog) || AllLogs.Count(val => val is TurnLog) == 1)
             {
-                return Logs;
+                return AllLogs;
             }
 
-            int i = Math.Max(Logs.Count - 2, 0);
+            int i = Math.Max(AllLogs.Count - 2, 0);
             while (i >= 0)
             {
-                if (Logs[i] is TurnLog) break;
+                if (AllLogs[i] is TurnLog) break;
                 i--;
             }
 
-            return Logs.ToArray()[i..^1].ToList();
+            return AllLogs.ToArray()[i..^1].ToList();
         }
 
-        public static void Clear() => Logs.Clear();
+        public static void Clear() => AllLogs.Clear();
 
-        internal static void AddLog(Log log) => Logs.Add(log);
+        internal static void AddLog(Log log) => AllLogs.Add(log);
     }
 
     public class GridLog : Log
     {
-        private readonly Dictionary<GemType, int> _table;
+        private readonly Dictionary<GemType, int> table;
     
         public static void Log(Dictionary<GemType, int> table) => AddLog(new GridLog(table));
 
-        public Dictionary<GemType, int> GetData => _table;
+        public Dictionary<GemType, int> GetData => table;
 
-        private GridLog(Dictionary<GemType, int> table) => _table = table;
+        private GridLog(Dictionary<GemType, int> table) => this.table = table;
     }
 
     public class SpellUsageLog : Log
     {
-        private Unit unit;
+        private readonly Unit unit;
 
-        private int wasted;
+        private readonly int wasted;
 
         public (Unit, int) GetData => (unit, wasted);
         
@@ -77,13 +76,13 @@ namespace Battle
 
     public class DeathLog : Log
     {
-        private readonly Unit _unit;
+        private readonly Unit unit;
     
         public static void Log(Unit unit) => AddLog(new DeathLog(unit));
 
-        public Unit GetData => _unit;
+        public Unit GetData => unit;
 
-        private DeathLog(Unit unit) => _unit = unit;
+        private DeathLog(Unit unit) => this.unit = unit;
     }
 
     public class PToEDamageLog : DamageLog
@@ -119,17 +118,17 @@ namespace Battle
 
     public class DamageLog : Log
     {
-        private readonly Enemy _enemy;
-        private readonly Player _player;
-        private readonly Damage _damage;
+        private readonly Enemy enemy;
+        private readonly Player player;
+        private readonly Damage damage;
     
-        public (Enemy, Player, Damage) GetData => (_enemy, _player, _damage);
+        public (Enemy, Player, Damage) GetData => (enemy, player, damage);
 
         protected DamageLog(Enemy enemy, Player player, Damage damage)
         {
-            _enemy = enemy;
-            _player = player;
-            _damage = damage;
+            this.enemy = enemy;
+            this.player = player;
+            this.damage = damage;
         }
     }
 

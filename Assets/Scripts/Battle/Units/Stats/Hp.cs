@@ -32,7 +32,7 @@ namespace Battle.Units.Stats
             int doneDamage =
                 UseHpMods(
                     ((DmgType[])Enum.GetValues(typeof(DmgType))).Sum(dmgType =>
-                        UseHpMods(dmg.Get()[dmgType], ModClass.HpDamageTyped, dmgType)),
+                        UseHpMods(dmg.Parts[dmgType], ModClass.HpDamageTyped, dmgType)),
                     ModClass.HpDamageBase);
             value -= Math.Max(0, doneDamage);
             Norm();

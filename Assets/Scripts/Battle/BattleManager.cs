@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,37 +18,37 @@ namespace Battle
 {
     public class BattleManager : MonoBehaviour
     {
-        public Player player;
+        [NonSerialized] public Player player;
     
-        public Grid grid;
+        private Grid grid;
     
-        private EnemyPlacer _placer;
+        private EnemyPlacer placer;
     
-        private Canvas _canvas;
+        [SerializeField] private Canvas canvas;
+        [SerializeField] private TurnLabel turnHUD;
 
         private const float FightTime = 0.2f;
 
-        public static EnemyGroup enemyGroup = new();
+        public static EnemyGroup enemyGroup;
 
         public Enemy target;
     
         public BattleState State { get; private set; }
 
-        public List<Enemy> enemiesPrefabs;
+        private List<Enemy> enemiesPrefabs;
         public List<Enemy> enemies;
 
-        private Coroutine _battle;
+        private Coroutine battle;
 
-        private bool _playerActs;
-        private bool _enemiesAct;
+        private bool playerActs;
+        private bool enemiesAct;
     
-        private bool _dead;
+        private bool dead;
     
         public void Awake()
         {
             AudioManager.instance.StopAll();
             
-            _canvas = FindFirstObjectByType<Canvas>();
             player = FindFirstObjectByType<Player>();
             grid = FindFirstObjectByType<Grid>();
 
@@ -68,6 +69,7 @@ namespace Battle
             placement.Place();
             
             State = BattleState.Turn;
+            turnHUD.SetPlayerTurn();
             BattleTargetPicker.ResetPick();
             
             BattleLog.Clear();
@@ -125,16 +127,16 @@ namespace Battle
 
         public void ApplyConfig()
         {
-            _placer = FindFirstObjectByType<EnemyPlacer>();
-            _placer.enemiesToPlace = enemies;
-            _placer.Place();
+            placer = FindFirstObjectByType<EnemyPlacer>();
+            placer.enemiesToPlace = enemies;
+            placer.Place();
             grid = FindFirstObjectByType<Grid>();
         }
 
         public void OnEnemiesShuffle()
         {
-            _placer.enemiesToPlace = enemies;
-            _placer.Place();
+            placer.enemiesToPlace = enemies;
+            placer.Place();
             BattleTargetPicker.PickNextPossible();
         }
 
@@ -156,6 +158,7 @@ namespace Battle
             player.Act();
             yield return new WaitForSeconds(FightTime);
 
+            turnHUD.SetEnemyTurn();
             StartCoroutine(EnemiesAct());
         }
 
@@ -176,6 +179,7 @@ namespace Battle
             TurnLog.Log();
             if (!player.Stunned())
             {
+                turnHUD.SetPlayerTurn();
                 State = BattleState.Turn;
                 grid.Unlock();
             }
@@ -192,7 +196,7 @@ namespace Battle
             State = BattleState.End;
             grid.Block();
         
-            GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, _canvas.transform);
+            GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, canvas.transform);
             var buttons = menu.GetComponentsInChildren<Button>();
             buttons[0].onClick.AddListener(GameManager.instance.NewGame);
             buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
@@ -202,7 +206,7 @@ namespace Battle
         private Enemy LoadEnemy(int i)
         {
             if (enemiesPrefabs[i] == null) return null;
-            Enemy enemy = Instantiate(enemiesPrefabs[i], _canvas.transform, false);
+            Enemy enemy = Instantiate(enemiesPrefabs[i], canvas.transform, false);
             enemy.TurnOn();
             return enemy;
         }

@@ -9,10 +9,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            unitBelong.mana.Waste(useCost);
-            LogUsage();
             foreach (Modifier mod in unitBelong.allMods.Where(v => !v.isPositive))
             {
                 mod.TurnOff();

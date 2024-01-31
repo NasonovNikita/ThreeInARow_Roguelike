@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40204e133bf84084b159af827e8095d7, type: 3}
   m_Name: MoreDmgRandEnemy
   m_EditorClassIdentifier: 
+  rarity: 0
+  img: {fileID: 0}
+  titleKeyRef:
+    _key: 
+    _formatters: []
+  descriptionKeyRef:
+    _key: 
+    _formatters: []
   useCost: 37
-  title: Raise
-  description: One of enemies deals 10 more dmg (per hit) for 1 next turn
-  value: 25
+  value: 1.5
   count: 1
+  references:
+    version: 2
+    RefIds: []

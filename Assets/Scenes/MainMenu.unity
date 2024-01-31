@@ -199,16 +199,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winMessage: {fileID: 2188612303319430005, guid: 0176c58bca5452d4dae563e7896417e4, type: 3}
   loseMessage: {fileID: 2879500456662334555, guid: ed9c6d8a9a6a1cc428c67d7bd84120ce, type: 3}
+  spellGettingWarningWindow: {fileID: 3249984304521703575, guid: d60f55fc6a25dab4f9dbe6952da2d69f, type: 3}
+  spellReplacingWindow: {fileID: 6715011800204960958, guid: ce906c6e3d9376d4ea06b7814f04d72e, type: 3}
+  languageChooser: {fileID: 1360551234560328108, guid: 3a7bcf0c7437d314688082da92916c77, type: 3}
   battleVertex: {fileID: 4151228096430590339, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
   shopVertex: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
   treasureVertex: {fileID: -2121221672186399286, guid: 76714e3d2afa7e644b0a358c75be5138, type: 3}
   pickerAim: {fileID: 3949281856400402042, guid: cc21b8a22791abc4aa49d751c276b4d4, type: 3}
   inventoryItem: {fileID: 3409028896318203545, guid: c366518e1149a2e459e83cd5e2e069dc, type: 3}
   inventoryManager: {fileID: 5194967847300656914, guid: 34ea5d7648c4043488c9e4c94f712932, type: 3}
-  spellGettingWarningWindow: {fileID: 3249984304521703575, guid: d60f55fc6a25dab4f9dbe6952da2d69f, type: 3}
-  spellReplacingWindow: {fileID: 6715011800204960958, guid: ce906c6e3d9376d4ea06b7814f04d72e, type: 3}
-  languageChooser: {fileID: 1360551234560328108, guid: 3a7bcf0c7437d314688082da92916c77, type: 3}
   modIcon: {fileID: 1606239242982794547, guid: d24b8f2015a7a854292d194eac721bd4, type: 3}
+  unitHUD: {fileID: 5159490561568478830, guid: 1899340fdf76a5045bc7dc2143d70813, type: 3}
 --- !u!4 &193633472
 Transform:
   m_ObjectHideFlags: 0

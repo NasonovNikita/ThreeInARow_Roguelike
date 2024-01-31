@@ -9,15 +9,15 @@ namespace Battle.Units
     [RequireComponent(typeof(EnemyAI))]
     public class Enemy : Unit
     {
-        private EnemyAI _ai;
+        private EnemyAI ai;
 
-        public Player Target => manager.player;
+        public override Unit Target => manager.player;
         
         public new void TurnOn()
         {
             base.TurnOn();
         
-            _ai = GetComponent<EnemyAI>();
+            ai = GetComponent<EnemyAI>();
         }
         public override void DoDamage(Damage dmg)
         {
@@ -28,12 +28,12 @@ namespace Battle.Units
         public void Act()
         {
             if (Stunned() || manager.State == BattleState.End) return;
-            _ai.Act();
+            ai.Act();
         }
 
         protected override void NoHp()
         {
-            StartCoroutine(manager.KillEnemy(this));
+            if (this != null) StartCoroutine(manager.KillEnemy(this));
         }
     }
 }

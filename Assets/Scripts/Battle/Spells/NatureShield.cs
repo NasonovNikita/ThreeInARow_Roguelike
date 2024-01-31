@@ -8,10 +8,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            unitBelong.mana.Waste(useCost);
-            LogUsage();
             unitBelong.AddHpMod(
                 new Modifier(count, ModType.Add, ModClass.HpDamageBase, value: -value, delay: true));
         }

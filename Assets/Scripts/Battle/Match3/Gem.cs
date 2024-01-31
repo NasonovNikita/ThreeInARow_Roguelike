@@ -12,26 +12,17 @@ namespace Battle.Match3
 
         public Grid grid;
     
-        private ObjectMover _mover;
-        private ObjectScaler _scaler;
+        public ObjectMover mover;
+        [SerializeField] public ObjectScaler scaler;
 
-        private void Awake()
+        public void Move(Vector2 endPos)
         {
-            _mover = GetComponent<ObjectMover>();
-            _mover.doMove = false;
-        
-            _scaler = GetComponent<ObjectScaler>();
-            _scaler.doScale = false;
+            mover.StartMovementTo(endPos);
         }
 
-        public void Move(Vector2 endPos, float time)
+        public void Scale(Vector3 endScale)
         {
-            _mover.StartMovement(endPos, time);
-        }
-
-        public void Scale(Vector3 endScale, float time)
-        {
-            _scaler.StartScale(endScale, time);
+            scaler.StartScale(endScale);
         }
 
         public void OnPointerClick(PointerEventData eventData)

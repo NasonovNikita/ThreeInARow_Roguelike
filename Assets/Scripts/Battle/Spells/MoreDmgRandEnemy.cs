@@ -12,16 +12,13 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            unitBelong.mana.Waste(useCost);
-            LogUsage();
-            var possible = manager.enemies.Where(v => v != null).Where(enemy =>
-                    !enemy.unitDamage.GetGemsDamage(new Dictionary<GemType, int>
-                        { { GemType.Blue, 1 }, { GemType.Green, 1 }, { GemType.Red, 1 }, { GemType.Yellow, 1 } })
-                    .IsZero())
+            var possible = manager.enemies.Where(v => v != null || v.hp != 0)
+                .Where(enemy => !enemy.unitDamage.GetGemsDamage(new Dictionary<GemType, int>
+                        { { GemType.Blue, 1 }, { GemType.Green, 1 }, { GemType.Red, 1 }, { GemType.Yellow, 1 } }).IsZero)
                 .ToList();
-            Tools.Random.RandomChoose(possible).AddDamageMod(new Modifier(count, ModType.Add,
+            Tools.Random.RandomChoose(possible).AddDamageMod(new Modifier(count, ModType.Mul,
                 ModClass.DamageBase, value: value, delay: true));
         }
 

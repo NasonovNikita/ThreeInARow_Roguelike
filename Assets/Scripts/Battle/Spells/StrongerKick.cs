@@ -8,10 +8,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
         
-            manager.player.mana.Waste(useCost);
-            LogUsage();
             manager.player.AddDamageMod(new Modifier(count, ModType.Mul, ModClass.DamageBase, value: value));
         }
 

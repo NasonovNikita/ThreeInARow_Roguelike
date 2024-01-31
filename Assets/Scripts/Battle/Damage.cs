@@ -7,7 +7,9 @@ namespace Battle
     {
         private readonly Dictionary<DmgType, int> parts;
 
-        public Damage( int phDmg=0, int fDmg=0, int cDmg=0, int pDmg=0, int lDmg=0, int mDmg=0)
+        public static Damage Zero => new(0);
+
+        public Damage(int phDmg=0, int fDmg=0, int cDmg=0, int pDmg=0, int lDmg=0, int mDmg=0)
         {
             parts = new Dictionary<DmgType, int>
             {
@@ -19,16 +21,10 @@ namespace Battle
                 { DmgType.Magic, mDmg}
             };
         }
-        
-        public IReadOnlyDictionary<DmgType, int> Get()
-        {
-            return parts;
-        }
 
-        public bool IsZero()
-        {
-            return parts.Values.All(val => val == 0);
-        }
+        public IReadOnlyDictionary<DmgType, int> Parts => parts;
+
+        public bool IsZero => parts.Values.All(val => val == 0);
     }
 
     public enum DmgType

@@ -7,32 +7,37 @@ namespace Other
     {
         public Vector2 endPos;
         public bool doMove;
-        private Vector2 _speed;
-        private Action _onEnd;
-
-        public void StartMovement(Vector2 end, float time)
-        {
-            _speed = (end - (Vector2)transform.position) / time;
-            endPos = end;
-            doMove = true;
-        }
+        public float time;
+        private Vector2 speed;
+        private Action onEnd;
     
-        public void StartMovement(Vector2 end, float time, Action action)
+        public void StartMovementTo(Vector2 end, Action action = null)
         {
-            _speed = (end - (Vector2)transform.position) / time;
+            speed = (end - (Vector2)transform.position) / time;
             endPos = end;
             doMove = true;
-            _onEnd = action;
+            onEnd = action;
         }
+
+        public void StartMovementBy(Vector2 delta, Action action = null)
+        {
+            speed = delta / time;
+            endPos = (Vector2)transform.position + delta;
+            doMove = true;
+            onEnd = action;
+        }
+
+
         private void FixedUpdate() {
             if (doMove) {
-                transform.position += (_speed * Time.deltaTime).magnitude < (endPos - (Vector2)transform.position).magnitude
-                    ? _speed * Time.deltaTime
+                transform.position += (speed * Time.deltaTime).magnitude < (endPos - (Vector2)transform.position).magnitude
+                    ? speed * Time.deltaTime
                     : (Vector3)endPos - transform.position;
             }
-            if ((Vector2)transform.position == endPos) {
-                doMove = false;
-            }
+
+            if ((Vector2)transform.position != endPos) return;
+            doMove = false;
+            onEnd?.Invoke();
         }
     }
 }

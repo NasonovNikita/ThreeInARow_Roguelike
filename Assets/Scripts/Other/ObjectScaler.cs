@@ -6,14 +6,15 @@ namespace Other
     public class ObjectScaler : MonoBehaviour
     {
         public Vector3 endScale;
-        private Vector3 _speed;
+        private Vector3 speed;
+        public float time;
         public bool doScale;
-        private Action _onEnd;
+        private Action onEnd;
     
-        public void StartScale(Vector3 end, float time, Action action = null)
+        public void StartScale(Vector3 end, Action action = null)
         {
-            _onEnd = action;
-            _speed = (end - transform.localScale) / time;
+            onEnd = action;
+            speed = (end - transform.localScale) / time;
             endScale = end;
             doScale = true;
         }
@@ -22,15 +23,15 @@ namespace Other
         {
             if (doScale)
             {
-                transform.localScale += (_speed * Time.deltaTime).magnitude < (endScale - transform.localScale).magnitude
-                    ? _speed * Time.deltaTime
+                transform.localScale += (speed * Time.deltaTime).magnitude < (endScale - transform.localScale).magnitude
+                    ? speed * Time.deltaTime
                     : endScale - transform.localScale;
             }
 
             if (transform.localScale != endScale) return;
             doScale = false;
-            _onEnd?.Invoke();
-            _onEnd = null;
+            onEnd?.Invoke();
+            onEnd = null;
         }
     }
 }

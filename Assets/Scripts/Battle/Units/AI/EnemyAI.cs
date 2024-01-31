@@ -111,7 +111,7 @@ namespace Battle.Units.AI
                 counts[gem.Type] += 1;
             }
 
-            int profit = attachedEnemy.unitDamage.GetGemsDamage(counts).Get().Sum(v => v.Value)
+            int profit = attachedEnemy.unitDamage.GetGemsDamage(counts).Parts.Sum(v => v.Value)
                       + counts[GemType.Mana] * attachedEnemy.manaPerGem;
             return profit;
         }

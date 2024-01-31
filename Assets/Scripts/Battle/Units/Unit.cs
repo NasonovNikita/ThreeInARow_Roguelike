@@ -28,6 +28,8 @@ namespace Battle.Units
 
         [SerializeField] private ModIconGrid modIconGrid;
 
+        public abstract Unit Target { get; }
+
         private StateAnimationController stateAnimationController;
 
         public List<Modifier> allMods = new();
@@ -84,10 +86,10 @@ namespace Battle.Units
         public void Act(Unit target)
         {
             grid = FindFirstObjectByType<Grid>();
-            mana.Refill(CountMana());
+            RefillMana(CountMana());
             Damage dmg = unitDamage.GetGemsDamage(grid.destroyed);
             
-            if (!dmg.IsZero() && !IsMissingOnFreeze)
+            if (!dmg.IsZero && !IsMissingOnFreeze)
             {
                 target.DoDamage(dmg);
                 switch (this)
@@ -107,13 +109,32 @@ namespace Battle.Units
 
         public virtual void DoDamage(Damage dmg)
         {
-
-            GotDamageLog.Log(this, hp.DoDamage(dmg));
+            int gotDamage = hp.DoDamage(dmg);
+            GotDamageLog.Log(this, gotDamage);
+            UnitHUD.Create(this, hp, -gotDamage);
 
             if (hp == 0)
             {
                 NoHp();
             }
+        }
+
+        public void Heal(int val)
+        {
+            int healed = hp.Heal(val);
+            UnitHUD.Create(this, hp, healed);
+        }
+
+        public void WasteMana(int val)
+        {
+            int wasted = mana.Waste(val);
+            UnitHUD.Create(this, mana, -wasted);
+        }
+
+        public void RefillMana(int val)
+        {
+            int refilled = mana.Refill(val);
+            UnitHUD.Create(this, mana, refilled);
         }
         public void Delete()
         {
@@ -130,7 +151,7 @@ namespace Battle.Units
             switch (chosenElement)
             {
                 case DmgType.Light when destroyed[GemType.Yellow] != 0:
-                    hp.Heal(ElementsProperties.LightHealRate * destroyed[GemType.Yellow]);
+                    Heal(ElementsProperties.LightHealRate * destroyed[GemType.Yellow]);
                     break;
                 case DmgType.Fire when destroyed[GemType.Red] != 0:
                     target.StartBurning(1);
@@ -186,14 +207,10 @@ namespace Battle.Units
                 onMove: () => { DoDamage(new Damage(pDmg: ElementsProperties.PoisonDamage)); },
                 delay: true)
             );
-            try
-            {
-                allMods.First(v => v.isPositive).TurnOff();
-            }
-            finally
-            {
-                stateAnimationController.AddState(UnitStates.Poisoning);
-            }
+            
+            if (allMods.Exists(v => v.isPositive)) allMods.First(v => v.isPositive).TurnOff();
+
+            stateAnimationController.AddState(UnitStates.Poisoning);
         }
 
         public void StartFreezing(int moves)

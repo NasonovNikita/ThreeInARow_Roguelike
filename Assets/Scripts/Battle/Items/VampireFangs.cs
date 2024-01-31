@@ -15,10 +15,10 @@ namespace Battle.Items
         {
             new EnemyGettingHitThen(() =>
             {
-                int damage = ((GotDamageLog)BattleLog.GetLastLog()).GetData.Item2;
+                int damage = ((GotDamageLog)BattleLog.LastLog).GetData.Item2;
                 if (damage >= from)
                 {
-                    unitBelong.hp.Heal(Math.Max(minHeal, to - damage));
+                    unitBelong.Heal(Math.Max(minHeal, to - damage));
                 }
             });
         }

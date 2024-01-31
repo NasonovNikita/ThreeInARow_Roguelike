@@ -9,10 +9,8 @@ namespace Battle.Spells
         [SerializeField] private float rise;
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            manager.player.mana.Waste(useCost);
-            LogUsage();
             int nulls = 0;
             for (int i = 0; i < manager.enemies.Count; i++)
             {

@@ -15,7 +15,7 @@ namespace Battle.Items
         {
             new EnemyGettingHitThen(() =>
             {
-                ((GotDamageLog)BattleLog.GetLastLog()).GetData.Item1
+                ((GotDamageLog)BattleLog.LastLog).GetData.Item1
                     .AddHpMod(new Modifier(moves, ModType.Mul,
                         ModClass.HpDamageBase, isPositive: false, value: value));
             });

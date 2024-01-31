@@ -303,7 +303,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 965b76475614349469dd645f9021c0d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -327,7 +327,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: It's you? Do you like your vessel?
+  actAfterTime: 0
+  waitBeforeShowTime: 0
+  text: 
+  keyReference:
+    _key: DoYouLikeYourVessel
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2159894049746006241
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c79a3e73de5934da708f62fc06237d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp:
+  hp:
     borderDown: 0
     borderUp: 200
     value: 200
@@ -828,6 +836,7 @@ MonoBehaviour:
       borderUp: 0
       value: 0
   chosenElement: 4
+  modIconGrid: {fileID: 0}
   allMods: []
   items: []
   spells: []

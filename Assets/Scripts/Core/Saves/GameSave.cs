@@ -35,12 +35,19 @@ namespace Core.Saves
         public override void Load()
         {
             Map.Map.currentVertex = currentVertex;
+            
             JsonUtility.FromJsonOverwrite(playerData, Player.data);
             if (preset) foreach (Item item in Player.data.items) item.OnGet();
+            
             Globals.instance.seed = seed;
+
+            if (BattleManager.enemyGroup == null)
+                BattleManager.enemyGroup = ScriptableObject.CreateInstance<EnemyGroup>();
             JsonUtility.FromJsonOverwrite(enemyGroup, BattleManager.enemyGroup);
+            
             ShopManager.goods = Tools.Json.JsonToList<Good>(goods);
             Map.Map.Regenerate();
+            
             SceneManager.LoadScene(scene);
         }
 

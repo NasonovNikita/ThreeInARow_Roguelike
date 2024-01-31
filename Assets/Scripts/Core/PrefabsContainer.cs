@@ -10,15 +10,29 @@ namespace Core
 {
     public class PrefabsContainer : MonoBehaviour
     {
+        #region windows
+        
         public GameObject winMessage;
 
         public GameObject loseMessage;
 
+        public SpellGettingWarningWindow spellGettingWarningWindow;
+
+        public SpellReplacingWindow spellReplacingWindow;
+
+        public LanguageChooser languageChooser;
+        
+        #endregion
+
+        #region vertexes
+        
         public BattleVertex battleVertex;
 
         public ShopVertex shopVertex;
 
         public TreasureVertex treasureVertex;
+        
+        #endregion
 
         public Image pickerAim;
 
@@ -26,13 +40,9 @@ namespace Core
 
         public GameObject inventoryManager;
 
-        public SpellGettingWarningWindow spellGettingWarningWindow;
-
-        public SpellReplacingWindow spellReplacingWindow;
-
-        public LanguageChooser languageChooser;
-
         public ModIcon modIcon;
+
+        public UnitHUD unitHUD;
 
         public static PrefabsContainer instance;
         public void Awake()

@@ -10,10 +10,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
         
-            manager.player.mana.Waste(useCost);
-            LogUsage();
         
             foreach (Enemy enemy in manager.enemies.Where(v => v != null))
             {

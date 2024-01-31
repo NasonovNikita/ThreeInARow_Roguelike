@@ -13,7 +13,7 @@ namespace Battle.Items
         {
             new BattleEndThen(() =>
             {
-                if (BattleLog.GetAllLogs()
+                if (BattleLog.AllLogs
                     .Exists(log => (log as SpellUsageLog)?.GetData.Item1 is Player)) return;
                 Player.data.AddDamageMod(new Modifier(-1, ModType.Add, 
                     ModClass.DamageTypedStat, value: value, always: true));

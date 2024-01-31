@@ -9,9 +9,9 @@ namespace Battle.Spells
         public override void Cast()
         {
             if (((BattleVertex)Map.Map.CurrentVertex()).isBoss) return;
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            manager.player.hp.DoDamage(new Damage(useCost));
+            manager.player.DoDamage(new Damage(useCost));
             LogUsage();
             manager.Win();
         }

@@ -1,9 +1,7 @@
-using System.Linq;
 using Audio;
 using Battle;
 using Battle.Units;
 using Core.Saves;
-using Knot.Localization;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;

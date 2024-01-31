@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Other;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -33,23 +34,23 @@ namespace Battle.Match3
 
         public GridState state;
 
-        private Gem _first;
-        private Gem _second;
+        private Gem first;
+        private Gem second;
     
-        private Gem[,] _box;
+        private Gem[,] box;
 
         public void Awake()
         {
             manager = FindFirstObjectByType<BattleManager>();
         
-            _box = new Gem[sizeY, sizeX];
+            box = new Gem[sizeY, sizeX];
             SmartGenGems();
             ClearDestroyed();
         }
 
         public void OnDestroy()
         {
-            foreach (var gem in _box)
+            foreach (var gem in box)
             {
                 if (gem == null) return;
                 Destroy(gem.gameObject);
@@ -63,6 +64,8 @@ namespace Battle.Match3
             gemTransform.position = (Vector2)transform.position + stepX * j + stepY * i;
             gem.grid = this;
             gemTransform.localScale = baseScale;
+            gem.mover.time = moveTime;
+            gem.scaler.time = scaleTime;
             return gem;
         }
 
@@ -81,20 +84,20 @@ namespace Battle.Match3
             {
                 case GridState.Choosing1:
                 
-                    _first = gem;
+                    first = gem;
                 
-                    _first.Scale(chosenScale, scaleTime);
+                    first.Scale(chosenScale);
                 
                     state = GridState.Choosing2;
                 
                     yield return new WaitForSeconds(scaleTime);
                     break;
             
-                case GridState.Choosing2 when gem == _first:
+                case GridState.Choosing2 when gem == first:
                 
-                    _first.Scale(baseScale, scaleTime);
+                    first.Scale(baseScale);
                 
-                    _first = null;
+                    first = null;
                 
                     state = GridState.Choosing1;
                 
@@ -103,28 +106,28 @@ namespace Battle.Match3
             
                 case GridState.Choosing2:
                 {
-                    _second = gem;
+                    second = gem;
                 
                 
-                    if (GemsAreNeighbours(_first, _second))
+                    if (GemsAreNeighbours(first, second))
                     {
                     
-                        _second.Scale(chosenScale, scaleTime);
+                        second.Scale(chosenScale);
                         yield return new WaitForSeconds(scaleTime);
                     
                         state = GridState.Moving;
-                        StartCoroutine(MoveGems(_first, _second));
+                        StartCoroutine(MoveGems(first, second));
                     
-                        _first = null;
-                        _second = null;
+                        first = null;
+                        second = null;
                     }
                     else
                     {
-                        _first.Scale(baseScale, scaleTime);
-                        _second.Scale(chosenScale, scaleTime);
+                        first.Scale(baseScale);
+                        second.Scale(chosenScale);
                     
-                        _first = _second;
-                        _second = null;
+                        first = second;
+                        second = null;
                     
                         yield return new WaitForSeconds(scaleTime);
                     }
@@ -146,8 +149,8 @@ namespace Battle.Match3
             {
                 state = GridState.EnemyChoosing1;
                 
-                _first = _box[i, j];
-                _first.Scale(chosenScale, scaleTime);
+                first = box[i, j];
+                first.Scale(chosenScale);
                 
                 yield return new WaitForSeconds(scaleTime);
             }
@@ -155,17 +158,17 @@ namespace Battle.Match3
             {
                 state = GridState.EnemyChoosing2;
                 
-                _second = _box[i, j];
-                _second.Scale(chosenScale, scaleTime);
+                second = box[i, j];
+                second.Scale(chosenScale);
                 
                 yield return new WaitForSeconds(scaleTime);
 
                 state = GridState.Moving;
 
-                StartCoroutine(MoveGems(_first, _second));
+                StartCoroutine(MoveGems(first, second));
 
-                _first = null;
-                _second = null;
+                first = null;
+                second = null;
             }
         }
 
@@ -184,7 +187,7 @@ namespace Battle.Match3
         public Gem[,] BoxCopy()
         {
             var b = new Gem[sizeY,sizeX];
-            Array.Copy(_box, b, _box.Length);
+            Array.Copy(box, b, box.Length);
             return b;
         }
 
@@ -193,15 +196,15 @@ namespace Battle.Match3
             int[] pos1 = FindGem(gem1);
             int[] pos2 = FindGem(gem2);
         
-            gem1.Move(gem2.transform.position, moveTime);
-            gem2.Move(gem1.transform.position, moveTime);
+            gem1.Move(gem2.transform.position);
+            gem2.Move(gem1.transform.position);
             yield return new WaitForSeconds(moveTime);
         
-            _box[pos2[0], pos2[1]] = gem1;
-            _box[pos1[0], pos1[1]] = gem2;
+            box[pos2[0], pos2[1]] = gem1;
+            box[pos1[0], pos1[1]] = gem2;
         
-            gem1.Scale(baseScale, scaleTime);
-            gem2.Scale(baseScale, scaleTime);
+            gem1.Scale(baseScale);
+            gem2.Scale(baseScale);
             yield return new WaitForSeconds(scaleTime);
         
             state = GridState.Refreshing;
@@ -216,19 +219,19 @@ namespace Battle.Match3
             {
                 for (int j = 0; j < sizeX; j++)
                 {
-                    if (HorizontalRowExists(i, j, _box))
+                    if (HorizontalRowExists(i, j, box))
                     {
-                        toDelete.Add(_box[i, j]);
-                        toDelete.Add(_box[i, j + 1]);
-                        toDelete.Add(_box[i, j + 2]);
+                        toDelete.Add(box[i, j]);
+                        toDelete.Add(box[i, j + 1]);
+                        toDelete.Add(box[i, j + 2]);
                     }
 
                     // ReSharper disable once InvertIf
-                    if (VerticalRowExists(i, j, _box))
+                    if (VerticalRowExists(i, j, box))
                     {
-                        toDelete.Add(_box[i, j]);
-                        toDelete.Add(_box[i + 1, j]);
-                        toDelete.Add(_box[i + 2, j]);
+                        toDelete.Add(box[i, j]);
+                        toDelete.Add(box[i + 1, j]);
+                        toDelete.Add(box[i + 2, j]);
                     }
                 }
             }
@@ -258,9 +261,9 @@ namespace Battle.Match3
             {
                 for (int j = 0; j < sizeX; j++)
                 {
-                    if (_box[i, j] == null)
+                    if (box[i, j] == null)
                     {
-                        _box[i, j] = Instantiate(GenGem(i, j));
+                        box[i, j] = Instantiate(GenGem(i, j));
                     }
                 }
             }
@@ -276,10 +279,10 @@ namespace Battle.Match3
                 {
                     do
                     {
-                        _box[i, j] = GenGem(i, j);
-                    } while (HorizontalRowExists(i, j, _box) || VerticalRowExists(i, j, _box));
+                        box[i, j] = GenGem(i, j);
+                    } while (HorizontalRowExists(i, j, box) || VerticalRowExists(i, j, box));
 
-                    _box[i, j] = Instantiate(_box[i, j]);
+                    box[i, j] = Instantiate(box[i, j]);
                 }
             }
         }
@@ -291,7 +294,7 @@ namespace Battle.Match3
             {
                 for (int j = 0; j < sizeX; j++)
                 {
-                    if (_box[i, j] == gem)
+                    if (box[i, j] == gem)
                     {
                         res = new[] { i, j };
                     }

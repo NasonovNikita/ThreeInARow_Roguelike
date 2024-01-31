@@ -7,10 +7,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
         
-            manager.player.mana.Waste(useCost);
-            LogUsage();
             PToEDamageLog.Log(manager.target, manager.player, new Damage(mDmg: (int) value));
             manager.target.DoDamage(new Damage(mDmg: (int) value));
         }

@@ -9,10 +9,8 @@ namespace Battle.Spells
     {
         public override void Cast()
         {
-            if (CantCast()) return;
+            if (CantCastOrCast()) return;
 
-            unitBelong.mana.Waste(useCost);
-            LogUsage();
             unitBelong.AddMod(new Modifier(-1, ModType.Irritated, value: value));
             new IrritationEvent((int) value, unitBelong);
         }

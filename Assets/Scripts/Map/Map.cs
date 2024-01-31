@@ -52,6 +52,7 @@ namespace Map
             foreach (Vertex vertex in vertexes)
             {
                 vertex.gameObject.SetActive(true);
+                vertex.scaler.time = timeScale;
             }
         }
 
@@ -76,13 +77,13 @@ namespace Map
                 if (vertexes.IndexOf(vertex) != 0) return;
             
                 currentVertex = vertexes.IndexOf(vertex);
-                vertex.ScaleUp(chosenScale, timeScale, OnScale);
+                vertex.ScaleUp(chosenScale, OnScale);
             }
             else if (CurrentVertex().BelongsToNext(vertex))
             {
-                CurrentVertex().ScaleDown(baseScale, timeScale);
+                CurrentVertex().ScaleDown(baseScale);
                 currentVertex = vertexes.IndexOf(vertex);
-                vertex.ScaleUp(chosenScale, timeScale, OnScale);
+                vertex.ScaleUp(chosenScale, OnScale);
             }
 
             void OnScale()

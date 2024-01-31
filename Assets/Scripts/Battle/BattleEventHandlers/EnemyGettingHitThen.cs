@@ -5,7 +5,7 @@ namespace Battle.BattleEventHandlers
 {
     public class EnemyGettingHitThen : BattleEvent
     {
-        private Action onAppear;
+        private readonly Action onAppear;
 
         public EnemyGettingHitThen(Action onAppear) : base()
         {

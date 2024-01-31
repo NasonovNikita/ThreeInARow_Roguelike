@@ -18,7 +18,7 @@ namespace Battle.Items
 
                 if (Tools.Random.RandomChance(chance))
                 {
-                    unitBelong.hp.Heal(leftHp);
+                    unitBelong.Heal(leftHp);
                 }
             });
         }

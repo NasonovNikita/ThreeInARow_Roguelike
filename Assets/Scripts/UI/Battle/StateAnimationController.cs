@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Battle.Units;
 using UnityEngine;
 
-namespace Battle.Units
+namespace UI.Battle
 {
     public class StateAnimationController : MonoBehaviour
     {

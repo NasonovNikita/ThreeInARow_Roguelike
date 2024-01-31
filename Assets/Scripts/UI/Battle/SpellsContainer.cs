@@ -16,7 +16,9 @@ namespace UI.Battle
             {
                 Button btn = spellButtons[i];
                 var spell = player.spells[i];
-                btn.GetComponent<ObjectWithInfo>().text = spell.Description; // btn must have this component
+                ObjectWithInfo objectWithInfo = btn.GetComponent<ObjectWithInfo>();
+                objectWithInfo.text = spell.Description;
+                objectWithInfo.actAfterTime = true;// btn must have this component
                 Tools.InitButton(btn, spell.Cast, spell.Title + " " + spell.useCost);
             }
         }

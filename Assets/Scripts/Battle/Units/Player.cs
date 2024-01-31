@@ -8,7 +8,7 @@ namespace Battle.Units
     {
         public static PlayerData data;
 
-        public Enemy Target => manager.target;
+        public override Unit Target => manager.target;
 
         public new void TurnOn()
         {

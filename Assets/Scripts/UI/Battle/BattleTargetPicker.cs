@@ -91,6 +91,7 @@ namespace UI.Battle
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
             int index = manager.enemies.FindIndex(v => v == enemy);
             Pick(index);
         }

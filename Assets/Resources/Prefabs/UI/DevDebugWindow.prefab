@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2412470548799165042}
   - component: {fileID: 9115158388655596413}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DevDebugWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

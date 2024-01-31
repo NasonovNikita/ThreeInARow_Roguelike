@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireElemental
       objectReference: {fileID: 0}
+    - target: {fileID: 1693002940098916394, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1777912006952759134, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: m_SizeDelta.x
       value: 2.4041
@@ -226,9 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820505945704367172, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: text
-      value: There are two raws of enemies. Left column is "front raw". You can hit
-        them (press an enemy to choose it as a target). Other raw is pickable only
-        after beating the front one. This one is sneaky. He can make you burn!
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7372561019411230755, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: m_Size.x
@@ -351,7 +353,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 1916889144, guid: 51d2e9edafd107b47ab2316d6bd5fa97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endScale: {x: 0.5, y: 0.5, z: 0.5}
+  time: 0
   doScale: 0
 --- !u!114 &6615673568384073920
 MonoBehaviour:
@@ -180,4 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40d09a0142945599da0407edb569dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaler: {fileID: 2324063467741416574}
+  prefab: {fileID: 7249814954095630152, guid: 65a9e1d1c2a96e94888abfcace706ef4, type: 3}
   next: []

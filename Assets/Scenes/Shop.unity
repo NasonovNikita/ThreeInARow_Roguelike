@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actAfterTime: 1
-  waitBeforeShowTime: 2
+  waitBeforeShowTime: 0.5
   text: 
   keyReference:
     _key: 
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actAfterTime: 1
-  waitBeforeShowTime: 2
+  waitBeforeShowTime: 0.5
   text: 
   keyReference:
     _key: 
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actAfterTime: 1
-  waitBeforeShowTime: 2
+  waitBeforeShowTime: 0.5
   text: 
   keyReference:
     _key: 
@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actAfterTime: 1
-  waitBeforeShowTime: 2
+  waitBeforeShowTime: 0.5
   text: 
   keyReference:
     _key: 

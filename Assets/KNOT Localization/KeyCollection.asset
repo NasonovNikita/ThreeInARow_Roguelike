@@ -505,6 +505,30 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
+  - _key: BattleRawsDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DoYouLikeYourVessel
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: YouLose
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: YouWon
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PlayerTurn
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: EnemyTurn
+    _metadata:
+      _runtime: []
+      _editor: []
   references:
     version: 2
     RefIds: []
