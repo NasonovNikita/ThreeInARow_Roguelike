@@ -285,3 +285,29 @@ MonoBehaviour:
     _rawText: Your turn
   - _key: EnemyTurn
     _rawText: Enemies' turn
+  - _key: NoSpell
+    _rawText: No Spell
+  - _key: UnitInfo
+    _rawText: 'Dmg: {phDmg}
+
+      Fire dmg: {fDmg}
+
+      Cold dmg: {cDmg}
+
+      Poison
+      dmg: {pDmg}
+
+      Light dmg: {lDmg}
+
+      Element: {currentElement}'
+  - _key: InstakillProtection
+    _rawText: 'Instakill
+
+      protection'
+  - _key: Miss
+    _rawText: Miss
+  - _key: FreezeGrenade
+    _rawText: Freeze Grenade
+  - _key: FreezeGrenadeDescription
+    _rawText: Deals random enemy or player {damage} cold dmg and freezes for {moves}
+      moves

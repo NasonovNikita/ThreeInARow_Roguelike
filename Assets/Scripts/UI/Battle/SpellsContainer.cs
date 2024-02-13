@@ -16,10 +16,10 @@ namespace UI.Battle
             {
                 Button btn = spellButtons[i];
                 var spell = player.spells[i];
-                ObjectWithInfo objectWithInfo = btn.GetComponent<ObjectWithInfo>();
+                InfoObject objectWithInfo = btn.GetComponent<InfoObject>();
                 objectWithInfo.text = spell.Description;
                 objectWithInfo.actAfterTime = true;// btn must have this component
-                Tools.InitButton(btn, spell.Cast, spell.Title + " " + spell.useCost);
+                Tools.InitButton(btn, () => StartCoroutine(spell.Cast()), spell.Title + " " + spell.useCost);
             }
         }
     }

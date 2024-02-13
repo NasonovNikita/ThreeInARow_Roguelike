@@ -18,7 +18,7 @@ namespace Battle.Items
         public override void OnGet()
         {
             Player.data.AddDamageMod(new Modifier(-1, ModType.Add,
-                ModClass.DamageTypedStat, DmgType.Physic, value: value));
+                ModClass.DamageTypedStat, DmgType.Physic, value: value, always: true));
         }
     }
 }

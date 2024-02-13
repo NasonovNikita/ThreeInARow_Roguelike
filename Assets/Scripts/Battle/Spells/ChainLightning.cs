@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -7,9 +8,9 @@ namespace Battle.Spells
     public class ChainLightning : Spell
     {
         [SerializeField] private float rise;
-        public override void Cast()
+        public override IEnumerator Cast()
         {
-            if (CantCastOrCast()) return;
+            if (CantCastOrCast()) yield break;
 
             int nulls = 0;
             for (int i = 0; i < manager.enemies.Count; i++)
@@ -21,14 +22,15 @@ namespace Battle.Spells
                     nulls += 1;
                     continue;
                 }
-                enemy.DoDamage(dmg);
-                PToEDamageLog.Log(enemy, manager.player, dmg);
+                enemy.TakeDamage(dmg);
+                //PToEDamageLog.Log(enemy, manager.player, dmg);
             }
+            
+            
+            yield return Wait();
         }
 
-        public override string Title => titleKeyRef.Value;
-
         public override string Description =>
-            string.Format(descriptionKeyRef.Value, (int)value, Other.Tools.Percents(rise));
+            string.Format(descriptionKeyRef.Value, (int)value, Other.Tools.Percents(rise - 1));
     }
 }

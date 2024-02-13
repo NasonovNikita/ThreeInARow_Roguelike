@@ -8,7 +8,7 @@ namespace Battle
 {
     public static class BattleLog
     {
-        public static List<T> GetLogs<T>() => AllLogs.Where(log => log is T).Cast<T>().ToList();
+        public static List<T> GetLogsOfType<T>() => AllLogs.Where(log => log is T).Cast<T>().ToList();
 
         public static List<Log> AllLogs { get; } = new();
 
@@ -85,6 +85,7 @@ namespace Battle
         private DeathLog(Unit unit) => this.unit = unit;
     }
 
+    /*
     public class PToEDamageLog : DamageLog
     {
         public static void Log(Enemy enemy, Player player, Damage damage) => AddLog(new PToEDamageLog(enemy, player, damage));
@@ -98,7 +99,7 @@ namespace Battle
             AddLog(new EToPDamageLog(enemy, player, damage));
 
         private EToPDamageLog(Enemy enemy, Player player, Damage damage) : base(enemy, player, damage) {}
-    }
+    } */
 
     public class GotDamageLog : Log
     {

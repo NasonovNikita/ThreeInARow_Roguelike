@@ -7,11 +7,9 @@ namespace Battle.Units
     public class EnemyPlacer : MonoBehaviour
     {
         public GameObject[] points;
-    
-        public List<Enemy> enemiesToPlace;
    
     
-        public void Place()
+        public void Place(List<Enemy> enemiesToPlace)
         {
             for (int i = 0; i < enemiesToPlace.Count; i++)
             {

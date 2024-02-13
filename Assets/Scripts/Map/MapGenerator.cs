@@ -41,7 +41,7 @@ namespace Map
         private readonly List<(VertexType, int)> vertexesByChance = new ()
         {
             (VertexType.Battle, 13),
-            (VertexType.Shop, 9),
+            (VertexType.Shop, 6),
             //(VertexType.Treasure, 3)
         };
 
@@ -72,7 +72,7 @@ namespace Map
         {
             Random.InitState(seed);
 
-            enemyGroups = Resources.LoadAll<EnemyGroup>("Presets/EnemyGroups").ToList();
+            enemyGroups = Resources.LoadAll<EnemyGroup>("EnemyGroups").ToList();
 
             allGoods = Resources.LoadAll<Good>("Goods").ToList();
 

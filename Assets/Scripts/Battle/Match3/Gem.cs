@@ -13,7 +13,10 @@ namespace Battle.Match3
         public Grid grid;
     
         public ObjectMover mover;
-        [SerializeField] public ObjectScaler scaler;
+        public ObjectScaler scaler;
+
+        public bool EndedScale => !scaler.doScale;
+        public bool EndedMove => !mover.doMove;
 
         public void Move(Vector2 endPos)
         {

@@ -16,7 +16,8 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.HpDamageBase, value: -value));
+            Player.data.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.HpDamageBase,
+                value: -value, always: true));
         }
 
         public override void Use(Unit unitBelong) {}

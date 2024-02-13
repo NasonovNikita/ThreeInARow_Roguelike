@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endScale: {x: 0.5, y: 0.5, z: 0.5}
+  time: 0
   doScale: 0
 --- !u!114 &6615673568384073920
 MonoBehaviour:
@@ -158,4 +159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actAfterTime: 1
+  waitBeforeShowTime: 1.5
   text: This is a bug, Void is not allowed to be shown
+  keyReference:
+    _key: 
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []

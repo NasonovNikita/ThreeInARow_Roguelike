@@ -17,7 +17,7 @@ namespace Shop
             {
                 button.onClick.AddListener(() => good.TryBuy(OnBuy));
                 button.GetComponentInChildren<Text>().text = $"{good.target.Title} {good.price}";
-                var info = button.GetComponent<ObjectWithInfo>();
+                var info = button.GetComponent<InfoObject>();
                 info.text = good.target.Description;
             }
             catch (Exception e)

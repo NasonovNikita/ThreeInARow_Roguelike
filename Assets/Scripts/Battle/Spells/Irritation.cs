@@ -1,3 +1,4 @@
+using System.Collections;
 using Battle.BattleEventHandlers;
 using Battle.Modifiers;
 using UnityEngine;
@@ -7,15 +8,15 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "Irritation", menuName = "Spells/Irritation")]
     public class Irritation : Spell
     {
-        public override void Cast()
+        public override IEnumerator Cast()
         {
-            if (CantCastOrCast()) return;
+            if (CantCastOrCast()) yield break;
 
-            unitBelong.AddMod(new Modifier(-1, ModType.Irritated, value: value));
+            unitBelong.AddMod(new Modifier(count, ModType.Irritated, value: value));
             new IrritationEvent((int) value, unitBelong);
-        }
 
-        public override string Title => titleKeyRef.Value;
+            yield return Wait();
+        }
 
         public override string Description => string.Format(descriptionKeyRef.Value, (int)value);
     }

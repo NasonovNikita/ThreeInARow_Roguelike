@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -5,13 +6,13 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "Singe", menuName = "Spells/Singe")]
     public class Singe : Spell
     {
-        public override void Cast()
+        public override IEnumerator Cast()
         {
-            if (CantCastOrCast()) return;
-            manager.player.StartBurning(count);
+            if (CantCastOrCast()) yield break;
+            unitBelong.Target.TakeDamage(new Damage(fDmg: (int)value));
+            
+            yield return Wait();
         }
-
-        public override string Title => throw new System.NotImplementedException();
 
         public override string Description => throw new System.NotImplementedException();
     }

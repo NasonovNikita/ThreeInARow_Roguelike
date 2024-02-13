@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 namespace UI.Battle
 {
-    [RequireComponent(typeof(ObjectWithInfo))]
+    [RequireComponent(typeof(InfoObject))]
     public class ModIcon : MonoBehaviour
     {
         [SerializeField] private Text moves;
         [SerializeField] private Image img;
-        [SerializeField] private ObjectWithInfo debug;
+        [SerializeField] private InfoObject debug;
         private Modifier mod;
 
         public void Update()

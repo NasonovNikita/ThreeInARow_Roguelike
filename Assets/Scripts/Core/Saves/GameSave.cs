@@ -58,7 +58,7 @@ namespace Core.Saves
                 currentVertex = -1,
                 scene = "Map",
                 playerData = JsonUtility.ToJson(
-                    Object.Instantiate(Resources.Load<PlayerData>("Presets/NewGamePreset"))),
+                    Object.Instantiate(Resources.Load<PlayerData>("NewGamePreset"))),
                 seed = Globals.instance.randomSeed ? Random.Range(0, (int) Math.Pow(10, 6)) : Globals.instance.seed,
                 enemyGroup = "{}",
                 goods = "{[]}",

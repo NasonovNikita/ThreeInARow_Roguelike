@@ -27,7 +27,7 @@ namespace Battle.Units
         
         public static PlayerData NewData(Player player, PlayerData oldData = null)
         {
-            PlayerData data = NewData(player.hp, player.mana, player.unitDamage, player.manaPerGem,
+            PlayerData data = NewData(player.hp, player.mana, player.damage, player.manaPerGem,
                 player.chosenElement, oldData);
 
             return data;
@@ -57,7 +57,7 @@ namespace Battle.Units
             unit.hp = hp;
             unit.mana = mana;
             unit.manaPerGem = manaPerGem;
-            unit.unitDamage = damage;
+            unit.damage = damage;
             unit.allMods = new List<Modifier>(allMods);
             unit.spells = new List<Spell>(spells);
             unit.items = new List<Item>(items);

@@ -14,7 +14,7 @@ namespace Battle.Modifiers
         public ModType type;
         public ModClass workPattern;
         public DmgType dmgType;
-        private bool always;
+        public bool always;
     
         public float value;
 
@@ -55,37 +55,37 @@ namespace Battle.Modifiers
             }
         }
 
-        private string DmgTypeString => DescriptionKeys.instance.DmgTypeOf(dmgType);
+        private string DmgTypeString => LocalizedStringsKeys.instance.DmgTypes(dmgType);
 
         public string Description
         {
             get
             {
                 string moreLess = value > 0
-                    ? DescriptionKeys.instance.more.Value
-                    : DescriptionKeys.instance.less.Value;
+                    ? LocalizedStringsKeys.instance.more.Value
+                    : LocalizedStringsKeys.instance.less.Value;
                 string changeInfo;
                 switch (type)
                 {
                     case ModType.Blind:
-                        return DescriptionKeys.instance.blind.Value;
+                        return LocalizedStringsKeys.instance.blind.Value;
                     case ModType.Stun:
-                        return DescriptionKeys.instance.stun.Value;
+                        return LocalizedStringsKeys.instance.stun.Value;
                     case ModType.Freezing:
-                        return string.Format(DescriptionKeys.instance.freezing.Value,
+                        return string.Format(LocalizedStringsKeys.instance.freezing.Value,
                             ElementsProperties.MissingOnFreezeChance);
                     case ModType.Burning:
-                        return string.Format(DescriptionKeys.instance.burning.Value,
+                        return string.Format(LocalizedStringsKeys.instance.burning.Value,
                             ElementsProperties.FireDamage);
                     case ModType.Poisoning:
-                        return string.Format(DescriptionKeys.instance.poisoning.Value,
+                        return string.Format(LocalizedStringsKeys.instance.poisoning.Value,
                             ElementsProperties.PoisonDamage);
                     case ModType.Frozen:
-                        return DescriptionKeys.instance.frozen.Value;
+                        return LocalizedStringsKeys.instance.frozen.Value;
                     case ModType.Irritated:
-                        return string.Format(DescriptionKeys.instance.irritated.Value, (int) value);
+                        return string.Format(LocalizedStringsKeys.instance.irritated.Value, (int) value);
                     case ModType.Ignition:
-                        return DescriptionKeys.instance.ignition.Value;
+                        return LocalizedStringsKeys.instance.ignition.Value;
                     case ModType.Add:
                         changeInfo = $"{Math.Abs(Use)} {moreLess}";
                         break;
@@ -98,21 +98,21 @@ namespace Battle.Modifiers
                 
                 return workPattern switch
                 {
-                    ModClass.DamageBase => string.Format(DescriptionKeys.instance.dealDmg.Value,
+                    ModClass.DamageBase => string.Format(LocalizedStringsKeys.instance.dealDmg.Value,
                         changeInfo),
-                    ModClass.DamageTyped => string.Format(DescriptionKeys.instance.dealDmg.Value,
+                    ModClass.DamageTyped => string.Format(LocalizedStringsKeys.instance.dealDmg.Value,
                         $"{changeInfo} {DmgTypeString}"),
-                    ModClass.DamageTypedStat => string.Format(DescriptionKeys.instance.dealDmgPerGem.Value,
+                    ModClass.DamageTypedStat => string.Format(LocalizedStringsKeys.instance.dealDmgPerGem.Value,
                         $"{changeInfo} {DmgTypeString}"),
-                    ModClass.HpDamageBase => string.Format(DescriptionKeys.instance.getDmg.Value,
+                    ModClass.HpDamageBase => string.Format(LocalizedStringsKeys.instance.getDmg.Value,
                         changeInfo),
-                    ModClass.HpDamageTyped => string.Format(DescriptionKeys.instance.getDmg.Value,
+                    ModClass.HpDamageTyped => string.Format(LocalizedStringsKeys.instance.getDmg.Value,
                         $"{changeInfo} {DmgTypeString}"),
-                    ModClass.HpHealing => string.Format(DescriptionKeys.instance.healHp.Value,
+                    ModClass.HpHealing => string.Format(LocalizedStringsKeys.instance.healHp.Value,
                         changeInfo),
-                    ModClass.ManaRefill => string.Format(DescriptionKeys.instance.refillMana.Value,
+                    ModClass.ManaRefill => string.Format(LocalizedStringsKeys.instance.refillMana.Value,
                         changeInfo),
-                    ModClass.ManaWaste => string.Format(DescriptionKeys.instance.wasteMana.Value,
+                    ModClass.ManaWaste => string.Format(LocalizedStringsKeys.instance.wasteMana.Value,
                         changeInfo),
                     ModClass.Standard => 
                         throw new Exception("can't be standard because no standard type was caught"),

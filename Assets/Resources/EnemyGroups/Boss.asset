@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040e8467fe041c941b2b46f2f041a81b, type: 3}
+  m_Name: Boss
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 5289296318866020691, guid: 03559ecc083842245a76f0f60fffad66, type: 3}
+  difficulty: 49
+  reward: 87
+  isBoss: 1

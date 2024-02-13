@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EternalIce
   m_EditorClassIdentifier: 
   target: {fileID: 11400000, guid: 11d26e4850499ad4e8369488b32d235c, type: 2}
-  price: 15
+  price: 21

@@ -10,7 +10,12 @@ namespace Battle.Items
         [SerializeField] private int value;
         public override void Use(Unit unitBelong)
         {
-            unitBelong.AddHpMod(new Modifier(-1, ModType.Add, ModClass.DamageTyped, DmgType.Magic, value: -value));
+            unitBelong.AddHpMod(new Modifier(-1,
+                ModType.Add,
+                ModClass.DamageTyped,
+                DmgType.Magic,
+                value: -value,
+                always: true));
         }
 
         public override string Title => titleKeyRef.Value;

@@ -1,13 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
-using Battle.Config;
 using Battle.Match3;
 using Battle.Units;
 using Core;
 using Core.Saves;
+using Other;
 using UI.Battle;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,11 +17,11 @@ namespace Battle
 {
     public class BattleManager : MonoBehaviour
     {
-        [NonSerialized] public Player player;
+        public Player player;
     
-        private Grid grid;
+        [SerializeField] private Grid grid;
     
-        private EnemyPlacer placer;
+        [SerializeField] private EnemyPlacer placer;
     
         [SerializeField] private Canvas canvas;
         [SerializeField] private TurnLabel turnHUD;
@@ -48,10 +47,6 @@ namespace Battle
         public void Awake()
         {
             AudioManager.instance.StopAll();
-            
-            player = FindFirstObjectByType<Player>();
-            grid = FindFirstObjectByType<Grid>();
-
 
             enemiesPrefabs = enemyGroup.GetEnemies();
 
@@ -64,13 +59,13 @@ namespace Battle
             AudioManager.instance.Play(AudioEnum.Battle);
         
             SavesManager.SaveGame();
-        
-            BattleInterfacePlacement placement = FindFirstObjectByType<BattleInterfacePlacement>();
-            placement.Place();
             
             State = BattleState.Turn;
             turnHUD.SetPlayerTurn();
             BattleTargetPicker.ResetPick();
+            placer.Place(enemies);
+            BattleTargetPicker.PickNextPossible();
+            
             
             BattleLog.Clear();
         }
@@ -112,7 +107,7 @@ namespace Battle
             BattleTargetPicker.PickNextPossible();
             yield return new WaitForSeconds(FightTime);
             
-            OnEnemiesShuffle();
+            PlaceEnemies();
         }
 
         public IEnumerator Die()
@@ -125,18 +120,9 @@ namespace Battle
             Lose();
         }
 
-        public void ApplyConfig()
+        public void PlaceEnemies()
         {
-            placer = FindFirstObjectByType<EnemyPlacer>();
-            placer.enemiesToPlace = enemies;
-            placer.Place();
-            grid = FindFirstObjectByType<Grid>();
-        }
-
-        public void OnEnemiesShuffle()
-        {
-            placer.enemiesToPlace = enemies;
-            placer.Place();
+            placer.Place(enemies);
             BattleTargetPicker.PickNextPossible();
         }
 
@@ -151,12 +137,11 @@ namespace Battle
             SceneManager.LoadScene("Map");
         }
 
-        private IEnumerator<WaitForSeconds> PlayerAct()
+        private IEnumerator PlayerAct()
         {
             State = BattleState.PlayerAct;
 
-            player.Act();
-            yield return new WaitForSeconds(FightTime);
+            yield return StartCoroutine(player.Act());
 
             turnHUD.SetEnemyTurn();
             StartCoroutine(EnemiesAct());
@@ -166,12 +151,9 @@ namespace Battle
         {
             State = BattleState.EnemiesAct;
 
-            foreach (var enemy in enemies.Where(enemy => enemy != null && !enemy.Stunned()))
+            foreach (Enemy enemy in enemies.Where(enemy => enemy != null && !enemy.Stunned()))
             {
-                enemy.Act();
-
-                yield return new WaitUntil(() => grid.state == GridState.Blocked);
-                yield return new WaitForSeconds(FightTime);
+                yield return StartCoroutine(enemy.Act());
             
                 if (player.hp <= 0) yield break;
             }

@@ -7,25 +7,29 @@ using UnityEngine;
 
 namespace UI
 {
-    public class ElementChooser : ObjectWithInfo
+    public class ElementChooser : InfoObject
     {
         private const int WastingMana = 30;
         [SerializeField] private DmgType element;
+        [SerializeField] private KnotTextKeyReference fireDescription;
+        [SerializeField] private KnotTextKeyReference coldDescription;
+        [SerializeField] private KnotTextKeyReference poisonDescription;
+        [SerializeField] private KnotTextKeyReference lightDescription;
 
         protected override string Text => ElementsDescriptions[element];
 
-        private static Dictionary<DmgType, string> ElementsDescriptions => new()
+        private Dictionary<DmgType, string> ElementsDescriptions => new()
         {
-            { DmgType.Fire, string.Format(KnotLocalization.GetText("FireDescription"),
+            { DmgType.Fire, string.Format(fireDescription.Value,
                 ElementsProperties.FireDamage, 1 + ElementsProperties.FiredDamageModVal)},
             
-            { DmgType.Cold, string.Format(KnotLocalization.GetText("ColdDescription"),
+            { DmgType.Cold, string.Format(coldDescription.Value,
                 ElementsProperties.MissingOnFreezeChance, Other.Tools.Percents(ElementsProperties.ColdDamageLoss))},
             
-            { DmgType.Poison, string.Format(KnotLocalization.GetText("PoisonDescription"),
+            { DmgType.Poison, string.Format(poisonDescription.Value,
                 ElementsProperties.PoisonDamage)},
             
-            { DmgType.Light, string.Format(KnotLocalization.GetText("LightDescription"),
+            { DmgType.Light, string.Format(lightDescription.Value,
                 ElementsProperties.LightHealRate)}
         };
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Battle.Modifiers;
 using Battle.Units;
 using Battle.Units.Stats;
@@ -21,6 +22,12 @@ namespace Battle.Spells
 
         protected BattleManager manager;
 
+        public const float CastTime = 0.5f;
+
+        public override string Title => titleKeyRef.Value;
+
+        public override string Description => descriptionKeyRef.Value;
+
         public void Init(Unit unit)
         {
             unitBelong = unit;
@@ -33,7 +40,17 @@ namespace Battle.Spells
             base.Get();
         }
 
-        public abstract void Cast();
+        public abstract IEnumerator Cast();
+
+        protected virtual Coroutine Wait()
+        {
+            return unitBelong.StartCoroutine(BaseWait());
+        }
+
+        private IEnumerator BaseWait()
+        {
+            yield return new WaitForSeconds(CastTime);
+        }
 
         protected void LogUsage()
         {

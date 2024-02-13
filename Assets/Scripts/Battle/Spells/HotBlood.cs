@@ -1,3 +1,4 @@
+using System.Collections;
 using Battle.BattleEventHandlers;
 using Battle.Modifiers;
 using UnityEngine;
@@ -9,17 +10,17 @@ namespace Battle.Spells
     {
         [SerializeField] private int chance;
         
-        public override void Cast()
+        public override IEnumerator Cast()
         {
-            if (CantCastOrCast()) return;
+            if (CantCastOrCast()) yield break;
 
             unitBelong.AddDamageMod(new Modifier(-1, ModType.Add,
                 ModClass.DamageTypedStat, value: value));
             unitBelong.AddMod(new Modifier(count, ModType.Ignition));
             new RandomIgnitionEvent(chance, unitBelong, count);
-        }
 
-        public override string Title => titleKeyRef.Value;
+            yield return Wait();
+        }
 
         public override string Description =>
             string.Format(descriptionKeyRef.Value, (int)value, count, chance);

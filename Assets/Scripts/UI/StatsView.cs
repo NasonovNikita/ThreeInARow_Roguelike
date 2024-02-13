@@ -1,6 +1,7 @@
 using Battle;
 using Battle.Modifiers;
 using Battle.Units;
+using Core;
 using Knot.Localization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace UI
                 $"{hp.Value}/{mana.Value}: {Player.data.hp.value}/{Player.data.mana.value}\n" +
                 $"{cash.Value}: {Player.data.money}\n" +
                 (Player.data.chosenElement != DmgType.Physic
-                    ? $"{element.Value}: {DescriptionKeys.instance.DmgType(Player.data.chosenElement)}"
+                    ? $"{element.Value}: {LocalizedStringsKeys.instance.DmgType(Player.data.chosenElement)}"
                     : "");
         }
     }

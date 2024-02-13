@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3067, y: 250}
-  m_SizeDelta: {x: 347.9, y: 135.3}
+  m_AnchoredPosition: {x: 354, y: 217}
+  m_SizeDelta: {x: 384, y: 110.344826}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6384281160740028625
 CanvasRenderer:
@@ -79,9 +79,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 666
+  m_Text: UnitHUD
 --- !u!114 &5159490561568478830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   hpLoseColor: {r: 0.9433962, g: 0.16831405, b: 0.10234961, a: 1}
   hpGetColor: {r: 0.021381378, g: 1, b: 0, a: 1}
   manaColor: {r: 1, g: 0.16509432, b: 0.78847563, a: 1}
+  defaultColor: {r: 0.97120196, g: 1, b: 0.7122642, a: 1}
 --- !u!114 &1998199459701763878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPos: {x: 0, y: 0}
   doMove: 0
-  time: 0.7
+  time: 1
+  speedType: 1
 --- !u!114 &4408691273978416634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,5 +130,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 4, y: 4}
+  m_EffectDistance: {x: 6, y: 6}
   m_UseGraphicAlpha: 1

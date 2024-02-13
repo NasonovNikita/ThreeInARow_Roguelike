@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 94.767
       objectReference: {fileID: 0}
+    - target: {fileID: 1527115053278822606, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
@@ -180,6 +184,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7775057497845221341, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7790430363464638621, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_Size.x
       value: 1.1050879
@@ -301,7 +309,7 @@ MonoBehaviour:
     borderUp: 0
     value: 0
   manaPerGem: 0
-  unitDamage:
+  damage:
     mods: []
     phDmg:
       borderDown: 0
@@ -329,10 +337,13 @@ MonoBehaviour:
       value: 0
   chosenElement: 4
   modIconGrid: {fileID: 274481621398181666}
+  unitInfo: {fileID: 7794689748232265049}
+  instakillProtected: 0
   allMods: []
   items: []
   spells: []
   canFullyFreeze: 0
+  ai: {fileID: 3675304893426468661}
 --- !u!1 &6329226728874806491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8003845566927144312, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
@@ -435,8 +446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actAfterTime: 0
-  waitBeforeShowTime: 0
+  actAfterTime: 1
+  waitBeforeShowTime: 1.5
   text: 
   keyReference:
     _key: BattleRawsDescription

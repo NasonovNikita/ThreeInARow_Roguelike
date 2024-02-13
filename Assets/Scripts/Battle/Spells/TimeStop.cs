@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using Battle.Modifiers;
 using Battle.Units;
@@ -8,18 +9,18 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "TimeStop", menuName = "Spells/TimeStop")]
     public class TimeStop : Spell
     {
-        public override void Cast()
+        public override IEnumerator Cast()
         {
-            if (CantCastOrCast()) return;
+            if (CantCastOrCast()) yield break;
         
         
             foreach (Enemy enemy in manager.enemies.Where(v => v != null))
             {
                 enemy.AddMod(new Modifier(count, ModType.Stun));
             }
-        }
 
-        public override string Title => titleKeyRef.Value;
+            yield return Wait();
+        }
 
         public override string Description => descriptionKeyRef.Value;
     }

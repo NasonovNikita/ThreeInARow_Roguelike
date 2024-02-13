@@ -4,7 +4,7 @@ namespace Battle.BattleEventHandlers
 {
     public class BattleEndThen : BattleEvent
     {
-        private Action onAppear;
+        private readonly Action onAppear;
 
         public BattleEndThen(Action onAppear) : base()
         {

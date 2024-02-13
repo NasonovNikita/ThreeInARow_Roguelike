@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -5,14 +6,14 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "ToxicRelease", menuName = "Spells/ToxicRelease")]
     public class ToxicRelease : Spell
     {
-        public override void Cast()
+        public override IEnumerator Cast()
         {
-            if (CantCastOrCast()) return;
+            if (CantCastOrCast()) yield break;
 
             unitBelong.Target.StartPoisoning(count);
-        }
 
-        public override string Title => titleKeyRef.Value;
+            yield return Wait();
+        }
 
         public override string Description => string.Format(descriptionKeyRef.Value, count);
     }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -5,15 +6,15 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "Kick", menuName = "Spells/Kick")]
     public class Kick : Spell
     {
-        public override void Cast()
+        public override IEnumerator Cast()
         {
-            if (CantCastOrCast()) return;
+            if (CantCastOrCast()) yield break;
         
-            PToEDamageLog.Log(manager.target, manager.player, new Damage(mDmg: (int) value));
-            manager.target.DoDamage(new Damage(mDmg: (int) value));
-        }
+            //PToEDamageLog.Log(manager.target, manager.player, new Damage(mDmg: (int) value));
+            manager.target.TakeDamage(new Damage(mDmg: (int) value));
 
-        public override string Title => titleKeyRef.Value;
+            yield return Wait();
+        }
 
         public override string Description => string.Format(descriptionKeyRef.Value, value);
     }

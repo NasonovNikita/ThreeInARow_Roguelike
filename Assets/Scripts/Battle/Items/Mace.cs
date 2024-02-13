@@ -15,6 +15,10 @@ namespace Battle.Items
         {
             new EnemyGettingHitThen(() =>
             {
+                var lastTurn = BattleLog.GetLastTurn();
+                
+                if (lastTurn[^2] is not GridLog) return;
+                
                 ((GotDamageLog)BattleLog.LastLog).GetData.Item1
                     .AddHpMod(new Modifier(moves, ModType.Mul,
                         ModClass.HpDamageBase, isPositive: false, value: value));

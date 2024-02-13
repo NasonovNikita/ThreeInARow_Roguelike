@@ -18,8 +18,10 @@ namespace Battle.Items
         public override void OnGet()
         {
             Player.data.damage.phDmg.ChangeBorderUp(-lostDamage, -lostDamage);
-            Player.data.AddHpMod(new Modifier(-1, ModType.Add, 
-                ModClass.HpDamageBase, value: -notGottenDamage));
+            Player.data.AddDamageMod(new Modifier(-1, ModType.Add, ModClass.DamageTypedStat,
+                DmgType.Physic, false, -lostDamage, always: true));
+            Player.data.AddHpMod(new Modifier(-1, ModType.Add,
+                ModClass.HpDamageBase, value: -notGottenDamage, always: true));
         }
     }
 }

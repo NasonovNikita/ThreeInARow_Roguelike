@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Other;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -29,9 +28,6 @@ namespace Battle.Match3
         public static Action onEnd;
 
         public Dictionary<GemType, int> destroyed;
-
-        public BattleManager manager;
-
         public GridState state;
 
         private Gem first;
@@ -41,8 +37,6 @@ namespace Battle.Match3
 
         public void Awake()
         {
-            manager = FindFirstObjectByType<BattleManager>();
-        
             box = new Gem[sizeY, sizeX];
             SmartGenGems();
             ClearDestroyed();
@@ -90,18 +84,16 @@ namespace Battle.Match3
                 
                     state = GridState.Choosing2;
                 
-                    yield return new WaitForSeconds(scaleTime);
+                    yield return new WaitUntil(() => first.EndedScale);
                     break;
             
                 case GridState.Choosing2 when gem == first:
                 
                     first.Scale(baseScale);
-                
+                    yield return new WaitUntil(() => first.EndedScale);
+                    
                     first = null;
-                
                     state = GridState.Choosing1;
-                
-                    yield return new WaitForSeconds(scaleTime);
                     break;
             
                 case GridState.Choosing2:
@@ -113,10 +105,10 @@ namespace Battle.Match3
                     {
                     
                         second.Scale(chosenScale);
-                        yield return new WaitForSeconds(scaleTime);
+                        yield return new WaitUntil(() => second.EndedScale);
                     
                         state = GridState.Moving;
-                        StartCoroutine(MoveGems(first, second));
+                        yield return StartCoroutine(MoveGems(first, second));
                     
                         first = null;
                         second = null;
@@ -125,11 +117,12 @@ namespace Battle.Match3
                     {
                         first.Scale(baseScale);
                         second.Scale(chosenScale);
+
+                        yield return new WaitUntil(() => first.EndedScale);
+                        yield return new WaitUntil(() => second.EndedScale);
                     
                         first = second;
                         second = null;
-                    
-                        yield return new WaitForSeconds(scaleTime);
                     }
                     break;
                 }
@@ -151,8 +144,8 @@ namespace Battle.Match3
                 
                 first = box[i, j];
                 first.Scale(chosenScale);
-                
-                yield return new WaitForSeconds(scaleTime);
+
+                yield return new WaitUntil(() => first.EndedScale);
             }
             else
             {
@@ -161,11 +154,11 @@ namespace Battle.Match3
                 second = box[i, j];
                 second.Scale(chosenScale);
                 
-                yield return new WaitForSeconds(scaleTime);
+                yield return new WaitUntil(() => second.EndedScale);
 
                 state = GridState.Moving;
 
-                StartCoroutine(MoveGems(first, second));
+                yield return StartCoroutine(MoveGems(first, second));
 
                 first = null;
                 second = null;
@@ -198,17 +191,18 @@ namespace Battle.Match3
         
             gem1.Move(gem2.transform.position);
             gem2.Move(gem1.transform.position);
-            yield return new WaitForSeconds(moveTime);
+            yield return new WaitUntil(() => gem1.EndedMove);
         
             box[pos2[0], pos2[1]] = gem1;
             box[pos1[0], pos1[1]] = gem2;
         
             gem1.Scale(baseScale);
             gem2.Scale(baseScale);
-            yield return new WaitForSeconds(scaleTime);
+            yield return new WaitUntil(() => gem1.EndedScale);
+            yield return new WaitUntil(() => gem2.EndedScale);
         
             state = GridState.Refreshing;
-            StartCoroutine(Refresh());
+            yield return StartCoroutine(Refresh());
         }
 
         private IEnumerator Refresh()
@@ -268,7 +262,7 @@ namespace Battle.Match3
                 }
             }
         
-            StartCoroutine(Refresh());
+            yield return StartCoroutine(Refresh());
         }
 
         private void SmartGenGems()
@@ -314,12 +308,16 @@ namespace Battle.Match3
 
         public static bool HorizontalRowExists(int i, int j, Gem[,] box)
         {
-            return j < box.GetLength(1) - 2 && box[i, j].Type == box[i, j + 1].Type && box[i, j].Type == box[i, j + 2].Type;
+            return j < box.GetLength(1) - 2 &&
+                   box[i, j].Type == box[i, j + 1].Type &&
+                   box[i, j].Type == box[i, j + 2].Type;
         }
 
         public static bool VerticalRowExists(int i, int j, Gem[,] box)
         {
-            return i < box.GetLength(0) - 2 && box[i, j].Type == box[i + 1, j].Type && box[i, j].Type == box[i + 2, j].Type;
+            return i < box.GetLength(0) - 2 &&
+                   box[i, j].Type == box[i + 1, j].Type &&
+                   box[i, j].Type == box[i + 2, j].Type;
         }
     }
 }

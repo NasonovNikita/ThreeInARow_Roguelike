@@ -15,7 +15,7 @@ namespace Battle.Items
         {
             new LessHpThen(hpLessThen, unitBelong,
                 () => unitBelong.AddDamageMod(new Modifier(-1, ModType.Mul,
-                    ModClass.DamageBase,  value: bonus)));
+                    ModClass.DamageBase,  value: bonus, always: true)));
         }
 
         

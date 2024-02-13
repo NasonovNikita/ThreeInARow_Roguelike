@@ -53,7 +53,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -122,11 +122,62 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline: []
-    physicsShape: []
+    outline:
+    - - {x: -76.5, y: -15.5}
+      - {x: -76.5, y: -61.5}
+      - {x: -65.5, y: -72.5}
+      - {x: -20.5, y: -72.5}
+      - {x: -20.5, y: -35.5}
+      - {x: -40.5, y: -15.5}
+    - - {x: 20.5, y: -35.5}
+      - {x: 20.5, y: -72.5}
+      - {x: 65.5, y: -72.5}
+      - {x: 76.5, y: -61.5}
+      - {x: 76.5, y: -15.5}
+      - {x: 40.5, y: -15.5}
+    - - {x: -65.5, y: 72.5}
+      - {x: -76.5, y: 61.5}
+      - {x: -76.5, y: 15.5}
+      - {x: -40.5, y: 15.5}
+      - {x: -20.5, y: 35.5}
+      - {x: -20.5, y: 72.5}
+    - - {x: 60.5, y: 72.5}
+      - {x: 20.5, y: 72.5}
+      - {x: 20.5, y: 35.5}
+      - {x: 40.5, y: 15.5}
+      - {x: 76.5, y: 15.5}
+      - {x: 76.5, y: 56.5}
+    physicsShape:
+    - - {x: -76.5, y: -15.5}
+      - {x: -76.5, y: -70.5}
+      - {x: -70.5, y: -72.5}
+      - {x: -20.5, y: -72.5}
+      - {x: -20.5, y: -30.5}
+      - {x: -40.5, y: -15.5}
+    - - {x: 32.5, y: -15.5}
+      - {x: 20.5, y: -26.5}
+      - {x: 20.5, y: -72.5}
+      - {x: 65.5, y: -72.5}
+      - {x: 76.5, y: -60.5}
+      - {x: 76.5, y: -15.5}
+    - - {x: -60.5, y: 72.5}
+      - {x: -76.5, y: 54.5}
+      - {x: -76.5, y: 15.5}
+      - {x: -41.5, y: 15.5}
+      - {x: -38.5, y: 17.5}
+      - {x: -20.5, y: 34.5}
+      - {x: -20.5, y: 72.5}
+    - - {x: 63.5, y: 72.5}
+      - {x: 20.5, y: 72.5}
+      - {x: 20.5, y: 36.5}
+      - {x: 22.5, y: 33.5}
+      - {x: 40.5, y: 15.5}
+      - {x: 76.5, y: 15.5}
+      - {x: 76.5, y: 55.5}
+      - {x: 70.5, y: 64.5}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []

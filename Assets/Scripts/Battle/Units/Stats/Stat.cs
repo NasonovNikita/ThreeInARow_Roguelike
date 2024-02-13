@@ -61,6 +61,12 @@ namespace Battle.Units.Stats
             }
         }
 
+        public void StraightChange(int val)
+        {
+            value += val;
+            Norm();
+        }
+
         public void ChangeBorderUp(int dBorder, int dValue = 0)
         {
             borderUp += dBorder;

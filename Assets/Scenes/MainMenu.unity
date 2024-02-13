@@ -204,7 +204,7 @@ MonoBehaviour:
   languageChooser: {fileID: 1360551234560328108, guid: 3a7bcf0c7437d314688082da92916c77, type: 3}
   battleVertex: {fileID: 4151228096430590339, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
   shopVertex: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
-  treasureVertex: {fileID: -2121221672186399286, guid: 76714e3d2afa7e644b0a358c75be5138, type: 3}
+  treasureVertex: {fileID: 171546427078445624, guid: 76714e3d2afa7e644b0a358c75be5138, type: 3}
   pickerAim: {fileID: 3949281856400402042, guid: cc21b8a22791abc4aa49d751c276b4d4, type: 3}
   inventoryItem: {fileID: 3409028896318203545, guid: c366518e1149a2e459e83cd5e2e069dc, type: 3}
   inventoryManager: {fileID: 5194967847300656914, guid: 34ea5d7648c4043488c9e4c94f712932, type: 3}
@@ -864,7 +864,7 @@ GameObject:
   - component: {fileID: 809755283}
   - component: {fileID: 809755282}
   m_Layer: 0
-  m_Name: ModifierDescriptions
+  m_Name: LocalizedStrings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -965,6 +965,15 @@ MonoBehaviour:
     _formatters: []
   magic:
     _key: Magic
+    _formatters: []
+  instakillProtectionLocalizedKey:
+    _key: InstakillProtection
+    _formatters: []
+  unitInfoLocalizedKey:
+    _key: UnitInfo
+    _formatters: []
+  miss:
+    _key: Miss
     _formatters: []
   references:
     version: 2
@@ -1895,7 +1904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1
+      value: -0.9998779
       objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2178,8 +2187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actAfterTime: 0
-  waitBeforeShowTime: 0
+  actAfterTime: 1
+  waitBeforeShowTime: 1
   text: 
   keyReference:
     _key: Language(NativeLanguage)

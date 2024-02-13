@@ -76,18 +76,7 @@ namespace Other
                 UnityRandom.InitState((int) DateTime.Now.Ticks);
             }
         }
-
-        public static T InstantiateUI<T>(T obj) where T : Object
-        {
-            return Object.Instantiate(obj, Object.FindFirstObjectByType<Canvas>().transform);
-        }
-
-        public static void InitButton(Button btn, UnityAction onClick, string content)
-        {
-            btn.onClick.AddListener(onClick);
-            btn.GetComponentInChildren<Text>().text = content;
-        }
-
+        
         public static class Json
         {
             public static string ListToJson<T>(IEnumerable<T> list)
@@ -148,6 +137,23 @@ namespace Other
             }
         }
 
+        public static T InstantiateUI<T>(T obj) where T : Object
+        {
+            return Object.Instantiate(obj, Object.FindFirstObjectByType<Canvas>().transform);
+        }
+
+        public static void InitButton(Button btn, UnityAction onClick, string content)
+        {
+            btn.onClick.AddListener(onClick);
+            btn.GetComponentInChildren<Text>().text = content;
+        }
+
         public static int Percents(float v) => (int)(v * 100);
+
+        public static string FormatByKeys(this string formattedString, IReadOnlyDictionary<string, string> values)
+        {
+            return values.Aggregate(formattedString,
+                (current, pair) => current.Replace(pair.Key, pair.Value));
+        }
     }
 }

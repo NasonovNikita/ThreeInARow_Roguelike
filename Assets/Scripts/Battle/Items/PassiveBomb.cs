@@ -18,8 +18,8 @@ namespace Battle.Items
                 foreach (Enemy enemy in manager.enemies)
                 {
                     Damage dmg = new Damage(fDmg: damage);
-                    enemy.DoDamage(dmg);
-                    PToEDamageLog.Log(enemy, manager.player, dmg);
+                    enemy.TakeDamage(dmg);
+                    //PToEDamageLog.Log(enemy, manager.player, dmg);
                 }
             });
         }

@@ -529,6 +529,30 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
+  - _key: NoSpell
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: UnitInfo
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: InstakillProtection
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Miss
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FreezeGrenade
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FreezeGrenadeDescription
+    _metadata:
+      _runtime: []
+      _editor: []
   references:
     version: 2
     RefIds: []

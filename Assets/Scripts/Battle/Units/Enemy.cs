@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Audio;
 using Battle.Units.AI;
 using UnityEngine;
@@ -6,34 +7,34 @@ using UnityEngine;
 namespace Battle.Units
 {
     [Serializable]
-    [RequireComponent(typeof(EnemyAI))]
     public class Enemy : Unit
     {
-        private EnemyAI ai;
+        [SerializeField]
+        private BaseEnemyAI ai;
 
         public override Unit Target => manager.player;
         
         public new void TurnOn()
         {
             base.TurnOn();
-        
-            ai = GetComponent<EnemyAI>();
         }
-        public override void DoDamage(Damage dmg)
+        public override void TakeDamage(Damage dmg)
         {
-            base.DoDamage(dmg);
+            base.TakeDamage(dmg);
             AudioManager.instance.Play(AudioEnum.EnemyHit);
         }
 
-        public void Act()
+        public override IEnumerator Act()
         {
-            if (Stunned() || manager.State == BattleState.End) return;
-            ai.Act();
+            if (Stunned() || manager.State == BattleState.End) yield break;
+            yield return StartCoroutine(ai.Act());
+            yield return StartCoroutine(base.Act());
         }
 
         protected override void NoHp()
         {
-            if (this != null) StartCoroutine(manager.KillEnemy(this));
+            if (this == null) return;
+            StartCoroutine(manager.KillEnemy(this));
         }
     }
 }

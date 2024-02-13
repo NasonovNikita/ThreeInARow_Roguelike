@@ -24,20 +24,40 @@ namespace Battle.Units.Stats
             value += val;
             Norm();
             return val;
-            // Possible logging
         }
 
-        public int DoDamage(Damage dmg)
+        public int TakeDamage(Damage dmg)
         {
             int doneDamage =
                 UseHpMods(
                     ((DmgType[])Enum.GetValues(typeof(DmgType))).Sum(dmgType =>
                         UseHpMods(dmg.Parts[dmgType], ModClass.HpDamageTyped, dmgType)),
                     ModClass.HpDamageBase);
-            value -= Math.Max(0, doneDamage);
+            int fixedDamage = Math.Max(0, doneDamage);
+            value -= fixedDamage;
             Norm();
-            return doneDamage;
-            // Possible logging
+            
+            return fixedDamage;
+        }
+
+        public int Burn(int val)
+        {
+            int doneDamage = UseHpMods(val, ModClass.HpDamageTyped, DmgType.Fire);
+            int fixedDamage = Math.Max(0, doneDamage);
+            value -= fixedDamage;
+            Norm();
+            
+            return fixedDamage;
+        }
+
+        public int Poison(int val)
+        {
+            int doneDamage = UseHpMods(val, ModClass.HpDamageTyped, DmgType.Poison);
+            int fixedDamage = Math.Max(0, doneDamage);
+            value -= fixedDamage;
+            Norm();
+            
+            return fixedDamage;
         }
 
         private int UseHpMods(int val, ModClass workPattern, DmgType type = DmgType.Physic)

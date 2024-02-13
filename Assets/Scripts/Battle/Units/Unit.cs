@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Items;
@@ -6,12 +7,14 @@ using Battle.Match3;
 using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Stats;
+using Core;
+using Knot.Localization;
 using Other;
 using UI.Battle;
+using UI.MessageWindows;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Grid = Battle.Match3.Grid;
-using Random = UnityEngine.Random;
 
 namespace Battle.Units
 {
@@ -22,11 +25,38 @@ namespace Battle.Units
 
         public int manaPerGem;
 
-        public UnitDamage unitDamage;
+        [FormerlySerializedAs("unitDamage")] public UnitDamage damage;
 
         [SerializeField] protected internal DmgType chosenElement;
 
         [SerializeField] private ModIconGrid modIconGrid;
+
+        [SerializeField] private InfoObject unitInfo;
+
+        [SerializeField] private bool instakillProtected;
+
+        public const float WaitTime = 0.5f;
+        
+        private string Info =>
+            LocalizedStringsKeys.instance.unitInfoLocalizedKey.Value
+                .FormatByKeys(new Dictionary<string, string>
+                {
+                    {"{phDmg}", damage.phDmg.value.ToString()},
+                    {"{fDmg}", damage.fDmg.value.ToString()},
+                    {"{cDmg}", damage.cDmg.value.ToString()},
+                    {"{pDmg}", damage.pDmg.value.ToString()},
+                    {"{lDmg}", damage.lDmg.value.ToString()},
+                    {"{currentElement}", LocalizedStringsKeys.instance.DmgType(chosenElement)}
+                })
+                .Split("\n")
+                .Where(line =>
+                    !line.Contains(" 0") &&
+                    !line.Contains(LocalizedStringsKeys.instance.physic.Value) &&
+                    !line.Contains(LocalizedStringsKeys.instance.magic.Value))
+                .Aggregate("",
+                    (current,
+                        line) => current + line + "\n")
+                .Trim();
 
         public abstract Unit Target { get; }
 
@@ -63,6 +93,8 @@ namespace Battle.Units
             manager = FindFirstObjectByType<BattleManager>();
             grid = FindFirstObjectByType<Grid>();
 
+            unitInfo.text = Info;
+
             stateAnimationController = GetComponentInChildren<StateAnimationController>();
         
             Tools.InstantiateAll(items);
@@ -83,37 +115,51 @@ namespace Battle.Units
             }
         }
     
-        public void Act(Unit target)
+        public virtual IEnumerator Act()
         {
             grid = FindFirstObjectByType<Grid>();
             RefillMana(CountMana());
-            Damage dmg = unitDamage.GetGemsDamage(grid.destroyed);
-            
-            if (!dmg.IsZero && !IsMissingOnFreeze)
+            Damage dmg = damage.GetGemsDamage(grid.destroyed);
+
+            var missed = IsMissingOnFreeze;
+            if (!dmg.IsZero && !missed)
             {
-                target.DoDamage(dmg);
-                switch (this)
-                {
-                    case Enemy:
-                        EToPDamageLog.Log((Enemy) this, (Player) target, dmg);
-                        break;
-                    case Player:
-                        PToEDamageLog.Log((Enemy) target, (Player) this, dmg);
-                        break;
-                }
-                UseElementOnDestroyed(grid.destroyed, target);
+                Target.TakeDamage(dmg);
+                UseElementOnDestroyed(grid.destroyed);
+            }
+
+            if (missed)
+            {
+                UnitHUD.CreateStringHud(Target, LocalizedStringsKeys.instance.miss.Value, true);
             }
             
             grid.ClearDestroyed();
+
+            yield return new WaitForSeconds(WaitTime);
         }
 
-        public virtual void DoDamage(Damage dmg)
+        public virtual void TakeDamage(Damage dmg)
         {
-            int gotDamage = hp.DoDamage(dmg);
+            int gotDamage = hp.TakeDamage(dmg);
             GotDamageLog.Log(this, gotDamage);
-            UnitHUD.Create(this, hp, -gotDamage);
+            UnitHUD.CreateStatChangeHud(this, hp, -gotDamage);
 
-            if (hp == 0)
+            OnHpChanged(gotDamage);
+        }
+
+        private void OnHpChanged(int gotDamage)
+        {
+            if (hp > 0) return;
+            
+            if (gotDamage > hp.borderUp * 0.3f && instakillProtected)
+            {
+                hp.value = (int)(hp.borderUp * 0.3f);
+                UnitHUD.CreateStringHud(this,
+                    LocalizedStringsKeys.instance.instakillProtectionLocalizedKey.Value,
+                    true);
+                instakillProtected = false;
+            }
+            else
             {
                 NoHp();
             }
@@ -122,19 +168,19 @@ namespace Battle.Units
         public void Heal(int val)
         {
             int healed = hp.Heal(val);
-            UnitHUD.Create(this, hp, healed);
+            UnitHUD.CreateStatChangeHud(this, hp, healed);
         }
 
         public void WasteMana(int val)
         {
             int wasted = mana.Waste(val);
-            UnitHUD.Create(this, mana, -wasted);
+            UnitHUD.CreateStatChangeHud(this, mana, -wasted);
         }
 
         public void RefillMana(int val)
         {
             int refilled = mana.Refill(val);
-            UnitHUD.Create(this, mana, refilled);
+            UnitHUD.CreateStatChangeHud(this, mana, refilled);
         }
         public void Delete()
         {
@@ -146,7 +192,7 @@ namespace Battle.Units
             return allMods.Exists(mod => mod.type == ModType.Stun && mod.Use != 0);
         }
 
-        private void UseElementOnDestroyed(IReadOnlyDictionary<GemType, int> destroyed, Unit target)
+        private void UseElementOnDestroyed(IReadOnlyDictionary<GemType, int> destroyed)
         {
             switch (chosenElement)
             {
@@ -154,18 +200,18 @@ namespace Battle.Units
                     Heal(ElementsProperties.LightHealRate * destroyed[GemType.Yellow]);
                     break;
                 case DmgType.Fire when destroyed[GemType.Red] != 0:
-                    target.StartBurning(1);
+                    Target.StartBurning(1);
                     break;
                 case DmgType.Cold when destroyed[GemType.Blue] != 0:
                     if (canFullyFreeze && Tools.Random.RandomChance(ElementsProperties.TotalFreezingChance))
                     {
-                        target.Stun(1);
-                        target.AddMod(new Modifier(1, ModType.Frozen));
+                        Target.Stun(1);
+                        Target.AddMod(new Modifier(1, ModType.Frozen));
                     }
-                    else target.StartFreezing(1);
+                    else Target.StartFreezing(1);
                     break;
                 case DmgType.Poison when destroyed[GemType.Green] != 0:
-                    target.StartPoisoning(1);
+                    Target.StartPoisoning(1);
                     break;
                 case DmgType.Physic:
                     break;
@@ -190,7 +236,7 @@ namespace Battle.Units
                 moves,
                 ModType.Burning,
                 isPositive: false,
-                onMove: () => { DoDamage(new Damage(fDmg: ElementsProperties.FireDamage)); },
+                onMove: () => OnHpChanged(hp.Burn(ElementsProperties.FireDamage)),
                 delay: true)
             );
             AddHpMod(new Modifier(moves + 1, ModType.Mul,
@@ -204,11 +250,12 @@ namespace Battle.Units
                 moves,
                 ModType.Poisoning,
                 isPositive: false,
-                onMove: () => { DoDamage(new Damage(pDmg: ElementsProperties.PoisonDamage)); },
+                onMove: () => OnHpChanged(hp.Poison(ElementsProperties.PoisonDamage)),
                 delay: true)
             );
-            
-            if (allMods.Exists(v => v.isPositive)) allMods.First(v => v.isPositive).TurnOff();
+
+            if (allMods.Exists(v => v.isPositive && !v.always))
+                allMods.First(v => v.isPositive && !v.always).TurnOff();
 
             stateAnimationController.AddState(UnitStates.Poisoning);
         }
@@ -245,7 +292,7 @@ namespace Battle.Units
 
         public void AddDamageMod(Modifier mod)
         {
-            unitDamage.AddMod(mod);
+            damage.AddMod(mod);
             AddMod(mod);
         }
 

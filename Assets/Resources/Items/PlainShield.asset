@@ -20,7 +20,7 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: PlainShieldDescription
     _formatters: []
-  value: 0.3
+  value: 0.1
   references:
     version: 2
     RefIds: []

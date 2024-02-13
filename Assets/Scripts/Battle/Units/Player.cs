@@ -16,14 +16,9 @@ namespace Battle.Units
             base.TurnOn();
         }
 
-        public void Act()
+        public override void TakeDamage(Damage dmg)
         {
-            base.Act(Target);
-        }
-
-        public override void DoDamage(Damage dmg)
-        {
-            base.DoDamage(dmg);
+            base.TakeDamage(dmg);
             
             AudioManager.instance.Play(AudioEnum.PlayerHit);
         }
