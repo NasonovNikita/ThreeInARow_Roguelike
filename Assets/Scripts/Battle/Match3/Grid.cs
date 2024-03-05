@@ -1,16 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Other;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Battle.Match3
 {
     public class Grid : MonoBehaviour
     {
-        [SerializeField] private int sizeX;
-        [SerializeField] private int sizeY;
+        public int sizeX;
+        public int sizeY;
     
         [SerializeField] private Vector2 stepX;
         [SerializeField] private Vector2 stepY;
@@ -18,8 +19,8 @@ namespace Battle.Match3
         [SerializeField] private Vector3 chosenScale;
         
     
-        [SerializeField]
-        private Gem[] prefabs;
+        [SerializeField] private Gem[] prefabs;
+        public Dictionary<GemType, Gem> prefabsByType;
 
         [SerializeField] internal float moveTime;
         [SerializeField] internal float scaleTime;
@@ -32,12 +33,21 @@ namespace Battle.Match3
 
         private Gem first;
         private Gem second;
-    
-        private Gem[,] box;
+
+        public Gem[,] box;
+
+        public Dictionary<GemType, int> EmptyTypesCounter => Tools.FilledEnumDictionary<GemType, int>();
 
         public void Awake()
         {
             box = new Gem[sizeY, sizeX];
+            
+            prefabsByType = new Dictionary<GemType, Gem>();
+            foreach (GemType type in Enum.GetValues(typeof(GemType)))
+            {
+                prefabsByType[type] = prefabs.First(g => g.Type == type);
+            }
+            
             SmartGenGems();
             ClearDestroyed();
         }
@@ -51,9 +61,11 @@ namespace Battle.Match3
             }
         }
 
-        private Gem GenGem(int i, int j, int type = 0)
+        private Gem GenGem(int i, int j, bool random = true, GemType type = GemType.Red)
         {
-            Gem gem = prefabs[type != 0 ? type : Random.Range(0, prefabs.Length)];
+            Gem gem = prefabsByType[random
+                ? Tools.Random.RandomChoose((GemType[])Enum.GetValues(typeof(GemType)))
+                : type];
             var gemTransform = gem.transform;
             gemTransform.position = (Vector2)transform.position + stepX * j + stepY * i;
             gem.grid = this;
@@ -61,6 +73,12 @@ namespace Battle.Match3
             gem.mover.time = moveTime;
             gem.scaler.time = scaleTime;
             return gem;
+        }
+
+        public void ReplaceGem(int i, int j, GemType type)
+        {
+            Destroy(box[i, j].gameObject);
+            box[i, j] = Instantiate(GenGem(i, j, false, type));
         }
 
         public void Block()
@@ -167,14 +185,7 @@ namespace Battle.Match3
 
         public void ClearDestroyed()
         {
-            destroyed = new Dictionary<GemType, int>
-            {
-                { GemType.Red, 0 },
-                { GemType.Blue, 0 },
-                { GemType.Green, 0 },
-                { GemType.Yellow, 0 },
-                { GemType.Mana, 0 }
-            };
+            destroyed = EmptyTypesCounter;
         }
 
         public Gem[,] BoxCopy()
@@ -186,15 +197,15 @@ namespace Battle.Match3
 
         private IEnumerator MoveGems(Gem gem1, Gem gem2)
         {
-            int[] pos1 = FindGem(gem1);
-            int[] pos2 = FindGem(gem2);
+            var pos1 = FindGem(gem1);
+            var pos2 = FindGem(gem2);
         
             gem1.Move(gem2.transform.position);
             gem2.Move(gem1.transform.position);
             yield return new WaitUntil(() => gem1.EndedMove);
         
-            box[pos2[0], pos2[1]] = gem1;
-            box[pos1[0], pos1[1]] = gem2;
+            box[pos2.Item1, pos2.Item2] = gem1;
+            box[pos1.Item1, pos1.Item2] = gem2;
         
             gem1.Scale(baseScale);
             gem2.Scale(baseScale);
@@ -205,30 +216,11 @@ namespace Battle.Match3
             yield return StartCoroutine(Refresh());
         }
 
-        private IEnumerator Refresh()
+        public IEnumerator Refresh()
         {
-            var toDelete = new HashSet<Gem>();
-        
-            for (int i = 0; i < sizeY; i++)
-            {
-                for (int j = 0; j < sizeX; j++)
-                {
-                    if (HorizontalRowExists(i, j, box))
-                    {
-                        toDelete.Add(box[i, j]);
-                        toDelete.Add(box[i, j + 1]);
-                        toDelete.Add(box[i, j + 2]);
-                    }
+            var toDelete = GetDestroyedGems(box);
 
-                    // ReSharper disable once InvertIf
-                    if (VerticalRowExists(i, j, box))
-                    {
-                        toDelete.Add(box[i, j]);
-                        toDelete.Add(box[i + 1, j]);
-                        toDelete.Add(box[i + 2, j]);
-                    }
-                }
-            }
+            destroyed = destroyed.ConcatCounterDictionaries(CountGemTypes(toDelete));
 
             if (toDelete.Count == 0)
             {
@@ -237,13 +229,9 @@ namespace Battle.Match3
                 Block();
                 yield break;
             }
-        
-            foreach (Gem gem in toDelete)
-            {
-                destroyed[gem.Type] += 1;
-            }
 
             yield return new WaitForSeconds(refreshTime);
+            
             foreach (Gem gem in toDelete)
             {
                 Destroy(gem.gameObject);
@@ -251,6 +239,14 @@ namespace Battle.Match3
 
         
             yield return new WaitForSeconds(refreshTime);
+            
+            RefillGems();
+        
+            yield return StartCoroutine(Refresh());
+        }
+
+        private void RefillGems()
+        {
             for (int i = 0; i < sizeY; i++)
             {
                 for (int j = 0; j < sizeX; j++)
@@ -261,8 +257,48 @@ namespace Battle.Match3
                     }
                 }
             }
+        }
+
+        public List<Gem> GetDestroyedGems(Gem[,] gemBox)
+        {
+            var deletedGems = new HashSet<Gem>();
         
-            yield return StartCoroutine(Refresh());
+            for (int i = 0; i < sizeY; i++)
+            {
+                for (int j = 0; j < sizeX; j++)
+                {
+                    if (HorizontalRowExists(i, j, gemBox))
+                    {
+                        deletedGems.Add(gemBox[i, j]);
+                        deletedGems.Add(gemBox[i, j + 1]);
+                        deletedGems.Add(gemBox[i, j + 2]);
+                    }
+
+                    // ReSharper disable once InvertIf
+                    if (VerticalRowExists(i, j, gemBox))
+                    {
+                        deletedGems.Add(gemBox[i, j]);
+                        deletedGems.Add(gemBox[i + 1, j]);
+                        deletedGems.Add(gemBox[i + 2, j]);
+                    }
+                }
+            }
+
+            deletedGems = new HashSet<Gem>(deletedGems);
+
+            return deletedGems.ToList();
+        }
+
+        public Dictionary<GemType, int> CountGemTypes(List<Gem> gems)
+        {
+            var res = EmptyTypesCounter;
+
+            foreach (var gem in gems)
+            {
+                res[gem.Type] += 1;
+            }
+
+            return res;
         }
 
         private void SmartGenGems()
@@ -281,29 +317,29 @@ namespace Battle.Match3
             }
         }
     
-        private int[] FindGem(Object gem)
+        private (int, int) FindGem(Object gem)
         {
-            int[] res = { 0, 0 };
             for (int i = 0; i < sizeY; i++)
             {
                 for (int j = 0; j < sizeX; j++)
                 {
                     if (box[i, j] == gem)
                     {
-                        res = new[] { i, j };
+                        return (i, j);
                     }
                 }
             }
-            return res;
+
+            throw new InvalidOperationException();
         }
 
         public bool GemsAreNeighbours(Object gem1, Object  gem2)
         {
-            int[] pos1 = FindGem(gem1);
-            int[] pos2 = FindGem(gem2);
+            var pos1 = FindGem(gem1);
+            var pos2 = FindGem(gem2);
         
-            return pos1[0] == pos2[0] && Math.Abs(pos1[1] - pos2[1]) == 1 ||
-                   pos1[1] == pos2[1] && Math.Abs(pos1[0] - pos2[0]) == 1;
+            return pos1.Item1 == pos2.Item1 && Math.Abs(pos1.Item2 - pos2.Item2) == 1 ||
+                   pos1.Item2 == pos2.Item2 && Math.Abs(pos1.Item1 - pos2.Item1) == 1;
         }
 
         public static bool HorizontalRowExists(int i, int j, Gem[,] box)

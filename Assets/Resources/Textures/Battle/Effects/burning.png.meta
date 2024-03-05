@@ -158,8 +158,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 192
-        height: 192
+        width: 177
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,10 +177,10 @@ TextureImporter:
       name: burning_1
       rect:
         serializedVersion: 2
-        x: 192
+        x: 189
         y: 0
-        width: 192
-        height: 192
+        width: 181
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,10 +198,10 @@ TextureImporter:
       name: burning_2
       rect:
         serializedVersion: 2
-        x: 384
+        x: 378
         y: 0
-        width: 192
-        height: 192
+        width: 189.71428
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +219,10 @@ TextureImporter:
       name: burning_3
       rect:
         serializedVersion: 2
-        x: 576
+        x: 575
         y: 0
-        width: 192
-        height: 192
+        width: 182
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,10 +240,10 @@ TextureImporter:
       name: burning_4
       rect:
         serializedVersion: 2
-        x: 768
+        x: 765
         y: 0
-        width: 192
-        height: 192
+        width: 181
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -261,10 +261,10 @@ TextureImporter:
       name: burning_5
       rect:
         serializedVersion: 2
-        x: 960
+        x: 958
         y: 0
-        width: 192
-        height: 192
+        width: 181
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -282,10 +282,10 @@ TextureImporter:
       name: burning_6
       rect:
         serializedVersion: 2
-        x: 1152
+        x: 1151
         y: 0
-        width: 192
-        height: 192
+        width: 177
+        height: 76
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

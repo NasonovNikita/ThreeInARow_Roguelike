@@ -12,10 +12,11 @@ namespace Battle.Units.AI
     public class BaseEnemyAI : MonoBehaviour
     {
         protected Enemy attachedEnemy;
-        private List<(int, int, int, int, int)> profits = new ();
+        private Grid grid;
 
         public void Awake()
         {
+            grid = FindFirstObjectByType<Grid>();
             attachedEnemy = GetComponent<Enemy>();
         }
 
@@ -26,8 +27,10 @@ namespace Battle.Units.AI
 
         protected virtual IEnumerator UseGrid()
         {
-            Grid grid = FindFirstObjectByType<Grid>();
+            List<Move> profits = new ();
+            
             var box = grid.BoxCopy();
+            
             for (int i = 0; i < box.GetLength(0); i++)
             {
                 for (int j = 0; j < box.GetLength(1); j++)
@@ -35,31 +38,29 @@ namespace Battle.Units.AI
                     if (i < box.GetLength(0) - 1)
                     {
                         (box[i, j], box[i + 1, j]) = (box[i + 1, j], box[i, j]);
-                        profits.Add((CountProfit(box), i, j, i + 1, j));
+                        profits.Add(new Move(CountProfit(box), (i, j), (i + 1, j)));
                         (box[i, j], box[i + 1, j]) = (box[i + 1, j], box[i, j]);
                     }
 
                     if (j < box.GetLength(1) - 1)
                     {
                         (box[i, j], box[i, j + 1]) = (box[i, j + 1], box[i, j]);
-                        profits.Add((CountProfit(box), i, j, i, j + 1));
+                        profits.Add(new Move(CountProfit(box), (i, j), (i, j + 1)));
                         (box[i, j], box[i, j + 1]) = (box[i, j + 1], box[i, j]); 
                     } 
                 }
             }
             
-            int max = profits.Max(val => val.Item1);
+            int max = profits.Max(val => val.profit);
             var chosen = profits[Random.Range(0, profits.Count)];
-            if (!attachedEnemy.allMods.Exists(mod => mod.type == ModType.Blind && mod.Use != 0))
+            if (!attachedEnemy.IsBlind)
             {
-                var goodOnes = profits.Where(val => val.Item1 == max).ToList();
-                chosen = goodOnes[Random.Range(0, goodOnes.Count)];
+                var goodMoves = profits.Where(val => val.profit == max).ToList();
+                chosen = goodMoves[Random.Range(0, goodMoves.Count)];
             }
 
-            profits = new List<(int, int, int, int, int)>();
-
-            yield return StartCoroutine(grid.Choose(chosen.Item2, chosen.Item3));
-            yield return StartCoroutine(grid.Choose(chosen.Item4, chosen.Item5));
+            yield return StartCoroutine(grid.Choose(chosen.coord1.Item1, chosen.coord1.Item2));
+            yield return StartCoroutine(grid.Choose(chosen.coord2.Item1, chosen.coord2.Item2));
         }
 
         protected virtual int CountProfit(Gem[,] box)
@@ -69,46 +70,23 @@ namespace Battle.Units.AI
             return profit;
         }
 
-        protected Dictionary<GemType, int> CountMoveResults(Gem[,] box)
+        protected Dictionary<GemType, int> CountMoveResults(Gem[,] box) =>
+            grid.CountGemTypes(grid.GetDestroyedGems(box));
+
+        protected struct Move
         {
-            HashSet<Gem> deleted = new ();
+            public readonly int profit;
+
+            public readonly (int, int) coord1;
+            public readonly (int, int) coord2;
+
+            public Move(int profit, (int, int) coord1, (int, int) coord2)
+            {
+                this.profit = profit;
+                this.coord1 = coord1;
+                this.coord2 = coord2;
+            }
             
-            for (int i = 0; i < box.GetLength(0); i++)
-            {
-                for (int j = 0; j < box.GetLength(1); j++)
-                {
-                    if (Grid.HorizontalRowExists(i, j, box))
-                    {
-                        deleted.Add(box[i, j]);
-                        deleted.Add(box[i, j + 1]);
-                        deleted.Add(box[i, j + 2]);
-                    }
-
-                    // ReSharper disable once InvertIf
-                    if (Grid.VerticalRowExists(i, j, box))
-                    {
-                        deleted.Add(box[i, j]);
-                        deleted.Add(box[i + 1, j]);
-                        deleted.Add(box[i + 2, j]);
-                    }
-                }
-            }
-
-            Dictionary<GemType, int> counts = new()
-            {
-                { GemType.Red, 0 },
-                { GemType.Blue, 0 },
-                { GemType.Green, 0 },
-                { GemType.Yellow, 0 },
-                { GemType.Mana, 0 }
-            };
-
-            foreach (Gem gem in deleted)
-            {
-                counts[gem.Type] += 1;
-            }
-
-            return counts;
         }
     }
 }

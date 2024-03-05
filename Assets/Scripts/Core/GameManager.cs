@@ -28,12 +28,6 @@ namespace Core
             DontDestroyOnLoad(gameObject);
 
             Player.data = ScriptableObject.CreateInstance<PlayerData>();
-            /*
-            KnotLocalization.Manager.LoadLanguage(
-                KnotLocalization.Manager.Languages
-                    .FirstOrDefault(d => d.SystemLanguage == Application.systemLanguage));
-                    */
-            // TODO in-game language choose
         }
 
         public void Start()

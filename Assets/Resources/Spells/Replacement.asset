@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b860f079090ce174382e1328fdaecf33, type: 3}
-  m_Name: Singe
+  m_Script: {fileID: 11500000, guid: c0a70a87b648468cb18eb640f49a75cb, type: 3}
+  m_Name: Replacement
   m_EditorClassIdentifier: 
   rarity: 0
   img: {fileID: 0}
@@ -20,9 +20,9 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: 
     _formatters: []
-  useCost: 30
-  value: 10
-  count: 1
+  useCost: 55
+  value: 0
+  count: 6
   references:
     version: 2
     RefIds: []

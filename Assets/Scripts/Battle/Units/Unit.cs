@@ -8,7 +8,6 @@ using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Stats;
 using Core;
-using Knot.Localization;
 using Other;
 using UI.Battle;
 using UI.MessageWindows;
@@ -46,13 +45,13 @@ namespace Battle.Units
                     {"{cDmg}", damage.cDmg.value.ToString()},
                     {"{pDmg}", damage.pDmg.value.ToString()},
                     {"{lDmg}", damage.lDmg.value.ToString()},
+                    { "{mDmg}", damage.mDmg.value.ToString()},
                     {"{currentElement}", LocalizedStringsKeys.instance.DmgType(chosenElement)}
-                })
+                })  
                 .Split("\n")
                 .Where(line =>
                     !line.Contains(" 0") &&
-                    !line.Contains(LocalizedStringsKeys.instance.physic.Value) &&
-                    !line.Contains(LocalizedStringsKeys.instance.magic.Value))
+                    !line.Contains(LocalizedStringsKeys.instance.physic.Value))
                 .Aggregate("",
                     (current,
                         line) => current + line + "\n")
@@ -60,11 +59,13 @@ namespace Battle.Units
 
         public abstract Unit Target { get; }
 
-        private StateAnimationController stateAnimationController;
+        [SerializeField] private StateAnimationController stateAnimationController;
 
         public List<Modifier> allMods = new();
 
         private Grid grid;
+
+        protected BattleManager manager;
 
         public List<Item> items;
 
@@ -72,7 +73,11 @@ namespace Battle.Units
 
         public bool IsBurning => allMods.Exists(v => v.type is ModType.Burning);
 
-        protected BattleManager manager;
+        public bool IsStunned =>
+            allMods.Exists(mod => mod.type == ModType.Stun && mod.Use != 0);
+
+        public bool IsBlind =>
+            allMods.Exists(mod => mod.type == ModType.Blind && mod.Use != 0);
 
         private bool IsMissingOnFreeze =>
             Tools.Random.RandomChance(allMods.Exists(v => v.type is ModType.Freezing)
@@ -95,8 +100,6 @@ namespace Battle.Units
 
             unitInfo.text = Info;
 
-            stateAnimationController = GetComponentInChildren<StateAnimationController>();
-        
             Tools.InstantiateAll(items);
 
             if (modIconGrid == null) throw new Exception("Unit must have modIconGrid");
@@ -119,7 +122,7 @@ namespace Battle.Units
         {
             grid = FindFirstObjectByType<Grid>();
             RefillMana(CountMana());
-            Damage dmg = damage.GetGemsDamage(grid.destroyed);
+            Damage dmg = CountDamage;
 
             var missed = IsMissingOnFreeze;
             if (!dmg.IsZero && !missed)
@@ -137,6 +140,8 @@ namespace Battle.Units
 
             yield return new WaitForSeconds(WaitTime);
         }
+
+        protected virtual Damage CountDamage => damage.GetGemsDamage(grid.destroyed);
 
         public virtual void TakeDamage(Damage dmg)
         {
@@ -185,11 +190,6 @@ namespace Battle.Units
         public void Delete()
         {
             DestroyImmediate(gameObject);
-        }
-
-        public bool Stunned()
-        {
-            return allMods.Exists(mod => mod.type == ModType.Stun && mod.Use != 0);
         }
 
         private void UseElementOnDestroyed(IReadOnlyDictionary<GemType, int> destroyed)

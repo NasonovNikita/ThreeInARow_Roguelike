@@ -349,6 +349,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1983647611}
     m_Modifications:
+    - target: {fileID: 319291022542589823, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 319291022542589823, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 679232754508523257, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 679232754508523257, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2322979815194533694, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -465,6 +481,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5426082107589249160, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7930520076364699909, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
       propertyPath: m_Name
       value: Player
@@ -476,12 +496,12 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
 --- !u!224 &968999652 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3397065796808434562, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 825977271879250883, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
   m_PrefabInstance: {fileID: 968999651}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &968999653 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1265412047051064741, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3610897239642332851, guid: c1bee736dbd2f464e9c3add9ba36e5e9, type: 3}
   m_PrefabInstance: {fileID: 968999651}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

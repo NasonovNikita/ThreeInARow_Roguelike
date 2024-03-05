@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38d8a854668c37469c505ad830fcfe9, type: 3}
-  m_Name: Freeze Grenade
+  m_Script: {fileID: 11500000, guid: 040e8467fe041c941b2b46f2f041a81b, type: 3}
+  m_Name: M
   m_EditorClassIdentifier: 
-  target: {fileID: 11400000, guid: 5d156f5e67d905c4aa1fb17f4ccf78dc, type: 2}
-  price: 33
+  enemies:
+  - {fileID: 3696471998360653708, guid: 5be02e4370c21bd4985ebe049f9c1fe7, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  difficulty: 11
+  reward: 14
+  isBoss: 0

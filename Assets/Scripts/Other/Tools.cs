@@ -28,7 +28,7 @@ namespace Other
                 return UnityRandom.Range(1, 101) <= chance;
             }
 
-            public static T RandomChoose<T>(List<T> toChoose)
+            public static T RandomChoose<T>(IList<T> toChoose)
             {
                 return toChoose[UnityRandom.Range(0, toChoose.Count)];
             }
@@ -155,5 +155,30 @@ namespace Other
             return values.Aggregate(formattedString,
                 (current, pair) => current.Replace(pair.Key, pair.Value));
         }
+
+        public static Dictionary<TKey, int> ConcatCounterDictionaries<TKey>(
+            this Dictionary<TKey, int> first,
+            Dictionary<TKey, int> second)
+        {
+            var res = new Dictionary<TKey, int>(first);
+            foreach ((TKey key, int value) in second)
+            {
+                res.CounterAdd(key, value);
+            }
+
+            return res;
+        }
+
+        public static void CounterAdd<TKey>(this Dictionary<TKey, int> dict, TKey key, int value = 1)
+        {
+            if (!dict.ContainsKey(key)) dict.Add(key, value);
+            else dict[key] += value;
+        }
+
+        public static Dictionary<TKey, TVal> FilledEnumDictionary<TKey, TVal>() where TKey : Enum =>
+            Enum.GetValues(typeof(TKey))
+                .Cast<TKey>()
+                .ToDictionary<TKey, TKey, TVal>(@enum => @enum,
+                    _ => default);
     }
 }

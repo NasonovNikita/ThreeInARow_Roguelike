@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Match3;
@@ -11,20 +10,21 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "MoreDmgRandEnemy", menuName = "Spells/MoreDmgRandEnemy")]
     public class MoreDmgRandEnemy : Spell
     {
-        public override IEnumerator Cast()
+        protected override void Action()
         {
-            if (CantCastOrCast()) yield break;
-
-            var possible = manager.enemies.Where(v => v != null || v.hp != 0)
-                .Where(enemy => !enemy.damage.GetGemsDamage(new Dictionary<GemType, int>
-                        { { GemType.Blue, 1 }, { GemType.Green, 1 }, { GemType.Red, 1 }, { GemType.Yellow, 1 } }).IsZero)
+            var possible = manager.enemies.Where(v => v != null)
+                .Where(enemy => !enemy.damage.GetGemsDamage(
+                    new Dictionary<GemType, int>
+                    {
+                        { GemType.Blue, 1 },
+                        { GemType.Green, 1 },
+                        { GemType.Red, 1 },
+                        { GemType.Yellow, 1 }
+                    }).IsZero)
                 .ToList();
+            
             Tools.Random.RandomChoose(possible).AddDamageMod(new Modifier(count, ModType.Mul,
                 ModClass.DamageBase, value: value, delay: true));
-
-            yield return Wait();
         }
-
-        public override string Description => throw new System.NotImplementedException();
     }
 }

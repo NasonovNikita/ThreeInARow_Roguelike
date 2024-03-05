@@ -121,7 +121,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: poisoning_Frame_0
     originalName: 
-    pivot: {x: 0.53846157, y: -3.5714288}
+    pivot: {x: 0.53846157, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -141,7 +141,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: poisoning_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -4.3333335}
+    pivot: {x: 0.5, y: -0.16666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -161,7 +161,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 68}
   - name: poisoning_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -4.3333335}
+    pivot: {x: 0.5, y: -0.16666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -181,7 +181,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 180}
   - name: poisoning_Frame_3
     originalName: 
-    pivot: {x: 0.5, y: -4.3333335}
+    pivot: {x: 0.5, y: -0.16666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -201,7 +201,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 236}
   - name: poisoning_Frame_4
     originalName: 
-    pivot: {x: 0.5185185, y: -4.3333335}
+    pivot: {x: 0.5185185, y: -0.16666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -231,40 +231,40 @@ ScriptedImporter:
     - name: poisoning_Frame_0
       frameIndex: 0
       cellRect:
-        x: 16
-        y: 200
+        x: 0
+        y: 0
         width: 208
         height: 56
       spriteId: 2681541a29488994483e63ea7a55c747
     - name: poisoning_Frame_1
       frameIndex: 1
       cellRect:
-        x: 16
-        y: 208
+        x: 0
+        y: 8
         width: 224
         height: 48
       spriteId: 27068f11ab5fc6a4aa35d91f46b63f98
     - name: poisoning_Frame_2
       frameIndex: 2
       cellRect:
-        x: 24
-        y: 208
+        x: 8
+        y: 8
         width: 208
         height: 48
       spriteId: 6975cc9d19c329841a3f89b3e160dce5
     - name: poisoning_Frame_3
       frameIndex: 3
       cellRect:
-        x: 24
-        y: 208
+        x: 8
+        y: 8
         width: 208
         height: 48
       spriteId: e545cee7a03f5e8478df91899e017d57
     - name: poisoning_Frame_4
       frameIndex: 4
       cellRect:
-        x: 16
-        y: 208
+        x: 0
+        y: 8
         width: 216
         height: 48
       spriteId: 3ae4d709c0e129a4bb7d132384e2a6af
@@ -273,4 +273,4 @@ ScriptedImporter:
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 256, y: 256}
+  canvasSize: {x: 224, y: 56}

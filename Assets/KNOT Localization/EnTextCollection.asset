@@ -299,7 +299,10 @@ MonoBehaviour:
 
       Light dmg: {lDmg}
 
-      Element: {currentElement}'
+      Magic dmg: {mDmg}
+
+      Element:
+      {currentElement}'
   - _key: InstakillProtection
     _rawText: 'Instakill
 

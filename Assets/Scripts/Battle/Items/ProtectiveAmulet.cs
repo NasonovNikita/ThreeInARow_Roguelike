@@ -12,7 +12,7 @@ namespace Battle.Items
         {
             unitBelong.AddHpMod(new Modifier(-1,
                 ModType.Add,
-                ModClass.DamageTyped,
+                ModClass.HpDamageTyped,
                 DmgType.Magic,
                 value: -value,
                 always: true));

@@ -21,7 +21,7 @@ MonoBehaviour:
     _key: 
     _formatters: []
   useCost: 37
-  value: 1.5
+  value: 2.5
   count: 1
   references:
     version: 2

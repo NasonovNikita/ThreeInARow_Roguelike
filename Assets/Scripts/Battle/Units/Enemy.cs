@@ -26,7 +26,7 @@ namespace Battle.Units
 
         public override IEnumerator Act()
         {
-            if (Stunned() || manager.State == BattleState.End) yield break;
+            if (IsStunned || manager.State == BattleState.End) yield break;
             yield return StartCoroutine(ai.Act());
             yield return StartCoroutine(base.Act());
         }

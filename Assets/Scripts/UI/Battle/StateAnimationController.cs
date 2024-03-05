@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Battle.Units;
 using UnityEngine;
@@ -9,10 +10,9 @@ namespace UI.Battle
         [SerializeField]
         private RuntimeAnimatorController controller;
 
-        [SerializeField]
-        private Animator animatorPrefab;
-
-        private Dictionary<UnitStates, Animator> currentStates = new();
+        [SerializeField] private Animator burningAnimator;
+        [SerializeField] private Animator freezingAnimator;
+        [SerializeField] private Animator poisoningAnimator;
 
         private readonly Dictionary<UnitStates, string> statesCodes = new ()
         {
@@ -23,27 +23,35 @@ namespace UI.Battle
 
         public void Awake()
         {
-            currentStates = new Dictionary<UnitStates, Animator>
-            {
-                { UnitStates.Burning, Instantiate(animatorPrefab, transform)},
-                { UnitStates.Poisoning, Instantiate(animatorPrefab, transform)},
-                { UnitStates.Freezing, Instantiate(animatorPrefab, transform)}
-            };
-            
-            foreach (Animator animator in currentStates.Values)
-            {
-                animator.runtimeAnimatorController = controller;
-            }
+            burningAnimator.runtimeAnimatorController = controller;
+            freezingAnimator.runtimeAnimatorController = controller;
+            poisoningAnimator.runtimeAnimatorController = controller;
         }
 
         public void AddState(UnitStates state)
         {
-            currentStates[state].SetBool(statesCodes[state], true);
+            SetStateFlag(state, true);
         }
 
         public void DeleteState(UnitStates state)
         {
-            currentStates[state].SetBool(statesCodes[state], false);
+            SetStateFlag(state, false);
+        }
+
+        private void SetStateFlag(UnitStates state, bool val)
+        {
+            GetAnimator(state).SetBool(statesCodes[state], val);
+        }
+
+        private Animator GetAnimator(UnitStates state)
+        {
+            return state switch
+            {
+                UnitStates.Burning => burningAnimator,
+                UnitStates.Poisoning => poisoningAnimator,
+                UnitStates.Freezing => freezingAnimator,
+                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            };
         }
     }
 }

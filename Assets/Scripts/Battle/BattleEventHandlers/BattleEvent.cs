@@ -8,7 +8,5 @@ namespace Battle.BattleEventHandlers
         {
             Log.OnLog += Handle;
         }
-        
-        
     }
 }

@@ -19,7 +19,7 @@ namespace Battle
     {
         public Player player;
     
-        [SerializeField] private Grid grid;
+        public Grid grid;
     
         [SerializeField] private EnemyPlacer placer;
     
@@ -36,13 +36,6 @@ namespace Battle
 
         private List<Enemy> enemiesPrefabs;
         public List<Enemy> enemies;
-
-        private Coroutine battle;
-
-        private bool playerActs;
-        private bool enemiesAct;
-    
-        private bool dead;
     
         public void Awake()
         {
@@ -82,7 +75,7 @@ namespace Battle
 
         public void EndTurn()
         {
-            if (State == BattleState.Turn && !player.Stunned())
+            if (State == BattleState.Turn && !player.IsStunned)
             {
                 StartCoroutine(PlayerAct());
             }
@@ -105,9 +98,6 @@ namespace Battle
                 yield break;
             }
             BattleTargetPicker.PickNextPossible();
-            yield return new WaitForSeconds(FightTime);
-            
-            PlaceEnemies();
         }
 
         public IEnumerator Die()
@@ -151,7 +141,7 @@ namespace Battle
         {
             State = BattleState.EnemiesAct;
 
-            foreach (Enemy enemy in enemies.Where(enemy => enemy != null && !enemy.Stunned()))
+            foreach (Enemy enemy in enemies.Where(enemy => enemy != null && !enemy.IsStunned))
             {
                 yield return StartCoroutine(enemy.Act());
             
@@ -159,7 +149,7 @@ namespace Battle
             }
 
             TurnLog.Log();
-            if (!player.Stunned())
+            if (!player.IsStunned)
             {
                 turnHUD.SetPlayerTurn();
                 State = BattleState.Turn;

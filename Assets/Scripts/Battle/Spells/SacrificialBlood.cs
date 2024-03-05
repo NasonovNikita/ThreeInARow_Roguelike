@@ -1,5 +1,3 @@
-using System.Collections;
-using Map.Vertexes;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -7,16 +5,17 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "SacrificialBlood", menuName = "Spells/SacrificialBlood")]
     public class SacrificialBlood : Spell
     {
-        public override IEnumerator Cast()
+        protected override void Action()
         {
-            if (((BattleVertex)Map.Map.CurrentVertex()).isBoss || CantCastOrCast()) yield break;
-
-            manager.player.TakeDamage(new Damage(useCost));
-            LogUsage();
             manager.Win();
-
-            yield return Wait();
         }
+
+        protected override void Waste()
+        {
+            unitBelong.hp.StraightChange(-useCost);
+        }
+
+        protected override bool CantCast => NotAllowedTurn || unitBelong.hp <= useCost;
 
         public override string Description => descriptionKeyRef.Value;
     }

@@ -21,8 +21,6 @@ namespace Battle.Units.Stats
 
         public Damage GetGemsDamage(Dictionary<GemType, int> gems)
         {
-            if (gems.Sum(t => t.Key != GemType.Mana ? t.Value : 0) == 0) return Damage.Zero;
-            
             Damage dmg = new Damage(
                 UseDamageMods(
                     UseDamageMods(
@@ -33,7 +31,8 @@ namespace Battle.Units.Stats
                 GetGemDamage(gems, fDmg, GemType.Red, DmgType.Fire),
                 GetGemDamage(gems, cDmg, GemType.Blue, DmgType.Cold),
                 GetGemDamage(gems, pDmg, GemType.Green, DmgType.Poison),
-                GetGemDamage(gems, lDmg, GemType.Yellow, DmgType.Light)
+                GetGemDamage(gems, lDmg, GemType.Yellow, DmgType.Light),
+                GetGemDamage(gems, mDmg, GemType.Mana, DmgType.Magic)
             );
 
             return dmg;
