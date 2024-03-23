@@ -8,15 +8,24 @@ namespace Battle.Units
     {
         public static PlayerData data;
 
-        public override Unit Target => manager.target;
-
-        public new void TurnOn()
+        public override void Awake()
         {
-            data.Init(this);
-            base.TurnOn();
+            Load();
+            base.Awake();
         }
 
-        public override void TakeDamage(Damage dmg)
+        public void OnDestroy() => Save();
+
+        public override void WasteMove()
+        {
+            base.WasteMove();
+            if (!HasMoves) manager.StartEnemiesTurn();
+            RefillMoves();
+        }
+
+        public void StartTurn() => manager.StartEnemiesTurn();
+
+        public override void TakeDamage(int dmg)
         {
             base.TakeDamage(dmg);
             
@@ -25,12 +34,20 @@ namespace Battle.Units
 
         protected override void NoHp()
         {
-            StartCoroutine(manager.Die());
+            manager.OnPlayerDeath();
+            Destroy(gameObject);
         }
 
-        public void Save()
+        private void Load()
         {
-            data = PlayerData.NewData(this, data);
+            hp = data.hp;
+            mana = data.mana;
+            damage = data.damage;
+            manaPerGem = data.manaPerGem;
+            spells = data.spells;
+            statuses = data.statuses;
         }
+
+        private void Save() => data = PlayerData.NewData(hp, mana, damage, manaPerGem, data);
     }
 }

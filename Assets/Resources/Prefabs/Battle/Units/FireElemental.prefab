@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: hp.value
-      value: 80
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: fDmg.value
@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: hp.borderUp
-      value: 80
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: phDmg.value

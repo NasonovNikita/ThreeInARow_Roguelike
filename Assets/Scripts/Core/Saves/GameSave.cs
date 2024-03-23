@@ -1,6 +1,5 @@
 using System;
 using Battle;
-using Battle.Items;
 using Battle.Units;
 using Other;
 using Shop;
@@ -12,7 +11,7 @@ using Random = UnityEngine.Random;
 namespace Core.Saves
 {
     [Serializable]
-    public class GameSave : Save
+    public class GameSave : SaveObject
     {
         [SerializeField] private int currentVertex;
         [SerializeField] private string scene;
@@ -20,7 +19,11 @@ namespace Core.Saves
         [SerializeField] private int seed;
         [SerializeField] private string enemyGroup;
         [SerializeField] private string goods;
+        [SerializeField] private int gridSizeX;
+        [SerializeField] private int gridSizeY;
         private bool preset;
+
+        private const string Path = "/Game.dat";
 
         public GameSave()
         {
@@ -30,16 +33,30 @@ namespace Core.Saves
             seed = Globals.instance.seed;
             enemyGroup = JsonUtility.ToJson(BattleManager.enemyGroup);
             goods = Tools.Json.ListToJson(ShopManager.goods);
+            gridSizeX = Globals.instance.gridSize.Item1;
+            gridSizeY = Globals.instance.gridSize.Item2;
         }
 
-        public override void Load()
+        public static void Save()
+        {
+            SavesManager.Save(new GameSave(), Path);
+        }
+
+        public static void Load()
+        {
+            GameSave save = SavesManager.Load<GameSave>(Path);
+            if (save == null) CreateEmptySave().Apply();
+            else save.Apply();
+        }
+
+        public override void Apply()
         {
             Map.Map.currentVertex = currentVertex;
             
             JsonUtility.FromJsonOverwrite(playerData, Player.data);
-            if (preset) foreach (Item item in Player.data.items) item.OnGet();
             
             Globals.instance.seed = seed;
+            Globals.instance.gridSize = (gridSizeX, gridSizeY);
 
             if (BattleManager.enemyGroup == null)
                 BattleManager.enemyGroup = ScriptableObject.CreateInstance<EnemyGroup>();
@@ -51,7 +68,7 @@ namespace Core.Saves
             SceneManager.LoadScene(scene);
         }
 
-        public GameSave CreateEmptySave()
+        public static GameSave CreateEmptySave()
         {
             GameSave save = new GameSave
             {

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Battle.Items;
-using Battle.Modifiers;
-using Battle.Spells;
+using Battle.Units.Modifiers;
+using Item =  Battle.Items.Item;
+using Cell = Battle.Match3.Cell;
+using Spell = Battle.Spells.Spell;
 using Battle.Units.Stats;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,71 +16,30 @@ namespace Battle.Units
     {
         [FormerlySerializedAs("unitHp")] [SerializeField] public Hp hp;
         [SerializeField] public Mana mana;
-        [SerializeField] public UnitDamage damage;
+        [SerializeField] public Damage damage;
         [SerializeField] public List<Item> items;
         [SerializeField] public List<Spell> spells;
-        [SerializeField] public List<Modifier> allMods;
+        [SerializeField] public List<Modifier> statuses; //TODO check if not serialized in actual json
+        [SerializeField] public List<Cell> cells;
         [SerializeField] public int manaPerGem;
-        [SerializeField] public DmgType chosenElement;
         [SerializeField] public int money;
-        public bool loaded;
         
-        public static PlayerData NewData(Player player, PlayerData oldData = null)
-        {
-            PlayerData data = NewData(player.hp, player.mana, player.damage, player.manaPerGem,
-                player.chosenElement, oldData);
+        public static PlayerData NewData(Player player, PlayerData oldData = null) => NewData(player.hp, player.mana, player.damage, player.manaPerGem, oldData);
 
-            return data;
-        }
-
-        [SuppressMessage("ReSharper", "ParameterHidesMember")]
-        public static PlayerData NewData(Hp hp, Mana mana, UnitDamage damage, int manaPerGem,
-            DmgType chosenElement, PlayerData oldData = null)
+        public static PlayerData NewData(Hp hp, Mana mana, Damage damage, int manaPerGem, PlayerData oldData = null)
         {
             PlayerData data = CreateInstance<PlayerData>();
-            data.hp = hp;
-            data.mana = mana;
-            data.damage = damage;
+            data.hp = hp.Save();
+            data.mana = mana.Save();
+            data.damage = damage.Save();
             data.manaPerGem = manaPerGem;
-            data.chosenElement = chosenElement;
             if (oldData is null) return data;
-            data.allMods = oldData.allMods;
+            data.statuses = oldData.statuses;
             data.spells = oldData.spells;
             data.items = oldData.items;
             data.money = oldData.money;
 
             return data;
         }
-        
-        public void Init(Unit unit)
-        {
-            unit.hp = hp;
-            unit.mana = mana;
-            unit.manaPerGem = manaPerGem;
-            unit.damage = damage;
-            unit.allMods = new List<Modifier>(allMods);
-            unit.spells = new List<Spell>(spells);
-            unit.items = new List<Item>(items);
-            unit.chosenElement = chosenElement;
-        }
-        
-        public void AddHpMod(Modifier mod)
-        {
-            hp.AddMod(mod);
-            allMods.Add(mod);
-        }
-
-        public void AddDamageMod(Modifier mod)
-        {
-            damage.AddMod(mod);
-            allMods.Add(mod);
-        }
-
-        public void AddManaMod(Modifier mod)
-        {
-            mana.AddMod(mod);
-            allMods.Add(mod);
-        }
-        
     }
 }

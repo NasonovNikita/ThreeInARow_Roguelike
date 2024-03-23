@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: hp.value
-      value: 150
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: Hp.borderUp
@@ -134,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: hp.borderUp
-      value: 150
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: phDmg.value
@@ -151,6 +151,14 @@ PrefabInstance:
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: unitHp.borderUp
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: damage.phDmg.value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: damage.phDmg.borderUp
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: unitDamage.phDmg.value

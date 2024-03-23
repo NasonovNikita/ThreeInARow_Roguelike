@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -10,12 +9,12 @@ namespace Battle.Items
         [SerializeField] private int value;
         public override void Use(Unit unitBelong)
         {
-            unitBelong.AddHpMod(new Modifier(-1,
+            unitBelong.AddHpMod(new MoveStatModifier(-1,
                 ModType.Add,
                 ModClass.HpDamageTyped,
                 DmgType.Magic,
                 value: -value,
-                always: true));
+                permanent: true));
         }
 
         public override string Title => titleKeyRef.Value;

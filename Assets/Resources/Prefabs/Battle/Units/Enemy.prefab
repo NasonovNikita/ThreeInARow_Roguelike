@@ -321,8 +321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp:
     borderDown: 0
-    borderUp: 100
-    value: 100
+    borderUp: 125
+    value: 125
   mana:
     borderDown: 0
     borderUp: 0
@@ -358,6 +358,7 @@ MonoBehaviour:
   modIconGrid: {fileID: 274481621398181666}
   unitInfo: {fileID: 7794689748232265049}
   instakillProtected: 0
+  maxMoves: 1
   stateAnimationController: {fileID: 3782799730320017337}
   allMods: []
   items: []

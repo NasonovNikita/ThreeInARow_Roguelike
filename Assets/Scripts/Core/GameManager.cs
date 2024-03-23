@@ -32,7 +32,7 @@ namespace Core
 
         public void Start()
         {
-            SavesManager.LoadSettings();
+            SettingsSave.Load();
         }
 
         public void MainMenu()
@@ -48,18 +48,17 @@ namespace Core
         
             AudioManager.instance.Play(AudioEnum.MainMenu);
         
-            SavesManager.SaveSettings();
+            SettingsSave.Save();
         }
     
         public void NewGame()
         {
-            GameSave newSave = new GameSave().CreateEmptySave();
-            newSave.Load();
+            GameSave.CreateEmptySave().Apply();
         }
 
         public void Continue()
         {
-            if (!SavesManager.TryLoadGameOrFail()) NewGame();
+            GameSave.Load();
         }
 
         public void Settings()

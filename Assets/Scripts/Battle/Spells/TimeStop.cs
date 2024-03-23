@@ -1,6 +1,7 @@
 using System.Linq;
-using Battle.Modifiers;
 using Battle.Units;
+using Battle.Units.Modifiers;
+using Battle.Units.Modifiers.Statuses;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -8,14 +9,12 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "TimeStop", menuName = "Spells/TimeStop")]
     public class TimeStop : Spell
     {
+        [SerializeField] private int moves;
+        
         protected override void Action()
         {
-            foreach (Enemy enemy in manager.enemies.Where(v => v != null))
-            {
-                enemy.AddMod(new Modifier(count, ModType.Stun));
-            }
+            foreach (Enemy enemy in manager.Enemies.Where(v => v != null))
+                IModifier.AddModToList(enemy.Statuses, new Stun(moves));
         }
-
-        public override string Description => descriptionKeyRef.Value;
     }
 }

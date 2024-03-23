@@ -1,4 +1,4 @@
-using Battle.Modifiers;
+using Battle.Units.Modifiers;
 using Core;
 using UI.MessageWindows;
 using UnityEngine;
@@ -9,25 +9,18 @@ namespace UI.Battle
     [RequireComponent(typeof(InfoObject))]
     public class ModIcon : MonoBehaviour
     {
-        [SerializeField] private Text moves;
+        [SerializeField] private Text subInfo;
         [SerializeField] private Image img;
         [SerializeField] private InfoObject debug;
-        private Modifier mod;
+        private IModifier mod;
 
         public void Update()
         {
-            if (mod.Use == 0)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                moves.text = mod.moves == -1 ? "-" : mod.moves.ToString();
-                if (mod.delay) moves.text += "d";
-            }
+            if (!mod.IsZero) Destroy(gameObject);
+            else subInfo.text = mod.SubInfo;
         }
 
-        public static void Create(Modifier mod, Transform parentTransform)
+        public static void Create(IModifier mod, Transform parentTransform)
         {
             if (mod.Sprite is null) return;
             ModIcon icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);

@@ -12,9 +12,11 @@ namespace Core
 
         public float volume;
 
-        public float difficulty; // It must be float, not int
+        public float difficulty; // never make int
 
         public bool altBattleUI;
+
+        public (int, int) gridSize;
     
         public void Awake()
         {

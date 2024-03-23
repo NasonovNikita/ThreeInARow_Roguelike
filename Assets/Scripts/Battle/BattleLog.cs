@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Match3;
 using Battle.Units;
 
 namespace Battle
@@ -36,20 +35,9 @@ namespace Battle
         internal static void AddLog(Log log) => AllLogs.Add(log);
     }
 
-    public class GridLog : Log
-    {
-        private readonly Dictionary<GemType, int> table;
-    
-        public static void Log(Dictionary<GemType, int> table) => AddLog(new GridLog(table));
-
-        public Dictionary<GemType, int> GetData => table;
-
-        private GridLog(Dictionary<GemType, int> table) => this.table = table;
-    }
-
     public class SpellUsageLog : Log
     {
-        private readonly Unit unit;
+        private readonly Unit unit; 
 
         private readonly int wasted;
 
@@ -67,11 +55,6 @@ namespace Battle
     public class TurnLog : Log
     {
         public static void Log() => AddLog(new TurnLog());
-    }
-
-    public class BattleEndLog : Log
-    {
-        public static void Log() => AddLog(new BattleEndLog());
     }
 
     public class DeathLog : Log
@@ -117,15 +100,15 @@ namespace Battle
         public static void Log(Unit unit, int damage) => AddLog(new GotDamageLog(unit, damage));
     }
 
-    public class DamageLog : Log
+    public abstract class DamageLog : Log
     {
         private readonly Enemy enemy;
         private readonly Player player;
-        private readonly Damage damage;
+        private readonly int damage;
     
-        public (Enemy, Player, Damage) GetData => (enemy, player, damage);
+        public (Enemy, Player, int) GetData => (enemy, player, damage);
 
-        protected DamageLog(Enemy enemy, Player player, Damage damage)
+        protected DamageLog(Enemy enemy, Player player, int damage)
         {
             this.enemy = enemy;
             this.player = player;

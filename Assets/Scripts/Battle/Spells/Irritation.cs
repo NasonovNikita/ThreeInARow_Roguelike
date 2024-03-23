@@ -1,5 +1,4 @@
 using Battle.BattleEventHandlers;
-using Battle.Modifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -9,7 +8,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            unitBelong.AddMod(new Modifier(count, ModType.Irritated, value: value));
+            unitBelong.AddMod(new MoveStatModifier(count, ModType.Irritated, value: value));
             new IrritationEvent((int) value, unitBelong);
         }
 

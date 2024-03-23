@@ -1,5 +1,4 @@
 using Battle.BattleEventHandlers;
-using Battle.Modifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -11,9 +10,9 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.AddDamageMod(new Modifier(-1, ModType.Add,
+            unitBelong.AddDamageMod(new MoveStatModifier(-1, ModType.Add,
                 ModClass.DamageTypedStat, value: value));
-            unitBelong.AddMod(new Modifier(count, ModType.Ignition));
+            unitBelong.AddMod(new MoveStatModifier(count, ModType.Ignition));
             new RandomIgnitionEvent(chance, unitBelong, count);
         }
 

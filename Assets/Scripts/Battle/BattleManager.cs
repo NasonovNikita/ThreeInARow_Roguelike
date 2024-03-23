@@ -1,186 +1,119 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Audio;
-using Battle.Match3;
 using Battle.Units;
-using Core;
-using Core.Saves;
-using Other;
 using UI.Battle;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using Grid = Battle.Match3.Grid;
 
 namespace Battle
 {
     public class BattleManager : MonoBehaviour
     {
-        public Player player;
-    
-        public Grid grid;
-    
-        [SerializeField] private EnemyPlacer placer;
-    
-        [SerializeField] private Canvas canvas;
-        [SerializeField] private TurnLabel turnHUD;
-
-        private const float FightTime = 0.2f;
-
         public static EnemyGroup enemyGroup;
+        
+        [SerializeField] private EnemyPlacer placer;
 
-        public Enemy target;
-    
-        public BattleState State { get; private set; }
+        [SerializeField] private Canvas mainCanvas;
+        [SerializeField] private Canvas uiCanvas;
+        [SerializeField] private TurnLabel turnHUD;
+        
+        [SerializeField] private UI.MessageWindows.BattleLose loseMessage;
+        [SerializeField] private UI.MessageWindows.BattleWin winMessage;
+        
+        [SerializeField] private Player player;
 
-        private List<Enemy> enemiesPrefabs;
-        public List<Enemy> enemies;
-    
+        public List<Enemy> Enemies { get; } = new ();
+
+        public Unit CurrentlyTurningUnit { get; private set; }
+
+        public static Action onBattleStart;
+        public static Action onTurnEnd;
+        public static Action onBattleEnd;
+        
         public void Awake()
         {
             AudioManager.instance.StopAll();
-
-            enemiesPrefabs = enemyGroup.GetEnemies();
-
-            for (int i = 0; i < enemiesPrefabs.Count; i++)
-            {
-                enemies.Add(LoadEnemy(i));
-            }
-            player.TurnOn();
-
+            Core.Saves.GameSave.Save();
             AudioManager.instance.Play(AudioEnum.Battle);
-        
-            SavesManager.SaveGame();
             
-            State = BattleState.Turn;
-            turnHUD.SetPlayerTurn();
-            BattleTargetPicker.ResetPick();
-            placer.Place(enemies);
-            BattleTargetPicker.PickNextPossible();
+            InitEnemies();
             
-            
-            BattleLog.Clear();
+            PlayerTurn();
+            onBattleStart?.Invoke();
         }
 
-        public void OnEnable()
+        public void OnDestroy()
         {
-            Grid.onEnd += EndTurn;
-        }
-
-        public void OnDisable()
-        {
-            Grid.onEnd -= EndTurn;
-        }
-
-        public void EndTurn()
-        {
-            if (State == BattleState.Turn && !player.IsStunned)
-            {
-                StartCoroutine(PlayerAct());
-            }
-            else if (State != BattleState.EnemiesAct)
-            {
-                StartCoroutine(EnemiesAct());
-            }
-        }
-
-        public IEnumerator KillEnemy(Enemy enemy)
-        {
-            yield return new WaitForSeconds(FightTime);
-            
-            enemy.Delete();
-            
-            if (enemies.All(v => v == null))
-            {
-                State = BattleState.End;
-                Win();
-                yield break;
-            }
-            BattleTargetPicker.PickNextPossible();
-        }
-
-        public IEnumerator Die()
-        {
-            State = BattleState.End;
-        
-            yield return new WaitForSeconds(FightTime);
-            player.Delete();
-        
-            Lose();
-        }
-
-        public void PlaceEnemies()
-        {
-            placer.Place(enemies);
-            BattleTargetPicker.PickNextPossible();
-        }
-
-        public void Win()
-        {
-            BattleEndLog.Log();
-            grid.Block();
-            player.Save();
-            Player.data.money += enemyGroup.reward;
             BattleLog.Clear();
             Log.UnAttach();
-            SceneManager.LoadScene("Map");
+        }
+        
+        public void OnPlayerDeath()
+        {
+            BattleEnd();
+            Instantiate(loseMessage, uiCanvas.transform);
         }
 
-        private IEnumerator PlayerAct()
+        public void OnEnemyDeath()
         {
-            State = BattleState.PlayerAct;
+            if (Enemies.Any(enemy => enemy != null)) return;
 
-            yield return StartCoroutine(player.Act());
+            BattleEnd();
+            Instantiate(winMessage, uiCanvas.transform);
+        }
 
-            turnHUD.SetEnemyTurn();
+        public void StartEnemiesTurn()
+        {
             StartCoroutine(EnemiesAct());
         }
-
+        
         private IEnumerator EnemiesAct()
         {
-            State = BattleState.EnemiesAct;
-
-            foreach (Enemy enemy in enemies.Where(enemy => enemy != null && !enemy.IsStunned))
+            foreach (var enemy in Enemies)
             {
-                yield return StartCoroutine(enemy.Act());
+                CurrentlyTurningUnit = enemy;
+                yield return StartCoroutine(enemy.Turn());
+            }
+            onTurnEnd?.Invoke();
+            PlayerTurn();
+        }
+
+        private void PlayerTurn()
+        {
+            turnHUD.SetPlayerTurn();
+            CurrentlyTurningUnit = player;
+            player.StartTurn();
+        }
+
+        private void BattleEnd()
+        {
+            CurrentlyTurningUnit = null;
+            onBattleEnd?.Invoke();
+        }
+
+        private void InitEnemies()
+        {
+            foreach (Enemy enemy in enemyGroup.GetEnemies())
+            {
+                Enemies.Add(LoadEnemy(enemy));
+            }
             
-                if (player.hp <= 0) yield break;
-            }
-
-            TurnLog.Log();
-            if (!player.IsStunned)
-            {
-                turnHUD.SetPlayerTurn();
-                State = BattleState.Turn;
-                grid.Unlock();
-            }
-            else
-            {
-                StartCoroutine(EnemiesAct());
-            }
-        }
-    
-    
-        // ReSharper disable Unity.PerformanceAnalysis
-        private void Lose()
-        {
-            State = BattleState.End;
-            grid.Block();
-        
-            GameObject menu = Instantiate(PrefabsContainer.instance.loseMessage, canvas.transform);
-            var buttons = menu.GetComponentsInChildren<Button>();
-            buttons[0].onClick.AddListener(GameManager.instance.NewGame);
-            buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
-            menu.gameObject.SetActive(true);
+            PlaceEnemies();
         }
 
-        private Enemy LoadEnemy(int i)
+        private Enemy LoadEnemy(Enemy enemy)
         {
-            if (enemiesPrefabs[i] == null) return null;
-            Enemy enemy = Instantiate(enemiesPrefabs[i], canvas.transform, false);
-            enemy.TurnOn();
+            if (enemy == null) return null;
+            enemy = Instantiate(enemy, mainCanvas.transform, false);
+            
             return enemy;
+        }
+
+        private void PlaceEnemies()
+        {
+            placer.Place(Enemies);
         }
     }
 }

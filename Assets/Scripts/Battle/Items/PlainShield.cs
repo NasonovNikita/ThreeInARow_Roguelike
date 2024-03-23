@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -16,8 +15,8 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.HpDamageBase,
-                value: -value, always: true));
+            Player.data.AddHpMod(new MoveStatModifier(-1, ModType.Add, ModClass.HpDamage, // TODO on modType change
+                value: -value, permanent: true));
         }
 
         public override void Use(Unit unitBelong) {}

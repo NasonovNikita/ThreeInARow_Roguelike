@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -18,10 +17,10 @@ namespace Battle.Items
         public override void OnGet()
         {
             Player.data.damage.phDmg.ChangeBorderUp(-lostDamage, -lostDamage);
-            Player.data.AddDamageMod(new Modifier(-1, ModType.Add, ModClass.DamageTypedStat,
-                DmgType.Physic, false, -lostDamage, always: true));
-            Player.data.AddHpMod(new Modifier(-1, ModType.Add,
-                ModClass.HpDamageBase, value: -notGottenDamage, always: true));
+            Player.data.AddDamageMod(new MoveStatModifier(-1, ModType.Add, ModClass.DamageTypedStat,
+                DmgType.Physic, false, -lostDamage, permanent: true));
+            Player.data.AddHpMod(new MoveStatModifier(-1, ModType.Add,
+                ModClass.HpDamage, value: -notGottenDamage, permanent: true));
         }
     }
 }

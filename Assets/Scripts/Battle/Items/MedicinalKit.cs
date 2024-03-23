@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -10,8 +9,8 @@ namespace Battle.Items
         [SerializeField] private float value;
         public override void Use(Unit unitBelong)
         {
-            unitBelong.AddHpMod(new Modifier(-1, ModType.Mul, ModClass.HpHealing,
-                value: value, always: true));
+            unitBelong.AddHpMod(new MoveStatModifier(-1, ModType.Add, ModClass.HpHealing, // TODO on modType change
+                value: value, permanent: true));
         }
 
         

@@ -6,54 +6,28 @@ namespace Core.Saves
 {
     public static class SavesManager
     {
-        private static string BasePath => Application.persistentDataPath;
-        private static string SettingsPath => BasePath + "/Settings.dat";
+        private static string Path => Application.persistentDataPath;
 
-        private static string GamePath => BasePath + "/Game.dat";
-        
-        public static void SaveSettings()
-        {
-            Save(new SettingsSave(), SettingsPath);
-        }
 
-        public static void SaveGame()
-        {
-            Save(new GameSave(), GamePath);
-        }
-
-        public static bool LoadSettings()
-        {
-            return Load<SettingsSave>(SettingsPath);
-        }
-
-        public static bool TryLoadGameOrFail()
-        {
-            return Load<GameSave>(GamePath);
-        }
-
-        private static void Save(Save data, string path)
+        public static void Save(SaveObject data, string path)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Create);
+            FileStream stream = new FileStream(Path + path, FileMode.Create);
             
             formatter.Serialize(stream, data);
             stream.Close();
         }
 
-        private static bool Load<T>(string path) where T : Save
+        public static T Load<T>(string path) where T : SaveObject
         {
-            if (File.Exists(path))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                FileStream stream = new FileStream(path, FileMode.Open);
-                T data = formatter.Deserialize(stream) as T;
-                data?.Load();
-                stream.Close();
-                return true;
-            }
+            if (!File.Exists(Path + path)) return null;
             
-            Debug.unityLogger.Log($"No save file found at {path}");
-            return false;
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(Path + path, FileMode.Open);
+            T data = formatter.Deserialize(stream) as T;
+            stream.Close();
+            
+            return data;
         }
     }
 }

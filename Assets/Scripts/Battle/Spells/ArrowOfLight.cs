@@ -7,7 +7,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            manager.target.TakeDamage(new Damage(lDmg: (int)value));
+            unitBelong.target.TakeDamage((int)value);
         }
 
         public override string Description => string.Format(descriptionKeyRef.Value, (int) value);

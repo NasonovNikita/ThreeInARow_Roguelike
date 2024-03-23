@@ -8,7 +8,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            foreach (var mod in unitBelong.allMods.Where(mod => !mod.isPositive && !mod.always))
+            foreach (var mod in unitBelong.statuses.Where(mod => !mod.isPositive && !mod.always))
             {
                 mod.TurnOff();
             }

@@ -1,14 +1,12 @@
 using System.Collections.Generic;
-using UI;
 using UnityEngine;
 
 namespace Battle.Units
 {
     public class EnemyPlacer : MonoBehaviour
     {
-        public GameObject[] points;
-   
-    
+        [SerializeField] private GameObject[] points;
+        
         public void Place(List<Enemy> enemiesToPlace)
         {
             for (int i = 0; i < enemiesToPlace.Count; i++)

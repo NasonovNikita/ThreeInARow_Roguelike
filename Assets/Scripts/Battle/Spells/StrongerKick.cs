@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -8,7 +7,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            unitBelong.AddDamageMod(new Modifier(count, ModType.Mul, ModClass.DamageBase, value: value));
+            unitBelong.AddDamageMod(new MoveStatModifier(count, ModType.Add, ModClass.Damage, value: value)); // TODO on modType change
         }
 
         public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));

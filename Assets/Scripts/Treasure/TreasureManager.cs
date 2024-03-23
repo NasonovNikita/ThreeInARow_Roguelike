@@ -12,7 +12,7 @@ namespace Treasure
         public void Awake()
         {
             AudioManager.instance.StopAll();
-            SavesManager.SaveGame();
+            GameSave.Save();
             
             var treasureBox = FindFirstObjectByType<TreasureBox>();
             treasureBox.treasure = treasure;

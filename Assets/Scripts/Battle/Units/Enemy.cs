@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using Audio;
-using Battle.Units.AI;
 using UnityEngine;
 
 namespace Battle.Units
@@ -9,32 +8,35 @@ namespace Battle.Units
     [Serializable]
     public class Enemy : Unit
     {
-        [SerializeField]
-        private BaseEnemyAI ai;
+        [SerializeField] private AI.Ai ai;
 
-        public override Unit Target => manager.player;
+        public delegate void OnGettingHitDelegate(Enemy enemy);
+
+        public static event OnGettingHitDelegate OnGettingHit;
         
-        public new void TurnOn()
-        {
-            base.TurnOn();
-        }
-        public override void TakeDamage(Damage dmg)
+        public override void TakeDamage(int dmg)
         {
             base.TakeDamage(dmg);
+            OnGettingHit?.Invoke(this);
             AudioManager.instance.Play(AudioEnum.EnemyHit);
         }
 
-        public override IEnumerator Act()
+        public IEnumerator Turn()
         {
-            if (IsStunned || manager.State == BattleState.End) yield break;
-            yield return StartCoroutine(ai.Act());
-            yield return StartCoroutine(base.Act());
+            while (HasMoves)
+            {
+                yield return StartCoroutine(ai.Act());
+                WasteMove();
+                if (HasMoves) continue;
+                RefillMoves();
+                yield break;
+            }
         }
 
         protected override void NoHp()
         {
-            if (this == null) return;
-            StartCoroutine(manager.KillEnemy(this));
+            manager.OnEnemyDeath();
+            Destroy(gameObject);
         }
     }
 }

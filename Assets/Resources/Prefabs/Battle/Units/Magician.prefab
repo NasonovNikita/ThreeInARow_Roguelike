@@ -238,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 2529533793508111440}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: hp.value
-      value: 70
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: mana.value
@@ -250,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: hp.borderUp
-      value: 70
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: chosenElement

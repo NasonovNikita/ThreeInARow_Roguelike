@@ -1,5 +1,4 @@
 using Battle;
-using Battle.Modifiers;
 using Battle.Units;
 using Core;
 using Knot.Localization;
@@ -14,7 +13,6 @@ namespace UI
         [SerializeField] private KnotTextKeyReference hp;
         [SerializeField] private KnotTextKeyReference mana;
         [SerializeField] private KnotTextKeyReference cash;
-        [SerializeField] private KnotTextKeyReference element;
         private Text text;
         
         public void Awake()
@@ -25,11 +23,8 @@ namespace UI
         public void Update()
         {
             text.text =
-                $"{hp.Value}/{mana.Value}: {Player.data.hp.value}/{Player.data.mana.value}\n" +
-                $"{cash.Value}: {Player.data.money}\n" +
-                (Player.data.chosenElement != DmgType.Physic
-                    ? $"{element.Value}: {LocalizedStringsKeys.instance.DmgType(Player.data.chosenElement)}"
-                    : "");
+                $"{hp.Value}/{mana.Value}: {Player.data.hp.Value}/{Player.data.mana.Value}\n" +
+                $"{cash.Value}: {Player.data.money}\n";
         }
     }
 }

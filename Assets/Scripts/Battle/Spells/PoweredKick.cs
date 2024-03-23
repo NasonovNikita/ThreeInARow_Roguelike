@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -8,10 +7,9 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            manager.player.AddMod(new Modifier(count, ModType.Stun));
-            manager.player.AddDamageMod(new Modifier(count + 1, ModType.Mul, 
-                ModClass.DamageBase, value: value));
-            manager.EndTurn();
+            unitBelong.AddMod(new MoveStatModifier(count, ModType.Stun));
+            unitBelong.AddDamageMod(new MoveStatModifier(count + 1, ModType.Add,  // TODO on modType change
+                ModClass.Damage, value: value));
         }
 
         public override string Description => string.Format(descriptionKeyRef.Value, count, 1 + value);

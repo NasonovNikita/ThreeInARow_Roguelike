@@ -12,7 +12,7 @@ namespace Battle.Spells
             var grid = manager.grid;
             for (int i = 0; i < count; i++)
             {
-                grid.ReplaceGem(Random.Range(0, grid.sizeX), Random.Range(0, grid.sizeY), GemType.Mana);
+                grid.ReplaceGem(Random.Range(0, grid.sizeX), Random.Range(0, grid.sizeY), CellID.Mana);
             }
         }
 

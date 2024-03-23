@@ -11,19 +11,11 @@ namespace Battle.Spells
     {
         [SerializeField] public int useCost;
 
-        [SerializeField] protected float value;
-
-        [SerializeField] protected int count;
-
         protected Unit unitBelong;
 
         protected BattleManager manager;
 
-        public const float CastTime = 0.5f; // TEMP
-
-        public override string Title => titleKeyRef.Value;
-
-        public override string Description => descriptionKeyRef.Value;
+        private const float CastTime = 0.5f; // TEMP
 
         public virtual void Init(Unit unit)
         {
@@ -31,10 +23,15 @@ namespace Battle.Spells
             manager = FindFirstObjectByType<BattleManager>();
         }
 
+        public void PlayerCast()
+        {
+            if (manager.CurrentlyTurningUnit is Player)
+                unitBelong.StartCoroutine(Cast());
+        }
+
         public IEnumerator Cast()
         {
             if (CantCast) yield break;
-            
             
             SpellUsageLog.Log(unitBelong, useCost);
             
@@ -43,37 +40,18 @@ namespace Battle.Spells
             Waste();
             yield return Wait();
         }
-        
-        protected bool NotAllowedTurn => unitBelong switch
-        {
-            Player => manager.State != BattleState.Turn,
-            Enemy => manager.State != BattleState.EnemiesAct,
-            _ => throw new ArgumentOutOfRangeException()
-        };
 
-        protected virtual bool CantCast => NotAllowedTurn || unitBelong.mana < useCost;
+        protected virtual bool CantCast => unitBelong.mana < useCost;
 
         protected abstract void Action();
 
         protected virtual IEnumerator Wait()
         {
-            yield return unitBelong.StartCoroutine(BaseWait());
-            
-            IEnumerator BaseWait()
-            {
-                yield return new WaitForSeconds(CastTime);
-            }
+            yield return new WaitForSeconds(CastTime);
         }
 
-        protected virtual void Waste()
-        {
-            unitBelong.WasteMana(useCost);
-        }
+        protected virtual void Waste() => unitBelong.mana.Waste(useCost);
 
-        public override void Get()
-        {
-            Player.data.spells.Add(this);
-            base.Get();
-        }
+        public override void Get() => Player.data.spells.Add(this);
     }
 }

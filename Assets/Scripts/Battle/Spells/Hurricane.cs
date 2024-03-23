@@ -8,7 +8,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            manager.enemies = manager.enemies.OrderBy(_ => Random.Range(0, 10000000)).ToList();
+            manager.Enemies = manager.Enemies.OrderBy(_ => Random.Range(0, 10000000)).ToList();
             manager.PlaceEnemies();
         }
 

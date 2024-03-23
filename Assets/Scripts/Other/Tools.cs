@@ -169,6 +169,11 @@ namespace Other
             return res;
         }
 
+        public static List<T> ConcatLists<T>(List<List<T>> lists)
+        {
+            return lists.Where(list => list != null).SelectMany(list => list).ToList();
+        }
+
         public static void CounterAdd<TKey>(this Dictionary<TKey, int> dict, TKey key, int value = 1)
         {
             if (!dict.ContainsKey(key)) dict.Add(key, value);

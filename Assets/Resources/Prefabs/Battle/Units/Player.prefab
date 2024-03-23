@@ -36,12 +36,48 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 757.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 4041.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -381
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00017595
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808468537822668314, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2027260312934949208, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2104152135721967764, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104152135721967764, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3086738334417198092, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
@@ -249,8 +285,8 @@ MonoBehaviour:
     mods: []
     phDmg:
       borderDown: 0
-      borderUp: 15
-      value: 15
+      borderUp: 10
+      value: 10
     fDmg:
       borderDown: 0
       borderUp: 0
@@ -275,6 +311,7 @@ MonoBehaviour:
   modIconGrid: {fileID: 7887972624336615069}
   unitInfo: {fileID: 186019622805994726}
   instakillProtected: 0
+  maxMoves: 3
   stateAnimationController: {fileID: 6541380102619538950}
   allMods: []
   items: []

@@ -21,7 +21,6 @@ MonoBehaviour:
     borderUp: 100
     value: 100
   damage:
-    mods: []
     phDmg:
       borderDown: 0
       borderUp: 20
@@ -46,10 +45,11 @@ MonoBehaviour:
       borderDown: 0
       borderUp: 0
       value: 0
-  items: []
+  items:
+  - {fileID: 11400000, guid: 6f3430b3816e1804aa5fa2f9a844c578, type: 2}
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
-  allMods: []
+  - {fileID: 11400000, guid: 1af1f60f705b24c44b9842b0a7b87e54, type: 2}
   manaPerGem: 20
   chosenElement: 4
   money: 20

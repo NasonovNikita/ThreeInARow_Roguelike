@@ -1,5 +1,4 @@
 using System.Linq;
-using Battle.Modifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -9,9 +8,9 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            foreach (var enemy in manager.enemies.Where(v => v != null))
+            foreach (var enemy in manager.Enemies.Where(v => v != null))
             {
-                enemy.AddMod(new Modifier(count, ModType.Blind));
+                enemy.AddMod(new MoveStatModifier(count, ModType.Blind));
             }
         }
 

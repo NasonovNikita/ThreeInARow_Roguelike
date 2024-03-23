@@ -16,7 +16,7 @@ namespace Shop
         {
             AudioManager.instance.StopAll();
         
-            SavesManager.SaveGame();
+            GameSave.Save();
 
             var goodBoxes = FindObjectsByType<GoodBox>(FindObjectsSortMode.None);
             for (int i = 0; i < goods.Count && i < 4; i++)

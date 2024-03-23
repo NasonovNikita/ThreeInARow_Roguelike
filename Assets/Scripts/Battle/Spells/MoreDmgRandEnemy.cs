@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Match3;
-using Battle.Modifiers;
 using Other;
 using UnityEngine;
 
@@ -12,19 +11,19 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            var possible = manager.enemies.Where(v => v != null)
+            var possible = manager.Enemies.Where(v => v != null)
                 .Where(enemy => !enemy.damage.GetGemsDamage(
-                    new Dictionary<GemType, int>
+                    new Dictionary<CellID, int>
                     {
-                        { GemType.Blue, 1 },
-                        { GemType.Green, 1 },
-                        { GemType.Red, 1 },
-                        { GemType.Yellow, 1 }
+                        { CellID.Blue, 1 },
+                        { CellID.Green, 1 },
+                        { CellID.Red, 1 },
+                        { CellID.Yellow, 1 }
                     }).IsZero)
                 .ToList();
             
-            Tools.Random.RandomChoose(possible).AddDamageMod(new Modifier(count, ModType.Mul,
-                ModClass.DamageBase, value: value, delay: true));
+            Tools.Random.RandomChoose(possible).AddDamageMod(new MoveStatModifier(count, ModType.Add, // TODO on modType change
+                ModClass.Damage, value: value, delay: true));
         }
     }
 }

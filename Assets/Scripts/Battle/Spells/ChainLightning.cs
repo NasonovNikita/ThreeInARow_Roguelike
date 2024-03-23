@@ -11,10 +11,10 @@ namespace Battle.Spells
         protected override void Action()
         {
             int nulls = 0;
-            for (int i = 0; i < manager.enemies.Count; i++)
+            for (int i = 0; i < manager.Enemies.Count; i++)
             {
                 Damage dmg = new Damage(mDmg: (int)(value * Math.Pow(rise, i - nulls)));
-                var enemy = manager.enemies[i];
+                var enemy = manager.Enemies[i];
                 if (enemy == null)
                 {
                     nulls += 1;

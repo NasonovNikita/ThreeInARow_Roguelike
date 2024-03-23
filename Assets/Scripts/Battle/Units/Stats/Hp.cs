@@ -1,79 +1,72 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Battle.Modifiers;
+using Battle.Units.Modifiers;
+using Battle.Units.Modifiers.StatModifiers;
+using UI.Battle;
+using UnityEngine;
 
 namespace Battle.Units.Stats
 {
     [Serializable]
     public class Hp : Stat
     {
-        private List<Modifier> hpMods = new();
+        [SerializeField] private bool instakillProtected;
+        [SerializeField] private int instakillProtectedPart;
+        
+        private List<IStatModifier> onTakingDamageMods = new ();
+        private List<IStatModifier> onHealingMods = new ();
 
         public Hp(int value, int borderUp, int borderDown = 0) : base(value, borderUp, borderDown) {}
-
         public Hp(int v, Stat stat) : base(v, stat) {}
-
         public Hp(Stat stat) : base(stat) {}
-
         public Hp(int v) : base(v) {}
 
         public int Heal(int val)
         {
-            val = Math.Max(0, UseHpMods(val, ModClass.HpHealing));
+            val = Math.Max(0, IStatModifier.UseModList(onHealingMods, val));
+            val = Math.Min(borderUp - value, val);
             value += val;
-            Norm();
+            
+            hud.CreateHUD(val.ToString(), Color.green, Direction.Up);
+            
             return val;
         }
 
-        public int TakeDamage(Damage dmg)
+        public int TakeDamage(int val)
         {
-            int doneDamage =
-                UseHpMods(
-                    ((DmgType[])Enum.GetValues(typeof(DmgType))).Sum(dmgType =>
-                        UseHpMods(dmg.Parts[dmgType], ModClass.HpDamageTyped, dmgType)),
-                    ModClass.HpDamageBase);
-            int fixedDamage = Math.Max(0, doneDamage);
-            value -= fixedDamage;
-            Norm();
+            val = Math.Max(0, IStatModifier.UseModList(onTakingDamageMods, val));
+            val = Math.Min(value, val);
             
-            return fixedDamage;
-        }
-
-        public int Burn(int val)
-        {
-            int doneDamage = UseHpMods(val, ModClass.HpDamageTyped, DmgType.Fire);
-            int fixedDamage = Math.Max(0, doneDamage);
-            value -= fixedDamage;
-            Norm();
+            if (instakillProtected && value >= instakillProtectedPart && val == value)
+            {
+                val = value - instakillProtectedPart;
+                instakillProtected = false;
+            }
+            value -= val;
             
-            return fixedDamage;
+            hud.CreateHUD(val.ToString(), Color.red, Direction.Down);
+
+            return val;
         }
 
-        public int Poison(int val)
+        public void AddDamageMod(IStatModifier mod)
         {
-            int doneDamage = UseHpMods(val, ModClass.HpDamageTyped, DmgType.Poison);
-            int fixedDamage = Math.Max(0, doneDamage);
-            value -= fixedDamage;
-            Norm();
-            
-            return fixedDamage;
+            IModifier.AddModToList(onTakingDamageMods, mod);
+            AddModToGrid(mod);
         }
 
-        private int UseHpMods(int val, ModClass workPattern, DmgType type = DmgType.Physic)
+        public void AddHealingMod(IStatModifier mod)
         {
-            if (hpMods == null) return val;
-
-            var where = hpMods.Where(v => v.workPattern == workPattern && v.dmgType == type).ToList();
-            float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use);
-            int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use);
-            return (int)(val * mulVal) + addVal;
+            onHealingMods.Add(mod);
+            AddModToGrid(mod);
         }
-        
-        public void AddMod(Modifier mod)
+
+        public Hp Save()
         {
-            hpMods ??= new List<Modifier>();
-            hpMods.Add(mod);
+            onHealingMods = IModifier.CleanedModifiers(onHealingMods);
+            onTakingDamageMods = IModifier.CleanedModifiers(onTakingDamageMods);
+
+            return this;
         }
     }
 }

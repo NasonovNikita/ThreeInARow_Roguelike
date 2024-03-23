@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -17,8 +16,8 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddDamageMod(new Modifier(-1, ModType.Add,
-                ModClass.DamageTypedStat, DmgType.Physic, value: value, always: true));
+            Player.data.AddDamageMod(new MoveStatModifier(-1, ModType.Add,
+                ModClass.DamageTypedStat, DmgType.Physic, value: value, permanent: true));
         }
     }
 }

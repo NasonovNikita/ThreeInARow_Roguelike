@@ -9,7 +9,7 @@ namespace Battle.Spells
         protected override void Action()
         {
             Damage dmg = new Damage(fDmg: (int) value);
-            foreach (var enemy in manager.enemies.Where(v => v != null))
+            foreach (var enemy in manager.Enemies.Where(v => v != null))
             {
                 enemy.TakeDamage(dmg);
                 enemy.StartBurning(count);

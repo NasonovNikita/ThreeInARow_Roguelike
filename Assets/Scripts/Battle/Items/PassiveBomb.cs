@@ -15,7 +15,7 @@ namespace Battle.Items
             new EveryTurn(() =>
             {
                 if (unitBelong.mana < minMana) return;
-                foreach (Enemy enemy in manager.enemies)
+                foreach (Enemy enemy in manager.Enemies)
                 {
                     Damage dmg = new Damage(fDmg: damage);
                     enemy.TakeDamage(dmg);

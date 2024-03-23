@@ -1,27 +1,51 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Other
 {
     public class ObjectMover : MonoBehaviour
     {
-        public Vector2 endPos;
+        public Vector3 endPos;
         public bool doMove;
         public float time;
         public SpeedType speedType;
-        private Vector2 speed;
-        private Vector2 acceleration;
+        private Vector3 speed;
+        private Vector3 acceleration;
         private Action onEnd;
     
-        public void StartMovementTo(Vector2 end, Action action = null)
+        public IEnumerator MoveTo(Vector3 end, Action doAfterMove = null)
         {
-            speed = (end - (Vector2)transform.position) / time;
-            endPos = end;
-            doMove = true;
-            onEnd = action;
+            Vector3 delta = end - transform.position;
+            return MoveBy(delta, doAfterMove);
         }
 
-        public void StartMovementBy(Vector2 delta, Action action = null)
+        public IEnumerator MoveBy(Vector3 delta, Action doAfterMove = null)
+        {
+            SetSpeedAcceleration(delta);
+            endPos = transform.position + delta;
+            doMove = true;
+            onEnd = doAfterMove;
+
+            return new WaitUntil(() => !doMove);
+        }
+
+
+        private void FixedUpdate() {
+            if (doMove) {
+                transform.position +=
+                    (speed * Time.deltaTime).magnitude < (endPos - transform.position).magnitude
+                    ? speed * Time.deltaTime
+                    : endPos - transform.position;
+                speed += acceleration * Time.deltaTime;
+            }
+
+            if (transform.position != endPos) return;
+            doMove = false;
+            onEnd?.Invoke();
+        }
+
+        private void SetSpeedAcceleration(Vector3 delta)
         {
             switch (speedType)
             {
@@ -36,23 +60,6 @@ namespace Other
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            endPos = (Vector2)transform.position + delta;
-            doMove = true;
-            onEnd = action;
-        }
-
-
-        private void FixedUpdate() {
-            if (doMove) {
-                transform.position += (speed * Time.deltaTime).magnitude < (endPos - (Vector2)transform.position).magnitude
-                    ? speed * Time.deltaTime
-                    : (Vector3)endPos - transform.position;
-                speed += acceleration * Time.deltaTime;
-            }
-
-            if ((Vector2)transform.position != endPos) return;
-            doMove = false;
-            onEnd?.Invoke();
         }
     }
 

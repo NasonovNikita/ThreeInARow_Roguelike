@@ -16,9 +16,9 @@ namespace Battle.Spells
 
             for (int i = 0; i < count; i++)
             {
-                int index = Random.Range(0, manager.enemies.Count);
-                while (manager.enemies[index] == null) index = Random.Range(0, manager.enemies.Count);
-                manager.enemies[index].TakeDamage(dmg);
+                int index = Random.Range(0, manager.Enemies.Count);
+                while (manager.Enemies[index] == null) index = Random.Range(0, manager.Enemies.Count);
+                manager.Enemies[index].TakeDamage(dmg);
             }
         }
 

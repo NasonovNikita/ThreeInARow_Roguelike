@@ -14,8 +14,6 @@ namespace Core
         
         public GameObject winMessage;
 
-        public GameObject loseMessage;
-
         public SpellGettingWarningWindow spellGettingWarningWindow;
 
         public SpellReplacingWindow spellReplacingWindow;
@@ -42,7 +40,7 @@ namespace Core
 
         public ModIcon modIcon;
 
-        public UnitHUD unitHUD;
+        public HUD hud;
 
         public static PrefabsContainer instance;
         public void Awake()

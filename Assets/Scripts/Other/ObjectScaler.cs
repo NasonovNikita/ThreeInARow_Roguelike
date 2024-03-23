@@ -1,22 +1,34 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Other
 {
     public class ObjectScaler : MonoBehaviour
     {
-        public Vector3 endScale;
+        [SerializeField] private Vector3 endScale;
+        [SerializeField] private float time;
+        private Vector3 previousScale;
         private Vector3 speed;
-        public float time;
-        public bool doScale;
+        private bool doScale;
         private Action onEnd;
     
-        public void StartScale(Vector3 end, Action action = null)
+        public IEnumerator Scale(Action afterScaleAction = null)
         {
-            onEnd = action;
-            speed = (end - transform.localScale) / time;
-            endScale = end;
+            var localScale = transform.localScale;
+            previousScale = localScale;
+            onEnd = afterScaleAction;
+            speed = (endScale - localScale) / time;
             doScale = true;
+
+            return new WaitUntil(() => !doScale);
+        }
+
+        public IEnumerator UnScale(Action afterScaleAction = null)
+        {
+            endScale = previousScale;
+            return Scale(afterScaleAction);
         }
     
         private void FixedUpdate()

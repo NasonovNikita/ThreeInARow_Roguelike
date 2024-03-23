@@ -1,33 +1,26 @@
-using Battle.BattleEventHandlers;
-using Battle.Modifiers;
 using Battle.Units;
-using Other;
+using Battle.Units.Modifiers.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Items
 {
-    [CreateAssetMenu(fileName = "Mace", menuName = "Items/AnOpal")]
+    [CreateAssetMenu(menuName = "Items/Mace")]
     public class Mace : Item
     {
         [SerializeField] private int moves;
-        [SerializeField] private float value;
-        public override void Use(Unit unitBelong)
-        {
-            new EnemyGettingHitThen(() =>
-            {
-                var lastTurn = BattleLog.GetLastTurn();
-                
-                if (lastTurn[^2] is not GridLog) return;
-                
-                ((GotDamageLog)BattleLog.LastLog).GetData.Item1
-                    .AddHpMod(new Modifier(moves, ModType.Mul,
-                        ModClass.HpDamageBase, isPositive: false, value: value));
-            });
-        }
+        [SerializeField] private int addition;
 
-        
+
         public override string Title => titleKeyRef.Value;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, Tools.Percents(value), moves);
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, addition, moves);
+
+        public override void Get()
+        {
+            Enemy.OnGettingHit += enemy =>
+                enemy.hp.AddDamageMod(new DamageMoveMod(addition, -1));
+            base.Get();
+        }
     }
 }

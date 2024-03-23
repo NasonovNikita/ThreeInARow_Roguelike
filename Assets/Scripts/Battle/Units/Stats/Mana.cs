@@ -1,52 +1,59 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Battle.Modifiers;
+using UI.Battle;
+using UnityEngine;
+using IModifier = Battle.Units.Modifiers.IModifier;
+using IStatModifier =  Battle.Units.Modifiers.StatModifiers.IStatModifier;
 
 namespace Battle.Units.Stats
 {
     [Serializable]
     public class Mana : Stat
     {
-        private List<Modifier> mods = new ();
+        private List<IStatModifier> wastingMods = new();
+        private List<IStatModifier> refillingMods = new();
 
         public Mana(int value, int borderUp, int borderDown = 0) : base(value, borderUp, borderDown) {}
-
         public Mana(int v, Stat stat) : base(v, stat) {}
-
         public Mana(Stat stat) : base(stat) {}
-
         public Mana(int v) : base(v) {}
 
         public int Refill(int val)
         {
-            val = Math.Max(0, UseManaMods(val, ModClass.ManaRefill));
+            val = Math.Max(0, IStatModifier.UseModList(refillingMods, val));
+            val = Math.Min(borderUp - value, val);
             value += val;
-            Norm();
+            
+            hud.CreateHUD(val.ToString(), Color.magenta, Direction.Up);
+            
             return val;
         }
 
         public int Waste(int val)
         {
-            val = Math.Max(0, UseManaMods(val, ModClass.ManaWaste));
+            val = Math.Max(0, IStatModifier.UseModList(wastingMods, val));
+            val = Math.Min(value, val);
             value -= val;
+            
+            hud.CreateHUD(val.ToString(), Color.magenta, Direction.Up);
+            
             return val;
         }
 
-        public void AddMod(Modifier mod)
+        public void AddWastingMod(IStatModifier mod)
         {
-            mods ??= new List<Modifier>();
-            mods.Add(mod);
+            IModifier.AddModToList(wastingMods, (IModifier)mod);
+            AddModToGrid(mod);
         }
 
-        private int UseManaMods(int val, ModClass workPattern)
+        public void AddRefillingMod(IStatModifier mod) => IModifier.AddModToList(refillingMods, mod);
+
+        public Mana Save()
         {
-            if (mods == null) return val;
-            
-            var where = mods.Where(v => v.workPattern == workPattern).ToList();
-            float mulVal = 1 + where.Where(v => v.type == ModType.Mul).Sum(v => v.Use);
-            int addVal = (int)where.Where(v => v.type == ModType.Add).Sum(v => v.Use);
-            return (int)(val * mulVal) + addVal;
+            refillingMods = IModifier.CleanedModifiers(refillingMods);
+            wastingMods = IModifier.CleanedModifiers(wastingMods);
+
+            return this;
         }
     }
 }

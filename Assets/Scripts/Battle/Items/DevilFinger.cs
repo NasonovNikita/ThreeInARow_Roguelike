@@ -1,5 +1,4 @@
 using Battle.BattleEventHandlers;
-using Battle.Modifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -15,8 +14,8 @@ namespace Battle.Items
             {
                 if (BattleLog.AllLogs
                     .Exists(log => (log as SpellUsageLog)?.GetData.Item1 is Player)) return;
-                Player.data.AddDamageMod(new Modifier(-1, ModType.Add, 
-                    ModClass.DamageTypedStat, value: value, always: true));
+                Player.data.AddDamageMod(new MoveStatModifier(-1, ModType.Add, 
+                    ModClass.DamageTypedStat, value: value, permanent: true));
             });
         }
 

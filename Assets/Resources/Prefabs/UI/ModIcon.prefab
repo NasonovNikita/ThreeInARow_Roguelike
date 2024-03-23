@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01fa4703ffb141a2870df32a51e57a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moves: {fileID: 910384082516896433}
+  subInfo: {fileID: 910384082516896433}
   img: {fileID: 5802391417190971267}
   debug: {fileID: 9138399720960340622}
 --- !u!114 &9138399720960340622
@@ -179,6 +179,12 @@ MonoBehaviour:
   actAfterTime: 1
   waitBeforeShowTime: 0.5
   text: 
+  keyReference:
+    _key: 
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &3223541614221064083
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,5 @@
-using Battle.BattleEventHandlers;
-using Battle.Modifiers;
 using Battle.Units;
+using Battle.Units.Modifiers.StatModifiers;
 using Other;
 using UnityEngine;
 
@@ -10,18 +9,17 @@ namespace Battle.Items
     public class AngrySword : Item
     {
         [SerializeField] private int hpLessThen;
-        [SerializeField] private float bonus;
-        public override void Use(Unit unitBelong)
-        {
-            new LessHpThen(hpLessThen, unitBelong,
-                () => unitBelong.AddDamageMod(new Modifier(-1, ModType.Mul,
-                    ModClass.DamageBase,  value: bonus, always: true)));
-        }
-
+        [SerializeField] private int bonus;
         
         public override string Title => titleKeyRef.Value;
 
         public override string Description => 
             string.Format(descriptionKeyRef.Value, hpLessThen, Tools.Percents(bonus));
+
+        public override void Get()
+        {
+            Player.data.damage.AddMod(new Fury(hpLessThen, bonus, true));
+            base.Get();
+        }
     }
 }

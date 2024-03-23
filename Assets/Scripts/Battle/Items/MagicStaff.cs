@@ -1,5 +1,5 @@
-using Battle.Modifiers;
 using Battle.Units;
+using Battle.Units.Modifiers.StatModifiers;
 using Other;
 using UnityEngine;
 
@@ -9,17 +9,15 @@ namespace Battle.Items
     public class MagicStaff : Item
     {
         [SerializeField] private float value;
-        public override void Use(Unit unitBelong) {}
 
-        
         public override string Title => titleKeyRef.Value;
 
         public override string Description => string.Format(descriptionKeyRef.Value, Tools.Percents(value));
-        
-        public override void OnGet()
+
+        public override void Get()
         {
-            Player.data.AddManaMod(new Modifier(-1, ModType.Mul, ModClass.ManaWaste,
-                value: -value, always: true));
+            Player.data.mana.AddWastingMod(new ManaWastingMoveMod());
+            base.Get();
         }
     }
 }

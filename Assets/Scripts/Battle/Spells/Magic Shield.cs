@@ -1,4 +1,3 @@
-using Battle.Modifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -7,10 +6,10 @@ namespace Battle.Spells
     public class MagicShield : Spell
     {
         protected override void Action() =>
-            manager.player.AddHpMod(new Modifier(
+            unitBelong.AddHpMod(new MoveStatModifier(
                 count,
-                ModType.Mul,
-                ModClass.HpDamageBase,
+                ModType.Add, // TODO on modType change
+                ModClass.HpDamage,
                 value: -value));
 
         public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));

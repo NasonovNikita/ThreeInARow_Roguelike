@@ -24,14 +24,10 @@ namespace Other
         [SerializeField] protected KnotTextKeyReference titleKeyRef;
         [SerializeField] protected KnotTextKeyReference descriptionKeyRef;
 
-        public abstract string Title { get; }
-        public abstract string Description { get; }
-        
-        public virtual void OnGet() {}
-        public virtual void Get()
-        {
-            OnGet();
-        }
+        public virtual string Title => titleKeyRef.Value;
+        public virtual string Description => descriptionKeyRef.Value;
+
+        public abstract void Get();
     }
 
     public enum Rarity

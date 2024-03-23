@@ -11,13 +11,9 @@ namespace Map
 {
     public class Map : MonoBehaviour
     {
-        public static List<Vertex> vertexes = new();
+        private static List<Vertex> _vertexes = new();
 
         public static int currentVertex = -1;
-
-        public Vector3 baseScale;
-        public Vector3 chosenScale;
-        public float timeScale;
 
         public Canvas canvas;
 
@@ -25,17 +21,12 @@ namespace Map
         {
             AudioManager.instance.StopAll();
 
-            if (currentVertex == vertexes.Count - 1)
+            if (currentVertex == _vertexes.Count - 1)
             {
                 Win();
             }
-
-            if (currentVertex != -1)
-            {
-                CurrentVertex().transform.localScale = chosenScale;
-            }
         
-            SavesManager.SaveGame();
+            GameSave.Save();
             
             InitVertexes();
         
@@ -49,16 +40,15 @@ namespace Map
 
         private void InitVertexes()
         {
-            foreach (Vertex vertex in vertexes)
+            foreach (Vertex vertex in _vertexes)
             {
                 vertex.gameObject.SetActive(true);
-                vertex.scaler.time = timeScale;
             }
         }
 
-        public void HideVertexes()
+        private void HideVertexes()
         {
-            foreach (var vertex in vertexes.Where(vertex => vertex != null))
+            foreach (var vertex in _vertexes.Where(vertex => vertex != null))
             {
                 vertex.gameObject.SetActive(false);
             }
@@ -66,35 +56,8 @@ namespace Map
 
         public static void Regenerate()
         {
-            foreach (var vertex in vertexes.Where(v => v != null)) Destroy(vertex.gameObject);
-            vertexes = MapGenerator.instance.GetMap(Globals.instance.seed);
-        }
-
-        public void OnClick(Vertex vertex)
-        {
-            if (currentVertex == -1)
-            {
-                if (vertexes.IndexOf(vertex) != 0) return;
-            
-                currentVertex = vertexes.IndexOf(vertex);
-                vertex.ScaleUp(chosenScale, OnScale);
-            }
-            else if (CurrentVertex().BelongsToNext(vertex))
-            {
-                CurrentVertex().ScaleDown(baseScale);
-                currentVertex = vertexes.IndexOf(vertex);
-                vertex.ScaleUp(chosenScale, OnScale);
-            }
-
-            void OnScale()
-            {
-                vertex.OnArrive();
-            }
-        }
-
-        public static Vertex CurrentVertex()
-        {
-            return vertexes[currentVertex];
+            foreach (var vertex in _vertexes.Where(v => v != null)) Destroy(vertex.gameObject);
+            _vertexes = MapGenerator.instance.GetMap(Globals.instance.seed);
         }
 
         private void Win()

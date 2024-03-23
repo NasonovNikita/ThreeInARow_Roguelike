@@ -71,24 +71,13 @@ namespace Map.Vertexes
             Tools.Random.ResetRandom();
         }
 
-        public bool BelongsToNext(Vertex vertex) => next.Contains(vertex);
-
         public abstract void OnArrive();
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left) map.OnClick(this);
-        }
-    
-        // ReSharper disable Unity.PerformanceAnalysis
-        public void ScaleUp(Vector3 endScale, Action onEnd = null)
-        {
-            scaler.StartScale(endScale, onEnd);
-        }
-    
-        public void ScaleDown(Vector3 endScale)
-        {
-            scaler.StartScale(endScale);
+            if (eventData.button != PointerEventData.InputButton.Left) return;
+            
+            
         }
     }
 }

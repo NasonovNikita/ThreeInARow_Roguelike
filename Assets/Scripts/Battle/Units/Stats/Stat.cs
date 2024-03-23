@@ -1,131 +1,105 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Battle.Modifiers;
-using UnityEngine;
+using Battle.Units.Modifiers;
+using Battle.Units.Modifiers.StatModifiers;
+using UI.Battle;
+using SerializeField = UnityEngine.SerializeField;
 
 namespace Battle.Units.Stats
 {
     [Serializable]
-    public class Stat
+    public abstract class Stat
     {
-        [SerializeField]
-        public int borderDown;
-    
-        [SerializeField]
-        public int borderUp;
+        [SerializeField] protected HUDSpawner hud;
+        [SerializeField] protected ModIconGrid modsGrid;
+        
+        [SerializeField] protected int borderDown;
+        [SerializeField] protected int borderUp;
+        [SerializeField] protected int value;
 
-        [SerializeField]
-        public int value;
+        public int Value => value;
+        public int BorderUp => borderUp;
+        public int BorderDown => borderDown;
 
-        public Stat(int value, int borderUp, int borderDown = 0)
+        #region Initializers
+
+        protected Stat(int value, int borderUp, int borderDown = 0)
         {
             this.value = value;
             this.borderUp = borderUp;
             this.borderDown = borderDown;
-            Norm();
+            FixInvariant();
         }
-
-        public Stat(int v, Stat stat)
+        
+        protected Stat(int v, Stat stat)
         {
             value = v;
             borderUp = stat.borderUp;
             borderDown = stat.borderDown;
-            Norm();
+            FixInvariant();
         }
 
-        public Stat(Stat stat)
+        protected Stat(Stat stat)
         {
             value = stat.borderUp;
             borderUp = stat.borderUp;
             borderDown = stat.borderDown;
         }
 
-        public Stat(int v)
+        protected Stat(int v)
         {
             value = v;
             borderUp = value;
             borderDown = 0;
         }
-
-        protected void Norm()
-        {
-            if (value < borderDown)
-            {
-                value = borderDown;
-            }
-
-            if (value > borderUp)
-            {
-                value = borderUp;
-            }
-        }
+        
+        #endregion
 
         public void StraightChange(int val)
         {
             value += val;
-            Norm();
+            FixInvariant();
         }
 
         public void ChangeBorderUp(int dBorder, int dValue = 0)
         {
             borderUp += dBorder;
             value += dValue;
-            Norm();
+            FixInvariant();
         }
 
-        protected static int UseMods(float value, List<Modifier> mods)
+        protected void AddModToGrid(IStatModifier mod) => modsGrid.Add(mod);
+
+        protected void FixInvariant()
         {
-            float mulValue = 1 + mods.Sum(mod => mod.type == ModType.Mul ? mod.Use : 0);
-            int addValue = (int) mods.Sum(mod => mod.type == ModType.Add ? mod.Use : 0);
+            if (value < borderDown) value = borderDown;
 
-            return (int) (value * mulValue + addValue);
+            if (value > borderUp) value = borderUp;
         }
 
-        public static bool operator == (Stat stat, int n)
-        {
-            return stat?.value == n;
-        }
-
-        public static bool operator != (Stat stat, int n)
-        {
-            return stat?.value == n;
-        }
-
-        public static bool operator >= (Stat stat, int n)
-        {
-            return stat != null && stat.value - stat.borderDown >= n;
-        }
-
-        public static bool operator <= (Stat stat, int n)
-        {
-            return stat != null && stat.value - stat.borderDown <= n;
-        }
-
-        public static bool operator > (Stat stat, int n)
-        {
-            return stat != null && stat.value - stat.borderDown > n;
-        }
-
-        public static bool operator < (Stat stat, int n)
-        {
-            return stat != null && stat.value - stat.borderDown < n;
-        }
-
+        #region operators
         
-        public static Stat operator + (Stat stat, int n)
-        {
-            return new Stat(stat.value + n, stat);
-        }
+        public static bool operator == ( Stat stat, int n) => stat?.value == n;
 
-        public static Stat operator - (Stat stat, int n)
-        {
-            return new Stat(stat.value - n, stat);
-        }
+        public static bool operator != (Stat stat, int n) => stat?.value == n;
 
-        public static explicit operator int(Stat stat)
-        {
-            return stat.value;
-        }
+        public static bool operator >= (Stat stat, int n) => stat.value - stat.borderDown >= n;
+
+        public static bool operator <= (Stat stat, int n) => stat.value - stat.borderDown <= n;
+
+        public static bool operator > (Stat stat, int n) => stat.value - stat.borderDown > n;
+
+        public static bool operator < (Stat stat, int n) => stat.value - stat.borderDown < n;
+
+        public static explicit operator int(Stat stat) => stat.value;
+
+        protected bool Equals(Stat stat) => ReferenceEquals(this, stat);
+
+        public override bool Equals(object obj) =>
+            !ReferenceEquals(null, obj) &&
+            (ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((Stat)obj));
+
+        public override int GetHashCode() => throw new NotImplementedException();
+
+        #endregion
     }
 }
