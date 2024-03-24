@@ -5,9 +5,6 @@ namespace UI.Battle
 {
     public class ModIconGrid : MonoBehaviour
     {
-        public void Add(IModifier mod)
-        {
-            if (this != null) ModIcon.Create(mod, transform);
-        }
+        public void Add(IModIconAble mod) => ModIcon.Create(mod, transform);
     }
 }

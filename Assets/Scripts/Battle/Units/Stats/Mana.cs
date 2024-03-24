@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Battle.Units.Modifiers;
+using Battle.Units.Modifiers.StatModifiers;
 using UI.Battle;
 using UnityEngine;
-using IModifier = Battle.Units.Modifiers.IModifier;
-using IStatModifier =  Battle.Units.Modifiers.StatModifiers.IStatModifier;
 
 namespace Battle.Units.Stats
 {
@@ -42,16 +42,20 @@ namespace Battle.Units.Stats
 
         public void AddWastingMod(IStatModifier mod)
         {
-            IModifier.AddModToList(wastingMods, (IModifier)mod);
+            IConcatAble.AddToList(wastingMods, mod);
             AddModToGrid(mod);
         }
 
-        public void AddRefillingMod(IStatModifier mod) => IModifier.AddModToList(refillingMods, mod);
+        public void AddRefillingMod(IStatModifier mod)
+        {
+            IConcatAble.AddToList(refillingMods, mod);
+            AddModToGrid(mod);
+        }
 
         public Mana Save()
         {
-            refillingMods = IModifier.CleanedModifiers(refillingMods);
-            wastingMods = IModifier.CleanedModifiers(wastingMods);
+            refillingMods = ISaveAble.SaveList(refillingMods);
+            wastingMods = ISaveAble.SaveList(wastingMods);
 
             return this;
         }

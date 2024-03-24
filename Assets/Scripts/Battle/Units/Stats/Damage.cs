@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Battle.Units.Modifiers;
-using IModifier =  Battle.Units.Modifiers.IModifier;
 using IStatModifier = Battle.Units.Modifiers.StatModifiers.IStatModifier;
 
 namespace Battle.Units.Stats
@@ -20,13 +19,13 @@ namespace Battle.Units.Stats
 
         public void AddMod(IStatModifier mod)
         {
-            IModifier.AddModToList(mods, mod);
+            IConcatAble.AddToList(mods, mod);
             AddModToGrid(mod);
         }
 
         public Damage Save()
         {
-            mods = IModifier.CleanedModifiers(mods);
+            mods = ISaveAble.SaveList(mods);
 
             return this;
         }

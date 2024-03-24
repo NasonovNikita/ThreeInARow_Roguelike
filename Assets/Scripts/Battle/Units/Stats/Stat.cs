@@ -67,7 +67,7 @@ namespace Battle.Units.Stats
             FixInvariant();
         }
 
-        protected void AddModToGrid(IStatModifier mod) => modsGrid.Add(mod);
+        protected void AddModToGrid(IStatModifier mod) => modsGrid.Add((IModIconAble)mod);
 
         protected void FixInvariant()
         {

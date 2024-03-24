@@ -1,28 +1,33 @@
+using System;
 using UnityEngine;
 
 namespace Battle.Units.Modifiers.Statuses
 {
-    public class Burning : MoveCounter, IModifier
+    [Serializable]
+    public class Burning : Status, IConcatAble
     {
-        private readonly int dmg;
+        [SerializeField] private int dmg;
+        [SerializeField] private MoveCounter moveCounter;
 
-        public Burning(int dmg, int moves, bool delay = false, bool permanent = false) :
-            base(moves, delay, permanent) =>
+        public Burning(int dmg, int moves)
+        {
             this.dmg = dmg;
-
-        public Sprite Sprite => throw new System.NotImplementedException();
-
-        public string Description => throw new System.NotImplementedException();
-
-        protected override void Move()
-        {
-            if (!delay) unitBelong.TakeDamage(dmg);
-            base.Move();
+            moveCounter = new MoveCounter(moves, true);
         }
 
-        bool IModifier.ConcatAble(IModifier other)
-        {
-            throw new System.NotImplementedException();
-        }
+        public override Sprite Sprite => throw new System.NotImplementedException();
+
+        public override string Tag => throw new System.NotImplementedException();
+
+        public override string Description => throw new System.NotImplementedException();
+
+        public override string SubInfo => throw new System.NotImplementedException();
+
+        public override bool ToDelete => throw new System.NotImplementedException();
+
+        public bool ConcatAbleWith(IConcatAble other) =>
+            other is Burning burning && burning.moveCounter.moves == moveCounter.moves;
+
+        public void Concat(IConcatAble other) => dmg += ((Burning)other).dmg;
     }
 }

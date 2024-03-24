@@ -51,7 +51,7 @@ namespace Battle.Units.Stats
 
         public void AddDamageMod(IStatModifier mod)
         {
-            IModifier.AddModToList(onTakingDamageMods, mod);
+            IConcatAble.AddToList(onTakingDamageMods, mod);
             AddModToGrid(mod);
         }
 
@@ -63,8 +63,8 @@ namespace Battle.Units.Stats
 
         public Hp Save()
         {
-            onHealingMods = IModifier.CleanedModifiers(onHealingMods);
-            onTakingDamageMods = IModifier.CleanedModifiers(onTakingDamageMods);
+            onHealingMods = ISaveAble.SaveList(onHealingMods);
+            onTakingDamageMods = ISaveAble.SaveList(onTakingDamageMods);
 
             return this;
         }

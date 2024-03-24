@@ -1,7 +1,7 @@
-using Battle.Units.Modifiers;
 using Core;
 using UI.MessageWindows;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Battle
@@ -9,24 +9,35 @@ namespace UI.Battle
     [RequireComponent(typeof(InfoObject))]
     public class ModIcon : MonoBehaviour
     {
+        public const string EmptyInfo = "";
+        
         [SerializeField] private Text subInfo;
         [SerializeField] private Image img;
-        [SerializeField] private InfoObject debug;
-        private IModifier mod;
+        [SerializeField] private InfoObject modInfo;
+        private IModIconAble mod;
 
         public void Update()
         {
-            if (!mod.IsZero) Destroy(gameObject);
+            if (mod.ToDelete) Destroy(gameObject);
             else subInfo.text = mod.SubInfo;
         }
 
-        public static void Create(IModifier mod, Transform parentTransform)
+        public static void Create(IModIconAble mod, Transform parentTransform)
         {
             if (mod.Sprite is null) return;
             ModIcon icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);
             icon.mod = mod;
             icon.img.sprite = mod.Sprite;
-            icon.debug.text = mod.Description;
+            icon.modInfo.text = mod.Description;
         }
+    }
+
+    public interface IModIconAble
+    {
+        public Sprite Sprite { get; }
+        public string Tag { get; }
+        public string Description { get; }
+        public string SubInfo { get; }
+        public bool ToDelete { get; }
     }
 }
