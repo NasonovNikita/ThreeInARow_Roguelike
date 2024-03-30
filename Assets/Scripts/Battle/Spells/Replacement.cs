@@ -1,25 +1,19 @@
-using System.Collections;
-using Battle.Match3;
 using UnityEngine;
+using Grid = Battle.Match3.Grid;
 
 namespace Battle.Spells
 {
     [CreateAssetMenu(menuName = "Spells/Replacement")]
     public class Replacement : Spell
     {
+        [SerializeField] private int count;
+        [SerializeField] private Match3.MatchingCells.Mana manaCell;
+        
         protected override void Action()
         {
-            var grid = manager.grid;
+            var grid = FindFirstObjectByType<Grid>();
             for (int i = 0; i < count; i++)
-            {
-                grid.ReplaceGem(Random.Range(0, grid.sizeX), Random.Range(0, grid.sizeY), CellID.Mana);
-            }
-        }
-
-        protected override IEnumerator Wait()
-        {
-            yield return unitBelong.StartCoroutine(manager.grid.Refresh());
-            yield return base.Wait();
+                grid.SetCell(manaCell, Random.Range(0, grid.sizeX), Random.Range(0, grid.sizeY));
         }
     }
 }

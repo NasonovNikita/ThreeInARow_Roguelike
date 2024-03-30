@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: ai
       value: 
-      objectReference: {fileID: 1028072545653289735}
+      objectReference: {fileID: 1892870381988444954}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: hp.value
       value: 65
@@ -173,12 +173,20 @@ PrefabInstance:
       value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: damage.value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: chosenElement
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: mana.borderUp
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: damage.borderUp
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: spells.Array.size
@@ -198,19 +206,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3675304893426468661, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+    - {fileID: 4528978514573126716, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1028072545653289735}
+      addedObject: {fileID: 1892870381988444954}
   m_SourcePrefab: {fileID: 100100000, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
 --- !u!1 &4365233067398381176 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
   m_PrefabInstance: {fileID: 1761078794960443011}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1028072545653289735
+--- !u!114 &1892870381988444954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,7 +228,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4365233067398381176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf2c25bc2df4aa08d23e69639bd4878, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b247c1cd5d24e1685d3396c7b0463df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaProfit: 1
+  attachedEnemy: {fileID: 7467393720399860837}
+--- !u!114 &7467393720399860837 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+  m_PrefabInstance: {fileID: 1761078794960443011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365233067398381176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2524805ede9714a8c8b36cd08db845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

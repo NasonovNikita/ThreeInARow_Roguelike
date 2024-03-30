@@ -1,7 +1,4 @@
-using System.Linq;
-using Battle.Units;
-using Battle.Units.Modifiers;
-using Battle.Units.Modifiers.Statuses;
+using Battle.Modifiers.Statuses;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -13,8 +10,10 @@ namespace Battle.Spells
         
         protected override void Action()
         {
-            foreach (Enemy enemy in manager.Enemies.Where(v => v != null))
-                IModifier.AddModToList(enemy.Statuses, new Stun(moves));
+            foreach (var enemy in unitBelong.Enemies)
+            {
+                enemy.AddStatus(new Stun(moves));
+            }
         }
     }
 }

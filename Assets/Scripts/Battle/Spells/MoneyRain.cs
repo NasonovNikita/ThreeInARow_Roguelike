@@ -6,22 +6,24 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "MoneyRain", menuName = "Spells/MoneyRain")]
     public class MoneyRain : Spell
     {
-        protected override bool CantCast => NotAllowedTurn || Player.data.money < useCost;
+        [SerializeField] private int damage;
+
+        public override bool CantCast =>
+            manager.CurrentlyTurningUnit is not Player ||
+            Player.data.money < useCost;
 
         protected override void Waste() => Player.data.money -= useCost;
 
         protected override void Action()
         {
-            Damage dmg = new Damage(phDmg: (int) value);
-
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < useCost; i++)
             {
-                int index = Random.Range(0, manager.Enemies.Count);
-                while (manager.Enemies[index] == null) index = Random.Range(0, manager.Enemies.Count);
-                manager.Enemies[index].TakeDamage(dmg);
+                int index = Random.Range(0, unitBelong.Enemies.Count);
+                while (unitBelong.Enemies[index] == null) index = Random.Range(0, unitBelong.Enemies.Count);
+                unitBelong.Enemies[index].TakeDamage(damage);
             }
         }
 
-        public override string Description => string.Format(descriptionKeyRef.Value, (int)value);
+        public override string Description => string.Format(descriptionKeyRef.Value, damage);
     }
 }

@@ -144,9 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1850e7f761fa15842b0ac245ad22cf03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endScale: {x: 0.5, y: 0.5, z: 0.5}
-  time: 0
-  doScale: 0
+  endScale: {x: 0.7, y: 0.7, z: 0.7}
+  time: 0.3
 --- !u!114 &6615673568384073920
 MonoBehaviour:
   m_ObjectHideFlags: 0

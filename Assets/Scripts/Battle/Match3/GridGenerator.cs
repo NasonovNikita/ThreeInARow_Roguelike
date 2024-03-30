@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using Battle.Units;
 using Other;
@@ -8,33 +9,44 @@ namespace Battle.Match3
     public class GridGenerator : MonoBehaviour
     {
         [SerializeField] private Grid grid;
+        [SerializeField] private float refillTime;
 
-        public void Awake()
-        {
-            Generate();
-        }
+        private static Cell RandomCell =>
+            CellPool.Instance.Acquire(Tools.Random.RandomChoose(Player.data.cells));
+        
+        private static bool BoxIsStable(Cell[,] box) =>
+            Player.data.cells.Aggregate(true, (prev, cell) => prev && cell.BoxIsStable(box));
+
+        public void Awake() => Generate();
 
         private void Generate()
         {
-            var box = new Cell[grid.sizeY, grid.sizeX];
+            grid.CreateEmptyBox();
+
             do
             {
                 for (int i = 0; i < grid.sizeY; i++)
-                {
-                    for (int j = 0; j < grid.sizeY; j++)
-                    {
-                        box[i, j] = Tools.Random.RandomChoose(Player.data.cells);
-                    }
-                }
-                grid.SetBox(box);
-            } while (!Player.data.cells.Aggregate(true, (prev, cell) => prev && cell.BoxIsStable));
+                for (int j = 0; j < grid.sizeX; j++) 
+                    grid.SetCell(RandomCell, i, j);
+            } while (!BoxIsStable(grid.box));
+            
+            
+            
+            grid.InitGrid();
         }
 
-        public void Refill()
+        public IEnumerator Refill()
         {
-            var box = grid.Box;
+            do
+            {
+                for (int i = 0; i < grid.sizeY; i++)
+                for (int j = 0; j < grid.sizeX; j++) 
+                    if (!grid.box[i, j].isActiveAndEnabled) grid.SetCell(RandomCell, i, j);
+            } while (!BoxIsStable(grid.box));
+
+            yield return new WaitForSeconds(refillTime);
             
-            
+            grid.InitGrid();
         }
     }
 }

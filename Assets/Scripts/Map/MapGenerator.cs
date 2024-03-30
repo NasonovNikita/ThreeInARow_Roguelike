@@ -42,7 +42,7 @@ namespace Map
         {
             (VertexType.Battle, 13),
             (VertexType.Shop, 6),
-            //(VertexType.Treasure, 3)
+            (VertexType.Treasure, 3)
         };
 
         [SerializeField] private int treasureFrequency;
@@ -52,21 +52,15 @@ namespace Map
         public void Awake()
         {
             if (instance == null)
-            {
                 instance = this;
-            }
             else
-            {
                 Destroy(gameObject);
-            }
         
             DontDestroyOnLoad(gameObject);
         }
 
-        public void Update()
-        {
+        public void Update() =>
             difficulty = (int) Globals.instance.difficulty;
-        }
 
         public List<Vertex> GetMap(int seed)
         {
@@ -91,8 +85,10 @@ namespace Map
             List<List<Vertex>> layers = new() { new List<Vertex> { GenBattle(0)} };
 
             for (int i = 1; i < depth - 1; i++)
-            {
-                layers.Add((i + 1) % treasureFrequency == 0 ? new List<Vertex>(GenTreasureLayer(i)) : GenLayer(i));
+            { 
+                layers.Add((i + 1) % treasureFrequency == 0
+                    ? new List<Vertex>(GenTreasureLayer(i))
+                    : GenLayer(i));
             }
 
             layers.Add(new List<Vertex> { GenBoss(depth) });
@@ -302,8 +298,11 @@ namespace Map
 
         public LootItem ChooseTreasure(int layer)
         {
-            var treasures = Resources.LoadAll<Good>("Goods").Where(treasure => !PlayerHasLootItem(treasure.target))
-                .Select(good => (tr: good, LayerPow(good.target.Frequency, layer))).ToList();
+            var treasures = Resources.LoadAll<Good>("Goods")
+                .Where(treasure => !PlayerHasLootItem(treasure.target))
+                .Select(good => (tr: good, LayerPow(good.target.Frequency,
+                    layer)))
+                .ToList();
 
             return Tools.Random.RandomChooseWithChances(treasures).target;
         }

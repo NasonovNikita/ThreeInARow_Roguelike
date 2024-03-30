@@ -1,5 +1,4 @@
-using System;
-using Battle.BattleEventHandlers;
+using Battle.Modifiers.Statuses;
 using Battle.Units;
 using UnityEngine;
 
@@ -8,23 +7,17 @@ namespace Battle.Items
     [CreateAssetMenu(fileName = "VampireFangs", menuName = "Items/VampireFangs")]
     public class VampireFangs : Item
     {
-        [SerializeField] private int from;
-        [SerializeField] private int to;
-        [SerializeField] private int minHeal;
-        public override void Use(Unit unitBelong)
-        {
-            new EnemyGettingHitThen(() =>
-            {
-                int damage = ((GotDamageLog)BattleLog.LastLog).GetData.Item2;
-                if (damage >= from)
-                {
-                    unitBelong.Heal(Math.Max(minHeal, to - damage));
-                }
-            });
-        }
+        [SerializeField] private int healAmount;
 
         public override string Title => titleKeyRef.Value;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, from, to, minHeal);
+        public override string Description => string.Format(descriptionKeyRef.Value, healAmount);
+
+        public override void Get()
+        {
+            Player.data.AddStatus(new Vampirism(healAmount, true));
+            
+            base.Get();
+        }
     }
 }

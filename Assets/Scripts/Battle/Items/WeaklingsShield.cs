@@ -1,3 +1,4 @@
+using Battle.Modifiers.StatModifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -8,19 +9,17 @@ namespace Battle.Items
     {
         [SerializeField] private int lostDamage;
         [SerializeField] private int notGottenDamage;
-        public override void Use(Unit unitBelong) {}
 
         public override string Title => titleKeyRef.Value;
 
         public override string Description => string.Format(descriptionKeyRef.Value, lostDamage, notGottenDamage);
 
-        public override void OnGet()
+        public override void Get()
         {
-            Player.data.damage.phDmg.ChangeBorderUp(-lostDamage, -lostDamage);
-            Player.data.AddDamageMod(new MoveStatModifier(-1, ModType.Add, ModClass.DamageTypedStat,
-                DmgType.Physic, false, -lostDamage, permanent: true));
-            Player.data.AddHpMod(new MoveStatModifier(-1, ModType.Add,
-                ModClass.HpDamage, value: -notGottenDamage, permanent: true));
+            Player.data.damage.AddMod(new DamageMod(-lostDamage, true));
+            Player.data.hp.AddDamageMod(new DamageMod(-notGottenDamage, true));
+            
+            base.Get();
         }
     }
 }

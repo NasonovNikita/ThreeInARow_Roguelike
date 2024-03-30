@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 3610897239642332851}
+    - target: {fileID: 3086738334417198092, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: slider
+      value: 
+      objectReference: {fileID: 4401441929014436046}
     - target: {fileID: 4185321238260039519, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -92,6 +96,10 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 3610897239642332851}
+    - target: {fileID: 4462582873264140943, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: slider
+      value: 
+      objectReference: {fileID: 4045545494425541574}
     - target: {fileID: 5913361189646952291, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -244,15 +252,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3610897239642332851}
   m_SourcePrefab: {fileID: 100100000, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
---- !u!114 &186019622805994726 stripped
+--- !u!114 &2610602200675424446 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6118980160285431034, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8233876490538660002, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
   m_PrefabInstance: {fileID: 6232458335214610460}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1408c526eeb8ca14dbdd82422ca8865c, type: 3}
+  m_Script: {fileID: 11500000, guid: 508503390ae54a24bca7cdd053cf13ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4045545494425541574 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7951819708146725850, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+  m_PrefabInstance: {fileID: 6232458335214610460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4401441929014436046 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7740337322638035154, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+  m_PrefabInstance: {fileID: 6232458335214610460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5358269077651425604 stripped
@@ -272,62 +302,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c79a3e73de5934da708f62fc06237d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxMoves: 3
+  hud: {fileID: 2610602200675424446}
+  modsGrid: {fileID: 7887972624336615069}
   hp:
     borderDown: 0
     borderUp: 200
     value: 200
+    instakillProtected: 0
+    instakillProtectedPart: 0
+    onTakingDamageMods: []
+    onHealingMods: []
   mana:
     borderDown: 0
     borderUp: 100
     value: 100
-  manaPerGem: 20
   damage:
-    mods: []
-    phDmg:
-      borderDown: 0
-      borderUp: 10
-      value: 10
-    fDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    cDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    pDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    lDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    mDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-  chosenElement: 4
-  modIconGrid: {fileID: 7887972624336615069}
-  unitInfo: {fileID: 186019622805994726}
-  instakillProtected: 0
-  maxMoves: 3
-  stateAnimationController: {fileID: 6541380102619538950}
-  allMods: []
-  items: []
+    borderDown: 0
+    borderUp: 20
+    value: 20
   spells: []
-  canFullyFreeze: 0
---- !u!114 &6541380102619538950 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 916910638298664474, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
-  m_PrefabInstance: {fileID: 6232458335214610460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f95f8cedca21bd48b4e7676804975b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  manaPerGem: 20
+  target: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7887972624336615069 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4254096913419558529, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}

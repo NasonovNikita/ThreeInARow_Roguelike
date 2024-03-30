@@ -1,3 +1,4 @@
+using Battle.Modifiers.StatModifiers;
 using Battle.Units;
 using UnityEngine;
 
@@ -7,17 +8,15 @@ namespace Battle.Items
     public class OldKnife : Item
     {
         [SerializeField] private int value;
-        public override void Use(Unit unitBelong) {}
-
         
         public override string Title => titleKeyRef.Value;
 
         public override string Description => string.Format(descriptionKeyRef.Value, value);
 
-        public override void OnGet()
+        public override void Get()
         {
-            Player.data.AddDamageMod(new MoveStatModifier(-1, ModType.Add,
-                ModClass.DamageTypedStat, DmgType.Physic, value: value, permanent: true));
+            Player.data.damage.AddMod(new DamageMod(value, true));
+            base.Get();
         }
     }
 }

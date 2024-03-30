@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: ai
       value: 
-      objectReference: {fileID: 6359504297787522404}
+      objectReference: {fileID: 6168269936977286765}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: Hp.value
       value: 80
@@ -101,6 +101,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: damage.value
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: unitHp.value
       value: 80
       objectReference: {fileID: 0}
@@ -119,6 +123,10 @@ PrefabInstance:
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: phDmg.borderUp
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+      propertyPath: damage.borderUp
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: unitHp.borderUp
@@ -397,14 +405,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6359504297787522404 stripped
+--- !u!114 &6168269936977286765 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 110986154300792360, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
+  m_CorrespondingSourceObject: {fileID: 887537833045439777, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
   m_PrefabInstance: {fileID: 6470320433926513484}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b80fe5dfd3d4cd40b0bbf609b2e40e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b68b5b4b3694199869bb20e382c596a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

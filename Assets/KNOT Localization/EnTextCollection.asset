@@ -288,21 +288,7 @@ MonoBehaviour:
   - _key: NoSpell
     _rawText: No Spell
   - _key: UnitInfo
-    _rawText: 'Dmg: {phDmg}
-
-      Fire dmg: {fDmg}
-
-      Cold dmg: {cDmg}
-
-      Poison
-      dmg: {pDmg}
-
-      Light dmg: {lDmg}
-
-      Magic dmg: {mDmg}
-
-      Element:
-      {currentElement}'
+    _rawText: 'Dmg: {phDmg}'
   - _key: InstakillProtection
     _rawText: 'Instakill
 
@@ -314,3 +300,7 @@ MonoBehaviour:
   - _key: FreezeGrenadeDescription
     _rawText: Deals random enemy or player {damage} cold dmg and freezes for {moves}
       moves
+  - _key: MoneyReward
+    _rawText: 'Money found: {}'
+  - _key: ToMap
+    _rawText: To map

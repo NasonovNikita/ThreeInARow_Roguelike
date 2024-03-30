@@ -1,4 +1,5 @@
-using Battle.BattleEventHandlers;
+using Battle.Modifiers.StatModifiers;
+using Battle.Modifiers.Statuses;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -7,16 +8,17 @@ namespace Battle.Spells
     public class HotBlood : Spell
     {
         [SerializeField] private int chance;
+        [SerializeField] private int moves;
+        [SerializeField] private int burningMoves;
+        [SerializeField] private int damage;
 
         protected override void Action()
         {
-            unitBelong.AddDamageMod(new MoveStatModifier(-1, ModType.Add,
-                ModClass.DamageTypedStat, value: value));
-            unitBelong.AddMod(new MoveStatModifier(count, ModType.Ignition));
-            new RandomIgnitionEvent(chance, unitBelong, count);
+            unitBelong.AddStatus(new RandomIgnition(chance, moves, burningMoves));
+            unitBelong.damage.AddMod(new DamageMod(damage));
         }
 
         public override string Description =>
-            string.Format(descriptionKeyRef.Value, (int)value, count, chance);
+            string.Format(descriptionKeyRef.Value, damage, moves, chance);
     }
 }

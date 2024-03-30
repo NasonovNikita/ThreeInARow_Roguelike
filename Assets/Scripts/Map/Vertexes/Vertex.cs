@@ -1,7 +1,6 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using Other;
-using UI.MessageWindows;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
@@ -61,23 +60,26 @@ namespace Map.Vertexes
             return vertex;
         }
 
-        protected void SetRandom()
-        {
-            Random.InitState(randomSeed);
-        }
-
-        protected void ResetRandom()
-        {
-            Tools.Random.ResetRandom();
-        }
-
-        public abstract void OnArrive();
-
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button != PointerEventData.InputButton.Left) return;
-            
-            
+            if (eventData.button != PointerEventData.InputButton.Left || !map.AllowedToArrive(this)) return;
+
+            StartCoroutine(Arrive());
         }
+
+        private IEnumerator Arrive()
+        {
+            yield return StartCoroutine(scaler.ScaleUp());
+            
+            
+            map.SetCurrentVertex(this);
+            OnArrive();
+        }
+        
+        protected abstract void OnArrive();
+
+        protected void SetRandom() => Random.InitState(randomSeed);
+
+        protected void ResetRandom() => Tools.Random.ResetRandom();
     }
 }

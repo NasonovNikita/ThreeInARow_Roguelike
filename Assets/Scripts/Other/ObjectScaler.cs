@@ -9,38 +9,48 @@ namespace Other
     {
         [SerializeField] private Vector3 endScale;
         [SerializeField] private float time;
-        private Vector3 previousScale;
+        private Vector3 targetScale;
+        private Vector3 originalScale;
         private Vector3 speed;
         private bool doScale;
         private Action onEnd;
-    
-        public IEnumerator Scale(Action afterScaleAction = null)
-        {
-            var localScale = transform.localScale;
-            previousScale = localScale;
-            onEnd = afterScaleAction;
-            speed = (endScale - localScale) / time;
-            doScale = true;
 
-            return new WaitUntil(() => !doScale);
+        public void Awake() =>
+            originalScale = transform.localScale;
+
+        public IEnumerator ScaleUp(Action afterScaleAction = null)
+        {
+            targetScale = endScale;
+
+            yield return StartCoroutine(Scale(afterScaleAction));
         }
 
         public IEnumerator UnScale(Action afterScaleAction = null)
         {
-            endScale = previousScale;
-            return Scale(afterScaleAction);
+            targetScale = originalScale;
+            
+            yield return StartCoroutine(Scale(afterScaleAction));
+        }
+
+        private IEnumerator Scale(Action afterScaleAction)
+        {
+            onEnd = afterScaleAction;
+            speed = (targetScale - transform.localScale) / time;
+            doScale = true;
+
+            return new WaitUntil(() => !doScale);
         }
     
         private void FixedUpdate()
         {
             if (doScale)
             {
-                transform.localScale += (speed * Time.deltaTime).magnitude < (endScale - transform.localScale).magnitude
+                transform.localScale += (speed * Time.deltaTime).magnitude < (targetScale - transform.localScale).magnitude
                     ? speed * Time.deltaTime
-                    : endScale - transform.localScale;
+                    : targetScale - transform.localScale;
             }
 
-            if (transform.localScale != endScale) return;
+            if (transform.localScale != targetScale) return;
             doScale = false;
             onEnd?.Invoke();
             onEnd = null;

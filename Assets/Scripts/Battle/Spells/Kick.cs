@@ -5,8 +5,9 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "Kick", menuName = "Spells/Kick")]
     public class Kick : Spell
     {
-        protected override void Action() => manager.target.TakeDamage(new Damage(mDmg: (int) value));
+        [SerializeField] private int damage;
+        protected override void Action() => unitBelong.target.TakeDamage(damage);
 
-        public override string Description => string.Format(descriptionKeyRef.Value, value);
+        public override string Description => string.Format(descriptionKeyRef.Value, damage);
     }
 }

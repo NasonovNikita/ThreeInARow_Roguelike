@@ -11,24 +11,21 @@ namespace UI.Battle
         [SerializeField] protected Unit unit;
         [SerializeField] private Text text;
 
-        protected abstract Stat stat { get; }
+        protected abstract Stat Stat { get; }
 
         private void Start()
         {
-            if (unit.mana.BorderUp == 0)
-            {
-                Destroy(gameObject);
-            }
+            if (Stat.BorderUp == 0) Destroy(gameObject);
         
-            slider.maxValue = stat.BorderUp;
-            slider.minValue = stat.BorderDown;
-            slider.value = stat.Value;
+            slider.maxValue = Stat.BorderUp;
+            slider.minValue = Stat.BorderDown;
+            slider.value = Stat.Value;
         }
 
         private void Update()
         {
-            slider.value = stat.Value;
-            text.text = $"{stat.Value}/{stat.BorderUp}";
+            slider.value = Stat.Value;
+            text.text = $"{Stat.Value}/{Stat.BorderUp}";
         }
     }
 }

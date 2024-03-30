@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Battle.Units.Modifiers;
-using IStatModifier = Battle.Units.Modifiers.StatModifiers.IStatModifier;
+using Battle.Modifiers;
+using IStatModifier = Battle.Modifiers.StatModifiers.IStatModifier;
 
 namespace Battle.Units.Stats
 {
@@ -20,7 +20,7 @@ namespace Battle.Units.Stats
         public void AddMod(IStatModifier mod)
         {
             IConcatAble.AddToList(mods, mod);
-            AddModToGrid(mod);
+            if (mods.Contains(mod)) AddModToGrid(mod);
         }
 
         public Damage Save()

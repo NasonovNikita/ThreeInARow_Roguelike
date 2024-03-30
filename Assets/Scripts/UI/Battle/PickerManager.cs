@@ -15,18 +15,18 @@ namespace UI.Battle
 
         private Picker currentPicker;
 
-        private static bool[] allowedToPick = { true, false, true, false, true };
+        private static bool[] _allowedToPick = { true, false, true, false, true };
 
         public void Start()
         {
             PickNextPossible();
         }
 
-        public static void SetAllAvailable() => allowedToPick = new[] { true, true, true, true, true };
+        public static void SetAllAvailable() => _allowedToPick = new[] { true, true, true, true, true };
 
         private void PickNextPossible()
         {
-            for (int i = 0; i < allowedToPick.Length; i++)
+            for (int i = 0; i < _allowedToPick.Length; i++)
             {
                 if (!PossibleToPick(i)) continue;
                 Pick(i);
@@ -71,12 +71,12 @@ namespace UI.Battle
         private bool PossibleToPick(int index)
         {
             bool noOtherOptions = true;
-            for (int i = 0; i < allowedToPick.Length; i++)
+            for (int i = 0; i < _allowedToPick.Length && i < manager.Enemies.Count; i++)
             {
-                if (allowedToPick[i] && manager.Enemies[i] != null) noOtherOptions = false;
+                if (_allowedToPick[i] && manager.Enemies[i] != null) noOtherOptions = false;
             }
 
-            return allowedToPick[index] || noOtherOptions;
+            return _allowedToPick[index] || noOtherOptions;
         }
     }
 }

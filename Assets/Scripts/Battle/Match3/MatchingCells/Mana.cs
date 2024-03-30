@@ -11,7 +11,7 @@ namespace Battle.Match3.MatchingCells
             TurningUnit.mana.Refill(amount);
         }
 
-        protected override bool IsSameType(MatchingCell second)
+        public override bool IsSameType(Cell second)
         {
             return second is Mana;
         }

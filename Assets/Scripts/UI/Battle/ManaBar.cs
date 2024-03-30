@@ -4,6 +4,6 @@ namespace UI.Battle
 {
     public class ManaBar : StatBar
     {
-        protected override Stat stat => unit.mana;
+        protected override Stat Stat => unit.mana;
     }
 }

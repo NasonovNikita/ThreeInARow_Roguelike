@@ -9,11 +9,10 @@ namespace Battle.Match3.MatchingCells
         protected override void Use()
         {
             TurningUnit.target.TakeDamage(TurningUnit.damage.ApplyDamage(baseAttackVal));
+            TurningUnit.MakeHit();
         }
 
-        protected override bool IsSameType(MatchingCell second)
-        {
-            return second is Attack;
-        }
+        public override bool IsSameType(Cell second) =>
+            second is Attack;
     }
 }

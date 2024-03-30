@@ -6,6 +6,7 @@ using Audio;
 using Battle.Units;
 using UI.Battle;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Battle
 {
@@ -24,13 +25,13 @@ namespace Battle
         
         [SerializeField] private Player player;
 
-        public List<Enemy> Enemies { get; } = new ();
+        public List<Enemy> Enemies { get; private set; } = new ();
 
         public Unit CurrentlyTurningUnit { get; private set; }
 
         public static Action onBattleStart;
-        public static Action onTurnEnd;
-        public static Action onBattleEnd;
+        public Action onTurnEnd;
+        public Action onBattleEnd;
         
         public void Awake()
         {
@@ -39,15 +40,8 @@ namespace Battle
             AudioManager.instance.Play(AudioEnum.Battle);
             
             InitEnemies();
-            
-            PlayerTurn();
             onBattleStart?.Invoke();
-        }
-
-        public void OnDestroy()
-        {
-            BattleLog.Clear();
-            Log.UnAttach();
+            PlayerTurn();
         }
         
         public void OnPlayerDeath()
@@ -64,11 +58,14 @@ namespace Battle
             Instantiate(winMessage, uiCanvas.transform);
         }
 
-        public void StartEnemiesTurn()
+        public void StartEnemiesTurn() => StartCoroutine(EnemiesAct());
+
+        public void ShuffleEnemies()
         {
-            StartCoroutine(EnemiesAct());
+            Enemies = Enemies.OrderBy(_ => Random.Range(0, 100000)).ToList();
+            placer.Place(Enemies);
         }
-        
+
         private IEnumerator EnemiesAct()
         {
             foreach (var enemy in Enemies)
@@ -107,13 +104,11 @@ namespace Battle
         {
             if (enemy == null) return null;
             enemy = Instantiate(enemy, mainCanvas.transform, false);
+            enemy.target = player;
             
             return enemy;
         }
 
-        private void PlaceEnemies()
-        {
-            placer.Place(Enemies);
-        }
+        private void PlaceEnemies() => placer.Place(Enemies);
     }
 }

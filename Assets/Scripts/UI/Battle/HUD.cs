@@ -1,6 +1,3 @@
-using Battle.Units;
-using Battle.Units.Stats;
-using Core;
 using Other;
 using UnityEngine;
 using UnityEngine.UI;

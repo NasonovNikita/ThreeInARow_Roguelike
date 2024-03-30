@@ -1,6 +1,5 @@
 using System;
-using Battle.Units.Modifiers;
-using Battle.Units.Modifiers.StatModifiers;
+using Battle.Modifiers.StatModifiers;
 using UI.Battle;
 using SerializeField = UnityEngine.SerializeField;
 
@@ -9,12 +8,12 @@ namespace Battle.Units.Stats
     [Serializable]
     public abstract class Stat
     {
-        [SerializeField] protected HUDSpawner hud;
-        [SerializeField] protected ModIconGrid modsGrid;
-        
         [SerializeField] protected int borderDown;
         [SerializeField] protected int borderUp;
         [SerializeField] protected int value;
+        
+        protected ModIconGrid modsGrid;
+        protected HUDSpawner hud;
 
         public int Value => value;
         public int BorderUp => borderUp;
@@ -53,6 +52,12 @@ namespace Battle.Units.Stats
         }
         
         #endregion
+
+        public void Init(HUDSpawner newHud, ModIconGrid newModsGrid)
+        {
+            hud = newHud;
+            modsGrid = newModsGrid;
+        }
 
         public void StraightChange(int val)
         {

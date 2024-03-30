@@ -20,7 +20,7 @@ namespace Shop
                 var info = button.GetComponent<InfoObject>();
                 info.text = good.target.Description;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 button.GetComponentInChildren<Text>().text = "Sorry, we are out";
             }

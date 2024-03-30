@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Battle.Units.Modifiers;
-using Battle.Units.Modifiers.StatModifiers;
+using Battle.Modifiers;
+using Battle.Modifiers.StatModifiers;
 using UI.Battle;
 using UnityEngine;
 
@@ -43,13 +43,13 @@ namespace Battle.Units.Stats
         public void AddWastingMod(IStatModifier mod)
         {
             IConcatAble.AddToList(wastingMods, mod);
-            AddModToGrid(mod);
+            if (wastingMods.Contains(mod)) AddModToGrid(mod);
         }
 
         public void AddRefillingMod(IStatModifier mod)
         {
             IConcatAble.AddToList(refillingMods, mod);
-            AddModToGrid(mod);
+            if (refillingMods.Contains(mod)) AddModToGrid(mod);
         }
 
         public Mana Save()

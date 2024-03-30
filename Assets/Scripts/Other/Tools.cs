@@ -28,9 +28,10 @@ namespace Other
                 return UnityRandom.Range(1, 101) <= chance;
             }
 
-            public static T RandomChoose<T>(IList<T> toChoose)
+            public static T RandomChoose<T>(IEnumerable<T> toChoose)
             {
-                return toChoose[UnityRandom.Range(0, toChoose.Count)];
+                var list = toChoose.ToList();
+                return list[UnityRandom.Range(0, list.Count)];
             }
 
             public static T RandomChooseWithChances<T>(List<(T, float)> chances)

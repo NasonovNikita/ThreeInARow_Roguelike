@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Battle.Match3
@@ -17,11 +15,9 @@ namespace Battle.Match3
             generator = FindFirstObjectByType<GridGenerator>();
         }
 
-        public abstract bool BoxIsStable { get; }
+        public abstract bool BoxIsStable(Cell[,] box);
+        public abstract bool IsSameType(Cell second);
 
-        public virtual List<(Func<IEnumerator>, int)> PossibleActions()
-        {
-            return new List<(Func<IEnumerator>, int)> { (null, 0) };
-        }
+        public void Delete() => CellPool.Instance.Release(this);
     }
 }

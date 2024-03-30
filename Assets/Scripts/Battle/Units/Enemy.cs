@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Audio;
 using UnityEngine;
 
@@ -10,14 +11,13 @@ namespace Battle.Units
     {
         [SerializeField] private AI.Ai ai;
 
-        public delegate void OnGettingHitDelegate(Enemy enemy);
+        public override List<Unit> Enemies => new() {target};
 
-        public static event OnGettingHitDelegate OnGettingHit;
+        public delegate void OnGettingHitDelegate(Enemy enemy);
         
         public override void TakeDamage(int dmg)
         {
             base.TakeDamage(dmg);
-            OnGettingHit?.Invoke(this);
             AudioManager.instance.Play(AudioEnum.EnemyHit);
         }
 

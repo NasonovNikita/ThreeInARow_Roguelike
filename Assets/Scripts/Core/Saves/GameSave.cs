@@ -13,29 +13,16 @@ namespace Core.Saves
     [Serializable]
     public class GameSave : SaveObject
     {
-        [SerializeField] private int currentVertex;
-        [SerializeField] private string scene;
-        [SerializeField] private string playerData;
-        [SerializeField] private int seed;
-        [SerializeField] private string enemyGroup;
-        [SerializeField] private string goods;
-        [SerializeField] private int gridSizeX;
-        [SerializeField] private int gridSizeY;
-        private bool preset;
+        [SerializeField] private int currentVertex = Map.Map.currentVertex;
+        [SerializeField] private string scene = SceneManager.GetActiveScene().name;
+        [SerializeField] private string playerData = JsonUtility.ToJson(Player.data);
+        [SerializeField] private int seed = Globals.instance.seed;
+        [SerializeField] private string enemyGroup = JsonUtility.ToJson(BattleManager.enemyGroup);
+        [SerializeField] private string goods = Tools.Json.ListToJson(ShopManager.goods);
+        [SerializeField] private int gridSizeX = Globals.instance.gridSize.Item1;
+        [SerializeField] private int gridSizeY = Globals.instance.gridSize.Item2;
 
         private const string Path = "/Game.dat";
-
-        public GameSave()
-        {
-            currentVertex = Map.Map.currentVertex;
-            scene = SceneManager.GetActiveScene().name;
-            playerData = JsonUtility.ToJson(Player.data);
-            seed = Globals.instance.seed;
-            enemyGroup = JsonUtility.ToJson(BattleManager.enemyGroup);
-            goods = Tools.Json.ListToJson(ShopManager.goods);
-            gridSizeX = Globals.instance.gridSize.Item1;
-            gridSizeY = Globals.instance.gridSize.Item2;
-        }
 
         public static void Save()
         {
@@ -78,8 +65,7 @@ namespace Core.Saves
                     Object.Instantiate(Resources.Load<PlayerData>("NewGamePreset"))),
                 seed = Globals.instance.randomSeed ? Random.Range(0, (int) Math.Pow(10, 6)) : Globals.instance.seed,
                 enemyGroup = "{}",
-                goods = "{[]}",
-                preset = true
+                goods = "{[]}"
             };
 
             return save;

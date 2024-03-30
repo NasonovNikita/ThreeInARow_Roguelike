@@ -14,18 +14,21 @@ namespace Battle.Match3.MatchingCells
 
         [SerializeField] private ObjectMover mover;
         [SerializeField] private ObjectScaler scaler;
+        
 
-        private (bool, bool) finishedSwitch;
-        private bool Switched => finishedSwitch.Item1 && finishedSwitch.Item2;
-
+        private (bool, bool) finishedOperation;
+        private bool Finished => finishedOperation is { Item1: true, Item2: true };
         protected Unit TurningUnit => manager.CurrentlyTurningUnit;
         private BattleManager manager;
+
+        private Cell[,] box;
 
         protected abstract void Use();
         
         public override void Awake()
         {
             base.Awake();
+            box = grid.box;
             manager = FindFirstObjectByType<BattleManager>();
         }
 
@@ -34,42 +37,68 @@ namespace Battle.Match3.MatchingCells
             if (_chosen == null)
             {
                 _chosen = this;
-                StartCoroutine(scaler.Scale());
+                StartCoroutine(scaler.ScaleUp());
+            }
+            else if (_chosen == this)
+            {
+                StartCoroutine(_chosen.scaler.UnScale());
+                _chosen = null;
             }
             else if (grid.CellsAreNeighbours(_chosen, this))
             {
-                yield return StartCoroutine(scaler.Scale()); // Make Coroutine
-                StartCoroutine(mover.MoveTo(_chosen.transform.position,
-                    () => { finishedSwitch.Item2 = true; }));
-                StartCoroutine(_chosen.mover.MoveTo(transform.position,
-                    () => { finishedSwitch.Item1 = true; }));
+                yield return StartCoroutine(MoveCells());
 
-                yield return new WaitUntil(() => Switched);
+                yield return StartCoroutine(ScaleCells());
                 
                 OnMoveDone();
             }
             else
             {
                 StartCoroutine(_chosen.scaler.UnScale());
-                StartCoroutine(scaler.Scale());
+                StartCoroutine(scaler.ScaleUp());
                 _chosen = this;
             }
         }
 
+        private IEnumerator MoveCells()
+        {
+            finishedOperation = (false, false);
+            
+            yield return StartCoroutine(scaler.ScaleUp());
+            StartCoroutine(mover.MoveTo(_chosen.transform.position,
+                () => finishedOperation.Item2 = true));
+            StartCoroutine(_chosen.mover.MoveTo(transform.position, 
+                () => finishedOperation.Item1 = true));
+
+            yield return new WaitUntil(() => Finished);
+        }
+
+        private IEnumerator ScaleCells()
+        {
+            finishedOperation = (false, false);
+                
+            StartCoroutine(scaler.UnScale(() => finishedOperation.Item1 = true));
+            StartCoroutine(_chosen.scaler.UnScale(() => finishedOperation.Item2 = true));
+                
+            yield return new WaitUntil(() => Finished);
+        }
+
         private void OnMoveDone()
         {
+            grid.SwitchCells(this, _chosen);
+            _chosen = null;
+            
             var rowedCells = FindRowedCells();
             
             UseGems(rowedCells);
             DeleteGems(rowedCells);
             
-            generator.Refill();
             TurningUnit.WasteMove();
+            grid.StartCoroutine(generator.Refill());
         }
 
         private List<MatchingCell> FindRowedCells()
         {
-            var box = grid.Box;
             var found = new HashSet<MatchingCell>();
 
             for (int i = 0; i < grid.sizeY; i++)
@@ -102,28 +131,21 @@ namespace Battle.Match3.MatchingCells
 
         private static void UseGems(List<MatchingCell> cells)
         {
-            foreach (var cell in cells)
-            {
-                cell.Use();
-            }
+            foreach (var cell in cells) cell.Use();
         }
 
         private static void DeleteGems(List<MatchingCell> cells)
         {
-            foreach (var cell in cells)
-            {
-                Destroy(cell.gameObject);
-            }
+            foreach (var cell in cells) cell.Delete();
         }
 
         private bool RowExists(int i, int j, int di = 0, int dj = 0)
         {
-            var box = grid.Box;
-            return   box[i, j] is MatchingCell &&
-                     box[i + di, j + dj] is MatchingCell &&
-                     box[i + di * 2, j + dj * 2] is MatchingCell && 
-                     ((MatchingCell)box[i, j]).IsSameType((MatchingCell)box[i + di, j + dj]) && 
-                     ((MatchingCell)box[i + di, j + dj]).IsSameType((MatchingCell)box[i + di * 2, j + dj * 2]);
+            return   box[i, j] is MatchingCell cell1 &&
+                     box[i + di, j + dj] is MatchingCell cell2 &&
+                     box[i + di * 2, j + dj * 2] is MatchingCell cell3 &&
+                     cell1.IsSameType(cell2) && 
+                     cell2.IsSameType(cell3);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -133,15 +155,12 @@ namespace Battle.Match3.MatchingCells
             StartCoroutine(Choose());
         }
 
-        public override bool BoxIsStable
+        public override bool BoxIsStable(Cell[,] boxToCheck)
         {
-            get
-            {
-                grid = FindFirstObjectByType<Grid>();
-                return FindRowedCells().Count == 0;
-            }
-        }
+            grid = FindFirstObjectByType<Grid>();
+            box = boxToCheck;
 
-        protected abstract bool IsSameType(MatchingCell second);
+            return FindRowedCells().Count == 0;
+        }
     }
 }

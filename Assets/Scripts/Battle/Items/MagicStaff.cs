@@ -1,5 +1,5 @@
+using Battle.Modifiers.StatModifiers;
 using Battle.Units;
-using Battle.Units.Modifiers.StatModifiers;
 using Other;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Battle.Items
     [CreateAssetMenu(fileName = "MagicStaff", menuName = "Items/MagicStaff")]
     public class MagicStaff : Item
     {
-        [SerializeField] private float value;
+        [SerializeField] private int value;
 
         public override string Title => titleKeyRef.Value;
 
@@ -16,7 +16,7 @@ namespace Battle.Items
 
         public override void Get()
         {
-            Player.data.mana.AddWastingMod(new ManaWastingMoveMod());
+            Player.data.mana.AddWastingMod(new ManaWastingMod(value, true));
             base.Get();
         }
     }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Battle.Units.Modifiers;
-using Battle.Units.Modifiers.StatModifiers;
+using Battle.Modifiers;
+using Battle.Modifiers.StatModifiers;
 using UI.Battle;
 using UnityEngine;
 
@@ -13,13 +13,15 @@ namespace Battle.Units.Stats
         [SerializeField] private bool instakillProtected;
         [SerializeField] private int instakillProtectedPart;
         
-        private List<IStatModifier> onTakingDamageMods = new ();
-        private List<IStatModifier> onHealingMods = new ();
+        [SerializeField] [SerializeReference] private List<IStatModifier> onTakingDamageMods = new ();
+        [SerializeField] [SerializeReference] private List<IStatModifier> onHealingMods = new ();
 
         public Hp(int value, int borderUp, int borderDown = 0) : base(value, borderUp, borderDown) {}
         public Hp(int v, Stat stat) : base(v, stat) {}
         public Hp(Stat stat) : base(stat) {}
         public Hp(int v) : base(v) {}
+
+        public Action onHpChanged;
 
         public int Heal(int val)
         {
@@ -27,6 +29,7 @@ namespace Battle.Units.Stats
             val = Math.Min(borderUp - value, val);
             value += val;
             
+            onHpChanged?.Invoke();
             hud.CreateHUD(val.ToString(), Color.green, Direction.Up);
             
             return val;
@@ -44,6 +47,7 @@ namespace Battle.Units.Stats
             }
             value -= val;
             
+            onHpChanged?.Invoke();
             hud.CreateHUD(val.ToString(), Color.red, Direction.Down);
 
             return val;
@@ -52,13 +56,13 @@ namespace Battle.Units.Stats
         public void AddDamageMod(IStatModifier mod)
         {
             IConcatAble.AddToList(onTakingDamageMods, mod);
-            AddModToGrid(mod);
+            if (onTakingDamageMods.Contains(mod)) AddModToGrid(mod);
         }
 
         public void AddHealingMod(IStatModifier mod)
         {
             onHealingMods.Add(mod);
-            AddModToGrid(mod);
+            if (onHealingMods.Contains(mod)) AddModToGrid(mod);
         }
 
         public Hp Save()

@@ -4,6 +4,6 @@ namespace UI.Battle
 {
     public class HpBar : StatBar
     {
-        protected override Stat stat => unit.hp;
+        protected override Stat Stat => unit.hp;
     }
 }

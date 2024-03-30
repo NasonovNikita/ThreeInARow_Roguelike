@@ -16,41 +16,30 @@ MonoBehaviour:
     borderDown: 0
     borderUp: 200
     value: 200
+    instakillProtected: 0
+    instakillProtectedPart: 0
+    onTakingDamageMods: []
+    onHealingMods: []
   mana:
     borderDown: 0
     borderUp: 100
     value: 100
   damage:
-    phDmg:
-      borderDown: 0
-      borderUp: 20
-      value: 20
-    fDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    cDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    pDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    lDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
-    mDmg:
-      borderDown: 0
-      borderUp: 0
-      value: 0
+    borderDown: 0
+    borderUp: 20
+    value: 20
   items:
   - {fileID: 11400000, guid: 6f3430b3816e1804aa5fa2f9a844c578, type: 2}
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
   - {fileID: 11400000, guid: 1af1f60f705b24c44b9842b0a7b87e54, type: 2}
+  statuses: []
+  cells:
+  - {fileID: 7779857467893497367, guid: 82dd727a3acf0b948af76be66206a37a, type: 3}
+  - {fileID: 9069243778840958549, guid: e63002fb71afe6f4fb8ab4a2373d6b69, type: 3}
+  - {fileID: 8266571195816668199, guid: 8c866997fb6788a45befd66edca5fc79, type: 3}
   manaPerGem: 20
-  chosenElement: 4
   money: 20
-  loaded: 0
+  references:
+    version: 2
+    RefIds: []

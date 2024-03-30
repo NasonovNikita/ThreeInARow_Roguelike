@@ -6,7 +6,7 @@ namespace Map.Vertexes
 {
     public class TreasureVertex : Vertex
     {
-        public override void OnArrive()
+        protected override void OnArrive()
         {
             TreasureManager.treasure = generator.ChooseTreasure(layer);
             SceneManager.LoadScene("Treasure");

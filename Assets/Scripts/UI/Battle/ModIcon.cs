@@ -9,8 +9,6 @@ namespace UI.Battle
     [RequireComponent(typeof(InfoObject))]
     public class ModIcon : MonoBehaviour
     {
-        public const string EmptyInfo = "";
-        
         [SerializeField] private Text subInfo;
         [SerializeField] private Image img;
         [SerializeField] private InfoObject modInfo;
@@ -39,5 +37,6 @@ namespace UI.Battle
         public string Description { get; }
         public string SubInfo { get; }
         public bool ToDelete { get; }
+        public const string EmptyInfo = "";
     }
 }

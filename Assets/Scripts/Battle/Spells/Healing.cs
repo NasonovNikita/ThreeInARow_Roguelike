@@ -6,15 +6,19 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "Healing", menuName = "Spells/Healing")]
     public class Healing : Spell
     {
-        protected override void Action() => unitBelong.Heal((int)(unitBelong.hp.borderUp * value));
+        [SerializeField] private int healAmount;
+        
+        protected override void Action() =>
+            unitBelong.hp.Heal(healAmount);
 
         public void MapCast()
         {
             if (Player.data.mana <= useCost) return;
             Player.data.mana.Waste(useCost);
-            Player.data.hp.Heal((int) (Player.data.hp.value * value));
+            Player.data.hp.Heal(healAmount);
         }
 
-        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, healAmount);
     }
 }

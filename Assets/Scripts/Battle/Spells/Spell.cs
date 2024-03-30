@@ -33,15 +33,15 @@ namespace Battle.Spells
         {
             if (CantCast) yield break;
             
-            SpellUsageLog.Log(unitBelong, useCost);
-            
             Action();
 
             Waste();
+            unitBelong.UseSpell();
+            
             yield return Wait();
         }
 
-        protected virtual bool CantCast => unitBelong.mana < useCost;
+        public virtual bool CantCast => unitBelong.mana < useCost;
 
         protected abstract void Action();
 

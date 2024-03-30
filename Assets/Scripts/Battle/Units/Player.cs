@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Audio;
+using Battle.Modifiers.Statuses;
+using Battle.Spells;
 
 namespace Battle.Units
 {
@@ -7,6 +10,8 @@ namespace Battle.Units
     public class Player : Unit
     {
         public static PlayerData data;
+
+        public override List<Unit> Enemies => new(manager.Enemies);
 
         public override void Awake()
         {
@@ -19,11 +24,17 @@ namespace Battle.Units
         public override void WasteMove()
         {
             base.WasteMove();
-            if (!HasMoves) manager.StartEnemiesTurn();
+            if (HasMoves) return;
+            
+            manager.StartEnemiesTurn();
             RefillMoves();
         }
 
-        public void StartTurn() => manager.StartEnemiesTurn();
+        public void StartTurn()
+        {
+            if (HasMoves) return;
+            manager.StartEnemiesTurn();
+        }
 
         public override void TakeDamage(int dmg)
         {
@@ -44,10 +55,10 @@ namespace Battle.Units
             mana = data.mana;
             damage = data.damage;
             manaPerGem = data.manaPerGem;
-            spells = data.spells;
-            statuses = data.statuses;
+            spells = new List<Spell>(data.spells);
+            statuses = new List<Status>(data.statuses);
         }
 
-        private void Save() => data = PlayerData.NewData(hp, mana, damage, manaPerGem, data);
+        private void Save() => data = PlayerData.NewData(this, data);
     }
 }

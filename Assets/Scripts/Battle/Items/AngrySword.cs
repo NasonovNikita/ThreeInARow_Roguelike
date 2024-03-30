@@ -1,5 +1,5 @@
+using Battle.Modifiers.Statuses;
 using Battle.Units;
-using Battle.Units.Modifiers.StatModifiers;
 using Other;
 using UnityEngine;
 
@@ -18,7 +18,7 @@ namespace Battle.Items
 
         public override void Get()
         {
-            Player.data.damage.AddMod(new Fury(hpLessThen, bonus, true));
+            Player.data.AddStatus(new Fury(bonus, hpLessThen, true));
             base.Get();
         }
     }

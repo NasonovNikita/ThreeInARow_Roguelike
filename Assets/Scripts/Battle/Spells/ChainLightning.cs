@@ -6,27 +6,27 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "ChainLightning", menuName = "Spells/ChainLightning")]
     public class ChainLightning : Spell
     {
+        [SerializeField] private int dmg;
         [SerializeField] private float rise;
 
         protected override void Action()
         {
             int nulls = 0;
-            for (int i = 0; i < manager.Enemies.Count; i++)
+            for (int i = 0; i < unitBelong.Enemies.Count; i++)
             {
-                Damage dmg = new Damage(mDmg: (int)(value * Math.Pow(rise, i - nulls)));
-                var enemy = manager.Enemies[i];
+                int damage = (int)(dmg * Math.Pow(rise, i - nulls));
+                var enemy = unitBelong.Enemies[i];
                 if (enemy == null)
                 {
                     nulls += 1;
                     continue;
                 }
 
-                enemy.TakeDamage(dmg);
-                //PToEDamageLog.Log(enemy, manager.player, dmg);
+                enemy.TakeDamage(damage);
             }
         }
 
         public override string Description =>
-            string.Format(descriptionKeyRef.Value, (int)value, Other.Tools.Percents(rise - 1));
+            string.Format(descriptionKeyRef.Value, dmg, Other.Tools.Percents(rise - 1));
     }
 }

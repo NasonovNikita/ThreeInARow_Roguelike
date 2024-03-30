@@ -40,8 +40,6 @@ namespace Core
 
         public ModIcon modIcon;
 
-        public HUD hud;
-
         public static PrefabsContainer instance;
         public void Awake()
         {

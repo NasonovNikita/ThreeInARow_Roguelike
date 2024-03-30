@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subInfo: {fileID: 910384082516896433}
   img: {fileID: 5802391417190971267}
-  debug: {fileID: 9138399720960340622}
+  modInfo: {fileID: 9138399720960340622}
 --- !u!114 &9138399720960340622
 MonoBehaviour:
   m_ObjectHideFlags: 0

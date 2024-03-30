@@ -33,14 +33,20 @@ namespace Map
             AudioManager.instance.Play(AudioEnum.Map);
         }
 
-        public void OnDisable()
+        public void OnDisable() => HideVertexes();
+
+        public bool AllowedToArrive(Vertex vertex) => 
+            currentVertex == -1 && _vertexes[0] == vertex ||
+            currentVertex != -1 && _vertexes[currentVertex] == vertex;
+
+        public void SetCurrentVertex(Vertex vertex)
         {
-            HideVertexes();
+            currentVertex = _vertexes.FindIndex(v => v == vertex);
         }
 
         private void InitVertexes()
         {
-            foreach (Vertex vertex in _vertexes)
+            foreach (var vertex in _vertexes)
             {
                 vertex.gameObject.SetActive(true);
             }

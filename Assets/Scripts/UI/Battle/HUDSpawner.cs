@@ -9,7 +9,7 @@ namespace UI.Battle
 
         public void CreateHUD(string content, Color color, Direction direction = Direction.None)
         {
-            var hud = Instantiate(hudPrefab);
+            var hud = Instantiate(hudPrefab, transform);
             hud.text.text = content;
             hud.text.color = color;
             switch (direction)

@@ -7,7 +7,7 @@ namespace Map.Vertexes
 {
     public class ShopVertex : Vertex
     {
-        public override void OnArrive()
+        protected override void OnArrive()
         {
             SetRandom();
             

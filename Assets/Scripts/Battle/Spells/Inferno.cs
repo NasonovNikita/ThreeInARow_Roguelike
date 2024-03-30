@@ -1,4 +1,4 @@
-using System.Linq;
+using Battle.Modifiers.Statuses;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -6,13 +6,13 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "Inferno", menuName = "Spells/Inferno")]
     public class Inferno : Spell
     {
+        [SerializeField] private int dmg;
         protected override void Action()
         {
-            Damage dmg = new Damage(fDmg: (int) value);
-            foreach (var enemy in manager.Enemies.Where(v => v != null))
+            foreach (var enemy in unitBelong.Enemies)
             {
                 enemy.TakeDamage(dmg);
-                enemy.StartBurning(count);
+                enemy.AddStatus(new Burning());
             }
         }
 

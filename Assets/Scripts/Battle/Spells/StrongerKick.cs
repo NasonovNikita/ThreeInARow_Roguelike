@@ -1,3 +1,4 @@
+using Battle.Modifiers.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -5,11 +6,13 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "StrongerKick", menuName = "Spells/StrongerKick")]
     public class StrongerKick : Spell
     {
-        protected override void Action()
-        {
-            unitBelong.AddDamageMod(new MoveStatModifier(count, ModType.Add, ModClass.Damage, value: value)); // TODO on modType change
-        }
+        [SerializeField] private int damage;
+        [SerializeField] private int moves;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
+        protected override void Action() =>
+            unitBelong.damage.AddMod(new DamageMoveMod(damage, moves));
+
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, damage, moves);
     }
 }

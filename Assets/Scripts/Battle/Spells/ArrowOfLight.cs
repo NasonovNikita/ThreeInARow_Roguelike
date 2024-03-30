@@ -5,11 +5,11 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "ArrowOfLight", menuName = "Spells/ArrowOfLight")]
     public class ArrowOfLight : Spell
     {
-        protected override void Action()
-        {
-            unitBelong.target.TakeDamage((int)value);
-        }
+        [SerializeField] private int dmg;
+        protected override void Action() =>
+            unitBelong.target.TakeDamage(dmg);
 
-        public override string Description => string.Format(descriptionKeyRef.Value, (int) value);
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, dmg);
     }
 }

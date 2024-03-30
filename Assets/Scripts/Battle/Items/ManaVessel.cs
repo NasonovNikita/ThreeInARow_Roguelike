@@ -9,16 +9,14 @@ namespace Battle.Items
         [SerializeField] private int addToBorder;
         [SerializeField] private int addValue;
         
-        public override void Use(Unit unitBelong) {}
-
-        
         public override string Title => titleKeyRef.Value;
 
         public override string Description => string.Format(descriptionKeyRef.Value, addToBorder, addValue);
 
-        public override void OnGet()
+        public override void Get()
         {
             Player.data.mana.ChangeBorderUp(addToBorder, addValue);
+            base.Get();
         }
     }
 }

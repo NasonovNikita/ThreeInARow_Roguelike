@@ -1,3 +1,4 @@
+using Battle.Modifiers.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -5,13 +6,11 @@ namespace Battle.Spells
     [CreateAssetMenu(fileName = "MagicShield", menuName = "Spells/MagicShield")]
     public class MagicShield : Spell
     {
-        protected override void Action() =>
-            unitBelong.AddHpMod(new MoveStatModifier(
-                count,
-                ModType.Add, // TODO on modType change
-                ModClass.HpDamage,
-                value: -value));
+        [SerializeField] private int protectionAmount;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
+        protected override void Action() => unitBelong.hp.AddDamageMod(new DamageMod(-protectionAmount));
+
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, protectionAmount);
     }
 }

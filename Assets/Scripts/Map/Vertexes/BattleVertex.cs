@@ -9,7 +9,7 @@ namespace Map.Vertexes
     {
         public bool isBoss;
 
-        public override void OnArrive()
+        protected override void OnArrive()
         {
             SetRandom();
 
