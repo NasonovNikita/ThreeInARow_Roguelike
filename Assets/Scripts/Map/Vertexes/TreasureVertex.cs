@@ -1,4 +1,5 @@
 using Core;
+using Core.SingletonContainers;
 using Treasure;
 using UnityEngine.SceneManagement;
 

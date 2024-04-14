@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1265309250921090293, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 3610897239642332851}
     - target: {fileID: 1360609908114718688, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_LocalScale.x
       value: 300
@@ -224,6 +228,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7265272065892824285, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 3610897239642332851}
     - target: {fileID: 7535216027000458604, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -252,17 +260,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3610897239642332851}
   m_SourcePrefab: {fileID: 100100000, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
---- !u!114 &2610602200675424446 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8233876490538660002, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
-  m_PrefabInstance: {fileID: 6232458335214610460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 508503390ae54a24bca7cdd053cf13ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4045545494425541574 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7951819708146725850, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
@@ -303,38 +300,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoves: 3
-  hud: {fileID: 2610602200675424446}
-  modsGrid: {fileID: 7887972624336615069}
   hp:
-    borderDown: 0
     borderUp: 200
     value: 200
-    instakillProtected: 0
-    instakillProtectedPart: 0
-    onTakingDamageMods: []
-    onHealingMods: []
+    onTakingDamageMods:
+      modList: []
+    onHealingMods:
+      modList: []
   mana:
-    borderDown: 0
     borderUp: 100
     value: 100
+    wastingMods:
+      modList: []
+    refillingMods:
+      modList: []
   damage:
-    borderDown: 0
     borderUp: 20
     value: 20
+    mods:
+      modList: []
   spells: []
   manaPerGem: 20
   target: {fileID: 0}
   references:
     version: 2
     RefIds: []
---- !u!114 &7887972624336615069 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4254096913419558529, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
-  m_PrefabInstance: {fileID: 6232458335214610460}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b57a46949fe450caca048e77e2f3c53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

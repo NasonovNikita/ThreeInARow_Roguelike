@@ -16,7 +16,7 @@ namespace Battle.Items
 
         public override void Get()
         {
-            Player.data.mana.AddWastingMod(new ManaWastingMod(value, true));
+            Player.data.mana.wastingMods.Add(new ManaWastingMod(value, true));
             base.Get();
         }
     }

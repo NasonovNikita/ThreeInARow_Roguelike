@@ -7,25 +7,33 @@ namespace UI.Battle
 {
     public abstract class StatBar : MonoBehaviour
     {
-        [SerializeField] private Slider slider;
         [SerializeField] protected Unit unit;
+        
+        [SerializeField] private Slider slider;
         [SerializeField] private Text text;
 
         protected abstract Stat Stat { get; }
 
         private void Start()
         {
-            if (Stat.BorderUp == 0) Destroy(gameObject);
-        
-            slider.maxValue = Stat.BorderUp;
-            slider.minValue = Stat.BorderDown;
-            slider.value = Stat.Value;
+            if (Stat.BorderUp == 0) OnEmptyStat();
+            SetUp();
+            
+            UpdateValue();
         }
 
-        private void Update()
+        private void SetUp()
+        {
+            slider.maxValue = Stat.BorderUp;
+            Stat.OnValueChanged += _ => UpdateValue();
+        }
+
+        private void UpdateValue()
         {
             slider.value = Stat.Value;
             text.text = $"{Stat.Value}/{Stat.BorderUp}";
         }
+
+        private void OnEmptyStat() => Destroy(gameObject);
     }
 }

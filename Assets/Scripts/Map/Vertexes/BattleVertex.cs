@@ -1,5 +1,6 @@
 using Battle;
 using Core;
+using Core.SingletonContainers;
 using Knot.Localization;
 using UnityEngine.SceneManagement;
 

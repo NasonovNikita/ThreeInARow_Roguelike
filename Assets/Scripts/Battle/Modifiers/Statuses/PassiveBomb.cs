@@ -1,33 +1,25 @@
 using System;
 using Battle.Units;
-using UI.Battle;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Battle.Modifiers.Statuses
 {
     [Serializable]
-    public class PassiveBomb : Status, IConcatAble, ISaveAble
+    public class PassiveBomb : Status
     {
         [SerializeField] private int dmg;
         [SerializeField] private int manaBorder;
 
-        public PassiveBomb(int damage, int manaBorder, bool save)
+        public PassiveBomb(int damage, int manaBorder, bool save = false) : base(save)
         {
             dmg = damage;
             this.manaBorder = manaBorder;
-            Save = save;
         }
         
         public override Sprite Sprite => throw new NotImplementedException();
-
-        public override string Tag => throw new NotImplementedException();
-
         public override string Description => throw new NotImplementedException();
-
-        public override string SubInfo => IModIconAble.EmptyInfo;
-
-        public override bool ToDelete => dmg == 0;
+        public override string SubInfo => EmptyInfo;
+        public override bool ToDelete => dmg <= 0;
 
         public override void Init(Unit unit)
         {
@@ -45,13 +37,11 @@ namespace Battle.Modifiers.Statuses
             }
         }
 
-        public bool ConcatAbleWith(IConcatAble other) =>
-            other is PassiveBomb passiveBomb &&
-            manaBorder == passiveBomb.manaBorder &&
-            Save == passiveBomb.Save;
+        protected override bool CanConcat(Modifier other) => 
+            other is PassiveBomb bomb &&
+            bomb.manaBorder == manaBorder;
 
-        public void Concat(IConcatAble other) => dmg += ((PassiveBomb)other).dmg;
-
-        public bool Save { get; }
+        public override void Concat(Modifier other) => 
+            dmg += ((PassiveBomb)other).dmg;
     }
 }

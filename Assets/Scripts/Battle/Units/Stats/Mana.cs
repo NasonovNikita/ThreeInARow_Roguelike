@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Battle.Modifiers;
 using Battle.Modifiers.StatModifiers;
-using UI.Battle;
 using UnityEngine;
 
 namespace Battle.Units.Stats
@@ -10,52 +8,32 @@ namespace Battle.Units.Stats
     [Serializable]
     public class Mana : Stat
     {
-        private List<IStatModifier> wastingMods = new();
-        private List<IStatModifier> refillingMods = new();
+        [SerializeField] public ModifierList<StatModifier> wastingMods = new();
+        [SerializeField] public ModifierList<StatModifier> refillingMods = new();
 
-        public Mana(int value, int borderUp, int borderDown = 0) : base(value, borderUp, borderDown) {}
+        public Mana(int value, int borderUp) : base(value, borderUp) {}
         public Mana(int v, Stat stat) : base(v, stat) {}
         public Mana(Stat stat) : base(stat) {}
         public Mana(int v) : base(v) {}
 
-        public int Refill(int val)
+        public void Refill(int val)
         {
-            val = Math.Max(0, IStatModifier.UseModList(refillingMods, val));
-            val = Math.Min(borderUp - value, val);
-            value += val;
+            val = Math.Max(0, StatModifier.UseModList(refillingMods.ModList, val));
             
-            hud.CreateHUD(val.ToString(), Color.magenta, Direction.Up);
-            
-            return val;
+            ChangeValue(val);
         }
 
-        public int Waste(int val)
+        public void Waste(int val)
         {
-            val = Math.Max(0, IStatModifier.UseModList(wastingMods, val));
-            val = Math.Min(value, val);
-            value -= val;
+            val = Math.Max(0, StatModifier.UseModList(wastingMods.ModList, val));
             
-            hud.CreateHUD(val.ToString(), Color.magenta, Direction.Up);
-            
-            return val;
-        }
-
-        public void AddWastingMod(IStatModifier mod)
-        {
-            IConcatAble.AddToList(wastingMods, mod);
-            if (wastingMods.Contains(mod)) AddModToGrid(mod);
-        }
-
-        public void AddRefillingMod(IStatModifier mod)
-        {
-            IConcatAble.AddToList(refillingMods, mod);
-            if (refillingMods.Contains(mod)) AddModToGrid(mod);
+            ChangeValue(-val);
         }
 
         public Mana Save()
         {
-            refillingMods = ISaveAble.SaveList(refillingMods);
-            wastingMods = ISaveAble.SaveList(wastingMods);
+            refillingMods = refillingMods.Save();
+            wastingMods = wastingMods.Save();
 
             return this;
         }

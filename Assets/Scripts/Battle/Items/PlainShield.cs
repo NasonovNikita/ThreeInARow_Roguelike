@@ -15,7 +15,7 @@ namespace Battle.Items
 
         public override void Get()
         {
-            Player.data.hp.AddDamageMod(new DamageMod(-value, true));
+            Player.data.hp.onTakingDamageMods.Add(new DamageConstMod(-value, true));
             base.Get();
         }
     }

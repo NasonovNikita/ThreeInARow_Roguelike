@@ -1,6 +1,4 @@
 using System;
-using Battle.Modifiers.StatModifiers;
-using UI.Battle;
 using SerializeField = UnityEngine.SerializeField;
 
 namespace Battle.Units.Stats
@@ -8,24 +6,20 @@ namespace Battle.Units.Stats
     [Serializable]
     public abstract class Stat
     {
-        [SerializeField] protected int borderDown;
-        [SerializeField] protected int borderUp;
-        [SerializeField] protected int value;
-        
-        protected ModIconGrid modsGrid;
-        protected HUDSpawner hud;
-
+        [SerializeField] private int borderUp;
+        [SerializeField] private int value;
         public int Value => value;
         public int BorderUp => borderUp;
-        public int BorderDown => borderDown;
+        
+        public event Action<int> OnValueChanged;
+
 
         #region Initializers
 
-        protected Stat(int value, int borderUp, int borderDown = 0)
+        protected Stat(int value, int borderUp)
         {
             this.value = value;
             this.borderUp = borderUp;
-            this.borderDown = borderDown;
             FixInvariant();
         }
         
@@ -33,7 +27,6 @@ namespace Battle.Units.Stats
         {
             value = v;
             borderUp = stat.borderUp;
-            borderDown = stat.borderDown;
             FixInvariant();
         }
 
@@ -41,23 +34,15 @@ namespace Battle.Units.Stats
         {
             value = stat.borderUp;
             borderUp = stat.borderUp;
-            borderDown = stat.borderDown;
         }
 
         protected Stat(int v)
         {
             value = v;
             borderUp = value;
-            borderDown = 0;
         }
         
         #endregion
-
-        public void Init(HUDSpawner newHud, ModIconGrid newModsGrid)
-        {
-            hud = newHud;
-            modsGrid = newModsGrid;
-        }
 
         public void StraightChange(int val)
         {
@@ -72,28 +57,32 @@ namespace Battle.Units.Stats
             FixInvariant();
         }
 
-        protected void AddModToGrid(IStatModifier mod) => modsGrid.Add((IModIconAble)mod);
+        protected void ChangeValue(int change)
+        {
+            value += change;
+            OnValueChanged?.Invoke(change);
+            FixInvariant();
+        }
 
         protected void FixInvariant()
         {
-            if (value < borderDown) value = borderDown;
-
             if (value > borderUp) value = borderUp;
+            if (value < 0) value = 0;
         }
 
         #region operators
         
-        public static bool operator == ( Stat stat, int n) => stat?.value == n;
+        public static bool operator == (Stat stat, int n) => stat?.value == n;
 
         public static bool operator != (Stat stat, int n) => stat?.value == n;
 
-        public static bool operator >= (Stat stat, int n) => stat.value - stat.borderDown >= n;
+        public static bool operator >= (Stat stat, int n) => stat.value >= n;
 
-        public static bool operator <= (Stat stat, int n) => stat.value - stat.borderDown <= n;
+        public static bool operator <= (Stat stat, int n) => stat.value <= n;
 
-        public static bool operator > (Stat stat, int n) => stat.value - stat.borderDown > n;
+        public static bool operator > (Stat stat, int n) => stat.value > n;
 
-        public static bool operator < (Stat stat, int n) => stat.value - stat.borderDown < n;
+        public static bool operator < (Stat stat, int n) => stat.value < n;
 
         public static explicit operator int(Stat stat) => stat.value;
 

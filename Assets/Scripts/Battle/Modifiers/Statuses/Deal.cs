@@ -1,37 +1,30 @@
 using System;
 using Battle.Modifiers.StatModifiers;
 using Battle.Units;
-using UI.Battle;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Battle.Modifiers.Statuses
 {
     [Serializable]
-    public class Deal : Status, ISaveAble
+    public class Deal : Status
     {
         [SerializeField] private int value;
         [SerializeField] private bool usedSpells;
 
-        public Deal(int value, bool save)
+        public Deal(int value, bool save) : base(save)
         {
             this.value = value;
-            Save = save;
         }
         
-        public override Sprite Sprite => throw new System.NotImplementedException();
-
-        public override string Tag => throw new System.NotImplementedException();
-
-        public override string Description => throw new System.NotImplementedException();
-
-        public override string SubInfo => IModIconAble.EmptyInfo;
-
+        public override Sprite Sprite => throw new NotImplementedException();
+        public override string Description => throw new NotImplementedException();
+        public override string SubInfo => EmptyInfo;
         public override bool ToDelete => usedSpells;
 
         public void CheckAndAddMod()
         {
-            if (!usedSpells) belongingUnit.damage.AddMod(new DamageMod(value, true));
+            if (!usedSpells) belongingUnit.damage.mods.Add(new DamageConstMod(value, true));
         }
 
         public override void Init(Unit unit)
@@ -41,7 +34,10 @@ namespace Battle.Modifiers.Statuses
             Object.FindFirstObjectByType<BattleManager>().onBattleEnd += CheckAndAddMod;
             base.Init(unit);
         }
+        
+        protected override bool CanConcat(Modifier other) => other is Deal;
 
-        public bool Save { get; }
+        public override void Concat(Modifier other) => 
+            value += ((Deal)other).value;
     }
 }

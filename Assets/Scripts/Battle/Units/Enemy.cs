@@ -11,9 +11,7 @@ namespace Battle.Units
     {
         [SerializeField] private AI.Ai ai;
 
-        public override List<Unit> Enemies => new() {target};
-
-        public delegate void OnGettingHitDelegate(Enemy enemy);
+        public override List<Unit> Enemies => new() { target };
         
         public override void TakeDamage(int dmg)
         {
@@ -31,12 +29,6 @@ namespace Battle.Units
                 RefillMoves();
                 yield break;
             }
-        }
-
-        protected override void NoHp()
-        {
-            manager.OnEnemyDeath();
-            Destroy(gameObject);
         }
     }
 }

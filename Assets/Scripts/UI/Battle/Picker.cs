@@ -1,3 +1,4 @@
+using Battle;
 using Battle.Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,11 +14,7 @@ namespace UI.Battle
         public void Awake()
         {
             pickerManager = FindFirstObjectByType<PickerManager>();
-        }
-
-        public void OnDestroy()
-        {
-            pickerManager.OnPickerDestroyed(this);
+            enemy.OnDied += () => pickerManager.OnPickerDestroyed(this);
         }
 
         public void OnPointerClick(PointerEventData eventData)

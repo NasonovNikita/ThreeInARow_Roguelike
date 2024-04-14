@@ -5,20 +5,15 @@ using UnityEngine;
 namespace Battle.Modifiers.Statuses
 {
     [Serializable]
-    public class Vampirism : Status, ISaveAble, IConcatAble
+    public class Vampirism : Status
     {
         [SerializeField] private int heal;
 
-        public Vampirism(int healAmount, bool save = false)
-        {
+        public Vampirism(int healAmount, bool save = false) : base(save) => 
             heal = healAmount;
-            Save = save;
-        }
-        
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Tag => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
 
+        public override Sprite Sprite => throw new NotImplementedException();
+        public override string Description => throw new NotImplementedException();
         public override string SubInfo => heal.ToString();
         public override bool ToDelete => heal == 0;
 
@@ -30,13 +25,11 @@ namespace Battle.Modifiers.Statuses
         }
 
         private void Heal() => belongingUnit.hp.Heal(heal);
+        
+        protected override bool CanConcat(Modifier other) => 
+            other is Vampirism;
 
-        public bool Save { get; }
-        public bool ConcatAbleWith(IConcatAble other) =>
-            other is Vampirism vampirism &&
-            Save == vampirism.Save;
-
-        public void Concat(IConcatAble other) =>
+        public override void Concat(Modifier other) => 
             heal += ((Vampirism)other).heal;
     }
 }

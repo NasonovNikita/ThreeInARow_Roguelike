@@ -10,6 +10,6 @@ namespace Battle.Spells
         [SerializeField] private int moves;
 
         protected override void Action() =>
-            unitBelong.hp.AddDamageMod(new DamageMoveMod(protectionAmount, moves));
+            unitBelong.hp.onTakingDamageMods.Add(new DamageMoveMod(protectionAmount, moves));
     }
 }

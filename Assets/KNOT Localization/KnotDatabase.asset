@@ -23,7 +23,7 @@ MonoBehaviour:
       _editor: []
   - _cultureName: ru
     _systemLanguage: 30
-    _nativeName: "\u0440\u0443\u0441\u0441\u043A\u0438\u0439"
+    _nativeName: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
     _collectionProviders:
     - rid: 5074477640689909820
     _metadata:

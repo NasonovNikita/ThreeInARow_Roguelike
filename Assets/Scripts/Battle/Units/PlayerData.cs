@@ -20,7 +20,7 @@ namespace Battle.Units
         [SerializeField] public Damage damage;
         [SerializeField] public List<Item> items;
         [SerializeField] public List<Spell> spells;
-        [SerializeField] [SerializeReference] public List<Status> statuses; //TODO check if not serialized in actual json
+        [SerializeField] public ModifierList<Status> statuses;
         [SerializeField] public List<Cell> cells;
         [SerializeField] public int manaPerGem;
         [SerializeField] public int money;
@@ -28,15 +28,20 @@ namespace Battle.Units
         public static PlayerData NewData(Player player, PlayerData oldData = null) =>
             NewData(player.hp, player.mana, player.damage, player.manaPerGem, player.Statuses, oldData);
 
-        public static PlayerData NewData(Hp hp, Mana mana, Damage damage, int manaPerGem, List<Status> statuses, PlayerData oldData = null)
+        public static PlayerData NewData(Hp hp, Mana mana, Damage damage, int manaPerGem, ModifierList<Status> statuses, PlayerData oldData = null)
         {
-            PlayerData data = CreateInstance<PlayerData>();
+            var data = CreateInstance<PlayerData>();
+            
             data.hp = hp.Save();
             data.mana = mana.Save();
             data.damage = damage.Save();
+            
             data.manaPerGem = manaPerGem;
-            data.statuses = ISaveAble.SaveList(statuses);
+            
+            data.statuses = statuses.Save();
+            
             if (oldData is null) return data;
+            
             data.spells = oldData.spells;
             data.items = oldData.items;
             data.money = oldData.money;
@@ -44,6 +49,6 @@ namespace Battle.Units
             return data;
         }
 
-        public void AddStatus(Status status) => IConcatAble.AddToList(statuses, status);
+        public void AddStatus(Status status) => statuses.Add(status);
     }
 }

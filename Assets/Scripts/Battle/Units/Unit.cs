@@ -4,7 +4,6 @@ using Battle.Modifiers;
 using Battle.Modifiers.Statuses;
 using Battle.Spells;
 using Battle.Units.Stats;
-using UI.Battle;
 using Tools = Other.Tools;
 using UnityEngine;
 
@@ -13,8 +12,6 @@ namespace Battle.Units
     public abstract class Unit : MonoBehaviour
     {
         [SerializeField] private int maxMoves;
-        [SerializeField] private HUDSpawner hud;
-        [SerializeField] private ModIconGrid modsGrid;
         
         public Hp hp;
         public Mana mana;
@@ -32,22 +29,22 @@ namespace Battle.Units
         private int currentMovesCount;
 
         protected bool HasMoves => currentMovesCount > 0;
-        public List<Status> Statuses => statuses;
+        public ModifierList<Status> Statuses => statuses;
 
-        protected List<Status> statuses = new ();
+        protected ModifierList<Status> statuses = new ();
 
-        public Action OnSpellCasted;
-        public Action OnMadeHit;
+        public event Action OnSpellCasted;
+        public event Action OnMadeHit;
+        public event Action OnDied;
+        
+        public bool Dead { get; private set; }
+        
         public void UseSpell() => OnSpellCasted?.Invoke();
         public void MakeHit() => OnMadeHit?.Invoke();
         
         public virtual void Awake()
         {
             manager = FindFirstObjectByType<BattleManager>();
-            
-            hp.Init(hud, modsGrid);
-            mana.Init(hud, modsGrid);
-            damage.Init(hud, modsGrid);
 
             Tools.InstantiateAll(spells);
             foreach (var spell in spells)
@@ -55,7 +52,7 @@ namespace Battle.Units
                 spell.Init(this);
             }
 
-            foreach (var status in statuses)
+            foreach (var status in statuses.ModList)
             {
                 status.Init(this);
             }
@@ -65,8 +62,7 @@ namespace Battle.Units
 
         public void AddStatus(Status status)
         {
-            IConcatAble.AddToList(statuses, status);
-            if (statuses.Contains(status)) modsGrid.Add(status);
+            statuses.Add(status);
         }
 
         protected void RefillMoves() => currentMovesCount = maxMoves;
@@ -76,11 +72,21 @@ namespace Battle.Units
 
         public virtual void TakeDamage(int dmg)
         {
-            int gotDamage = hp.TakeDamage(dmg);
+            hp.TakeDamage(dmg);
 
             if (hp <= 0) NoHp();
         }
 
-        protected abstract void NoHp();
+        protected virtual void NoHp()
+        {
+            Die();
+        }
+
+        private void Die()
+        {
+            Dead = true;
+            OnDied?.Invoke();
+            Destroy(gameObject);
+        }
     }
 }

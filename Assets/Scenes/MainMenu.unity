@@ -168,6 +168,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &185241007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 185241008}
+  m_Layer: 0
+  m_Name: Containers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &185241008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185241007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.7427938, y: -0.44480774, z: 3392.8154}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 809755283}
+  - {fileID: 1331578331}
+  - {fileID: 377600849}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &193633470
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winMessage: {fileID: 2188612303319430005, guid: 0176c58bca5452d4dae563e7896417e4, type: 3}
-  loseMessage: {fileID: 2879500456662334555, guid: ed9c6d8a9a6a1cc428c67d7bd84120ce, type: 3}
   spellGettingWarningWindow: {fileID: 3249984304521703575, guid: d60f55fc6a25dab4f9dbe6952da2d69f, type: 3}
   spellReplacingWindow: {fileID: 6715011800204960958, guid: ce906c6e3d9376d4ea06b7814f04d72e, type: 3}
   languageChooser: {fileID: 1360551234560328108, guid: 3a7bcf0c7437d314688082da92916c77, type: 3}
@@ -209,7 +242,7 @@ MonoBehaviour:
   inventoryItem: {fileID: 3409028896318203545, guid: c366518e1149a2e459e83cd5e2e069dc, type: 3}
   inventoryManager: {fileID: 5194967847300656914, guid: 34ea5d7648c4043488c9e4c94f712932, type: 3}
   modIcon: {fileID: 1606239242982794547, guid: d24b8f2015a7a854292d194eac721bd4, type: 3}
-  unitHUD: {fileID: 5159490561568478830, guid: 1899340fdf76a5045bc7dc2143d70813, type: 3}
+  hud: {fileID: 0}
 --- !u!4 &193633472
 Transform:
   m_ObjectHideFlags: 0
@@ -680,12 +713,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377600847}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3776843, y: -0.042048767, z: 4.2652793}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1204782, y: 0.40275896, z: -3388.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 185241008}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &561011192
 GameObject:
@@ -930,42 +963,6 @@ MonoBehaviour:
   less:
     _key: less
     _formatters: []
-  fires:
-    _key: Fire's
-    _formatters: []
-  colds:
-    _key: Cold's
-    _formatters: []
-  poisons:
-    _key: Poison's
-    _formatters: []
-  lights:
-    _key: Light's
-    _formatters: []
-  physics:
-    _key: Physic's
-    _formatters: []
-  magics:
-    _key: Magic's
-    _formatters: []
-  fire:
-    _key: Fire
-    _formatters: []
-  cold:
-    _key: Cold
-    _formatters: []
-  poison:
-    _key: Poison
-    _formatters: []
-  light_:
-    _key: Light
-    _formatters: []
-  physic:
-    _key: Physic
-    _formatters: []
-  magic:
-    _key: Magic
-    _formatters: []
   instakillProtectionLocalizedKey:
     _key: InstakillProtection
     _formatters: []
@@ -986,12 +983,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809755281}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.38661066, y: -0.20786512, z: 45.67705}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1294045, y: 0.23694262, z: -3347.1384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 185241008}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889205266
 GameObject:
@@ -1262,7 +1259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7918605044004754629, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0024414062
+      value: 0.0029296875
       objectReference: {fileID: 0}
     - target: {fileID: 7918605044004754629, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1939,6 +1936,62 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3618831272053756287, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
   m_PrefabInstance: {fileID: 1308717964}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1331578330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1331578331}
+  - component: {fileID: 1331578332}
+  m_Layer: 0
+  m_Name: ModDescriptions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1331578331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331578330}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 185241008}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1331578332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331578330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a5e6ba11e741a6925cc1ee27e04402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldDescription:
+    _key: ModShieldDescription
+    _formatters: []
+  damageModDescription:
+    _key: DamageModDescription
+    _formatters: []
+  healingModDescription:
+    _key: HealingModDescription
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1350526671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2469,7 +2522,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7918605044004754629, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0024414062
+      value: -0.001953125
       objectReference: {fileID: 0}
     - target: {fileID: 7918605044004754629, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2890,5 +2943,4 @@ SceneRoots:
   - {fileID: 193633472}
   - {fileID: 7107237606732497207}
   - {fileID: 175298467}
-  - {fileID: 377600849}
-  - {fileID: 809755283}
+  - {fileID: 185241008}

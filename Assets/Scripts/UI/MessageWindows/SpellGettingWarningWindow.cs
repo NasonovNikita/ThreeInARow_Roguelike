@@ -1,6 +1,7 @@
 using System;
 using Battle.Spells;
 using Core;
+using Core.SingletonContainers;
 using Other;
 using UnityEngine;
 

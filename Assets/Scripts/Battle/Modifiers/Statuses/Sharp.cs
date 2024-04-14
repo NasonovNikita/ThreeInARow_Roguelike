@@ -6,41 +6,32 @@ using UnityEngine;
 namespace Battle.Modifiers.Statuses
 {
     [Serializable]
-    public class Sharp : Status, ISaveAble, IConcatAble
+    public class Sharp : Status
     {
         [SerializeField] private int addition;
 
-        public Sharp(int addition, bool save = false)
+        public Sharp(int addition, bool save = false) : base(save)
         {
             this.addition = addition;
-            Save = save;
         }
         
         public override Sprite Sprite => throw new NotImplementedException();
-
-        public override string Tag => throw new NotImplementedException();
-
         public override string Description => throw new NotImplementedException();
-
         public override string SubInfo => addition.ToString();
-
         public override bool ToDelete => addition == 0;
 
         public override void Init(Unit unit)
         {
             foreach (var enemy in unit.Enemies)
-                enemy.hp.onHpChanged += () => enemy.hp.AddDamageMod(new DamageMod(addition));
+                enemy.hp.OnValueChanged += _ => enemy.hp.onTakingDamageMods.Add(new DamageConstMod(addition));
             
             base.Init(unit);
         }
 
-        public bool ConcatAbleWith(IConcatAble other) =>
-            other is Sharp sharp &&
-            Save == sharp.Save;
+        protected override bool CanConcat(Modifier other) => 
+            other is Sharp;
 
-        public void Concat(IConcatAble other) =>
+        public override void Concat(Modifier other) => 
             addition += ((Sharp)other).addition;
-
-        public bool Save { get; }
     }
 }

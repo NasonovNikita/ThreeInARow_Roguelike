@@ -1,12 +1,12 @@
 using Map.Vertexes;
 using UI;
-using UI.Battle;
+using UI.Battle.HUD;
+using UI.Battle.ModsDisplaying;
 using UI.MessageWindows;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Core
+namespace Core.SingletonContainers
 {
     public class PrefabsContainer : MonoBehaviour
     {
@@ -40,19 +40,17 @@ namespace Core
 
         public ModIcon modIcon;
 
+        public HUD hud;
+
         public static PrefabsContainer instance;
         public void Awake()
         {
             if (instance == null)
             {
                 instance = this;
+                DontDestroyOnLoad(gameObject);
             }
-            else
-            {
-                Destroy(gameObject);
-            }
-        
-            DontDestroyOnLoad(gameObject);
+            else Destroy(gameObject);
         }
     }
 }

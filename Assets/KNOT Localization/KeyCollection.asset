@@ -233,7 +233,7 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
-  - _key: HealingDescription
+  - _key: HealingSpellDescription
     _metadata:
       _runtime: []
       _editor: []
@@ -417,7 +417,7 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
-  - _key: MedicalKitDescription
+  - _key: HealingModDescription
     _metadata:
       _runtime: []
       _editor: []
@@ -558,6 +558,14 @@ MonoBehaviour:
       _runtime: []
       _editor: []
   - _key: ToMap
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ModShieldDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DamageModDescription
     _metadata:
       _runtime: []
       _editor: []

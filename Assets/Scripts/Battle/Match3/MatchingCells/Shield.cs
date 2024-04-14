@@ -8,7 +8,7 @@ namespace Battle.Match3.MatchingCells
 
         protected override void Use()
         {
-            TurningUnit.hp.AddDamageMod(new Modifiers.StatModifiers.Shield(amount));
+            TurningUnit.hp.onTakingDamageMods.Add(new Modifiers.StatModifiers.Shield(amount));
         }
 
         public override bool IsSameType(Cell second)

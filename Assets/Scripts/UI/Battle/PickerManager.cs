@@ -47,7 +47,7 @@ namespace UI.Battle
             if (!PossibleToPick(index)) return;
             player.target = manager.Enemies[index];
             DrawAim(manager.Enemies[index]);
-            currentPicker = manager.Enemies[index].GetComponent<Picker>();
+            currentPicker = manager.Enemies[index].GetComponentInChildren<Picker>();
         }
 
         public void OnPickerDestroyed(Picker picker)
@@ -73,10 +73,12 @@ namespace UI.Battle
             bool noOtherOptions = true;
             for (int i = 0; i < _allowedToPick.Length && i < manager.Enemies.Count; i++)
             {
-                if (_allowedToPick[i] && manager.Enemies[i] != null) noOtherOptions = false;
+                if (_allowedToPick[i] && manager.Enemies[i] != null && !manager.Enemies[i].Dead) noOtherOptions = false;
             }
 
-            return _allowedToPick[index] || noOtherOptions;
+            return manager.Enemies[index] != null &&
+                   !manager.Enemies[index].Dead && 
+                   (_allowedToPick[index] || noOtherOptions);
         }
     }
 }

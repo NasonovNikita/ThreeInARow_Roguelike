@@ -5,37 +5,31 @@ using UnityEngine;
 namespace Battle.Modifiers.Statuses
 {
     [Serializable]
-    public class Burning : Status, IConcatAble
+    public class Burning : Status
     {
-        private const int Dmg = 20;
+        private int dmg = 20;
         [SerializeField] private MoveCounter moveCounter;
 
-        public Burning(int moves = 1)
-        {
-            moveCounter = new MoveCounter(moves, true);
-        }
+        public Burning(int moves = 1) => 
+            moveCounter = CreateChangeableSubSystem(new MoveCounter(moves, true));
 
         public override Sprite Sprite => throw new NotImplementedException();
-
-        public override string Tag => throw new NotImplementedException();
-
         public override string Description => throw new NotImplementedException();
-
         public override string SubInfo => moveCounter.SubInfo;
-
         public override bool ToDelete => moveCounter.EndedWork;
 
         public override void Init(Unit unit)
         {
-            moveCounter.onMove = () => unit.TakeDamage(Dmg);
+            moveCounter.OnMove += () => unit.TakeDamage(dmg);
             
             base.Init(unit);
         }
 
-        public bool ConcatAbleWith(IConcatAble other) =>
-            other is Burning;
+        protected override bool CanConcat(Modifier other) => 
+            other is Burning burning && 
+            burning.moveCounter.Moves == moveCounter.Moves;
 
-        public void Concat(IConcatAble other) =>
-            moveCounter.moves += ((Burning)other).moveCounter.moves;
+        public override void Concat(Modifier other) => 
+            dmg += ((Burning)other).dmg;
     }
 }

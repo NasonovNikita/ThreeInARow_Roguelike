@@ -16,7 +16,7 @@ namespace Battle.Spells
                 .Where(enemy => enemy != null && enemy.damage != 0)
                 .ToList();
             
-            Tools.Random.RandomChoose(possible).damage.AddMod(new DamageMoveMod(damage, moves));
+            Tools.Random.RandomChoose(possible).damage.mods.Add(new DamageMoveMod(damage, moves));
         }
     }
 }

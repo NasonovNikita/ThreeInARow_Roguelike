@@ -13,7 +13,7 @@ namespace Battle.Spells
         
         protected override void Action()
         {
-            unitBelong.damage.AddMod(new DamageMoveMod(damage, damageModMoves));
+            unitBelong.damage.mods.Add(new DamageMoveMod(damage, damageModMoves));
             unitBelong.AddStatus(new Stun(stunMoves));
         }
 

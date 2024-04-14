@@ -18,9 +18,9 @@ MonoBehaviour:
     _key: MedicalKit
     _formatters: []
   descriptionKeyRef:
-    _key: MedicalKitDescription
+    _key: HealingModDescription
     _formatters: []
-  value: 0.25
+  value: 0
   references:
     version: 2
     RefIds: []

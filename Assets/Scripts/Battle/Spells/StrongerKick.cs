@@ -10,7 +10,7 @@ namespace Battle.Spells
         [SerializeField] private int moves;
 
         protected override void Action() =>
-            unitBelong.damage.AddMod(new DamageMoveMod(damage, moves));
+            unitBelong.damage.mods.Add(new DamageMoveMod(damage, moves));
 
         public override string Description =>
             string.Format(descriptionKeyRef.Value, damage, moves);

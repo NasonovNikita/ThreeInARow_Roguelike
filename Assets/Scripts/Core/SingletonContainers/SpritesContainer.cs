@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core
+namespace Core.SingletonContainers
 {
     public class SpritesContainer : MonoBehaviour
     {

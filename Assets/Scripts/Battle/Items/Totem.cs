@@ -8,7 +8,6 @@ namespace Battle.Items
     public class Totem : Item
     {
         [SerializeField] private int chance;
-        [SerializeField] private int leftHp;
 
         public override string Title => titleKeyRef.Value;
         public override string Description => descriptionKeyRef.Value;
@@ -16,7 +15,7 @@ namespace Battle.Items
 
         public override void Get()
         {
-            Player.data.AddStatus(new Immortality(chance, leftHp, true));
+            Player.data.AddStatus(new Immortality(chance, true));
             
             base.Get();
         }

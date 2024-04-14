@@ -1,44 +1,42 @@
 using System;
 using Battle.Units;
-using UI.Battle;
+using Other;
 using UnityEngine;
 
 namespace Battle.Modifiers.Statuses
 {
     [Serializable]
-    public class Immortality : Status, ISaveAble
+    public class Immortality : Status
     {
         [SerializeField] private int chance;
-        [SerializeField] private int leftHp;
 
-        public Immortality(int chance, int leftHp, bool save)
-        {
-            this.chance = chance;
-            this.leftHp = leftHp;
-            Save = save;
-        }
-        
-        public override Sprite Sprite => throw new System.NotImplementedException();
-        public override string Tag => throw new System.NotImplementedException();
-        public override string Description => throw new System.NotImplementedException();
-        public override string SubInfo => IModIconAble.EmptyInfo;
-        public override bool ToDelete => false;
+        public Immortality(int chance, bool save = false) : base(save) => this.chance = chance;
+
+        public override Sprite Sprite => throw new NotImplementedException();
+        public override string Description => throw new NotImplementedException();
+        public override string SubInfo => EmptyInfo;
+        public override bool ToDelete => chance <= 0;
 
         public override void Init(Unit unit)
         {
-            unit.hp.onHpChanged += CheckAndApply;
+            unit.hp.OnValueChanged += _ => CheckAndApply();
             
             base.Init(unit);
         }
 
         private void CheckAndApply()
         {
-            if (belongingUnit.hp <= 0 && Other.Tools.Random.RandomChance(chance))
-            {
-                belongingUnit.hp.Heal(leftHp);
-            }
+            if (belongingUnit.hp <= 0 && Tools.Random.RandomChance(chance)) 
+                belongingUnit.hp.Heal(1);
         }
 
-        public bool Save { get; }
+        protected override bool CanConcat(Modifier other) => 
+            other is Immortality;
+
+        public override void Concat(Modifier other)
+        {
+            chance += ((Immortality)other).chance;
+            chance = Math.Max(chance, 100);
+        }
     }
 }

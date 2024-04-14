@@ -1,4 +1,5 @@
 using Core;
+using Core.SingletonContainers;
 using Knot.Localization;
 using Shop;
 using UnityEngine.SceneManagement;

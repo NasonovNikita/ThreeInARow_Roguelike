@@ -8,7 +8,7 @@ namespace Battle.Spells
     {
         [SerializeField] private int protectionAmount;
 
-        protected override void Action() => unitBelong.hp.AddDamageMod(new DamageMod(-protectionAmount));
+        protected override void Action() => unitBelong.hp.onTakingDamageMods.Add(new DamageConstMod(-protectionAmount));
 
         public override string Description =>
             string.Format(descriptionKeyRef.Value, protectionAmount);

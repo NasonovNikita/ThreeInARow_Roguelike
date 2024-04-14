@@ -42,15 +42,17 @@ namespace Battle
             InitEnemies();
             onBattleStart?.Invoke();
             PlayerTurn();
+
+            player.OnDied += OnPlayerDeath;
         }
-        
-        public void OnPlayerDeath()
+
+        private void OnPlayerDeath()
         {
             BattleEnd();
             Instantiate(loseMessage, uiCanvas.transform);
         }
 
-        public void OnEnemyDeath()
+        private void OnEnemyDeath()
         {
             if (Enemies.Any(enemy => enemy != null)) return;
 
@@ -68,7 +70,7 @@ namespace Battle
 
         private IEnumerator EnemiesAct()
         {
-            foreach (var enemy in Enemies)
+            foreach (var enemy in Enemies.Where(enemy => enemy != null))
             {
                 CurrentlyTurningUnit = enemy;
                 yield return StartCoroutine(enemy.Turn());
@@ -94,7 +96,9 @@ namespace Battle
         {
             foreach (Enemy enemy in enemyGroup.GetEnemies())
             {
+                if (enemy == null) continue;
                 Enemies.Add(LoadEnemy(enemy));
+                enemy.OnDied += OnEnemyDeath;
             }
             
             PlaceEnemies();
@@ -102,7 +106,6 @@ namespace Battle
 
         private Enemy LoadEnemy(Enemy enemy)
         {
-            if (enemy == null) return null;
             enemy = Instantiate(enemy, mainCanvas.transform, false);
             enemy.target = player;
             

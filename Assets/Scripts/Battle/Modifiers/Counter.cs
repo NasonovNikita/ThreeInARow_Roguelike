@@ -1,36 +1,51 @@
 using System;
+using Other;
 using UnityEngine;
 
 namespace Battle.Modifiers
 {
     [Serializable]
-    public class Counter : IConcatAble
+    public class Counter : IChangeAble
+
     {
-        [SerializeField] public int count;
+    [SerializeField] private int count;
+    public int Count => count;
 
-        public Counter(int count) => this.count = count;
+    public Counter(int count) => this.count = count;
 
-        public bool EndedWork => count == 0;
-        public string SubInfo => count.ToString();
+    public event Action OnChanged;
 
-        public int Decrease(int val)
-        {
-            int res = Math.Max(val - count, 0);
-            count = Math.Max(count - val, 0);
-            
-            return res;
-        }
+    public string SubInfo => count.ToString();
 
-        public int Increase(int val)
-        {
-            int res = val + count;
-            count = 0;
-            
-            return res;
-        }
+    public void Concat(Counter other)
+    {
+        count += other.count;
+        if (count < 0) count = 0;
 
-        public bool ConcatAbleWith(IConcatAble other) => other is Counter;
+        OnChanged?.Invoke();
+    }
 
-        public void Concat(IConcatAble other) => count += ((Counter)other).count;
+    public int Decrease(int val)
+    {
+        int res = Math.Max(val - count, 0);
+        count = Math.Max(count - val, 0);
+
+        OnChanged?.Invoke();
+
+        return res;
+    }
+
+    public int Increase(int val)
+    {
+        int res = val + count;
+        count = 0;
+
+        OnChanged?.Invoke();
+
+        return res;
+    }
+
+    public static Counter operator +(Counter first, Counter second) =>
+        new(first.count + second.count);
     }
 }

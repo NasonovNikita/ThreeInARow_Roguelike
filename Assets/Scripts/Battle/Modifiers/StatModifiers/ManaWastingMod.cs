@@ -1,18 +1,19 @@
+using System;
+using Core.SingletonContainers;
+using Knot.Localization;
 using UnityEngine;
 
 namespace Battle.Modifiers.StatModifiers
 {
-    public class ManaWastingMod : SimpleStatModifier
+    [Serializable]
+    public class ManaWastingMod : ValuedStatModifier
     {
         public ManaWastingMod(int value, bool save = false) : base(value, save) {}
 
-        public override Sprite Sprite => throw new System.NotImplementedException();
+        public override Sprite Sprite => throw new NotImplementedException();
 
-        public override string Tag => throw new System.NotImplementedException();
+        protected override KnotTextKeyReference DescriptionKnotKeyReferencePositive => ModDescriptionsContainer.Instance.;
 
-        public override string Description => throw new System.NotImplementedException();
-
-        protected override bool ConcatAbleWith(BaseStatModifier other) => 
-            other is ManaWastingMod;
+        protected override bool CanConcat(Modifier other) => other is ManaWastingMod;
     }
 }

@@ -1,18 +1,16 @@
-using System;
+using Core.SingletonContainers;
+using Knot.Localization;
 using UnityEngine;
 
 namespace Battle.Modifiers.StatModifiers
 {
-    [Serializable]
-    public class DamageMod : SimpleStatModifier
+    public abstract class DamageMod : ValuedStatModifier
     {
-        public DamageMod(int value, bool save = false) : base(value, save) {}
-        
-        public override Sprite Sprite => throw new NotImplementedException();
+        protected DamageMod(int value, bool save = false) : base(value, save) {}
 
-        public override string Tag => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        protected override bool ConcatAbleWith(BaseStatModifier other) => 
-            other is DamageMod;
+        public override Sprite Sprite => SpritesContainer.instance.damageMod;
+
+        protected override KnotTextKeyReference DescriptionKnotKeyReferencePositive => 
+            ModDescriptionsContainer.Instance.damageModDescription;
     }
 }

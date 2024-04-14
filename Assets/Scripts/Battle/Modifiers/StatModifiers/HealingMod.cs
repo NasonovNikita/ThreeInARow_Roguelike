@@ -1,18 +1,21 @@
+using System;
+using Core.SingletonContainers;
+using Knot.Localization;
 using UnityEngine;
 
 namespace Battle.Modifiers.StatModifiers
 {
-    public class HealingMod : SimpleStatModifier
+    [Serializable]
+    public class HealingMod : ValuedStatModifier
     {
         public HealingMod(int value, bool save = false) : base(value, save) {}
 
-        public override Sprite Sprite => throw new System.NotImplementedException();
+        public override Sprite Sprite => SpritesContainer.instance.hpHealing;
 
-        public override string Tag => throw new System.NotImplementedException();
+        protected override KnotTextKeyReference DescriptionKnotKeyReferencePositive => 
+            ModDescriptionsContainer.Instance.healingModDescription;
 
-        public override string Description => throw new System.NotImplementedException();
-        
-        protected override bool ConcatAbleWith(BaseStatModifier other) =>
+        protected override bool CanConcat(Modifier other) => 
             other is HealingMod;
     }
 }

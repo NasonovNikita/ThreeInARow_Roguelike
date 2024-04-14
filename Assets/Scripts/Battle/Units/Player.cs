@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Audio;
+using Battle.Modifiers;
 using Battle.Modifiers.Statuses;
 using Battle.Spells;
 
@@ -43,12 +44,6 @@ namespace Battle.Units
             AudioManager.instance.Play(AudioEnum.PlayerHit);
         }
 
-        protected override void NoHp()
-        {
-            manager.OnPlayerDeath();
-            Destroy(gameObject);
-        }
-
         private void Load()
         {
             hp = data.hp;
@@ -56,7 +51,7 @@ namespace Battle.Units
             damage = data.damage;
             manaPerGem = data.manaPerGem;
             spells = new List<Spell>(data.spells);
-            statuses = new List<Status>(data.statuses);
+            statuses = new ModifierList<Status>(data.statuses);
         }
 
         private void Save() => data = PlayerData.NewData(this, data);

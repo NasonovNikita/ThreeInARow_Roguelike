@@ -1,13 +1,11 @@
-using System;
-using Battle;
 using Knot.Localization;
 using UnityEngine;
 
-namespace Core
+namespace Core.SingletonContainers
 {
-    public class LocalizedStringsKeys : MonoBehaviour
+    public class LocalizedStringsKeysContainer : MonoBehaviour
     {
-        public static LocalizedStringsKeys instance;
+        public static LocalizedStringsKeysContainer instance;
 
         #region Modifiers
         

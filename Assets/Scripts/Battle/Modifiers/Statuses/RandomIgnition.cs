@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Battle.Modifiers.Statuses
 {
     [Serializable]
-    public class RandomIgnition : Status, IConcatAble
+    public class RandomIgnition : Status
     {
         [SerializeField] private int chance;
         [SerializeField] private int burningMoves;
@@ -17,22 +17,17 @@ namespace Battle.Modifiers.Statuses
             this.chance = chance;
             this.burningMoves = burningMoves;
 
-            moveCounter = new MoveCounter(moves);
+            moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
         }
         
         public override Sprite Sprite => throw new NotImplementedException();
-
-        public override string Tag => throw new NotImplementedException();
-
         public override string Description => throw new NotImplementedException();
-
         public override string SubInfo => moveCounter.SubInfo;
-
         public override bool ToDelete => moveCounter.EndedWork || chance == 0;
 
         public override void Init(Unit unit)
         {
-            moveCounter.onMove = () =>
+            moveCounter.OnMove += () =>
             {
                 if (Other.Tools.Random.RandomChance(chance)) unit.AddStatus(new Burning(burningMoves));
             };
@@ -40,11 +35,12 @@ namespace Battle.Modifiers.Statuses
             base.Init(unit);
         }
 
-        public bool ConcatAbleWith(IConcatAble other) =>
+        protected override bool CanConcat(Modifier other) =>
             other is RandomIgnition ignition &&
-            burningMoves == ignition.burningMoves;
+            ignition.moveCounter.Moves == moveCounter.Moves &&
+            ignition.burningMoves == burningMoves;
 
-        public void Concat(IConcatAble other) =>
+        public override void Concat(Modifier other) =>
             chance += ((RandomIgnition)other).chance;
     }
 }

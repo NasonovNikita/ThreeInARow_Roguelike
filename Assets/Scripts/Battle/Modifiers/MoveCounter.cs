@@ -1,15 +1,20 @@
 using System;
+using Other;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Battle.Modifiers
 {
     [Serializable]
-    public class MoveCounter : IConcatAble
+    public class MoveCounter : IChangeAble
     {
-        [SerializeField] public int moves;
-        [SerializeField] public bool delay;
-        public Action onMove;
+        [SerializeField] private int moves;
+        [SerializeField] private bool delay;
+
+        public int Moves => moves;
+        
+        public event Action OnMove;
+        public event Action OnChanged;
 
 
         public MoveCounter(int moves,
@@ -33,13 +38,16 @@ namespace Battle.Modifiers
             }
             if (EndedWork) return;
             
-            onMove?.Invoke();
+            OnMove?.Invoke();
+            OnChanged?.Invoke();
             moves -= 1;
         }
+        public void Concat(MoveCounter other)
+        {
+            moves += other.moves;
+            OnChanged?.Invoke();
+        }
 
-        public bool ConcatAbleWith(IConcatAble other) => other is MoveCounter;
-        public void Concat(IConcatAble other) => moves += ((MoveCounter)other).moves;
-        
         private void Init() => Object.FindFirstObjectByType<BattleManager>().onTurnEnd += Move;
     }
 }
