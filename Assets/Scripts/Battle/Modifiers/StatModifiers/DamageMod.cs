@@ -8,9 +8,14 @@ namespace Battle.Modifiers.StatModifiers
     {
         protected DamageMod(int value, bool save = false) : base(value, save) {}
 
-        public override Sprite Sprite => SpritesContainer.instance.damageMod;
+        protected override bool IsPositive => value > 0;
 
         protected override KnotTextKeyReference DescriptionKnotKeyReferencePositive => 
-            ModDescriptionsContainer.Instance.damageModDescription;
+            ModDescriptionsContainer.Instance.damageModDescriptionPositive;
+        protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
+            ModDescriptionsContainer.Instance.damageModDescriptionNegative;
+
+        protected override Sprite SpriteNegative => SpritesContainer.Instance.damageMod;
+        protected override Sprite SpritePositive => SpritesContainer.Instance.damageMod;
     }
 }

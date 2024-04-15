@@ -11,7 +11,7 @@ namespace Battle.Modifiers.StatModifiers
         public DamageMoveMod(int value, int moves, bool save = false) : base(value, save) => 
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
         public override string SubInfo => moveCounter.SubInfo;
-        public override bool ToDelete => moveCounter.EndedWork;
+        public override bool ToDelete => moveCounter.EndedWork || base.ToDelete;
         protected override bool CanConcat(Modifier other) => 
             other is DamageMoveMod damageMoveMod &&
             damageMoveMod.moveCounter.Moves == moveCounter.Moves;

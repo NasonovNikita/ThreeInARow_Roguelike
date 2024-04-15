@@ -16,7 +16,7 @@ namespace Battle.Modifiers.StatModifiers
         
         protected override int Modify(int val) => counter.Decrease(val);
 
-        public override Sprite Sprite => SpritesContainer.instance.shield;
+        public override Sprite Sprite => SpritesContainer.Instance.shield;
         public override string Description => 
             string.Format(ModDescriptionsContainer.Instance.shieldDescription.Value, counter.Count);
         public override string SubInfo => counter.SubInfo;

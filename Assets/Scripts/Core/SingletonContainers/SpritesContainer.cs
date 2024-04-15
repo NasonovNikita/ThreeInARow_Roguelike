@@ -4,7 +4,7 @@ namespace Core.SingletonContainers
 {
     public class SpritesContainer : MonoBehaviour
     {
-        public static SpritesContainer instance;
+        public static SpritesContainer Instance { get; private set; }
 
         public Sprite damageMod;
         public Sprite manaMod;
@@ -19,9 +19,9 @@ namespace Core.SingletonContainers
         public Sprite empty;
         public void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 DontDestroyOnLoad(this);
             }
             else

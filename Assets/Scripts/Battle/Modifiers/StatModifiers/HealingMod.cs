@@ -10,10 +10,17 @@ namespace Battle.Modifiers.StatModifiers
     {
         public HealingMod(int value, bool save = false) : base(value, save) {}
 
-        public override Sprite Sprite => SpritesContainer.instance.hpHealing;
+        protected override Sprite SpritePositive => SpritesContainer.Instance.hpHealing;
+
+        protected override Sprite SpriteNegative => SpritesContainer.Instance.hpHealing;
+
+        protected override bool IsPositive => value > 0;
 
         protected override KnotTextKeyReference DescriptionKnotKeyReferencePositive => 
-            ModDescriptionsContainer.Instance.healingModDescription;
+            ModDescriptionsContainer.Instance.healingModDescriptionPositive;
+
+        protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
+            ModDescriptionsContainer.Instance.healingModDescriptionNegative;
 
         protected override bool CanConcat(Modifier other) => 
             other is HealingMod;

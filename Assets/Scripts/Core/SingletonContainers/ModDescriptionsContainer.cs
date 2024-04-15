@@ -18,7 +18,9 @@ namespace Core.SingletonContainers
         }
 
         [SerializeField] public KnotTextKeyReference shieldDescription;
-        [SerializeField] public KnotTextKeyReference damageModDescription;
-        [SerializeField] public KnotTextKeyReference healingModDescription;
+        [SerializeField] public KnotTextKeyReference damageModDescriptionPositive;
+        [SerializeField] public KnotTextKeyReference damageModDescriptionNegative;
+        [SerializeField] public KnotTextKeyReference healingModDescriptionPositive;
+        [SerializeField] public KnotTextKeyReference healingModDescriptionNegative;
     }
 }

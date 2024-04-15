@@ -14,16 +14,26 @@ namespace Battle.Modifiers.StatModifiers
         public override string SubInfo => value.ToString();
         public override bool ToDelete => value == 0;
         
+        protected abstract bool IsPositive { get; }
+        
         protected abstract KnotTextKeyReference DescriptionKnotKeyReferencePositive { get; }
         protected abstract KnotTextKeyReference DescriptionKnotKeyReferenceNegative { get; }
-
-        public override string Description
-        {
-            get
+        public override string Description =>
+            IsPositive switch
             {
-                return string.Format(DescriptionKnotKeyReferencePositive.Value, value);
-            }
-        }
+                true => string.Format(DescriptionKnotKeyReferencePositive.Value, value),
+                false => string.Format(DescriptionKnotKeyReferenceNegative.Value, value)
+            };
+        
+        protected abstract Sprite SpritePositive { get; }
+        protected abstract Sprite SpriteNegative { get; }
+        public override Sprite Sprite =>
+            IsPositive switch
+            {
+                true => SpritePositive,
+                false => SpriteNegative
+            };
+        
 
         protected override int Modify(int val) => val + value;
 

@@ -19,7 +19,7 @@ namespace UI
         public void Start()
         {
             GetComponentInChildren<Text>().text = item.Title;
-            GetComponentInChildren<Image>().sprite = item.img != null ? item.img : SpritesContainer.instance.empty;
+            GetComponentInChildren<Image>().sprite = item.img != null ? item.img : SpritesContainer.Instance.empty;
             GetComponent<InfoObject>().text = item.Description;
         }
     }
