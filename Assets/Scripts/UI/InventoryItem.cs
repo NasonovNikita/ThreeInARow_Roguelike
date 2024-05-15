@@ -1,5 +1,4 @@
-using Core;
-using Core.SingletonContainers;
+using Core.Singleton;
 using Other;
 using UI.MessageWindows;
 using UnityEngine;
@@ -10,6 +9,8 @@ namespace UI
     public class InventoryItem : MonoBehaviour
     {
         private LootItem item;
+        [SerializeField] private Sprite defaultSprite;
+        
         public static void Create(LootItem targetItem, Transform parentTransform)
         {
             InventoryItem res = Instantiate(PrefabsContainer.instance.inventoryItem, parentTransform);
@@ -19,7 +20,7 @@ namespace UI
         public void Start()
         {
             GetComponentInChildren<Text>().text = item.Title;
-            GetComponentInChildren<Image>().sprite = item.img != null ? item.img : SpritesContainer.Instance.empty;
+            GetComponentInChildren<Image>().sprite = item.img != null ? item.img : defaultSprite;
             GetComponent<InfoObject>().text = item.Description;
         }
     }

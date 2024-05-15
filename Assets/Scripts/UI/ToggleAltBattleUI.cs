@@ -10,12 +10,12 @@ namespace UI
         public void Awake()
         {
             toggle = GetComponent<Toggle>();
-            toggle.isOn = Globals.instance.altBattleUI;
+            toggle.isOn = Globals.Instance.altBattleUI;
         }
 
         public void SetUI(bool val)
         {
-            Globals.instance.altBattleUI = val;
+            Globals.Instance.altBattleUI = val;
         }
     }
 }

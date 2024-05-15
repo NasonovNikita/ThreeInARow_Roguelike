@@ -16,7 +16,7 @@ namespace Battle.Match3
 
         public Cell Acquire(Cell example) 
         {
-            var cell = cells.FirstOrDefault(cell => cell.IsSameType(example));
+            Cell cell = cells.FirstOrDefault(cell => cell.IsSameType(example));
             
             if (cell != null) cells.Remove(cell);
             else cell = CreateMissingCell(example);
@@ -36,7 +36,7 @@ namespace Battle.Match3
 
         private Cell CreateMissingCell(Cell example)
         {
-            var cell = Instantiate(example, transform);
+            Cell cell = Instantiate(example, transform);
             cell.gameObject.SetActive(false);
             
             return cell;

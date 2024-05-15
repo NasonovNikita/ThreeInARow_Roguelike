@@ -235,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: ai
       value: 
-      objectReference: {fileID: 8755307431239250715}
+      objectReference: {fileID: 1404310804014200424}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: hp.value
       value: 75
@@ -253,12 +253,20 @@ PrefabInstance:
       value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: damage.value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: chosenElement
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: mana.borderUp
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      propertyPath: damage.borderUp
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: damage.mDmg.value
@@ -279,20 +287,23 @@ PrefabInstance:
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: spells.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 06926e95eb59e394e89bb07a44ed0083, type: 2}
+      objectReference: {fileID: 11400000, guid: 45767540372d1404ca9aa3dcbb83f230, type: 2}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: damage.phDmg.borderUp
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3675304893426468661, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+    - {fileID: 0}
     - {fileID: 4528978514573126716, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1404310804014200424}
+    - targetCorrespondingSourceObject: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8755307431239250715}
+      addedObject: {fileID: 7306172327683562626}
   m_SourcePrefab: {fileID: 100100000, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
 --- !u!114 &3696471998360653708 stripped
 MonoBehaviour:
@@ -310,7 +321,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
   m_PrefabInstance: {fileID: 5520737363020123498}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8755307431239250715
+--- !u!114 &1404310804014200424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -323,3 +334,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedEnemy: {fileID: 3696471998360653708}
+--- !u!114 &7306172327683562626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7528170213058815377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad3ac6df58d45b4bff5d7bab7aa7bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 3696471998360653708}
+  timeBetweenIncrements: 10
+  incrementAmount: 7

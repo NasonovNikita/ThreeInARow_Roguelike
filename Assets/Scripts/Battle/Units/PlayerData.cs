@@ -25,10 +25,15 @@ namespace Battle.Units
         [SerializeField] public int manaPerGem;
         [SerializeField] public int money;
         
-        public static PlayerData NewData(Player player, PlayerData oldData = null) =>
+        public static PlayerData NewData(Player player, PlayerData oldData) =>
             NewData(player.hp, player.mana, player.damage, player.manaPerGem, player.Statuses, oldData);
 
-        public static PlayerData NewData(Hp hp, Mana mana, Damage damage, int manaPerGem, ModifierList<Status> statuses, PlayerData oldData = null)
+        public static PlayerData NewData(
+            Hp hp,
+            Mana mana,
+            Damage damage,
+            int manaPerGem,
+            ModifierList<Status> statuses)
         {
             var data = CreateInstance<PlayerData>();
             
@@ -38,13 +43,26 @@ namespace Battle.Units
             
             data.manaPerGem = manaPerGem;
             
-            data.statuses = statuses.Save();
+            statuses.SaveMods();
+            data.statuses = statuses;
             
-            if (oldData is null) return data;
-            
+            return data;
+        }
+        
+        public static PlayerData NewData(
+            Hp hp,
+            Mana mana,
+            Damage damage,
+            int manaPerGem,
+            ModifierList<Status> statuses,
+            PlayerData oldData)
+        {
+            PlayerData data = NewData(hp, mana, damage, manaPerGem, statuses);
+
             data.spells = oldData.spells;
             data.items = oldData.items;
             data.money = oldData.money;
+            data.cells = oldData.cells;
 
             return data;
         }

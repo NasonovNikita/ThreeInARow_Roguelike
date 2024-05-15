@@ -21,8 +21,9 @@ MonoBehaviour:
     _key: PoweredKickDescription
     _formatters: []
   useCost: 20
-  value: 2.5
-  count: 1
+  damage: 3
+  damageModMoves: 2
+  stunMoves: 1
   references:
     version: 2
     RefIds: []

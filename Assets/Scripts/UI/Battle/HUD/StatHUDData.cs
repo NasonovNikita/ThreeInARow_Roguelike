@@ -7,13 +7,11 @@ namespace UI.Battle.HUD
     [Serializable]
     public struct StatHUDData
     {
-        [SerializeReference] public Stat stat;
-            
         [SerializeField] private Color increaseColor;
         [SerializeField] private Color decreaseColor;
         [SerializeField] private Color defaultColor;
 
-        public Color ColorByStatValueChange(int delta) =>
+        public Color ColorByStatValueChange(int delta) => 
             delta switch
             {
                 > 0 => increaseColor,

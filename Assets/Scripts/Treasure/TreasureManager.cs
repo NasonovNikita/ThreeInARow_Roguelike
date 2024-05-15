@@ -11,13 +11,13 @@ namespace Treasure
 
         public void Awake()
         {
-            AudioManager.instance.StopAll();
+            AudioManager.Instance.StopAll();
             GameSave.Save();
             
             var treasureBox = FindFirstObjectByType<TreasureBox>();
             treasureBox.treasure = treasure;
             
-            AudioManager.instance.Play(AudioEnum.Treasure);
+            AudioManager.Instance.Play(AudioEnum.Treasure);
         }
     }
 }

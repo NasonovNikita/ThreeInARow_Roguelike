@@ -13,11 +13,9 @@ namespace Battle.Items
 
         public override string Description => string.Format(descriptionKeyRef.Value, healAmount);
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.AddStatus(new Vampirism(healAmount, true));
-            
-            base.Get();
         }
     }
 }

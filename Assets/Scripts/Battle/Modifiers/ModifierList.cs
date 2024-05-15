@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Battle.Modifiers.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Modifiers
@@ -23,11 +24,15 @@ namespace Battle.Modifiers
             if (modList.Contains(elem)) OnModAdded?.Invoke(elem);
         }
 
-        public ModifierList<T> Save()
+        public void SaveMods()
         {
-            modList = Modifier.SaveList(modList);
+            Modifier.RemoveNotSavingMods(modList);
+            OnModAdded = null;
+        }
 
-            return this;
+        public void InitMods()
+        {
+            foreach (T mod in modList) mod.Init();
         }
     }
 }

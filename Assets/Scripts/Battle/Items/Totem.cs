@@ -13,11 +13,9 @@ namespace Battle.Items
         public override string Description => descriptionKeyRef.Value;
 
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.AddStatus(new Immortality(chance, true));
-            
-            base.Get();
         }
     }
 }

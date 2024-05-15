@@ -20,8 +20,7 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: MaceDescription
     _formatters: []
-  moves: 3
-  value: 0.15
+  addition: 1
   references:
     version: 2
     RefIds: []

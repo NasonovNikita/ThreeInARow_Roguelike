@@ -4,6 +4,7 @@ using Battle.Modifiers;
 using Battle.Modifiers.Statuses;
 using Battle.Spells;
 using Battle.Units.Stats;
+using Core.Singleton;
 using Tools = Other.Tools;
 using UnityEngine;
 
@@ -24,14 +25,14 @@ namespace Battle.Units
         public Unit target;
         public abstract List<Unit> Enemies { get; }
         
-        protected BattleManager manager;
+        protected BattleFlowManager battleFlowManager;
         
         private int currentMovesCount;
 
         protected bool HasMoves => currentMovesCount > 0;
         public ModifierList<Status> Statuses => statuses;
 
-        protected ModifierList<Status> statuses = new ();
+        protected ModifierList<Status> statuses = new();
 
         public event Action OnSpellCasted;
         public event Action OnMadeHit;
@@ -40,19 +41,22 @@ namespace Battle.Units
         public bool Dead { get; private set; }
         
         public void UseSpell() => OnSpellCasted?.Invoke();
-        public void MakeHit() => OnMadeHit?.Invoke();
+        public void InvokeOnMadeHit() => OnMadeHit?.Invoke();
         
         public virtual void Awake()
         {
-            manager = FindFirstObjectByType<BattleManager>();
+            battleFlowManager = FindFirstObjectByType<BattleFlowManager>();
 
             Tools.InstantiateAll(spells);
-            foreach (var spell in spells)
+
+            hp.OnValueChanged += _ => CheckHp();
+            
+            foreach (Spell spell in spells)
             {
                 spell.Init(this);
             }
 
-            foreach (var status in statuses.ModList)
+            foreach (Status status in statuses.ModList)
             {
                 status.Init(this);
             }
@@ -60,33 +64,23 @@ namespace Battle.Units
             RefillMoves();
         }
 
-        public void AddStatus(Status status)
-        {
-            statuses.Add(status);
-        }
-
         protected void RefillMoves() => currentMovesCount = maxMoves;
 
         public virtual void WasteMove() => currentMovesCount -= 1;
         public void WasteAllMoves() => currentMovesCount = 0;
 
-        public virtual void TakeDamage(int dmg)
+        private void CheckHp()
         {
-            hp.TakeDamage(dmg);
-
-            if (hp <= 0) NoHp();
+            if (hp <= 0) Die();
         }
 
-        protected virtual void NoHp()
+        public void Die()
         {
-            Die();
-        }
-
-        private void Die()
-        {
+            if (Dead) return;
+            
             Dead = true;
+            OffScreenPoint.Instance.Hide(gameObject);
             OnDied?.Invoke();
-            Destroy(gameObject);
         }
     }
 }

@@ -6,9 +6,8 @@ namespace UI.MessageWindows
     public class InfoWindow : MonoBehaviour
     {
         public static InfoWindow instance;
-        [SerializeField] private Object windowPrefab;
+        [SerializeField] private GameObject windowPrefab;
         private GameObject window;
-        private RectTransform windowTransform;
         private Text windowText;
         private RectTransform textTransform;
 
@@ -33,15 +32,14 @@ namespace UI.MessageWindows
         public void Write(string content)
         {
             if (window != null) Destroy(window.gameObject);
-            window = (GameObject) Instantiate(windowPrefab, FindFirstObjectByType<Canvas>().transform);
+            
+            window = Instantiate(windowPrefab, UICanvas.Instance.transform);
             windowText = window.GetComponentInChildren<Text>();
             textTransform = windowText.GetComponent<RectTransform>();
             windowText.text = content;
-            ContentSizeFitter fitter = windowText.GetComponent<ContentSizeFitter>();
+            var fitter = windowText.GetComponent<ContentSizeFitter>();
             fitter.SetLayoutHorizontal();
             fitter.SetLayoutVertical();
-            
-            windowTransform = window.GetComponent<RectTransform>();
         }
 
         public void MoveTo(Vector3 position, Vector3 localShift = new())
@@ -51,12 +49,11 @@ namespace UI.MessageWindows
             Transform wTr = window.transform;
             
             wTr.position = position;
-            var localPosition = wTr.localPosition;
-            var localScale = wTr.localScale;
+            Vector3 localPosition = wTr.localPosition;
+            Vector3 localScale = wTr.localScale;
             localPosition += localShift;
             
             wTr.localPosition = localPosition;
-            Rect rect = windowTransform.rect;
             float y = localPosition.y * localScale.y;
             float x = localPosition.x * localScale.x;
             float height = WindowSize.y;

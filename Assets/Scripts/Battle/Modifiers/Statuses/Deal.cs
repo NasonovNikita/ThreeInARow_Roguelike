@@ -1,6 +1,7 @@
 using System;
 using Battle.Modifiers.StatModifiers;
 using Battle.Units;
+using Core.Singleton;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,13 +13,13 @@ namespace Battle.Modifiers.Statuses
         [SerializeField] private int value;
         [SerializeField] private bool usedSpells;
 
-        public Deal(int value, bool save) : base(save)
+        public Deal(int value, bool save = false) : base(save)
         {
             this.value = value;
         }
         
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.deal;
+        public override string Description => SimpleFormatDescription(ModDescriptionsContainer.Instance.deal.Value, value);
         public override string SubInfo => EmptyInfo;
         public override bool ToDelete => usedSpells;
 
@@ -31,7 +32,7 @@ namespace Battle.Modifiers.Statuses
         {
             usedSpells = false;
             belongingUnit.OnSpellCasted += () => usedSpells = true;
-            Object.FindFirstObjectByType<BattleManager>().onBattleEnd += CheckAndAddMod;
+            Object.FindFirstObjectByType<BattleFlowManager>().OnBattleEnd += CheckAndAddMod;
             base.Init(unit);
         }
         

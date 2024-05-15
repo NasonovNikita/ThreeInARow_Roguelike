@@ -22,7 +22,7 @@ namespace Battle.Spells
                     continue;
                 }
 
-                enemy.TakeDamage(damage);
+                enemy.hp.TakeDamage(damage);
             }
         }
 

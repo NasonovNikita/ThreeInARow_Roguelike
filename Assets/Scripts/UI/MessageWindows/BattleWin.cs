@@ -1,5 +1,6 @@
 using Battle.Units;
 using Knot.Localization;
+using Other;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +13,11 @@ namespace UI.MessageWindows
         [SerializeField] private KnotTextKeyReference moneyRewardTextKeyReference;
         private int money;
 
-        public void Create(int moneyReward)
+        public void Create(int moneyReward, Transform uiCanvas)
         {
-            var window = Instantiate(this);
+            var window = Instantiate(this, uiCanvas);
             window.moneyRewardButtonText.text =
-                string.Format(moneyRewardTextKeyReference.Value, moneyReward);
+                moneyRewardTextKeyReference.Value.IndexErrorProtectedFormat(moneyReward);
             window.money = moneyReward;
         }
 

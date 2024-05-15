@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Battle.Spells;
 using Battle.Units;
 using Core;
-using Core.SingletonContainers;
+using Core.Singleton;
 using Other;
 using UnityEngine;
 using UnityEngine.UI;

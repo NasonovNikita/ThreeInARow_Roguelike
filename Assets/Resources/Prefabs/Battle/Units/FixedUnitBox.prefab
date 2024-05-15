@@ -164,6 +164,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6703702768177847263}
   - component: {fileID: 7265272065892824285}
+  - component: {fileID: 1007426882464643584}
+  - component: {fileID: 5315460510556990383}
+  - component: {fileID: 1915513231309454692}
   m_Layer: 5
   m_Name: FixedUnitBox
   m_TagString: Untagged
@@ -208,6 +211,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 0}
   grid: {fileID: 4254096913419558529}
+--- !u!114 &1007426882464643584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027260312934949208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508503390ae54a24bca7cdd053cf13ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5315460510556990383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027260312934949208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b211c12759fa430ca567dee041230ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudSpawner: {fileID: 1007426882464643584}
+  statHUDDataContainer: {fileID: 1915513231309454692}
+  statChangeBufferTime: 0.1
+--- !u!114 &1915513231309454692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027260312934949208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209d58299baf444685e8cd2693568d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  hpStatHUDData:
+    increaseColor: {r: 0.3028644, g: 0.9169811, b: 0.2197294, a: 1}
+    decreaseColor: {r: 1, g: 0, b: 0, a: 1}
+    defaultColor: {r: 1, g: 1, b: 0, a: 1}
+  manaStatHUDData:
+    increaseColor: {r: 0.9292844, g: 0.043396115, b: 1, a: 1}
+    decreaseColor: {r: 0.48823547, g: 0, b: 1, a: 1}
+    defaultColor: {r: 0.83396226, g: 0.6404201, b: 0.78099537, a: 1}
 --- !u!1 &2702370159903447562
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +533,6 @@ GameObject:
   - component: {fileID: 5940292443451695185}
   - component: {fileID: 6534702742754044975}
   - component: {fileID: 6118980160285431034}
-  - component: {fileID: 8233876490538660002}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -656,18 +706,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &8233876490538660002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8003845566927144312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 508503390ae54a24bca7cdd053cf13ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8058601437757262012
 GameObject:
   m_ObjectHideFlags: 0

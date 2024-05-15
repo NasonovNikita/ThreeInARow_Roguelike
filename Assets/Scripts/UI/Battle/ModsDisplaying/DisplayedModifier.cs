@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Other;
 using UnityEngine;
 
 namespace UI.Battle.ModsDisplaying
@@ -6,6 +8,12 @@ namespace UI.Battle.ModsDisplaying
     public abstract class DisplayedModifier
     {
         public event Action OnChanged;
+
+        protected static string SimpleFormatDescription(string original, params object[] args) =>
+            original.IndexErrorProtectedFormat(args);
+
+        protected static string FormatDescriptionByKeys(string original, Dictionary<string, object> args) =>
+            original.FormatByKeys(args);
 
         protected void InvokeOnChanged() => OnChanged?.Invoke();
         

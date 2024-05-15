@@ -14,10 +14,9 @@ namespace Battle.Items
         public override string Description => string.Format(descriptionKeyRef.Value, Tools.Percents(sale),
             Tools.Percents(ShopManager.salePrice));
 
-        public override void Get()
+        public override void OnGet()
         {
             ShopManager.salePrice = sale;
-            base.Get();
         }
     }
 }

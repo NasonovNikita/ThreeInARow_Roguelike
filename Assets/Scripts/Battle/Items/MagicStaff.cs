@@ -1,6 +1,5 @@
 using Battle.Modifiers.StatModifiers;
 using Battle.Units;
-using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -12,12 +11,11 @@ namespace Battle.Items
 
         public override string Title => titleKeyRef.Value;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, Tools.Percents(value));
+        public override string Description => string.Format(descriptionKeyRef.Value, value);
 
-        public override void Get()
+        public override void OnGet()
         {
-            Player.data.mana.wastingMods.Add(new ManaWastingMod(value, true));
-            base.Get();
+            Player.data.mana.wastingMods.Add(new ManaWastingConstMod(-value, true));
         }
     }
 }

@@ -21,8 +21,7 @@ MonoBehaviour:
     _key: MagicShieldDescription
     _formatters: []
   useCost: 30
-  value: 0.3
-  count: 1
+  protectionAmount: 5
   references:
     version: 2
     RefIds: []

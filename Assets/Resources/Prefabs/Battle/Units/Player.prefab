@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1915513231309454692, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 3610897239642332851}
     - target: {fileID: 2027260312934949208, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -84,6 +88,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2480965503648212043, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 3610897239642332851}
     - target: {fileID: 3086738334417198092, guid: 4eb56721f69a74544bb77b4f3d3b4b6b, type: 3}
       propertyPath: unit
       value: 

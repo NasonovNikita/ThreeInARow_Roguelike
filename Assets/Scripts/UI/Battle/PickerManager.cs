@@ -1,3 +1,4 @@
+using System.Linq;
 using Battle;
 using Battle.Units;
 using UnityEngine;
@@ -7,8 +8,9 @@ namespace UI.Battle
 {
     public class PickerManager : MonoBehaviour
     {
+        public static PickerManager Instance { get; private set; }
+        
         [SerializeField] private Player player;
-        [SerializeField] private BattleManager manager;
 
         [SerializeField] private Image aimPrefab;
         private Image previousAim;
@@ -17,15 +19,14 @@ namespace UI.Battle
 
         private static bool[] _allowedToPick = { true, false, true, false, true };
 
-        public void Start()
-        {
-            PickNextPossible();
-        }
-
         public static void SetAllAvailable() => _allowedToPick = new[] { true, true, true, true, true };
 
-        private void PickNextPossible()
+        public void Awake() => Instance = this;
+
+        public void PickNextPossible()
         {
+            if (BattleFlowManager.Instance.EnemiesWithoutNulls.All(enemy => enemy.Dead)) return;
+            
             for (int i = 0; i < _allowedToPick.Length; i++)
             {
                 if (!PossibleToPick(i)) continue;
@@ -45,9 +46,9 @@ namespace UI.Battle
         private void Pick(int index)
         {
             if (!PossibleToPick(index)) return;
-            player.target = manager.Enemies[index];
-            DrawAim(manager.Enemies[index]);
-            currentPicker = manager.Enemies[index].GetComponentInChildren<Picker>();
+            player.target = BattleFlowManager.Instance.enemiesWithNulls[index];
+            DrawAim(BattleFlowManager.Instance.enemiesWithNulls[index]);
+            currentPicker = BattleFlowManager.Instance.enemiesWithNulls[index].GetComponentInChildren<Picker>();
         }
 
         public void OnPickerDestroyed(Picker picker)
@@ -63,7 +64,7 @@ namespace UI.Battle
 
         private bool PossibleToPick(Picker picker)
         {
-            int index = manager.Enemies.IndexOf(picker.enemy);
+            int index = BattleFlowManager.Instance.enemiesWithNulls.IndexOf(picker.enemy);
 
             return PossibleToPick(index);
         }
@@ -71,13 +72,15 @@ namespace UI.Battle
         private bool PossibleToPick(int index)
         {
             bool noOtherOptions = true;
-            for (int i = 0; i < _allowedToPick.Length && i < manager.Enemies.Count; i++)
+            for (int i = 0; i < _allowedToPick.Length && i < BattleFlowManager.Instance.enemiesWithNulls.Count; i++)
             {
-                if (_allowedToPick[i] && manager.Enemies[i] != null && !manager.Enemies[i].Dead) noOtherOptions = false;
+                if (_allowedToPick[i] && BattleFlowManager.Instance.enemiesWithNulls[i] != null && 
+                    !BattleFlowManager.Instance.enemiesWithNulls[i].Dead)
+                    noOtherOptions = false;
             }
 
-            return manager.Enemies[index] != null &&
-                   !manager.Enemies[index].Dead && 
+            return BattleFlowManager.Instance.enemiesWithNulls[index] != null &&
+                   !BattleFlowManager.Instance.enemiesWithNulls[index].Dead && 
                    (_allowedToPick[index] || noOtherOptions);
         }
     }

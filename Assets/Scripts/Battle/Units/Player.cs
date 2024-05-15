@@ -10,14 +10,25 @@ namespace Battle.Units
     [Serializable]
     public class Player : Unit
     {
+        public static Player Instance { get; private set; }
+        
         public static PlayerData data;
 
-        public override List<Unit> Enemies => new(manager.Enemies);
+        public override List<Unit> Enemies => new(battleFlowManager.EnemiesWithoutNulls);
 
         public override void Awake()
         {
+            Instance = this;
+            
+            hp.OnValueChanged += _ => AudioManager.Instance.Play(AudioEnum.PlayerHit);
+            
             Load();
             base.Awake();
+        }
+
+        public void Start()
+        {
+            LateLoad();
         }
 
         public void OnDestroy() => Save();
@@ -27,21 +38,14 @@ namespace Battle.Units
             base.WasteMove();
             if (HasMoves) return;
             
-            manager.StartEnemiesTurn();
+            battleFlowManager.StartEnemiesTurn();
             RefillMoves();
         }
 
         public void StartTurn()
         {
             if (HasMoves) return;
-            manager.StartEnemiesTurn();
-        }
-
-        public override void TakeDamage(int dmg)
-        {
-            base.TakeDamage(dmg);
-            
-            AudioManager.instance.Play(AudioEnum.PlayerHit);
+            battleFlowManager.StartEnemiesTurn();
         }
 
         private void Load()
@@ -49,9 +53,17 @@ namespace Battle.Units
             hp = data.hp;
             mana = data.mana;
             damage = data.damage;
+            
             manaPerGem = data.manaPerGem;
             spells = new List<Spell>(data.spells);
             statuses = new ModifierList<Status>(data.statuses);
+        }
+
+        private void LateLoad()
+        {
+            hp.Init();
+            mana.Init();
+            damage.Init();
         }
 
         private void Save() => data = PlayerData.NewData(this, data);

@@ -125,10 +125,6 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
-  - _key: BurningDescription
-    _metadata:
-      _runtime: []
-      _editor: []
   - _key: PoisoningDescription
     _metadata:
       _runtime: []
@@ -417,7 +413,7 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
-  - _key: HealingModDescription
+  - _key: HealingModDescriptionPositive
     _metadata:
       _runtime: []
       _editor: []
@@ -565,7 +561,83 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
-  - _key: DamageModDescription
+  - _key: DamageModDescriptionPositive
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DamageModDescriptionNegative
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HealingModDescriptionNegative
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ManaWastingModDescriptionPositive
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HpDamageModDescriptionNegative
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HpDamageModDescriptionPositive
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ManaWastingModDescriptionNegative
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: BurningModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: DealModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: FuryModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ImmortalityModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: IrritationModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: PassiveBombModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: RandomIgnitionModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: SharpModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: StunModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: VampirismModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MedicalKitItemDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: EndTurn
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: KillAllEnemiesSpell
     _metadata:
       _runtime: []
       _editor: []

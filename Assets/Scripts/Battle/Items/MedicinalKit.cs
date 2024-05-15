@@ -8,15 +8,13 @@ namespace Battle.Items
     public class MedicinalKit : Item
     {
         [SerializeField] private int value;
-
         
         public override string Title => titleKeyRef.Value;
-        public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
+        public override string Description => string.Format(descriptionKeyRef.Value, value);
 
-        public override void Get()
+        public override void OnGet()
         {
-            Player.data.hp.onHealingMods.Add(new HealingMod(value, true));
-            base.Get();
+            Player.data.hp.onHealingMods.Add(new HealingConstMod(value, true));
         }
     }
 }

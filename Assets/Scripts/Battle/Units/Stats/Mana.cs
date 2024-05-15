@@ -32,10 +32,17 @@ namespace Battle.Units.Stats
 
         public Mana Save()
         {
-            refillingMods = refillingMods.Save();
-            wastingMods = wastingMods.Save();
+            refillingMods.SaveMods();
+            wastingMods.SaveMods();
+            UnAttach();
 
             return this;
+        }
+
+        public void Init()
+        {
+            refillingMods.InitMods();
+            wastingMods.InitMods();
         }
     }
 }

@@ -1,4 +1,4 @@
-using Core.SingletonContainers;
+using Core.Singleton;
 using Knot.Localization;
 using UnityEngine;
 
@@ -11,11 +11,11 @@ namespace Battle.Modifiers.StatModifiers
         protected override bool IsPositive => value > 0;
 
         protected override KnotTextKeyReference DescriptionKnotKeyReferencePositive => 
-            ModDescriptionsContainer.Instance.damageModDescriptionPositive;
+            ModDescriptionsContainer.Instance.damagePositive;
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
-            ModDescriptionsContainer.Instance.damageModDescriptionNegative;
+            ModDescriptionsContainer.Instance.damageNegative;
 
-        protected override Sprite SpriteNegative => SpritesContainer.Instance.damageMod;
-        protected override Sprite SpritePositive => SpritesContainer.Instance.damageMod;
+        protected override Sprite SpriteNegative => ModifierSpritesContainer.Instance.damage;
+        protected override Sprite SpritePositive => ModifierSpritesContainer.Instance.damage;
     }
 }

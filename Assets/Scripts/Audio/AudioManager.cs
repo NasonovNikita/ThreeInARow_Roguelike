@@ -5,15 +5,15 @@ namespace Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        public static AudioManager instance;
+        public static AudioManager Instance { get; private set; }
 
         private Dictionary<AudioEnum, AudioPlayer> sounds;
 
         public void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
             }
             else
             {

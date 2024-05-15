@@ -21,8 +21,7 @@ MonoBehaviour:
     _key: MoneyRainDescription
     _formatters: []
   useCost: 10
-  value: 7
-  count: 10
+  damage: 1
   references:
     version: 2
     RefIds: []

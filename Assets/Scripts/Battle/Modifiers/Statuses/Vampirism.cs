@@ -1,5 +1,6 @@
 using System;
 using Battle.Units;
+using Core.Singleton;
 using UnityEngine;
 
 namespace Battle.Modifiers.Statuses
@@ -12,8 +13,9 @@ namespace Battle.Modifiers.Statuses
         public Vampirism(int healAmount, bool save = false) : base(save) => 
             heal = healAmount;
 
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.vampirism;
+        public override string Description =>
+            SimpleFormatDescription(ModDescriptionsContainer.Instance.vampirism.Value, heal);
         public override string SubInfo => heal.ToString();
         public override bool ToDelete => heal == 0;
 

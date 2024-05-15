@@ -20,9 +20,7 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: VampireFangsDescription
     _formatters: []
-  from: 80
-  to: 100
-  minHeal: 10
+  healAmount: 4
   references:
     version: 2
     RefIds: []

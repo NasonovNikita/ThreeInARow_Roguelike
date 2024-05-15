@@ -1,5 +1,5 @@
 using Core;
-using Core.SingletonContainers;
+using Core.Singleton;
 using Other;
 using UnityEngine;
 

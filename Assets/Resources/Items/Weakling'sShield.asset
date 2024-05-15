@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f2068c99554e64aaafa2f887cfd102, type: 3}
   m_Name: Weakling'sShield
   m_EditorClassIdentifier: 
-  rarity: 1
+  rarity: 2
   img: {fileID: 0}
   titleKeyRef:
     _key: WeaklingsShield
@@ -21,7 +21,7 @@ MonoBehaviour:
     _key: WeaklingsShieldDescription
     _formatters: []
   lostDamage: 1
-  notGottenDamage: 10
+  notGottenDamage: 4
   references:
     version: 2
     RefIds: []

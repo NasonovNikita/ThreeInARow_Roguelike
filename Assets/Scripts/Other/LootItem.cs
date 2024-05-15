@@ -8,7 +8,7 @@ namespace Other
     public abstract class LootItem : ScriptableObject
     {
         [SerializeField] protected Rarity rarity;
-        public Sprite img;
+        [SerializeField] public Sprite img;
         
         public int Frequency =>
             rarity switch

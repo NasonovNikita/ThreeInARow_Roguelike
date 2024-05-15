@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace Core
 {
     public class Globals : MonoBehaviour
     {
-        public static Globals instance;
+        public static Globals Instance { get; private set; }
 
         public bool randomSeed;
 
@@ -20,16 +21,13 @@ namespace Core
     
         public void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
-            {
                 Destroy(gameObject);
-            }
-        
-            DontDestroyOnLoad(gameObject);
         }
     }
 }

@@ -78,8 +78,6 @@ MonoBehaviour:
     _rawText: Skips turn
   - _key: FreezingDescription
     _rawText: Misses with {0}% chance
-  - _key: BurningDescription
-    _rawText: Takes {0} fire dmg every turn
   - _key: PoisoningDescription
     _rawText: Takes {0} poison dmg every turn
   - _key: FrozenDescription
@@ -225,8 +223,8 @@ MonoBehaviour:
     _rawText: Increase max mana by {0} points and gain {1} mana
   - _key: MedicalKit
     _rawText: Medical Kit
-  - _key: HealingModDescription
-    _rawText: '{0}% more healing'
+  - _key: HealingModDescriptionPositive
+    _rawText: '{0} more healing'
   - _key: OldKnife
     _rawText: Old Knife
   - _key: OldKnifeDescription
@@ -305,6 +303,45 @@ MonoBehaviour:
   - _key: ToMap
     _rawText: To map
   - _key: ModShieldDescription
-    _rawText: Absorbs {} damage
-  - _key: DamageModDescription
-    _rawText: Increases damage by {}
+    _rawText: Absorbs {0} damage
+  - _key: DamageModDescriptionPositive
+    _rawText: Increases damage by {0}
+  - _key: DamageModDescriptionNegative
+    _rawText: Decreases damage by {0}
+  - _key: HealingModDescriptionNegative
+    _rawText: '{0} less healing'
+  - _key: ManaWastingModDescriptionPositive
+    _rawText: '{0} less mana wasting'
+  - _key: HpDamageModDescriptionNegative
+    _rawText: Gets {} more damage
+  - _key: HpDamageModDescriptionPositive
+    _rawText: Gets {} less damage
+  - _key: ManaWastingModDescriptionNegative
+    _rawText: '{} more mana wasting'
+  - _key: BurningModDescription
+    _rawText: Gets {} damage per cycle
+  - _key: DealModDescription
+    _rawText: If you don't use spells this battle you increase damage by {}
+  - _key: FuryModDescription
+    _rawText: Deals {addition} more damage when your hp is below {hpBorder}
+  - _key: ImmortalityModDescription
+    _rawText: May be immortal...
+  - _key: IrritationModDescription
+    _rawText: If nobody dies this cycle, starts to deal {} more damage
+  - _key: PassiveBombModDescription
+    _rawText: Somehow if there is at least {manaBorder} mana a bomb that deals {damage}
+      damage appears
+  - _key: RandomIgnitionModDescription
+    _rawText: '{chance} change to start burning for {burningMoves} cycles every cycle'
+  - _key: SharpModDescription
+    _rawText: A hit enemy takes {} more damage (once per cycle)
+  - _key: StunModDescription
+    _rawText: Can't make turns during this cycle
+  - _key: VampirismModDescription
+    _rawText: Heals {} hp when makes a hit
+  - _key: MedicalKitItemDescription
+    _rawText: '{} more healing'
+  - _key: EndTurn
+    _rawText: End turn
+  - _key: KillAllEnemiesSpell
+    _rawText: Kill all enemies

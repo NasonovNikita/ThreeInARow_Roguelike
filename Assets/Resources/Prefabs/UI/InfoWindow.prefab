@@ -167,7 +167,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: ertgwsgg
+  m_Text: Scaled info text
 --- !u!114 &5212755666173260891
 MonoBehaviour:
   m_ObjectHideFlags: 0

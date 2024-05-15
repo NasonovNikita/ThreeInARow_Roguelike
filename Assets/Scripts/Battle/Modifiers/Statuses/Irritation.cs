@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Battle.Modifiers.StatModifiers;
 using Battle.Units;
+using Core.Singleton;
 using UnityEngine;
 
 namespace Battle.Modifiers.Statuses
@@ -19,26 +20,27 @@ namespace Battle.Modifiers.Statuses
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
         }
         
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.irritation;
+        public override string Description =>
+            SimpleFormatDescription(ModDescriptionsContainer.Instance.irritation.Value, damageAddition);
         public override string SubInfo => moveCounter.SubInfo;
         public override bool ToDelete => moveCounter.EndedWork || damageAddition == 0;
 
         public override void Init(Unit unit)
         {
-            foreach (var enemy in unit.Enemies.Where(enemy => enemy != null))
+            foreach (Unit enemy in unit.Enemies.Where(enemy => enemy != null))
             {
                 enemy.hp.OnValueChanged += _ => CheckEnemy(enemy);
             }
 
-            Manager.onTurnEnd += CheckAndApply;
+            BattleFlowManager.OnCycleEnd += CheckAndApply;
             
             base.Init(unit);
         }
 
         private void CheckEnemy(Unit enemy)
         {
-            if (enemy.hp <= 0) enemyDied = true;
+            if (enemy.Dead) enemyDied = true;
         }
 
         private void CheckAndApply()

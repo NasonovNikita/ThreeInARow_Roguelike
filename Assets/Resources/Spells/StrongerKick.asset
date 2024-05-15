@@ -21,8 +21,8 @@ MonoBehaviour:
     _key: StrongerKickDescription
     _formatters: []
   useCost: 25
-  value: 0.3
-  count: 1
+  damage: 1
+  moves: 1
   references:
     version: 2
     RefIds: []

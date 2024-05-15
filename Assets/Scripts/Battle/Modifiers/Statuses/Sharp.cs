@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Battle.Modifiers.StatModifiers;
 using Battle.Units;
+using Core.Singleton;
 using UnityEngine;
 
 namespace Battle.Modifiers.Statuses
@@ -10,23 +12,36 @@ namespace Battle.Modifiers.Statuses
     {
         [SerializeField] private int addition;
 
-        public Sharp(int addition, bool save = false) : base(save)
-        {
+        private List<Unit> hitEnemies = new();
+
+        public Sharp(int addition, bool save = false) : base(save) =>
             this.addition = addition;
-        }
-        
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
+
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.sharp;
+        public override string Description =>
+            SimpleFormatDescription(ModDescriptionsContainer.Instance.sharp.Value, addition);
         public override string SubInfo => addition.ToString();
         public override bool ToDelete => addition == 0;
 
         public override void Init(Unit unit)
         {
-            foreach (var enemy in unit.Enemies)
-                enemy.hp.OnValueChanged += _ => enemy.hp.onTakingDamageMods.Add(new DamageConstMod(addition));
+            foreach (Unit enemy in unit.Enemies)
+                enemy.hp.OnValueChanged += _ => ApplyMod(enemy);
+
+            BattleFlowManager.OnCycleEnd += EmptyEnemiesList;
             
             base.Init(unit);
         }
+
+        private void ApplyMod(Unit enemy)
+        {
+            if (hitEnemies.Contains(enemy)) return;
+            
+            enemy.hp.onTakingDamageMods.Add(new HpDamageConstMod(addition));
+            hitEnemies.Add(enemy);
+        }
+
+        private void EmptyEnemiesList() => hitEnemies = new List<Unit>();
 
         protected override bool CanConcat(Modifier other) => 
             other is Sharp;

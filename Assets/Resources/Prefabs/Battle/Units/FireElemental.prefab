@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: damage.value
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: unitHp.value
@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: damage.borderUp
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5573798074470947835, guid: 44f97e39b9f766c4a803f59ecaa3ada2, type: 3}
       propertyPath: unitHp.borderUp

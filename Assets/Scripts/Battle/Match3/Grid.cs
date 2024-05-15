@@ -7,6 +7,8 @@ namespace Battle.Match3
 {
     public class Grid : MonoBehaviour
     {
+        public static Grid Instance { get; private set; }
+        
         [SerializeField] private RectTransform cellPrefab;
         private RectTransform[,] points;
         
@@ -16,8 +18,12 @@ namespace Battle.Match3
 
         private ObjectPool<Cell> cells;
 
+        public event Action<Cell, Cell> OnSwitchedCells;
+
         public void Awake()
         {
+            Instance = this;
+            
             points = new RectTransform[sizeY,sizeX];
 
             for (int i = 0; i < sizeY; i++)
@@ -29,11 +35,13 @@ namespace Battle.Match3
 
         public void SwitchCells(Cell first, Cell second)
         {
-            var firstIndex = FindCell(first);
-            var secondIndex = FindCell(second);
+            (int x1, int y1) = FindCell(first);
+            (int x2, int y2) = FindCell(second);
 
-            (box[firstIndex.Item1, firstIndex.Item2], box[secondIndex.Item1, secondIndex.Item2]) = 
-                (box[secondIndex.Item1, secondIndex.Item2], box[firstIndex.Item1, firstIndex.Item2]);
+            (box[x1, y1], box[x2, y2]) = 
+                (box[x2, y2], box[x1, y1]);
+            
+            OnSwitchedCells?.Invoke(box[x1, y1], box[x2, y2]);
         }
 
         public void SetCell(Cell newCell, int i, int j)
@@ -67,7 +75,7 @@ namespace Battle.Match3
         {
             cell.gameObject.SetActive(true);
             
-            var cellTransform = cell.transform;
+            Transform cellTransform = cell.transform;
             
             cellTransform.SetParent(points[i, j].transform, false);
             cellTransform.localPosition = Vector3.zero;
@@ -75,8 +83,8 @@ namespace Battle.Match3
 
         public bool CellsAreNeighbours(Cell cell1, Cell  cell2)
         {
-            var pos1 = FindCell(cell1);
-            var pos2 = FindCell(cell2);
+            (int, int) pos1 = FindCell(cell1);
+            (int, int) pos2 = FindCell(cell2);
         
             return pos1.Item1 == pos2.Item1 && Math.Abs(pos1.Item2 - pos2.Item2) == 1 ||
                    pos1.Item2 == pos2.Item2 && Math.Abs(pos1.Item1 - pos2.Item1) == 1;

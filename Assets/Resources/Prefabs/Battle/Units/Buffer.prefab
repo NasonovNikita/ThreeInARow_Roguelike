@@ -174,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: damage.value
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: chosenElement
@@ -186,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: damage.borderUp
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       propertyPath: spells.Array.size
@@ -213,6 +213,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1892870381988444954}
+    - targetCorrespondingSourceObject: {fileID: 2658521867484571899, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5062546265450984947}
   m_SourcePrefab: {fileID: 100100000, guid: fb0f786bf05e97c4382671decb973af1, type: 3}
 --- !u!1 &4365233067398381176 stripped
 GameObject:
@@ -232,6 +235,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedEnemy: {fileID: 7467393720399860837}
+--- !u!114 &5062546265450984947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365233067398381176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad3ac6df58d45b4bff5d7bab7aa7bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 7467393720399860837}
+  timeBetweenIncrements: 6
+  incrementAmount: 4
 --- !u!114 &7467393720399860837 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9210170007692870374, guid: fb0f786bf05e97c4382671decb973af1, type: 3}

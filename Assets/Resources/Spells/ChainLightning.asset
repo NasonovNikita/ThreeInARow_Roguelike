@@ -21,8 +21,7 @@ MonoBehaviour:
     _key: ChainLightningDescription
     _formatters: []
   useCost: 47
-  value: 35
-  count: 0
+  dmg: 35
   rise: 1.2
   references:
     version: 2

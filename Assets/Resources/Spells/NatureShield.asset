@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a7c6b3907f4697bd716f887f5a9b4c, type: 3}
   m_Name: NatureShield
   m_EditorClassIdentifier: 
+  rarity: 0
+  img: {fileID: 0}
+  titleKeyRef:
+    _key: 
+    _formatters: []
+  descriptionKeyRef:
+    _key: 
+    _formatters: []
   useCost: 45
-  title: Nature shield
-  description: Get 20 less dmg (per hit)
-  value: 20
-  count: 1
+  protectionAmount: 10
+  moves: 2
+  references:
+    version: 2
+    RefIds: []

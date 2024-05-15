@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fb7244e7e848f3b33ba5b205f8cca3, type: 3}
   m_Name: MedicalKit
   m_EditorClassIdentifier: 
-  rarity: 0
+  rarity: 1
   img: {fileID: 0}
   titleKeyRef:
     _key: MedicalKit
     _formatters: []
   descriptionKeyRef:
-    _key: HealingModDescription
+    _key: MedicalKitItemDescription
     _formatters: []
-  value: 0
+  value: 3
   references:
     version: 2
     RefIds: []

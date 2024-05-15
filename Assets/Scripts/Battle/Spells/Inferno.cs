@@ -1,4 +1,5 @@
 using Battle.Modifiers.Statuses;
+using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -9,10 +10,10 @@ namespace Battle.Spells
         [SerializeField] private int dmg;
         protected override void Action()
         {
-            foreach (var enemy in unitBelong.Enemies)
+            foreach (Unit enemy in unitBelong.Enemies)
             {
-                enemy.TakeDamage(dmg);
-                enemy.AddStatus(new Burning());
+                enemy.hp.TakeDamage(dmg);
+                enemy.Statuses.Add(new Burning());
             }
         }
 

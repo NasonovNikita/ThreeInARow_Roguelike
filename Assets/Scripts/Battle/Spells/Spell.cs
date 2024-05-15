@@ -13,19 +13,19 @@ namespace Battle.Spells
 
         protected Unit unitBelong;
 
-        protected BattleManager manager;
+        protected BattleFlowManager battleFlowManager;
 
         private const float CastTime = 0.5f; // TEMP
 
         public virtual void Init(Unit unit)
         {
             unitBelong = unit;
-            manager = FindFirstObjectByType<BattleManager>();
+            battleFlowManager = FindFirstObjectByType<BattleFlowManager>();
         }
 
         public void PlayerCast()
         {
-            if (manager.CurrentlyTurningUnit is Player)
+            if (battleFlowManager.CurrentlyTurningUnit is Player)
                 unitBelong.StartCoroutine(Cast());
         }
 

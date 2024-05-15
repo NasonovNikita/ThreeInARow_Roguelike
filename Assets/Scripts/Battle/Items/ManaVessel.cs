@@ -13,10 +13,9 @@ namespace Battle.Items
 
         public override string Description => string.Format(descriptionKeyRef.Value, addToBorder, addValue);
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.mana.ChangeBorderUp(addToBorder, addValue);
-            base.Get();
         }
     }
 }

@@ -13,10 +13,9 @@ namespace Battle.Items
 
         public override string Description => string.Format(descriptionKeyRef.Value, Other.Tools.Percents(value));
 
-        public override void Get()
+        public override void OnGet()
         {
-            Player.data.hp.onTakingDamageMods.Add(new DamageConstMod(-value, true));
-            base.Get();
+            Player.data.hp.onTakingDamageMods.Add(new HpDamageConstMod(-value, true));
         }
     }
 }

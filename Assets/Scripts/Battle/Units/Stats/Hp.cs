@@ -32,10 +32,17 @@ namespace Battle.Units.Stats
 
         public Hp Save()
         {
-            onHealingMods = onHealingMods.Save();
-            onTakingDamageMods = onTakingDamageMods.Save();
+            onHealingMods.SaveMods();
+            onTakingDamageMods.SaveMods();
+            UnAttach();
 
             return this;
+        }
+
+        public void Init()
+        {
+            onHealingMods.InitMods();
+            onTakingDamageMods.InitMods();
         }
     }
 }

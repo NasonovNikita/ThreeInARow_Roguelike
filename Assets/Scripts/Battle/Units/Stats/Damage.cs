@@ -19,9 +19,15 @@ namespace Battle.Units.Stats
 
         public Damage Save()
         {
-            mods = mods.Save();
+            mods.SaveMods();
+            UnAttach();
 
             return this;
+        }
+
+        public void Init()
+        {
+            mods.InitMods();
         }
     }
 }

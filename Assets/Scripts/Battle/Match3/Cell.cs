@@ -11,8 +11,8 @@ namespace Battle.Match3
 
         public virtual void Awake()
         {
-            grid = FindFirstObjectByType<Grid>();
-            generator = FindFirstObjectByType<GridGenerator>();
+            grid = Grid.Instance;
+            generator = GridGenerator.Instance;
         }
 
         public abstract bool BoxIsStable(Cell[,] box);

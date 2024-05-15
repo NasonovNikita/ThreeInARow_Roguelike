@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +15,19 @@ namespace Battle.Match3.MatchingCells
 
         [SerializeField] private ObjectMover mover;
         [SerializeField] private ObjectScaler scaler;
-        
 
         private (bool, bool) finishedOperation;
         private bool Finished => finishedOperation is { Item1: true, Item2: true };
-        protected Unit TurningUnit => manager.CurrentlyTurningUnit;
-        private BattleManager manager;
+        protected Unit TurningUnit => BattleFlowManager.Instance.CurrentlyTurningUnit;
 
         private Cell[,] box;
 
-        protected abstract void Use();
+        public static event Action<MatchingCell> OnCellUsed;
         
         public override void Awake()
         {
             base.Awake();
             box = grid.box;
-            manager = FindFirstObjectByType<BattleManager>();
         }
 
         public IEnumerator Choose()
@@ -93,7 +91,7 @@ namespace Battle.Match3.MatchingCells
             UseGems(rowedCells);
             DeleteGems(rowedCells);
             
-            TurningUnit.WasteMove();
+            TurningUnit?.WasteMove();
             grid.StartCoroutine(generator.Refill());
         }
 
@@ -131,12 +129,29 @@ namespace Battle.Match3.MatchingCells
 
         private static void UseGems(List<MatchingCell> cells)
         {
-            foreach (var cell in cells) cell.Use();
+            // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
+            foreach (MatchingCell cell in cells)
+            {
+                if (BattleFlowManager.Instance.CurrentlyTurningUnit != BattleFlowManager.NoTurningUnit)
+                    cell.LowUse();
+            }
         }
+
+        private void LowUse()
+        {
+            OnCellUsed?.Invoke(this);
+            
+            Use();
+        }
+
+        protected abstract void Use();
 
         private static void DeleteGems(List<MatchingCell> cells)
         {
-            foreach (var cell in cells) cell.Delete();
+            foreach (MatchingCell cell in cells)
+            {
+                cell.Delete();
+            }
         }
 
         private bool RowExists(int i, int j, int di = 0, int dj = 0)

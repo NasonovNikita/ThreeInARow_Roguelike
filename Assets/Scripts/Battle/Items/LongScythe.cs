@@ -11,10 +11,9 @@ namespace Battle.Items
 
         public override string Description => descriptionKeyRef.Value;
 
-        public override void Get()
+        public override void OnGet()
         {
             PickerManager.SetAllAvailable();
-            base.Get();
         }
     }
 }

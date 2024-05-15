@@ -1,6 +1,5 @@
 using System;
 using Battle.Units;
-using Object = UnityEngine.Object;
 
 namespace Battle.Modifiers.Statuses
 {
@@ -8,7 +7,7 @@ namespace Battle.Modifiers.Statuses
     public abstract class Status : Modifier
     {
         protected Unit belongingUnit;
-        protected BattleManager Manager => Object.FindFirstObjectByType<BattleManager>();
+        protected BattleFlowManager BattleFlowManager => BattleFlowManager.Instance;
 
         public virtual void Init(Unit unit) => belongingUnit = unit;
 

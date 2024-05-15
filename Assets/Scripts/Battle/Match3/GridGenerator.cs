@@ -8,6 +8,8 @@ namespace Battle.Match3
 {
     public class GridGenerator : MonoBehaviour
     {
+        public static GridGenerator Instance { get; private set; }
+        
         [SerializeField] private Grid grid;
         [SerializeField] private float refillTime;
 
@@ -17,7 +19,11 @@ namespace Battle.Match3
         private static bool BoxIsStable(Cell[,] box) =>
             Player.data.cells.Aggregate(true, (prev, cell) => prev && cell.BoxIsStable(box));
 
-        public void Awake() => Generate();
+        public void Awake()
+        {
+            Instance = this;
+            Generate();
+        }
 
         private void Generate()
         {

@@ -20,9 +20,9 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: IrritationDescription
     _formatters: []
-  useCost: 50
-  value: 5
-  count: 1
+  useCost: 54
+  damageAdditions: 2
+  moves: 2
   references:
     version: 2
     RefIds: []

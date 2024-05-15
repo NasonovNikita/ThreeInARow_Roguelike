@@ -21,8 +21,7 @@ MonoBehaviour:
     _key: HealingDescription
     _formatters: []
   useCost: 31
-  value: 0.2
-  count: 0
+  healAmount: 10
   references:
     version: 2
     RefIds: []

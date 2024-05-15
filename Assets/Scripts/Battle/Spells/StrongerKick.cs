@@ -1,8 +1,10 @@
+using System;
 using Battle.Modifiers.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Spells
 {
+    [Serializable]
     [CreateAssetMenu(fileName = "StrongerKick", menuName = "Spells/StrongerKick")]
     public class StrongerKick : Spell
     {

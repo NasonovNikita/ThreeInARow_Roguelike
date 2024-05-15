@@ -20,9 +20,8 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: TimeStopDescription
     _formatters: []
-  useCost: 50
-  value: 1
-  count: 1
+  useCost: 70
+  moves: 1
   references:
     version: 2
     RefIds: []

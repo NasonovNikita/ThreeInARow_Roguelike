@@ -1,5 +1,5 @@
 using System;
-using Core.SingletonContainers;
+using Core.Singleton;
 using UnityEngine;
 
 namespace Battle.Modifiers.StatModifiers
@@ -16,11 +16,11 @@ namespace Battle.Modifiers.StatModifiers
         
         protected override int Modify(int val) => counter.Decrease(val);
 
-        public override Sprite Sprite => SpritesContainer.Instance.shield;
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.shield;
         public override string Description => 
-            string.Format(ModDescriptionsContainer.Instance.shieldDescription.Value, counter.Count);
+            SimpleFormatDescription(ModDescriptionsContainer.Instance.shield.Value, counter.Count);
         public override string SubInfo => counter.SubInfo;
-        public override bool ToDelete => counter.Count == 0;
+        public override bool ToDelete => counter.EndedWork;
         protected override bool CanConcat(Modifier other) => other is Shield;
 
         public override void Concat(Modifier other) => 

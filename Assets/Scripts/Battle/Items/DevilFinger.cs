@@ -12,11 +12,9 @@ namespace Battle.Items
         public override string Title => titleKeyRef.Value;
         public override string Description => string.Format(descriptionKeyRef.Value, value);
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.AddStatus(new Deal(value, true));
-            
-            base.Get();
         }
     }
 }

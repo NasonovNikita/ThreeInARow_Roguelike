@@ -14,10 +14,9 @@ namespace Battle.Items
 
         public override string Description => string.Format(descriptionKeyRef.Value, minMana, damage);
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.AddStatus(new Modifiers.Statuses.PassiveBomb(damage, minMana, true));
-            base.Get();
         }
     }
 }

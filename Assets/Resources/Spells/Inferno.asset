@@ -21,8 +21,7 @@ MonoBehaviour:
     _key: InfernoDescription
     _formatters: []
   useCost: 95
-  value: 65
-  count: 2
+  dmg: 30
   references:
     version: 2
     RefIds: []

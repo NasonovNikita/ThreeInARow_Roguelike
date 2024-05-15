@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using UnityRandom = UnityEngine.Random;
@@ -39,8 +38,8 @@ namespace Other
                 float sum = chances.Sum(v => v.Item2);
                 float chosenChance = UnityRandom.Range(0, sum);
 
-                T result = default(T);
-                foreach (var chance in chances)
+                var result = default(T);
+                foreach ((T, float) chance in chances)
                 {
                     if (chosenChance > chance.Item2) chosenChance -= chance.Item2;
                     else 
@@ -58,8 +57,8 @@ namespace Other
                 int sum = chances.Sum(v => v.Item2);
                 int chosenChance = UnityRandom.Range(1, sum + 1);
 
-                T result = default(T);
-                foreach (var chance in chances)
+                var result = default(T);
+                foreach ((T, int) chance in chances)
                 {
                     if (chosenChance > chance.Item2) chosenChance -= chance.Item2;
                     else 
@@ -72,10 +71,8 @@ namespace Other
                 return result;
             }
 
-            public static void ResetRandom()
-            {
+            public static void ResetRandom() => 
                 UnityRandom.InitState((int) DateTime.Now.Ticks);
-            }
         }
         
         public static class Json
@@ -113,13 +110,13 @@ namespace Other
                 int i = 0;
                 while (i < json.Length)
                 {
-                    switch (json[i].ToString())
+                    switch (json[i])
                     {
-                        case "{":
+                        case '{':
                             nextElem += "{";
                             openedBracesCnt += 1;
                             break;
-                        case "}":
+                        case '}':
                             nextElem += "}";
                             openedBracesCnt -= 1;
                             break;
@@ -130,6 +127,7 @@ namespace Other
 
                     i++;
                     if (openedBracesCnt != 0) continue;
+                    
                     elements.Add(nextElem);
                     nextElem = "";
                     i++;
@@ -138,53 +136,72 @@ namespace Other
             }
         }
 
-        public static T InstantiateUI<T>(T obj) where T : Object
-        {
-            return Object.Instantiate(obj, Object.FindFirstObjectByType<Canvas>().transform);
-        }
+        public static T InstantiateUI<T>(T obj) where T : Object => 
+            Object.Instantiate(obj, Object.FindFirstObjectByType<Canvas>().transform);
 
-        public static void InitButton(Button btn, UnityAction onClick, string content)
+        public static void InitButton(this Button btn, UnityEngine.Events.UnityAction onClick, string content)
         {
             btn.onClick.AddListener(onClick);
             btn.GetComponentInChildren<Text>().text = content;
         }
 
         public static int Percents(float v) => (int)(v * 100);
+        
+        
+        public static string FormatByKeys(this string formattedString, IReadOnlyDictionary<string, object> values) =>
+            values.Aggregate(formattedString,
+                (current, pair) => current.Replace(pair.Key, (string)pair.Value));
 
-        public static string FormatByKeys(this string formattedString, IReadOnlyDictionary<string, string> values)
+        public static string IndexErrorProtectedFormat(this string original, params object[] args)
         {
-            return values.Aggregate(formattedString,
-                (current, pair) => current.Replace(pair.Key, pair.Value));
-        }
+            string res = "";
 
-        public static Dictionary<TKey, int> ConcatCounterDictionaries<TKey>(
-            this Dictionary<TKey, int> first,
-            Dictionary<TKey, int> second)
-        {
-            var res = new Dictionary<TKey, int>(first);
-            foreach ((TKey key, int value) in second)
+            List<string> parts = new();
+            List<string> replaceMarks = new();
+
+            string lastPart = "";
+            for (int i = 0; i < original.Length; i++)
             {
-                res.CounterAdd(key, value);
+                char c = original[i];
+                
+                if (c == '{')
+                {
+                    parts.Add(lastPart);
+                    lastPart = "";
+                    
+                    string replaceMark = "{";
+                    do
+                    {
+                        i++;
+                        replaceMark += original[i];
+                    } while (original[i] != '}');
+                    
+                    replaceMarks.Add(replaceMark);
+                }
+                else lastPart += c;
             }
+            
+            if (lastPart != "") parts.Add(lastPart);
 
-            return res;
+            UnityEngine.Assertions.Assert.IsTrue(
+                replaceMarks.Contains("{}") && new HashSet<string>(replaceMarks).Count == 1 ||
+                !replaceMarks.Contains("{}"),
+                "Indexed and non-indexed replace points can't exist at the same time\n" +
+                $"Original string: {original}");
+
+            if (replaceMarks.Contains("{}"))
+            {
+                int i = 0;
+                for (; i < replaceMarks.Count; i++)
+                {
+                    res += parts[i] + $"{{{i}}}";
+                }
+
+                if (parts.Count != replaceMarks.Count) res += parts[i];
+            }
+            else res = original;
+
+            return string.Format(res, args);
         }
-
-        public static List<T> ConcatLists<T>(List<List<T>> lists)
-        {
-            return lists.Where(list => list != null).SelectMany(list => list).ToList();
-        }
-
-        public static void CounterAdd<TKey>(this Dictionary<TKey, int> dict, TKey key, int value = 1)
-        {
-            if (!dict.ContainsKey(key)) dict.Add(key, value);
-            else dict[key] += value;
-        }
-
-        public static Dictionary<TKey, TVal> FilledEnumDictionary<TKey, TVal>() where TKey : Enum =>
-            Enum.GetValues(typeof(TKey))
-                .Cast<TKey>()
-                .ToDictionary<TKey, TKey, TVal>(@enum => @enum,
-                    _ => default);
     }
 }

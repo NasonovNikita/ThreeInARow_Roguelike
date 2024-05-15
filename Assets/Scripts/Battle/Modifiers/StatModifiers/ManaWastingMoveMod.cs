@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using Other;
 using UnityEngine;
 
 namespace Battle.Modifiers.StatModifiers
 {
     [Serializable]
-    public class ManaWastingMoveMod : ValuedStatModifier
+    public class ManaWastingMoveMod : ManaWastingMod
     {
         [SerializeField] private MoveCounter moveCounter;
 
@@ -15,10 +17,10 @@ namespace Battle.Modifiers.StatModifiers
             other is ManaWastingMoveMod wastingMoveMod &&
             moveCounter.Moves == wastingMoveMod.moveCounter.Moves;
 
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
+        protected override List<IChangeAble> ChangeAblesToInitialize => new() { moveCounter };
+
         public override string SubInfo => moveCounter.SubInfo;
-        public override bool ToDelete => moveCounter.EndedWork;
+        public override bool ToDelete => moveCounter.EndedWork || base.ToDelete;
         
         protected override bool CanConcat(Modifier other) => 
             other is ManaWastingMoveMod mod &&

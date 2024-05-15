@@ -1,12 +1,11 @@
 using System;
 using Other;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Battle.Modifiers
 {
     [Serializable]
-    public class MoveCounter : IChangeAble
+    public class MoveCounter : IChangeAble, IInit
     {
         [SerializeField] private int moves;
         [SerializeField] private bool delay;
@@ -16,17 +15,22 @@ namespace Battle.Modifiers
         public event Action OnMove;
         public event Action OnChanged;
 
-
+        public bool EndedWork => moves == 0;
+        public string SubInfo => moves.ToString();
+        
         public MoveCounter(int moves,
             bool delay = false)
         {
+            
             this.moves = moves;
             this.delay = delay;
-            BattleManager.onBattleStart += Init;
+            Init();
         }
 
-        public bool EndedWork => moves == 0;
-        public string SubInfo => moves.ToString();
+        public void Init()
+        {
+            BattleFlowManager.Instance.OnCycleEnd += Move;
+        }
 
 
         protected void Move()
@@ -39,15 +43,15 @@ namespace Battle.Modifiers
             if (EndedWork) return;
             
             OnMove?.Invoke();
-            OnChanged?.Invoke();
             moves -= 1;
+            OnChanged?.Invoke();
         }
         public void Concat(MoveCounter other)
         {
+            if (other.moves == 0) return;
+            
             moves += other.moves;
             OnChanged?.Invoke();
         }
-
-        private void Init() => Object.FindFirstObjectByType<BattleManager>().onTurnEnd += Move;
     }
 }

@@ -21,9 +21,10 @@ MonoBehaviour:
     _key: HotBloodDescription
     _formatters: []
   useCost: 53
-  value: 3
-  count: 3
   chance: 30
+  moves: 2
+  burningMoves: 1
+  damage: 2
   references:
     version: 2
     RefIds: []

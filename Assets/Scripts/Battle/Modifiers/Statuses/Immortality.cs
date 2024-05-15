@@ -1,5 +1,6 @@
 using System;
 using Battle.Units;
+using Core.Singleton;
 using Other;
 using UnityEngine;
 
@@ -12,8 +13,9 @@ namespace Battle.Modifiers.Statuses
 
         public Immortality(int chance, bool save = false) : base(save) => this.chance = chance;
 
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.immortality;
+        public override string Description =>
+            SimpleFormatDescription(ModDescriptionsContainer.Instance.immortality.Value);
         public override string SubInfo => EmptyInfo;
         public override bool ToDelete => chance <= 0;
 

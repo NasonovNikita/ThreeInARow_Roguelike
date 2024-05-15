@@ -1,3 +1,4 @@
+using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Match3.MatchingCells
@@ -8,8 +9,10 @@ namespace Battle.Match3.MatchingCells
 
         protected override void Use()
         {
-            TurningUnit.target.TakeDamage(TurningUnit.damage.ApplyDamage(baseAttackVal));
-            TurningUnit.MakeHit();
+            Unit unit = TurningUnit;
+            
+            unit.target.hp.TakeDamage(TurningUnit.damage.ApplyDamage(baseAttackVal));
+            unit.InvokeOnMadeHit();
         }
 
         public override bool IsSameType(Cell second) =>

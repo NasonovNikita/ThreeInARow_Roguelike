@@ -21,7 +21,7 @@ MonoBehaviour:
     _key: AngrySwordDescription
     _formatters: []
   hpLessThen: 50
-  bonus: 0.25
+  bonus: 2
   references:
     version: 2
     RefIds: []

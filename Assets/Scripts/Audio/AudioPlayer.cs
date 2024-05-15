@@ -19,7 +19,7 @@ namespace Audio
 
         public void Update()
         {
-            source.volume = Globals.instance.volume * volumeRatio / 100;
+            source.volume = Globals.Instance.volume * volumeRatio / 100;
         }
 
         public void Play()

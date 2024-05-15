@@ -14,12 +14,10 @@ namespace Battle.Items
 
         public override string Description => string.Format(descriptionKeyRef.Value, lostDamage, notGottenDamage);
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.damage.mods.Add(new DamageConstMod(-lostDamage, true));
-            Player.data.hp.onTakingDamageMods.Add(new DamageConstMod(-notGottenDamage, true));
-            
-            base.Get();
+            Player.data.hp.onTakingDamageMods.Add(new HpDamageConstMod(-notGottenDamage, true));
         }
     }
 }

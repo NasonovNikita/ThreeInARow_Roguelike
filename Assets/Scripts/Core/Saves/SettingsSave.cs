@@ -14,9 +14,9 @@ namespace Core.Saves
 
         public SettingsSave()
         {
-            volume = Globals.instance.volume;
-            difficulty = Globals.instance.difficulty;
-            altBattleUI = Globals.instance.altBattleUI;
+            volume = Globals.Instance.volume;
+            difficulty = Globals.Instance.difficulty;
+            altBattleUI = Globals.Instance.altBattleUI;
         }
 
         public static void Save()
@@ -30,9 +30,9 @@ namespace Core.Saves
         }
         public override void Apply()
         {
-            Globals.instance.volume = volume;
-            Globals.instance.difficulty = difficulty;
-            Globals.instance.altBattleUI = altBattleUI;
+            Globals.Instance.volume = volume;
+            Globals.Instance.difficulty = difficulty;
+            Globals.Instance.altBattleUI = altBattleUI;
         }
     }
 }

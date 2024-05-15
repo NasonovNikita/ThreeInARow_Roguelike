@@ -16,10 +16,9 @@ namespace Battle.Items
         public override string Description => 
             string.Format(descriptionKeyRef.Value, hpLessThen, Tools.Percents(bonus));
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.AddStatus(new Fury(bonus, hpLessThen, true));
-            base.Get();
         }
     }
 }

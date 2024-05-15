@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Battle.Modifiers.StatModifiers;
 using Battle.Units;
+using Core.Singleton;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Battle.Modifiers.Statuses
 {
@@ -11,7 +12,7 @@ namespace Battle.Modifiers.Statuses
     {
         [SerializeField] private int addition;
         [SerializeField] private int hpBorder;
-        [FormerlySerializedAs("mod")] [SerializeField] private DamageConstMod constMod;
+        [SerializeField] private DamageConstMod constMod;
 
         public Fury(int addition, int hpBorder, bool save = false) : base(save)
         {
@@ -42,9 +43,16 @@ namespace Battle.Modifiers.Statuses
             unit.hp.OnValueChanged += _ => CheckHpAndApplyMod();
         }
 
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override string SubInfo => throw new NotImplementedException();
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.fury;
+
+        public override string Description => 
+            FormatDescriptionByKeys(ModDescriptionsContainer.Instance.fury.Value,
+            new Dictionary<string, object> 
+            {
+                {"hpBorder", hpBorder},
+                {"addition", addition}
+            });
+        public override string SubInfo => EmptyInfo;
         public override bool ToDelete => addition == 0;
         
         protected override bool CanConcat(Modifier other) => 

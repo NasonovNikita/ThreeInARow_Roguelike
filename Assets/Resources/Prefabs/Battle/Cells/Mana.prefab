@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mana
       objectReference: {fileID: 0}
+    - target: {fileID: 431597028952375755, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2498874067317279280, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
       propertyPath: m_Sprite
       value: 

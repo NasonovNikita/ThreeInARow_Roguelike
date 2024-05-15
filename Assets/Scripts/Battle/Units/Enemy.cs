@@ -12,11 +12,12 @@ namespace Battle.Units
         [SerializeField] private AI.Ai ai;
 
         public override List<Unit> Enemies => new() { target };
-        
-        public override void TakeDamage(int dmg)
+
+        public override void Awake()
         {
-            base.TakeDamage(dmg);
-            AudioManager.instance.Play(AudioEnum.EnemyHit);
+            hp.OnValueChanged += _ => AudioManager.Instance.Play(AudioEnum.EnemyHit);
+            
+            base.Awake();
         }
 
         public IEnumerator Turn()

@@ -11,9 +11,15 @@ namespace Battle.Units.AI
 
         public override IEnumerator Act()
         {
-            yield return StartCoroutine(ChooseSpell.Cast());
+            yield return StartCoroutine(UseSpells());
             
             yield return base.Act();
+        }
+
+        private IEnumerator UseSpells()
+        {
+            if (attachedEnemy.spells.Any(spell => !spell.CantCast))
+                yield return StartCoroutine(ChooseSpell.Cast());
         }
     }
 }

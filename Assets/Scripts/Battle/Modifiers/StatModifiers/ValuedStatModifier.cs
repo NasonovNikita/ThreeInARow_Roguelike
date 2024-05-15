@@ -21,8 +21,8 @@ namespace Battle.Modifiers.StatModifiers
         public override string Description =>
             IsPositive switch
             {
-                true => string.Format(DescriptionKnotKeyReferencePositive.Value, value),
-                false => string.Format(DescriptionKnotKeyReferenceNegative.Value, value)
+                true => SimpleFormatDescription(DescriptionKnotKeyReferencePositive.Value, Math.Abs(value)),
+                false => SimpleFormatDescription(DescriptionKnotKeyReferenceNegative.Value, Math.Abs(value))
             };
         
         protected abstract Sprite SpritePositive { get; }

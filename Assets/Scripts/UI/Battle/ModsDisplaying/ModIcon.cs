@@ -1,5 +1,5 @@
-using Core;
-using Core.SingletonContainers;
+using System;
+using Core.Singleton;
 using UI.MessageWindows;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,24 +18,34 @@ namespace UI.Battle.ModsDisplaying
         {
             if (mod.Sprite is null) return;
             
-            var icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);
+            ModIcon icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);
             
             icon.mod = mod;
             
             icon.img.sprite = mod.Sprite;
+            icon.subInfo.text = mod.SubInfo;
             icon.modInfo.text = mod.Description;
             icon.mod.OnChanged += icon.CheckMod;
         }
 
+        public void OnDestroy()
+        {
+            mod.OnChanged -= CheckMod;
+        }
+
         private void CheckMod()
         {
+            Debug.unityLogger.Log("checked");
             if (mod.ToDelete) Delete();
-            else subInfo.text = mod.SubInfo;
+            else
+            {
+                subInfo.text = mod.SubInfo;
+                modInfo.text = mod.Description;
+            }
         }
 
         private void Delete()
         {
-            Debug.unityLogger.Log($"Deleted modIcon with mod {mod}");
             Destroy(gameObject);
         }
     }

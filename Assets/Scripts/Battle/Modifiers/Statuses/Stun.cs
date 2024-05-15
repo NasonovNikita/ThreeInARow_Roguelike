@@ -1,4 +1,6 @@
 using Battle.Units;
+using Core.Singleton;
+using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Modifiers.Statuses
@@ -12,8 +14,9 @@ namespace Battle.Modifiers.Statuses
             moveMod = CreateChangeableSubSystem(new MoveCounter(moves));
         }
 
-        public override Sprite Sprite => throw new System.NotImplementedException();
-        public override string Description => throw new System.NotImplementedException();
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.stun;
+        public override string Description =>
+            SimpleFormatDescription(ModDescriptionsContainer.Instance.stun.Value, moveMod.Moves);
         public override string SubInfo => moveMod.SubInfo;
         public override bool ToDelete => moveMod.EndedWork;
 

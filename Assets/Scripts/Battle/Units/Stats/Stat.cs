@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 using SerializeField = UnityEngine.SerializeField;
 
 namespace Battle.Units.Stats
@@ -20,14 +22,12 @@ namespace Battle.Units.Stats
         {
             this.value = value;
             this.borderUp = borderUp;
-            FixInvariant();
         }
         
         protected Stat(int v, Stat stat)
         {
             value = v;
             borderUp = stat.borderUp;
-            FixInvariant();
         }
 
         protected Stat(Stat stat)
@@ -44,30 +44,30 @@ namespace Battle.Units.Stats
         
         #endregion
 
-        public void StraightChange(int val)
-        {
-            value += val;
-            FixInvariant();
-        }
-
         public void ChangeBorderUp(int dBorder, int dValue = 0)
         {
             borderUp += dBorder;
+            
+            dValue = FixedValueChange(dValue);
             value += dValue;
-            FixInvariant();
+            
+            OnValueChanged?.Invoke(dValue);
         }
 
         protected void ChangeValue(int change)
         {
+            change = FixedValueChange(change);
             value += change;
+            
             OnValueChanged?.Invoke(change);
-            FixInvariant();
         }
 
-        protected void FixInvariant()
+        protected int FixedValueChange(int change) => 
+            change >= 0 ? Math.Min(BorderUp - value, change) : -Math.Min(value, -change);
+
+        public void UnAttach()
         {
-            if (value > borderUp) value = borderUp;
-            if (value < 0) value = 0;
+            OnValueChanged = null;
         }
 
         #region operators
@@ -92,7 +92,7 @@ namespace Battle.Units.Stats
             !ReferenceEquals(null, obj) &&
             (ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((Stat)obj));
 
-        public override int GetHashCode() => throw new NotImplementedException();
+        public override int GetHashCode() => HashCode.Combine(ToString());
 
         #endregion
     }

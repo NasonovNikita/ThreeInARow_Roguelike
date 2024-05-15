@@ -7,9 +7,9 @@ namespace Core
     {
         public void Start()
         {
-            //AudioManager.instance.StopAll();
+            //AudioManager.Instance.StopAll();
         
-            //AudioManager.instance.Play(AudioEnum.MainMenu);
+            //AudioManager.Instance.Play(AudioEnum.MainMenu);
             
             // TODO decide if needed  -not yet
         }

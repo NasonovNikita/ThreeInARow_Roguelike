@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Battle.Units;
+using Core.Singleton;
 using UnityEngine;
 
 namespace Battle.Modifiers.Statuses
@@ -16,14 +18,20 @@ namespace Battle.Modifiers.Statuses
             this.manaBorder = manaBorder;
         }
         
-        public override Sprite Sprite => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
+        public override Sprite Sprite => ModifierSpritesContainer.Instance.passiveBomb;
+        public override string Description => 
+            FormatDescriptionByKeys(ModDescriptionsContainer.Instance.passiveBomb.Value, 
+                new Dictionary<string, object> 
+                { 
+                    {"damage", dmg}, 
+                    {"manaBorder", manaBorder} 
+                });
         public override string SubInfo => EmptyInfo;
         public override bool ToDelete => dmg <= 0;
 
         public override void Init(Unit unit)
         {
-            Manager.onTurnEnd += CheckAndApply;
+            BattleFlowManager.OnCycleEnd += CheckAndApply;
             base.Init(unit);
         }
 
@@ -31,9 +39,9 @@ namespace Battle.Modifiers.Statuses
         {
             if (belongingUnit.mana > manaBorder) return;
             
-            foreach (var enemy in Manager.Enemies)
+            foreach (Enemy enemy in BattleFlowManager.enemiesWithNulls)
             {
-                enemy.TakeDamage(dmg);
+                enemy.hp.TakeDamage(dmg);
             }
         }
 

@@ -20,7 +20,7 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: OldKnifeDescription
     _formatters: []
-  value: 4
+  value: 3
   references:
     version: 2
     RefIds: []

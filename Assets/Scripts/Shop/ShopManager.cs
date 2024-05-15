@@ -14,7 +14,7 @@ namespace Shop
         public static bool entered;
         public void Awake()
         {
-            AudioManager.instance.StopAll();
+            AudioManager.Instance.StopAll();
         
             GameSave.Save();
 
@@ -27,7 +27,7 @@ namespace Shop
             if (goods.Count == 0) throw new Exception("No goods found. Are they loaded correctly?");
             if (entered) goods[0].price = (int) (goods[0].price * salePrice);
             entered = false;
-            AudioManager.instance.Play(AudioEnum.Shop);
+            AudioManager.Instance.Play(AudioEnum.Shop);
         }
     }
 }

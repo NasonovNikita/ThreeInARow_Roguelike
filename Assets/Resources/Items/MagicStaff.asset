@@ -20,7 +20,7 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: MagicStaffDescription
     _formatters: []
-  value: 0.1
+  value: 5
   references:
     version: 2
     RefIds: []

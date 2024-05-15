@@ -13,10 +13,9 @@ namespace Battle.Items
 
         public override string Description => string.Format(descriptionKeyRef.Value, value);
 
-        public override void Get()
+        public override void OnGet()
         {
             Player.data.damage.mods.Add(new DamageConstMod(value, true));
-            base.Get();
         }
     }
 }

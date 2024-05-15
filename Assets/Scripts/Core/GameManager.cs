@@ -36,9 +36,9 @@ namespace Core
         {
             SceneManager.LoadScene("MainMenu");
         
-            AudioManager.instance.StopAll();
+            AudioManager.Instance.StopAll();
         
-            AudioManager.instance.Play(AudioEnum.MainMenu);
+            AudioManager.Instance.Play(AudioEnum.MainMenu);
         
             SettingsSave.Save();
         }
