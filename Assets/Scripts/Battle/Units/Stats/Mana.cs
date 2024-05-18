@@ -8,8 +8,8 @@ namespace Battle.Units.Stats
     [Serializable]
     public class Mana : Stat
     {
-        [SerializeField] public ModifierList<StatModifier> wastingMods = new();
-        [SerializeField] public ModifierList<StatModifier> refillingMods = new();
+        [SerializeField] public ModifierList wastingMods = new();
+        [SerializeField] public ModifierList refillingMods = new();
 
         public Mana(int value, int borderUp) : base(value, borderUp) {}
         public Mana(int v, Stat stat) : base(v, stat) {}

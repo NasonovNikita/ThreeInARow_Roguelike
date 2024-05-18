@@ -1,11 +1,14 @@
 #if UNITY_EDITOR
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Battle;
 using Battle.Modifiers;
 using Battle.Modifiers.Statuses;
 using Battle.Units;
+using Battle.Units.Stats;
 using UnityEngine;
 
 namespace DevTools.DeveloperConsole
@@ -21,10 +24,10 @@ namespace DevTools.DeveloperConsole
         private readonly Dictionary<string, Command> commands = new() 
         {
             { "Info", Info },
-            { "kill", Kill },
-            { "GiveMod", GiveStatusModifier },
+            { "Kill", Kill },
+            { "GiveStatusMod", GiveStatusModifier },
             { "GiveStatMod", GiveStatModifier },
-            { "ModInfo", ModInfo }
+            { "ChangeStatValue", ChangeStat }
         };
         
         public string Parse(string input)
@@ -55,7 +58,7 @@ namespace DevTools.DeveloperConsole
             
             { 
                 "GiveStatusMod", new CommandInfo(
-                "Gives specified status to unit",
+                "Gives specified status to unit\n",
                 $"GiveStatusMod ~{UnitArgInfo} " +  
                 "~{name (type \"ModInfo ~mods\" for list of mods)} " + 
                 "if needed: ~[args (type \"ModInfo ~{modName} ~args\" to get info about mod's arguments)]")
@@ -110,7 +113,52 @@ namespace DevTools.DeveloperConsole
         }
 
         #endregion
-        
+
+
+        private static string ChangeStat(List<string> args)
+        {
+            switch (args.Count)
+            {
+                case 0:
+                    return ArgumentsRequired;
+                case < 3:
+                    return "Not enough arguments";
+                case > 3:
+                    return "Too many arguments";
+            }
+
+            if (!TryParseUnits(args[0], out var units, out string errorMessage)) return errorMessage;
+
+            if (!int.TryParse(args[2], out int val)) return "Wrong value argument";
+
+
+            int count = 0;
+            
+            foreach (Unit unit in units)
+            {
+                Stat stat;
+
+                switch (args[1])
+                {
+                    case "hp":
+                        stat = unit.hp;
+                        break;
+                    case "mana":
+                        stat = unit.mana;
+                        break;
+                    case "damage":
+                        stat = unit.damage;
+                        break;
+                    default:
+                        return "wrong stat";
+                }
+
+                stat.ChangeValue(val);
+                count++;
+            }
+
+            return $"Changed {count} unit(s)' {args[1]} by {val}";
+        }
         
         private static string Kill(List<string> args)
         {
@@ -172,105 +220,50 @@ namespace DevTools.DeveloperConsole
                 }
             }
         };
-
-        private static readonly ArgInfo SaveArgInfo = new ArgInfo(
-            "save (optional, default=false): bool",
-            "save mod after battle end");
-        private static readonly Dictionary<string, ModInfo> ModArgumentsInfos = new()
-        {
-            { 
-                "burning", new ModInfo(
-                new Burning(0).Description,
-                new ArgInfo("moves: int", "burning moves"))
-            },
-            
-            { 
-                "deal", new ModInfo(
-                new Deal(0).Description,
-                new ArgInfo("value: int", "damage addition"),
-                SaveArgInfo)
-            },
-            
-            { 
-                "fury", new ModInfo(
-                new Fury(0, 0).Description,
-                new ArgInfo("addition: int", "damage addition"),
-                new ArgInfo("hpBorder: int", "hp border to pass"),
-                SaveArgInfo)
-            }
-            
-            // TODO ModArgumentsInfos
-        };
         
-        private static readonly Dictionary<string, ModifierByArgumentList> ModCreatorsByString = new()
-        {
-            {
-                "burning", (List<string> args, out Modifier modifier, out string errorMessage) => 
-                    TryCreateMod(args, 
-                        new Dictionary<int, ModifierCreator>() 
-                        {
-                            {1, creatorArgs => new Burning(int.Parse(creatorArgs[0]))}
-                        },
-                        out modifier,
-                        out errorMessage)
-            },
-
-            {
-                "deal", (List<string> args, out Modifier modifier, out string errorMessage) => 
-                    TryCreateMod(args,
-                        new Dictionary<int, ModifierCreator>()
-                        {
-                            {1, creatorArgs => new Deal(int.Parse(creatorArgs[0]))},
-                            {2, creatorArgs => 
-                                new Deal(int.Parse(creatorArgs[0]), bool.Parse(creatorArgs[1]))}
-                        },
-                        out modifier,
-                        out errorMessage)
-            },
-
-            {
-                "fury", (List<string> args, out Modifier modifier, out string errorMessage) => TryCreateMod(
-                    args,
-                    new Dictionary<int, ModifierCreator>() 
-                    {
-                        { 2, list => new Fury(int.Parse(list[0]), int.Parse(list[1]))},
-                        { 3, list => 
-                            new Fury(int.Parse(list[0]), int.Parse(list[1]), bool.Parse(list[2]))}
-                    },
-                    out modifier,
-                    out errorMessage)
-            }
-        };
-        private delegate bool ModifierByArgumentList(List<string> args, out Modifier modifier, out string errorMessage);
+        private static bool TryCreateStatusMod(IReadOnlyList<string> args, string modName,
+            out Modifier modifier, out string errorMessage) =>
+            TryCreateMod(args, modName, "Battle.Modifiers.Statuses", out modifier, out errorMessage);
         
-        private static bool TryCreateMod(List<string> args, 
-            IReadOnlyDictionary<int, ModifierCreator> creators,
+        private static bool TryCreateStatMod(IReadOnlyList<string> args, string modName,
+            out Modifier modifier, out string errorMessage) => 
+            TryCreateMod(args, modName, "Battle.Modifiers.StatModifiers", out modifier, out errorMessage);
+
+        private static bool TryCreateMod(IReadOnlyCollection<string> args,
+            string modName, string assembly,
             out Modifier modifier, out string errorMessage)
         {
             modifier = null;
             errorMessage = "";
-
-            if (!creators.ContainsKey(args.Count))
-            {
-                errorMessage = "Wrong arguments count (mod)"; return false;
-            }
             
             try
             {
-                modifier = creators[args.Count].Invoke(args);
+                var modType = Type.GetType($"{assembly}.{modName}");
+                if (modType != null)
+                {
+                    ConstructorInfo constructor = 
+                        modType.GetConstructors(BindingFlags.Instance | BindingFlags.Public)
+                            .First(v => v.GetParameters().Length != 0);
+
+                    if (args.Count > constructor.GetParameters().Length)
+                    { 
+                        errorMessage = "Too many arguments"; return false;
+                    }
+
+                    modifier = (Modifier)constructor.Invoke(args.Select((t, i) =>
+                        Convert.ChangeType(t, constructor.GetParameters()[i].ParameterType)).ToArray());
+                }
+                else
+                {
+                    errorMessage = "No type found"; return false;
+                }
             }
-            catch
+            catch (Exception e)
             {
-                errorMessage = "Argument type error (mod)"; return false;
+                errorMessage = $"Unknown exception:\n{e}"; return false;
             }
 
             return true;
-        }
-        private delegate Modifier ModifierCreator(List<string> args);
-        
-        private static string ModInfo(List<string> args)
-        {
-            return "TODO"; // TODO ModInfo
         }
 
         private static string GiveStatusModifier(List<string> args)
@@ -289,17 +282,20 @@ namespace DevTools.DeveloperConsole
 
             if (!TryParseUnits(args[0], out var units, out string errorMessage)) return errorMessage;
 
-            string name = args[1];
+            string name = args[1].Split(" ")[0];
 
             if (!ListsOfModifiersByType["status"].Contains(name)) return "No such status mod";
 
-            if (!ModCreatorsByString[name].Invoke(args, out Modifier modifier, out errorMessage)) return errorMessage;
+            name = char.ToUpper(name[0]) + name[1..];
+            
+            if (!TryCreateStatusMod(args[1].Split(" ")[1..], name, out Modifier modifier, out errorMessage)) 
+                return errorMessage;
 
             foreach (Unit unit in units)
             {
-                ModCreatorsByString[name].Invoke(args, out modifier, out errorMessage);
+                TryCreateStatusMod(args[1].Split(" ")[1..], name, out modifier, out errorMessage);
 
-                unit.Statuses.Add((Status)modifier);
+                unit.Statuses.Add((Status) modifier);
             }
 
             return $"Added status {modifier} to {units.Count} unit(s)";
@@ -307,7 +303,92 @@ namespace DevTools.DeveloperConsole
 
         private static string GiveStatModifier(List<string> args)
         {
-            return "TODO"; // TODO GiveStatModifier
+            switch (args.Count)
+            {
+                case 0:
+                    return ArgumentsRequired;
+                case < 3:
+                    return "Not enough arguments";
+                case > 3:
+                    return "Too many arguments";
+            }
+
+            if (args[0] == "info") return Info("GiveStatMod");
+            
+            if (!TryParseUnits(args[0], out var units, out string errorMessage)) return errorMessage;
+
+            string stat = args[1].Split(" ")[0];
+            string modList = args[1].Split(" ")[1];
+            
+            string mod = args[2];
+            
+            string name = mod.Split(" ")[0];
+            string[] modArgs = mod.Split(" ")[1..];
+            
+            
+            if (!ListsOfModifiersByType["stat"].Contains(name)) return "No such stat mod";
+            
+            name = char.ToUpper(name[0]) + name[1..];
+            
+            if (!TryCreateStatMod(modArgs, name, out Modifier modifier, out errorMessage)) 
+                return errorMessage;
+
+            int count = 0;
+            
+            const string noSuchList = "No such modifier list";
+            foreach (Unit unit in units)
+            {
+                ModifierList modifierList;
+                switch (stat)
+                {
+                    case "hp":
+                        switch (modList)
+                        {
+                            case "onTakingDamage":
+                                modifierList = unit.hp.onTakingDamageMods;
+                                break;
+                            case "onHealing":
+                                modifierList = unit.hp.onHealingMods;
+                                break;
+                            default:
+                                return noSuchList;
+                        }
+                        break;
+                    case "mana":
+                        switch (modList)
+                        {
+                            case "wasting":
+                                modifierList = unit.mana.wastingMods;
+                                break;
+                            case "refilling":
+                                modifierList = unit.mana.refillingMods;
+                                break;
+                            default:
+                                return noSuchList;
+                        }
+                        break;
+                    case "damage":
+                        switch (modList)
+                        {
+                            case "mods":
+                                modifierList = unit.damage.mods;
+                                break;
+                            default:
+                                return noSuchList;
+                        }
+                        break;
+                    default:
+                        return "No such stat";
+                }
+
+                TryCreateStatMod(modArgs, name, out modifier, out errorMessage);
+                modifierList.Add(modifier);
+
+                count++;
+            }
+
+
+            return $"Added mod to {count} unit(s)";
         }
 
         #endregion
@@ -338,7 +419,7 @@ namespace DevTools.DeveloperConsole
                     units = new List<Unit>() { Player.Instance };
                     break;
                 case "enemies":
-                    units = new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls); 
+                    units = new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls);
                     break;
                 case "enemy":
                     if (args.Count == 1)

@@ -13,41 +13,32 @@ namespace UI.Battle.ModsDisplaying
         [SerializeField] private Unit unit;
         [SerializeField] private ModIconGrid grid;
 
-        private List<ModifierList<StatModifier>> AllStatModifierLists => new()
+        private List<ModifierList> AllModifierLists => new()
         {
             unit.hp.onHealingMods,
             unit.hp.onTakingDamageMods,
             unit.mana.refillingMods,
             unit.mana.wastingMods,
-            unit.damage.mods
+            unit.damage.mods,
+            unit.Statuses
         };
 
         public void Start()
         {
-            foreach (var modList in StatModifierLists)
-                modList.OnModAdded += DrawMod;
-
-            foreach (StatModifier mod in AllStatModifierLists.SelectMany(modList => modList.ModList))
+            foreach (Modifier mod in AllModifierLists.SelectMany(modList => modList.ModList))
                 DrawMod(mod);
 
-            foreach (Status mod in unit.Statuses.ModList)
-                DrawMod(mod);
+            foreach (ModifierList list in AllModifierLists)
+            {
+                list.OnModAdded += DrawMod;
+            }
         }
 
         public void OnDestroy()
         {
-            foreach (var modList in StatModifierLists) 
+            foreach (ModifierList modList in AllModifierLists) 
                 modList.OnModAdded -= DrawMod;
         }
-
-        private List<ModifierList<StatModifier>> StatModifierLists => new()
-            {
-                unit.hp.onTakingDamageMods,
-                unit.hp.onHealingMods,
-                unit.mana.refillingMods,
-                unit.mana.wastingMods,
-                unit.damage.mods
-            };
 
         private void DrawMod(Modifier mod) => 
             grid.Add(mod);

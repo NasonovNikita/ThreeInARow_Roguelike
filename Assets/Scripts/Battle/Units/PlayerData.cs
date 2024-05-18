@@ -20,7 +20,7 @@ namespace Battle.Units
         [SerializeField] public Damage damage;
         [SerializeField] public List<Item> items;
         [SerializeField] public List<Spell> spells;
-        [SerializeField] public ModifierList<Status> statuses;
+        [SerializeField] public ModifierList statuses;
         [SerializeField] public List<Cell> cells;
         [SerializeField] public int manaPerGem;
         [SerializeField] public int money;
@@ -33,7 +33,7 @@ namespace Battle.Units
             Mana mana,
             Damage damage,
             int manaPerGem,
-            ModifierList<Status> statuses)
+            ModifierList statuses)
         {
             var data = CreateInstance<PlayerData>();
             
@@ -54,7 +54,7 @@ namespace Battle.Units
             Mana mana,
             Damage damage,
             int manaPerGem,
-            ModifierList<Status> statuses,
+            ModifierList statuses,
             PlayerData oldData)
         {
             PlayerData data = NewData(hp, mana, damage, manaPerGem, statuses);

@@ -1,4 +1,5 @@
 using Battle.Modifiers.StatModifiers;
+using Battle.Modifiers.Statuses;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -8,7 +9,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            unitBelong.hp.onHealingMods.Add(new DamageMoveMod(1, 10, true));
+            unitBelong.hp.onTakingDamageMods.Add(new Shield(1));
         }
     }
 }

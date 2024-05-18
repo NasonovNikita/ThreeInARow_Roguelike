@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -137,7 +138,7 @@ namespace Other
         }
 
         public static T InstantiateUI<T>(T obj) where T : Object => 
-            Object.Instantiate(obj, Object.FindFirstObjectByType<Canvas>().transform);
+            Object.Instantiate(obj, UICanvas.Instance.transform);
 
         public static void InitButton(this Button btn, UnityEngine.Events.UnityAction onClick, string content)
         {

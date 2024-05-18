@@ -6,22 +6,27 @@ using UnityEngine;
 namespace Battle.Modifiers
 {
     [Serializable]
-    public class ModifierList<T> where T : Modifier
+    public class ModifierList
     {
-        public event Action<T> OnModAdded;
+        public event Action<Modifier> OnModAdded;
 
-        public List<T> ModList => modList;
+        public List<Modifier> ModList => modList;
         
-        [SerializeField] [SerializeReference] private List<T> modList = new();
+        [SerializeField] [SerializeReference] private List<Modifier> modList = new();
 
         public ModifierList() {}
         
-        public ModifierList(ModifierList<T> other) => modList = new List<T>(other.modList);
+        public ModifierList(ModifierList other) => modList = new List<Modifier>(other.modList);
 
-        public void Add(T elem)
+        public void Add(Modifier elem)
         {
-            Modifier.AddToList(modList, elem);
-            if (modList.Contains(elem)) OnModAdded?.Invoke(elem);
+            Debug.unityLogger.Log("added");
+            Modifier.AddToList(modList, elem); 
+            if (modList.Contains(elem))
+            {
+                OnModAdded?.Invoke(elem);
+                Debug.unityLogger.Log("invoked");
+            }
         }
 
         public void SaveMods()
@@ -32,7 +37,7 @@ namespace Battle.Modifiers
 
         public void InitMods()
         {
-            foreach (T mod in modList) mod.Init();
+            foreach (Modifier mod in modList) mod.Init();
         }
     }
 }

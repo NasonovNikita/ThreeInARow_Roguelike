@@ -19,7 +19,7 @@ namespace Battle.Match3
         private static bool BoxIsStable(Cell[,] box) =>
             Player.data.cells.Aggregate(true, (prev, cell) => prev && cell.BoxIsStable(box));
 
-        public void Awake()
+        public void Start()
         {
             Instance = this;
             Generate();

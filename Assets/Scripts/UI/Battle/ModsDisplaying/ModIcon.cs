@@ -16,11 +16,17 @@ namespace UI.Battle.ModsDisplaying
 
         public static void Create(DisplayedModifier mod, Transform parentTransform)
         {
-            if (mod.Sprite is null) return;
+            if (mod.Sprite is null)
+            {
+                Debug.unityLogger.Log("no sprite");
+                return;
+            }
             
             ModIcon icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);
             
             icon.mod = mod;
+            
+            Debug.unityLogger.Log("created");
             
             icon.img.sprite = mod.Sprite;
             icon.subInfo.text = mod.SubInfo;
@@ -36,7 +42,11 @@ namespace UI.Battle.ModsDisplaying
         private void CheckMod()
         {
             Debug.unityLogger.Log("checked");
-            if (mod.ToDelete) Delete();
+            if (mod.ToDelete)
+            {
+                Debug.unityLogger.Log("deleted");
+                Delete();
+            }
             else
             {
                 subInfo.text = mod.SubInfo;

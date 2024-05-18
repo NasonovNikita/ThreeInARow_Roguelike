@@ -9,8 +9,6 @@ namespace UI.Battle
     public class PickerManager : MonoBehaviour
     {
         public static PickerManager Instance { get; private set; }
-        
-        [SerializeField] private Player player;
 
         [SerializeField] private Image aimPrefab;
         private Image previousAim;
@@ -38,7 +36,8 @@ namespace UI.Battle
         public void Pick(Picker picker)
         {
             if (!PossibleToPick(picker)) return;
-            player.target = picker.enemy;
+            
+            Player.Instance.target = picker.enemy;
             DrawAim(picker.enemy);
             currentPicker = picker;
         }
@@ -46,7 +45,7 @@ namespace UI.Battle
         private void Pick(int index)
         {
             if (!PossibleToPick(index)) return;
-            player.target = BattleFlowManager.Instance.enemiesWithNulls[index];
+            Player.Instance.target = BattleFlowManager.Instance.enemiesWithNulls[index];
             DrawAim(BattleFlowManager.Instance.enemiesWithNulls[index]);
             currentPicker = BattleFlowManager.Instance.enemiesWithNulls[index].GetComponentInChildren<Picker>();
         }

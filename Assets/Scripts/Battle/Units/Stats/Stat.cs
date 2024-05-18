@@ -54,7 +54,7 @@ namespace Battle.Units.Stats
             OnValueChanged?.Invoke(dValue);
         }
 
-        protected void ChangeValue(int change)
+        public void ChangeValue(int change)
         {
             change = FixedValueChange(change);
             value += change;

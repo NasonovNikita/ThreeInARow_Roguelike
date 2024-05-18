@@ -30,9 +30,9 @@ namespace Battle.Units
         private int currentMovesCount;
 
         protected bool HasMoves => currentMovesCount > 0;
-        public ModifierList<Status> Statuses => statuses;
+        public ModifierList Statuses => statuses;
 
-        protected ModifierList<Status> statuses = new();
+        protected ModifierList statuses = new();
 
         public event Action OnSpellCasted;
         public event Action OnMadeHit;

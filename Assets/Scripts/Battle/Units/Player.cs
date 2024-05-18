@@ -56,7 +56,7 @@ namespace Battle.Units
             
             manaPerGem = data.manaPerGem;
             spells = new List<Spell>(data.spells);
-            statuses = new ModifierList<Status>(data.statuses);
+            statuses = new ModifierList(data.statuses);
         }
 
         private void LateLoad()

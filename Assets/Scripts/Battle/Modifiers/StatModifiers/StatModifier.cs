@@ -8,9 +8,11 @@ namespace Battle.Modifiers.StatModifiers
     public abstract class StatModifier : Modifier
     {
         protected abstract int Modify(int val);
-        
-        public static int UseModList(IEnumerable<StatModifier> list, int val) =>
-            list?.Aggregate(val, (current, mod) => mod.Modify(current)) ?? val;
+
+        public static int UseModList(IEnumerable<Modifier> list, int val) =>
+            // ReSharper disable once PossibleInvalidOperationException
+            (int)list?.Select(mod => (StatModifier)mod)
+                .Aggregate(val, (current, mod) => mod.Modify(current));
 
         protected StatModifier(bool save) : base(save) {}
     }

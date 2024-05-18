@@ -8,8 +8,8 @@ namespace Battle.Units.Stats
     [Serializable]
     public class Hp : Stat
     {
-        [SerializeField] public ModifierList<StatModifier> onTakingDamageMods = new ();
-        [SerializeField] public ModifierList<StatModifier> onHealingMods = new ();
+        [SerializeField] public ModifierList onTakingDamageMods = new ();
+        [SerializeField] public ModifierList onHealingMods = new ();
 
         public Hp(int value, int borderUp) : base(value, borderUp) {}
         public Hp(int v, Stat stat) : base(v, stat) {}
