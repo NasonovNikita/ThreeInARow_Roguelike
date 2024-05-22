@@ -20,7 +20,7 @@ namespace Battle.Spells
             {
                 int index = Random.Range(0, unitBelong.Enemies.Count);
                 while (unitBelong.Enemies[index] == null) index = Random.Range(0, unitBelong.Enemies.Count);
-                unitBelong.Enemies[index].hp.TakeDamage(damage);
+                unitBelong.Enemies[index].TakeDamage(damage);
             }
         }
 

@@ -12,7 +12,7 @@ namespace Battle.Spells
         {
             foreach (Unit enemy in unitBelong.Enemies)
             {
-                enemy.hp.TakeDamage(dmg);
+                enemy.TakeDamage(dmg);
                 enemy.Statuses.Add(new Burning());
             }
         }

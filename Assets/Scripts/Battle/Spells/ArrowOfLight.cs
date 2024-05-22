@@ -9,7 +9,7 @@ namespace Battle.Spells
     {
         [SerializeField] private int dmg;
         protected override void Action() =>
-            unitBelong.target.hp.TakeDamage(dmg);
+            unitBelong.target.TakeDamage(dmg);
 
         public override string Description =>
             string.Format(descriptionKeyRef.Value, dmg);

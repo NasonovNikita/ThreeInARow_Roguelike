@@ -2,14 +2,18 @@ using Core.Singleton;
 using Other;
 using UI.MessageWindows;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class InventoryItem : MonoBehaviour
     {
-        private LootItem item;
         [SerializeField] private Sprite defaultSprite;
+        [SerializeField] private Text titleText;
+        [SerializeField] private Image sprite;
+        [SerializeField] private InfoObject infoObjectText;
+        private LootItem item;
         
         public static void Create(LootItem targetItem, Transform parentTransform)
         {
@@ -19,9 +23,9 @@ namespace UI
 
         public void Start()
         {
-            GetComponentInChildren<Text>().text = item.Title;
-            GetComponentInChildren<Image>().sprite = item.img != null ? item.img : defaultSprite;
-            GetComponent<InfoObject>().text = item.Description;
+            titleText.text = item.Title;
+            sprite.sprite = item.img != null ? item.img : defaultSprite;
+            infoObjectText.text = item.Description;
         }
     }
 }

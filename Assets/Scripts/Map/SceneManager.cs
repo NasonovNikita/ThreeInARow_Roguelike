@@ -4,6 +4,7 @@ using Core;
 using Core.Saves;
 using Core.Singleton;
 using Map.Nodes.Managers;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +48,7 @@ namespace Map
 
         private void Win()
         {
-            GameObject menu = Instantiate(PrefabsContainer.instance.winMessage, canvas.transform, false);
+            GameObject menu = Instantiate(PrefabsContainer.instance.winMessage, UICanvas.Instance.transform, false);
             var buttons = menu.GetComponentsInChildren<Button>();
             buttons[0].onClick.AddListener(GameManager.instance.NewGame);
             buttons[1].onClick.AddListener(GameManager.instance.MainMenu);

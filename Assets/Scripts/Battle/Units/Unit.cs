@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Modifiers;
 using Battle.Modifiers.Statuses;
 using Battle.Spells;
@@ -48,18 +49,13 @@ namespace Battle.Units
             battleFlowManager = FindFirstObjectByType<BattleFlowManager>();
 
             Tools.InstantiateAll(spells);
-
-            hp.OnValueChanged += _ => CheckHp();
             
             foreach (Spell spell in spells)
             {
                 spell.Init(this);
             }
 
-            foreach (Status status in statuses.ModList)
-            {
-                status.Init(this);
-            }
+            statuses.OnModAdded += modifier => ((Status) modifier).Init(this);
             
             RefillMoves();
         }
@@ -69,16 +65,24 @@ namespace Battle.Units
         public virtual void WasteMove() => currentMovesCount -= 1;
         public void WasteAllMoves() => currentMovesCount = 0;
 
-        private void CheckHp()
+        public void TakeDamage(int val)
         {
-            if (hp <= 0) Die();
+            hp.TakeDamage(val);
+            
+            CheckHp();
         }
 
-        public void Die()
+        private void CheckHp()
         {
-            if (Dead) return;
+            if (Dead || hp > 0) return;
             
             Dead = true;
+            Die();
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        public void Die()
+        {
             OffScreenPoint.Instance.Hide(gameObject);
             OnDied?.Invoke();
         }

@@ -6,7 +6,7 @@ namespace Battle.Units.AI
     {
         private void Attack()
         {
-            attachedEnemy.target.hp.TakeDamage(attachedEnemy.damage.ApplyDamage(1));
+            attachedEnemy.target.TakeDamage(attachedEnemy.damage.ApplyDamage(1));
         }
 
         public override IEnumerator Act()

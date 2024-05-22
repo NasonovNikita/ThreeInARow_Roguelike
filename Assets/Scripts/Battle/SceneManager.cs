@@ -7,6 +7,7 @@ using UI;
 using UI.Battle;
 using UI.MessageWindows;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle
 {
@@ -20,7 +21,7 @@ namespace Battle
         [SerializeField] private EnemyPlacer placer;
         
         [SerializeField] private BattleLose loseMessage;
-        [SerializeField] private BattleWin winMessage;
+        [FormerlySerializedAs("winMessage")] [SerializeField] private BattleWinWindow winMessageWindow;
 
         private readonly List<Enemy> enemiesWithNulls = new();
 
@@ -81,6 +82,6 @@ namespace Battle
         private void LoseBattle() => Instantiate(loseMessage, UICanvas.Instance.transform);
 
         private void WinBattle() => 
-            winMessage.Create(enemyGroup.Reward, UICanvas.Instance.transform);
+            winMessageWindow.Create(enemyGroup.Reward, UICanvas.Instance.transform);
     }
 }

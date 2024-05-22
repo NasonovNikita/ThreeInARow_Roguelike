@@ -141,14 +141,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 2230732570650464555, guid: 01f4331a4fc03b444aaadcf0b9a17679, type: 3}
+    m_Font: {fileID: 12800000, guid: 05a1e9e2139ac0a4abe809ad7eb90001, type: 3}
     m_FontSize: 78
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -400,14 +400,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 2230732570650464555, guid: 01f4331a4fc03b444aaadcf0b9a17679, type: 3}
+    m_Font: {fileID: 12800000, guid: 05a1e9e2139ac0a4abe809ad7eb90001, type: 3}
     m_FontSize: 78
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0

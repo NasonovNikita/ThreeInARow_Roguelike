@@ -27,7 +27,9 @@ namespace DevTools.DeveloperConsole
             { "Kill", Kill },
             { "GiveStatusMod", GiveStatusModifier },
             { "GiveStatMod", GiveStatModifier },
-            { "ChangeStatValue", ChangeStat }
+            { "ChangeStatValue", ChangeStat },
+            { "UnlockMap", UnlockMap },
+            { "LockMap", LockMap }
         };
         
         public string Parse(string input)
@@ -113,6 +115,10 @@ namespace DevTools.DeveloperConsole
         }
 
         #endregion
+
+        #region Battle
+
+        
 
 
         private static string ChangeStat(List<string> args)
@@ -453,6 +459,30 @@ namespace DevTools.DeveloperConsole
 
             return true;
         }
+        
+        #endregion
+
+        #region Map
+
+        private static string UnlockMap(List<string> args)
+        {
+            if (args.Count != 0) return "No arguments required";
+
+            Map.Nodes.Managers.NodeController.Instance.unlocked = true;
+
+            return "unlocked";
+        }
+        
+        private static string LockMap(List<string> args)
+        {
+            if (args.Count != 0) return "No arguments required";
+
+            Map.Nodes.Managers.NodeController.Instance.unlocked = false;
+
+            return "locked";
+        }
+
+        #endregion
 
         private static string GetCommand(string input) => input.Split(ArgumentsSeparator)[0];
 

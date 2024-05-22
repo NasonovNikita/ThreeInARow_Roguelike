@@ -23,7 +23,7 @@ namespace Battle.Modifiers.Statuses
 
         public override void Init(Unit unit)
         {
-            moveCounter.OnMove += () => unit.hp.TakeDamage(dmg); // dmg - AdditionalDamage
+            moveCounter.OnMove += () => unit.TakeDamage(dmg); // dmg - AdditionalDamage
             // unit.hp.onTakingDamageMods.Add(new HpDamageMoveMod(Additional, moveCounter.Moves)); can be added 
             
             base.Init(unit);

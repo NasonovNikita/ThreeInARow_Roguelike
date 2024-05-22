@@ -12,6 +12,7 @@ namespace DevTools.DeveloperConsole
     {
         private const string CommandStringToClear = "clear";
         private const string CommandStringToExit = "exit";
+        private const string CommandStringToGetPrev = "prev";
         
         [SerializeField] private DevConsoleCommandParser parser;
         [FormerlySerializedAs("textWindow")]
@@ -34,6 +35,10 @@ namespace DevTools.DeveloperConsole
                     return;
                 case CommandStringToExit:
                     Destroy(gameObject);
+                    return;
+                case CommandStringToGetPrev:
+                    if (commandsBuffer.Count != 0) 
+                        input.text = commandsBuffer[^1];
                     return;
             }
             AddCommandToBuffer(inputSting);

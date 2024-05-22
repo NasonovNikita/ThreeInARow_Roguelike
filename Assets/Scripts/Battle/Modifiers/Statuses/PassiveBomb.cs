@@ -31,17 +31,17 @@ namespace Battle.Modifiers.Statuses
 
         public override void Init(Unit unit)
         {
-            BattleFlowManager.OnCycleEnd += CheckAndApply;
+            BattleFlowManager.Instance.OnEnemiesTurnStart += CheckAndApply;
             base.Init(unit);
         }
 
         private void CheckAndApply()
         {
-            if (belongingUnit.mana > manaBorder) return;
+            if (belongingUnit.mana < manaBorder) return;
             
-            foreach (Enemy enemy in BattleFlowManager.enemiesWithNulls)
+            foreach (Enemy enemy in BattleFlowManager.EnemiesWithoutNulls)
             {
-                enemy.hp.TakeDamage(dmg);
+                enemy.TakeDamage(dmg);
             }
         }
 

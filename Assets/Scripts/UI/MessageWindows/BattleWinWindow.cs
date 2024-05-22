@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.MessageWindows
 {
-    public class BattleWin : MonoBehaviour
+    public class BattleWinWindow : MonoBehaviour
     {
         [SerializeField] private Button moneyRewardButton;
         [SerializeField] private Text moneyRewardButtonText;
@@ -15,7 +15,7 @@ namespace UI.MessageWindows
 
         public void Create(int moneyReward, Transform uiCanvas)
         {
-            var window = Instantiate(this, uiCanvas);
+            BattleWinWindow window = Instantiate(this, uiCanvas);
             window.moneyRewardButtonText.text =
                 moneyRewardTextKeyReference.Value.IndexErrorProtectedFormat(moneyReward);
             window.money = moneyReward;

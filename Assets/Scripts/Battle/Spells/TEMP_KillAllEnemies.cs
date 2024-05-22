@@ -11,7 +11,7 @@ namespace Battle.Spells
         {
             foreach (Enemy enemy in BattleFlowManager.Instance.EnemiesWithoutNulls)
             {
-                enemy.hp.TakeDamage(100000);
+                enemy.TakeDamage(100000);
             }
         }
     }

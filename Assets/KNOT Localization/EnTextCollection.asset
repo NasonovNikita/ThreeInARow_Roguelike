@@ -188,7 +188,7 @@ MonoBehaviour:
   - _key: AngrySword
     _rawText: Sword Of Hatred
   - _key: AngrySwordDescription
-    _rawText: If you have less then {0} hp you deal {1}% more dmg
+    _rawText: If you have less then {0} hp you deal {1} more dmg
   - _key: DevilFinger
     _rawText: Devil's finger
   - _key: DevilFingerDescription
@@ -345,3 +345,12 @@ MonoBehaviour:
     _rawText: End turn
   - _key: KillAllEnemiesSpell
     _rawText: Kill all enemies
+  - _key: Title
+    _rawText: The true cycle
+  - _key: ManySpellsWarning
+    _rawText: You have four spells. Are you sure you want to get a new one (replace
+      needed)?
+  - _key: Yes
+    _rawText: Yes
+  - _key: No
+    _rawText: No

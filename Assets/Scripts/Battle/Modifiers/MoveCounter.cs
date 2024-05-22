@@ -24,7 +24,6 @@ namespace Battle.Modifiers
             
             this.moves = moves;
             this.delay = delay;
-            Init();
         }
 
         public void Init()

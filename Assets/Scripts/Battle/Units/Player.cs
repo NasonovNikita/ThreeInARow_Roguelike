@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Audio;
 using Battle.Modifiers;
 using Battle.Modifiers.Statuses;
@@ -64,6 +65,11 @@ namespace Battle.Units
             hp.Init();
             mana.Init();
             damage.Init();
+
+            foreach (Status status in statuses.ModList.Cast<Status>())
+            {
+                status.Init(this);
+            }
         }
 
         private void Save() => data = PlayerData.NewData(this, data);

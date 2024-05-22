@@ -1,4 +1,5 @@
 using System;
+using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -15,14 +16,14 @@ namespace Battle.Spells
             for (int i = 0; i < unitBelong.Enemies.Count; i++)
             {
                 int damage = (int)(dmg * Math.Pow(rise, i - nulls));
-                var enemy = unitBelong.Enemies[i];
+                Unit enemy = unitBelong.Enemies[i];
                 if (enemy == null)
                 {
                     nulls += 1;
                     continue;
                 }
 
-                enemy.hp.TakeDamage(damage);
+                enemy.TakeDamage(damage);
             }
         }
 

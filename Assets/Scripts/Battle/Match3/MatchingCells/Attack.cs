@@ -11,7 +11,7 @@ namespace Battle.Match3.MatchingCells
         {
             Unit unit = TurningUnit;
             
-            unit.target.hp.TakeDamage(TurningUnit.damage.ApplyDamage(baseAttackVal));
+            unit.target.TakeDamage(TurningUnit.damage.ApplyDamage(baseAttackVal));
             unit.InvokeOnMadeHit();
         }
 

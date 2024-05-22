@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core;
 using UnityEngine;
 
@@ -13,13 +14,19 @@ namespace Map.Nodes.Managers
 
         [NonSerialized] public bool noNodeIsChosen;
 
-        private List<Node> nodes;
+        private List<Node> nodes = new();
 
         private Node CurrentNode => nodes[currentNodeIndex];
 
         private bool CameOutFromFinalNode => currentNodeIndex == nodes.Count - 1;
 
         public event Action OnCameOutFromFinalNode;
+        
+        #if UNITY_EDITOR
+
+        public bool unlocked;
+        
+        #endif
         
         public void Awake()
         {
@@ -47,6 +54,11 @@ namespace Map.Nodes.Managers
 
         public void RegenerateNodes()
         {
+            foreach (Node node in nodes.Where(node => node != null))
+            {
+                Destroy(node.gameObject);
+            }
+            
             nodes = Generator.Instance.GetMap(Globals.Instance.seed);
         }
 
@@ -54,6 +66,12 @@ namespace Map.Nodes.Managers
         {
             bool success = noNodeIsChosen && nodes.IndexOf(node) == 0 || 
                        !noNodeIsChosen && CurrentNode.BelongsToNext(node);
+            
+            #if UNITY_EDITOR
+
+            success = success || unlocked;
+            
+            #endif
             
             if (!success) return false;
             
@@ -83,7 +101,7 @@ namespace Map.Nodes.Managers
         private void HideNodes()
         {
             foreach (Node node in nodes) 
-                node.gameObject.SetActive(false);
+                node?.gameObject.SetActive(false);
         }
     }
 }

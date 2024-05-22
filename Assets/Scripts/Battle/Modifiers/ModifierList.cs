@@ -20,12 +20,10 @@ namespace Battle.Modifiers
 
         public void Add(Modifier elem)
         {
-            Debug.unityLogger.Log("added");
             Modifier.AddToList(modList, elem); 
             if (modList.Contains(elem))
             {
                 OnModAdded?.Invoke(elem);
-                Debug.unityLogger.Log("invoked");
             }
         }
 

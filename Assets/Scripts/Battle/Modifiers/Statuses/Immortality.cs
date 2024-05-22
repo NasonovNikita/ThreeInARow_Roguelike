@@ -21,6 +21,7 @@ namespace Battle.Modifiers.Statuses
 
         public override void Init(Unit unit)
         {
+            Debug.unityLogger.Log("a");
             unit.hp.OnValueChanged += _ => CheckAndApply();
             
             base.Init(unit);

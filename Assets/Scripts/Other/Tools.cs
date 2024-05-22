@@ -151,7 +151,7 @@ namespace Other
         
         public static string FormatByKeys(this string formattedString, IReadOnlyDictionary<string, object> values) =>
             values.Aggregate(formattedString,
-                (current, pair) => current.Replace(pair.Key, (string)pair.Value));
+                (current, pair) => current.Replace($"{{{pair.Key}}}", pair.Value.ToString()));
 
         public static string IndexErrorProtectedFormat(this string original, params object[] args)
         {

@@ -641,6 +641,22 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
+  - _key: Title
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ManySpellsWarning
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: Yes
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: No
+    _metadata:
+      _runtime: []
+      _editor: []
   references:
     version: 2
     RefIds: []

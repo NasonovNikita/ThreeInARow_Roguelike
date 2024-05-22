@@ -430,6 +430,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1545614920}
     m_Modifications:
+    - target: {fileID: 1000834955577789860, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_Text
+      value: Main menu
+      objectReference: {fileID: 0}
     - target: {fileID: 3618831271767595272, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_text
       value: Main menu
@@ -585,7 +589,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1496463589}
-    - targetCorrespondingSourceObject: {fileID: 3138720706166487295, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4619630594597053312, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1496463587}
   m_SourcePrefab: {fileID: 100100000, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -596,7 +600,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1496463586 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3138720706166487295, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4619630594597053312, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
   m_PrefabInstance: {fileID: 1496463584}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1496463587
@@ -768,6 +772,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1545614920}
     m_Modifications:
+    - target: {fileID: 1000834955577789860, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+      propertyPath: m_Text
+      value: To map
+      objectReference: {fileID: 0}
     - target: {fileID: 3618831272053756280, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       propertyPath: m_Name
       value: Exit
@@ -872,7 +880,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3138720706166487295, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4619630594597053312, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1600916941}
   m_SourcePrefab: {fileID: 100100000, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
@@ -883,7 +891,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1600916940 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3138720706166487295, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4619630594597053312, guid: f1107ade64547ed4fa9f767baea625a8, type: 3}
   m_PrefabInstance: {fileID: 1600916938}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1600916941
@@ -899,7 +907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _keyReference:
-    _key: Exit
+    _key: ToMap
     _formatters: []
   references:
     version: 2

@@ -31,9 +31,9 @@ namespace Battle.Modifiers
         }
         
 
-        public static void AddToList<T>(List<T> list, T other) where T : Modifier
+        public static void AddToList(List<Modifier> list, Modifier other)
         {
-            T second = list.FirstOrDefault(obj =>
+            Modifier second = list.FirstOrDefault(obj =>
                 obj.LowCanConcat(other));
             
             if (second is not null) second.LowConcat(other);
@@ -59,7 +59,8 @@ namespace Battle.Modifiers
 
         protected T CreateChangeableSubSystem<T>(T changeAble) where T : IChangeAble
         {
-            changeAble.OnChanged += InvokeOnChanged;
+            InitChangeAble(changeAble);
+            ChangeAblesToInitialize.Add(changeAble);
             
             return changeAble;
         }
@@ -68,10 +69,14 @@ namespace Battle.Modifiers
         {
             foreach (IChangeAble changeAble in ChangeAblesToInitialize)
             {
-                changeAble.OnChanged += InvokeOnChanged;
+                InitChangeAble(changeAble);
             }
-            foreach (IInit init in ChangeAblesToInitialize.Where(changeAble => changeAble != null).Select(changeAble => changeAble as IInit)) 
-                init?.Init();
+        }
+
+        private void InitChangeAble(IChangeAble changeAble)
+        {
+            changeAble.OnChanged += InvokeOnChanged;
+            (changeAble as IInit)?.Init();
         }
     }
 }

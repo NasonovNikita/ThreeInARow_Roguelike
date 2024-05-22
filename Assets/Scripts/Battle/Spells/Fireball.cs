@@ -10,7 +10,7 @@ namespace Battle.Spells
         [SerializeField] private int burningMoves;
         protected override void Action()
         {
-            unitBelong.target.hp.TakeDamage(dmg);
+            unitBelong.target.TakeDamage(dmg);
             unitBelong.Statuses.Add(new Burning(burningMoves));
             unitBelong.InvokeOnMadeHit();
         }

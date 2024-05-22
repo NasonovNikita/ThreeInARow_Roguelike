@@ -1,4 +1,5 @@
 using Battle.Units;
+using Knot.Localization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,17 +8,13 @@ namespace Shop
     [RequireComponent(typeof(Text))]
     public class CashView : MonoBehaviour
     {
-        private Text text;
-
-        public void Awake()
-        {
-            text = GetComponent<Text>();
-        }
+        [SerializeField] private Text text;
+        [SerializeField] private KnotTextKeyReference cashTextRef;
 
     
         public void Update()
         {
-            text.text = $"Cash: {Player.data.money}";
+            text.text = $"{cashTextRef.Value}: {Player.data.money}";
         }
     }
 }

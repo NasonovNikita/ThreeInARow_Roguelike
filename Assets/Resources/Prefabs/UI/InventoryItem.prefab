@@ -66,14 +66,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 05a1e9e2139ac0a4abe809ad7eb90001, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 150
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -154,6 +154,12 @@ MonoBehaviour:
   actAfterTime: 1
   waitBeforeShowTime: 1
   text: IsClickable
+  keyReference:
+    _key: 
+    _formatters: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &3409028896318203545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296322b8d97f4ab8bd5249a68d3523e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSprite: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
+  titleText: {fileID: 6451879467571331721}
+  sprite: {fileID: 3998884711519650399}
+  infoObjectText: {fileID: 2003668456511447042}
 --- !u!1 &8130363894802759932
 GameObject:
   m_ObjectHideFlags: 0
