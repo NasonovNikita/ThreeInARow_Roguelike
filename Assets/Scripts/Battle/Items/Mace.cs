@@ -1,5 +1,6 @@
-using Battle.Modifiers.Statuses;
 using Battle.Units;
+using Battle.Units.Statuses;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -9,10 +10,8 @@ namespace Battle.Items
     {
         [SerializeField] private int addition;
 
-        public override string Title => titleKeyRef.Value;
-
         public override string Description =>
-            string.Format(descriptionKeyRef.Value, addition);
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(addition);
 
         public override void OnGet()
         {

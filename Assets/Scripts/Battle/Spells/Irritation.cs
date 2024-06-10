@@ -7,11 +7,13 @@ namespace Battle.Spells
     {
         [SerializeField] private int damageAdditions;
         [SerializeField] private int moves;
-        
-        protected override void Action() =>
-            unitBelong.Statuses.Add(new Modifiers.Statuses.Irritation(damageAdditions, moves));
 
         public override string Description =>
             string.Format(descriptionKeyRef.Value, damageAdditions);
+
+        protected override void Action()
+        {
+            unitBelong.Statuses.Add(new Units.Statuses.Irritation(damageAdditions, moves));
+        }
     }
 }

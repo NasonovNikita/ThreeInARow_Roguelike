@@ -1,4 +1,5 @@
 using Battle.Units;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -8,10 +9,8 @@ namespace Battle.Items
     {
         [SerializeField] private int addToBorder;
         [SerializeField] private int addValue;
-        
-        public override string Title => titleKeyRef.Value;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, addToBorder, addValue);
+        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(addToBorder, addValue);
 
         public override void OnGet()
         {

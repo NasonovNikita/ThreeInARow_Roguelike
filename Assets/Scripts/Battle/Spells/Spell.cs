@@ -9,13 +9,14 @@ namespace Battle.Spells
     [Serializable]
     public abstract class Spell : LootItem
     {
+        private const float CastTime = 0.5f; // TEMP
         [SerializeField] public int useCost;
-
-        protected Unit unitBelong;
 
         protected BattleFlowManager battleFlowManager;
 
-        private const float CastTime = 0.5f; // TEMP
+        protected Unit unitBelong;
+
+        public virtual bool CantCast => unitBelong.mana < useCost;
 
         public virtual void Init(Unit unit)
         {
@@ -32,16 +33,14 @@ namespace Battle.Spells
         public IEnumerator Cast()
         {
             if (CantCast) yield break;
-            
+
             Action();
 
             Waste();
             unitBelong.UseSpell();
-            
+
             yield return Wait();
         }
-
-        public virtual bool CantCast => unitBelong.mana < useCost;
 
         protected abstract void Action();
 
@@ -50,8 +49,14 @@ namespace Battle.Spells
             yield return new WaitForSeconds(CastTime);
         }
 
-        protected virtual void Waste() => unitBelong.mana.Waste(useCost);
+        protected virtual void Waste()
+        {
+            unitBelong.mana.Waste(useCost);
+        }
 
-        public override void Get() => Player.data.spells.Add(this);
+        public override void Get()
+        {
+            Player.data.spells.Add(this);
+        }
     }
 }

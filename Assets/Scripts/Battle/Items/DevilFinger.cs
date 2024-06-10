@@ -1,5 +1,6 @@
-using Battle.Modifiers.Statuses;
 using Battle.Units;
+using Battle.Units.Statuses;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -8,9 +9,8 @@ namespace Battle.Items
     public class DevilFinger : Item
     {
         [SerializeField] private int value;
-        
-        public override string Title => titleKeyRef.Value;
-        public override string Description => string.Format(descriptionKeyRef.Value, value);
+
+        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(value);
 
         public override void OnGet()
         {

@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using Battle.Modifiers;
-using Battle.Modifiers.StatModifiers;
-using Battle.Modifiers.Statuses;
 using Battle.Units;
 using UnityEngine;
 
@@ -13,22 +10,12 @@ namespace UI.Battle.ModsDisplaying
         [SerializeField] private Unit unit;
         [SerializeField] private ModIconGrid grid;
 
-        private List<ModifierList> AllModifierLists => new()
-        {
-            unit.hp.onHealingMods,
-            unit.hp.onTakingDamageMods,
-            unit.mana.refillingMods,
-            unit.mana.wastingMods,
-            unit.damage.mods,
-            unit.Statuses
-        };
-
         public void Start()
         {
-            foreach (Modifier mod in AllModifierLists.SelectMany(modList => modList.ModList))
-                DrawMod(mod);
+            foreach (Modifier mod in unit.AllModifierLists.SelectMany(modList => modList.ModList))
+                DrawMod((IModIconModifier)mod);
 
-            foreach (ModifierList list in AllModifierLists)
+            foreach (ModifierList list in unit.AllModifierLists)
             {
                 list.OnModAdded += DrawMod;
             }
@@ -36,11 +23,13 @@ namespace UI.Battle.ModsDisplaying
 
         public void OnDestroy()
         {
-            foreach (ModifierList modList in AllModifierLists) 
+            foreach (ModifierList modList in unit.AllModifierLists) 
                 modList.OnModAdded -= DrawMod;
         }
 
-        private void DrawMod(Modifier mod) => 
+        private void DrawMod(Modifier mod) => DrawMod((IModIconModifier) mod);
+
+        private void DrawMod(IModIconModifier mod) => 
             grid.Add(mod);
     }
 }

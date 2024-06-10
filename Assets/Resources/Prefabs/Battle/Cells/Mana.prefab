@@ -12,10 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mana
       objectReference: {fileID: 0}
-    - target: {fileID: 431597028952375755, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2498874067317279280, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -133,12 +129,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6219602726713963085}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9d403abbfa44356a38b90257729224d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e33dadae0c64e1d85ba5b41420c2caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  descriptionKeyRef:
+    _key: ManaCellDescription
+    _formatters: []
+  possibleReward: 1
   mover: {fileID: 1816880863581521400}
   scaler: {fileID: 7174410990051566212}
-  amount: 5
+  amount: 10
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7174410990051566212 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -5747296517565542142, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}

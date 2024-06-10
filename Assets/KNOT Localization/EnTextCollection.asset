@@ -212,7 +212,7 @@ MonoBehaviour:
   - _key: Mace
     _rawText: Mace
   - _key: MaceDescription
-    _rawText: When you hit enemy it then gets {0}% more damage for {1} moves (stackable)
+    _rawText: When you hit enemy it then gets {0} more damage (stackable)
   - _key: MagicStaff
     _rawText: Magic Staff
   - _key: MagicStaffDescription
@@ -237,7 +237,7 @@ MonoBehaviour:
   - _key: PlainShield
     _rawText: Plain Shield
   - _key: PlainShieldDescription
-    _rawText: -{0}% incoming dmg
+    _rawText: -{0} incoming dmg
   - _key: ProtectiveAmulet
     _rawText: Protective Amulet
   - _key: ProtectiveAmuletDescription
@@ -249,8 +249,7 @@ MonoBehaviour:
   - _key: VampireFangs
     _rawText: Vampire Fangs
   - _key: VampireFangsDescription
-    _rawText: If you deal more than {0} dmg you heal {1}-[dealt dmg], but not less
-      than {2}
+    _rawText: Heal {} hp when you make a hit
   - _key: WeaklingsShield
     _rawText: Weakling's Shield
   - _key: WeaklingsShieldDescription
@@ -354,3 +353,17 @@ MonoBehaviour:
     _rawText: Yes
   - _key: No
     _rawText: No
+  - _key: StoneCellDescription
+    _rawText: Just {} useless stone(s) on the field
+  - _key: LightHouseCellDescription
+    _rawText: Cells nearby get x{} bigger values
+  - _key: AttackCellDescription
+    _rawText: Deals {} damage
+  - _key: HealingCellDescription
+    _rawText: Heals {} hp
+  - _key: HourglassCellDescription
+    _rawText: Refills a move. Is not affected by any possible bonuses
+  - _key: ManaCellDescription
+    _rawText: Refills {} mana
+  - _key: ShieldCellDescription
+    _rawText: Gives you {} shield(s)

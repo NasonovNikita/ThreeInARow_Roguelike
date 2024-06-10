@@ -9,8 +9,9 @@ namespace Battle.Units
     [Serializable]
     public class EnemyGroup : ScriptableObject
     {
-        [FormerlySerializedAs("enemiesData")] [SerializeField] private List<Enemy> enemies;
-        
+        [FormerlySerializedAs("enemiesData")] [SerializeField]
+        private List<Enemy> enemies;
+
         [SerializeField] private int difficulty;
         [SerializeField] private int reward;
         [SerializeField] public bool isBoss;

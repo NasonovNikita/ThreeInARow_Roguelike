@@ -1,5 +1,6 @@
-using Battle.Modifiers.Statuses;
 using Battle.Units;
+using Battle.Units.Statuses;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -9,9 +10,7 @@ namespace Battle.Items
     {
         [SerializeField] private int healAmount;
 
-        public override string Title => titleKeyRef.Value;
-
-        public override string Description => string.Format(descriptionKeyRef.Value, healAmount);
+        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(healAmount);
 
         public override void OnGet()
         {

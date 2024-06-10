@@ -1,5 +1,6 @@
-using Battle.Modifiers.StatModifiers;
 using Battle.Units;
+using Battle.Units.StatModifiers;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -8,10 +9,8 @@ namespace Battle.Items
     public class OldKnife : Item
     {
         [SerializeField] private int value;
-        
-        public override string Title => titleKeyRef.Value;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, value);
+        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(value);
 
         public override void OnGet()
         {

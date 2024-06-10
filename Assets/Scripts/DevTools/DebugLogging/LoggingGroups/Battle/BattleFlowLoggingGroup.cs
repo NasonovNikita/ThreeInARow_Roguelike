@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using Battle;
 
 namespace DevTools.DebugLogging.LoggingGroups.Battle
@@ -23,3 +25,5 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
         }
     }
 }
+
+#endif

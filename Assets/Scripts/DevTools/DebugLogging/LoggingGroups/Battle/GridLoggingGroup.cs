@@ -1,5 +1,6 @@
-using Battle.Match3;
-using Battle.Match3.MatchingCells;
+#if UNITY_EDITOR
+
+using Battle.Grid;
 
 namespace DevTools.DebugLogging.LoggingGroups.Battle
 {
@@ -8,15 +9,13 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
         public override void Attach()
         {
             Grid.Instance.OnSwitchedCells += (cell1, cell2) => CheckAndWrite($"Switched cells {cell1} and {cell2}");
-            MatchingCell.OnCellUsed += WriteCellUsed;
         }
 
         public override void UnAttach()
         {
-            MatchingCell.OnCellUsed -= WriteCellUsed;
+            // ignored
         }
-
-        private void WriteCellUsed(Cell cell) => 
-            CheckAndWrite($"Used cell {cell}");
     }
 }
+
+#endif

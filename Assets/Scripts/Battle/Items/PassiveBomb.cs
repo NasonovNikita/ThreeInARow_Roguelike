@@ -1,4 +1,5 @@
 using Battle.Units;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -9,14 +10,11 @@ namespace Battle.Items
         [SerializeField] private int minMana;
         [SerializeField] private int damage;
 
-        
-        public override string Title => titleKeyRef.Value;
-
-        public override string Description => string.Format(descriptionKeyRef.Value, minMana, damage);
+        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(minMana, damage);
 
         public override void OnGet()
         {
-            Player.data.AddStatus(new Modifiers.Statuses.PassiveBomb(damage, minMana, true));
+            Player.data.AddStatus(new Units.Statuses.PassiveBomb(damage, minMana, true));
         }
     }
 }

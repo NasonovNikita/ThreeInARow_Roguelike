@@ -140,16 +140,61 @@ namespace Other
         public static T InstantiateUI<T>(T obj) where T : Object => 
             Object.Instantiate(obj, UICanvas.Instance.transform);
 
-        public static void InitButton(this Button btn, UnityEngine.Events.UnityAction onClick, string content)
+        public static void InitButton(this Button btn, UnityEngine.Events.UnityAction onClick,
+            string content)
         {
             btn.onClick.AddListener(onClick);
             btn.GetComponentInChildren<Text>().text = content;
         }
 
         public static int Percents(float v) => (int)(v * 100);
-        
-        
-        public static string FormatByKeys(this string formattedString, IReadOnlyDictionary<string, object> values) =>
+
+        public static List<T> MultiDimToOne<T>(T[,] orig)
+        {
+            var value = new List<T>();
+            for (int i = 0; i < orig.GetLength(0); i++)
+            {
+                for (int j = 0; j < orig.GetLength(1); j++)
+                {
+                    value.Add(orig[i, j]);
+                }
+            }
+
+            return value;
+        }
+
+        public static IEnumerable<T[]> Repeat<T>(T[] items, int count) =>
+            Product(Enumerable.Repeat(items, count).ToArray());
+
+        public static IEnumerable<T[]> Product<T>(T[][] items)
+        {
+            int length = items.Length;
+            int[] indexes = new int[length];
+
+            while (true)
+            {
+                var arr = new T[length];
+                for (int i = 0; i < length; i++)
+                {
+                    arr[i] = items[i][indexes[i]];
+                }
+                yield return arr;
+
+                int row = length - 1;
+                indexes[row]++;
+                while (indexes[row] == items[row].Length)
+                {
+                    if (row == 0)
+                        yield break;
+                    indexes[row] = 0;
+                    row--;
+                    indexes[row]++;
+                }
+            }
+        }
+
+        public static string FormatByKeys(this string formattedString,
+            IReadOnlyDictionary<string, object> values) =>
             values.Aggregate(formattedString,
                 (current, pair) => current.Replace($"{{{pair.Key}}}", pair.Value.ToString()));
 

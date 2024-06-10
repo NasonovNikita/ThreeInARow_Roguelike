@@ -20,9 +20,9 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: 
     _formatters: []
-  useCost: 50
+  useCost: 60
   dmg: 10
-  burningMoves: 2
+  burningMoves: 1
   references:
     version: 2
     RefIds: []

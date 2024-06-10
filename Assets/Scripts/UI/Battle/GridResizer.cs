@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Grid = Battle.Match3.Grid;
+using Grid = Battle.Grid.Grid;
 
 namespace UI.Battle
 {

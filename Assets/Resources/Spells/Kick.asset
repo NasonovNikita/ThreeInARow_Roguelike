@@ -21,7 +21,7 @@ MonoBehaviour:
     _key: KickDescription
     _formatters: []
   useCost: 30
-  damage: 15
+  damage: 20
   references:
     version: 2
     RefIds: []

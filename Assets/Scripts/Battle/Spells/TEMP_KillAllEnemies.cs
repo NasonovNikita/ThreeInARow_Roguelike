@@ -9,10 +9,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            foreach (Enemy enemy in BattleFlowManager.Instance.EnemiesWithoutNulls)
-            {
-                enemy.TakeDamage(100000);
-            }
+            foreach (Enemy enemy in BattleFlowManager.Instance.EnemiesWithoutNulls) enemy.TakeDamage(100000);
         }
     }
 }

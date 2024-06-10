@@ -1,4 +1,4 @@
-using Battle.Modifiers.Statuses;
+using Battle.Units.Statuses;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -8,10 +8,11 @@ namespace Battle.Spells
     {
         [SerializeField] private int dmg;
         [SerializeField] private int burningMoves;
+
         protected override void Action()
         {
             unitBelong.target.TakeDamage(dmg);
-            unitBelong.Statuses.Add(new Burning(burningMoves));
+            unitBelong.target.Statuses.Add(new Burning(burningMoves));
             unitBelong.InvokeOnMadeHit();
         }
     }

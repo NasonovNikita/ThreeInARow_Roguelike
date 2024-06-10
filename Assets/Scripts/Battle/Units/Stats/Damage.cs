@@ -1,7 +1,6 @@
 using System;
-using System.Linq;
 using Battle.Modifiers;
-using Battle.Modifiers.StatModifiers;
+using Battle.Units.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Units.Stats
@@ -9,15 +8,28 @@ namespace Battle.Units.Stats
     [Serializable]
     public class Damage : Stat
     {
-        [SerializeField] public ModifierList mods = new ();
+        [SerializeField] public ModifierList mods = new();
 
-        public Damage(int value, int borderUp) : base(value, borderUp) {}
-        public Damage(int v, Stat stat) : base(v, stat) {}
-        public Damage(Stat stat) : base(stat) {}
-        public Damage(int v) : base(v) {}
+        public Damage(int value, int borderUp) : base(value, borderUp)
+        {
+        }
 
-        public int ApplyDamage(int val) =>
-            val * StatModifier.UseModList(mods.ModList, Value);
+        public Damage(int v, Stat stat) : base(v, stat)
+        {
+        }
+
+        public Damage(Stat stat) : base(stat)
+        {
+        }
+
+        public Damage(int v) : base(v)
+        {
+        }
+
+        public int ApplyDamage(int val)
+        {
+            return val * IIntModifier.UseModList(mods.ModList, Value);
+        }
 
         public Damage Save()
         {

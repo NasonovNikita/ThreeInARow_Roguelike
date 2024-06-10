@@ -1,4 +1,4 @@
-using Battle.Modifiers.StatModifiers;
+using Battle.Units.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -9,7 +9,9 @@ namespace Battle.Spells
         [SerializeField] private int protectionAmount;
         [SerializeField] private int moves;
 
-        protected override void Action() =>
-            unitBelong.hp.onTakingDamageMods.Add(new HpDamageMoveMod(protectionAmount, moves));
+        protected override void Action()
+        {
+            unitBelong.hp.onTakingDamageMods.Add(new HpDamageMoveMod(-protectionAmount, moves));
+        }
     }
 }

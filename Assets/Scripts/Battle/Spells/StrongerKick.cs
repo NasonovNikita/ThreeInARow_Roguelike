@@ -1,5 +1,5 @@
 using System;
-using Battle.Modifiers.StatModifiers;
+using Battle.Units.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -11,10 +11,12 @@ namespace Battle.Spells
         [SerializeField] private int damage;
         [SerializeField] private int moves;
 
-        protected override void Action() =>
-            unitBelong.damage.mods.Add(new DamageMoveMod(damage, moves));
-
         public override string Description =>
             string.Format(descriptionKeyRef.Value, damage, moves);
+
+        protected override void Action()
+        {
+            unitBelong.damage.mods.Add(new DamageMoveMod(damage, moves));
+        }
     }
 }

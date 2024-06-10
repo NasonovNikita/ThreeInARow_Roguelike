@@ -1,5 +1,5 @@
-using Battle.Modifiers.Statuses;
 using Battle.Units;
+using Battle.Units.Statuses;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -8,6 +8,9 @@ namespace Battle.Spells
     public class Inferno : Spell
     {
         [SerializeField] private int dmg;
+
+        public override string Description => descriptionKeyRef.Value;
+
         protected override void Action()
         {
             foreach (Unit enemy in unitBelong.Enemies)
@@ -16,7 +19,5 @@ namespace Battle.Spells
                 enemy.Statuses.Add(new Burning());
             }
         }
-
-        public override string Description => descriptionKeyRef.Value;
     }
 }

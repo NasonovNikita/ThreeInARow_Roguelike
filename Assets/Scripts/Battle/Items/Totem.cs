@@ -1,5 +1,5 @@
-using Battle.Modifiers.Statuses;
 using Battle.Units;
+using Battle.Units.Statuses;
 using UnityEngine;
 
 namespace Battle.Items
@@ -8,10 +8,6 @@ namespace Battle.Items
     public class Totem : Item
     {
         [SerializeField] private int chance;
-
-        public override string Title => titleKeyRef.Value;
-        public override string Description => descriptionKeyRef.Value;
-
 
         public override void OnGet()
         {

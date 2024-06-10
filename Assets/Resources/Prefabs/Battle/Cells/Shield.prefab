@@ -129,12 +129,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6091672453835025689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89bb7775cd9042eebd8085084702ac3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f6ba90923024a4a9c15b8af5780c260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  descriptionKeyRef:
+    _key: ShieldCellDescription
+    _formatters: []
+  possibleReward: 1
   mover: {fileID: 2012928630110493356}
   scaler: {fileID: 7010170170264452560}
-  amount: 1
+  amount: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7010170170264452560 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -5747296517565542142, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}

@@ -12,13 +12,16 @@ namespace Battle
     {
         public static BattleFlowManager Instance { get; private set; }
 
-        public const Unit NoTurningUnit = null;
+        private const Unit NoTurningUnit = null;
 
-        [NonSerialized]
-        public List<Enemy> enemiesWithNulls = new();
-        public List<Enemy> EnemiesWithoutNulls => enemiesWithNulls.Where(enemy => enemy != null).ToList();
+        [NonSerialized] public List<Enemy> enemiesWithNulls = new();
+
+        public List<Enemy> EnemiesWithoutNulls =>
+            enemiesWithNulls.Where(enemy => enemy != null).ToList();
 
         public Unit CurrentlyTurningUnit { get; private set; }
+
+        public List<Func<bool>> endedProcesses;
 
         public event Action OnBattleStart;
         public event Action OnCycleEnd;
@@ -29,8 +32,15 @@ namespace Battle
         public event Action OnEnemiesTurnStart;
         public event Action OnPlayerTurnStart;
 
-        public void Awake() => 
+        public void Awake()
+        {
             Instance = this;
+        }
+
+        public void OnDestroy()
+        {
+            BattleEnd();
+        }
 
         public void TurnOn()
         {
@@ -38,8 +48,57 @@ namespace Battle
             PlayerTurn();
 
             Player.Instance.OnDied += OnPlayerDeath;
-            
+
             OnBattleStart?.Invoke();
+        }
+
+        public void StopPlayerTurn()
+        {
+            Player.Instance.WasteAllMoves();
+            CurrentlyTurningUnit = NoTurningUnit;
+        }
+
+        public void ShuffleEnemies()
+        {
+            enemiesWithNulls = enemiesWithNulls.OrderBy(_ => Random.Range(0, 100000)).ToList();
+            OnEnemiesShuffle?.Invoke();
+        }
+
+        private void PlayerTurn()
+        {
+            endedProcesses = new List<Func<bool>>();
+            
+            Player.Instance.RefillMoves();
+            CurrentlyTurningUnit = Player.Instance;
+            
+            OnPlayerTurnStart?.Invoke();
+            
+            Player.Instance.StartTurn();
+
+            StartCoroutine(WaitForProcessesToEnd(() => StartCoroutine(EnemiesTurn())));
+        }
+
+        private IEnumerator EnemiesTurn()
+        {
+            yield return StartCoroutine(WaitForProcessesToEnd());
+            OnEnemiesTurnStart?.Invoke();
+
+            foreach (Enemy enemy in EnemiesWithoutNulls)
+            {
+                CurrentlyTurningUnit = enemy;
+                yield return StartCoroutine(enemy.Turn());
+                yield return StartCoroutine(WaitForProcessesToEnd());
+            }
+
+            OnCycleEnd?.Invoke();
+            yield return StartCoroutine(WaitForProcessesToEnd());
+            PlayerTurn();
+        }
+
+        private void BattleEnd()
+        {
+            CurrentlyTurningUnit = NoTurningUnit;
+            OnBattleEnd?.Invoke();
         }
 
         private void InitEnemies()
@@ -49,9 +108,9 @@ namespace Battle
                 enemy.target = Player.Instance;
                 enemy.OnDied += OnEnemyDeath;
 
-                if (!enemy.TryGetComponent(out ManaByTimeIncreaser component)) continue;
-                
-                component.StartIncreasing();
+                if (!enemy.TryGetComponent(out ManaByTimeIncreaser increaser)) continue;
+
+                increaser.StartIncreasing();
             }
         }
 
@@ -69,38 +128,11 @@ namespace Battle
             OnBattleLose?.Invoke();
         }
 
-        public void StartEnemiesTurn() => StartCoroutine(EnemiesAct());
-
-        public void ShuffleEnemies()
+        private IEnumerator WaitForProcessesToEnd(Action onEnd = null)
         {
-            enemiesWithNulls = enemiesWithNulls.OrderBy(_ => Random.Range(0, 100000)).ToList();
-            OnEnemiesShuffle?.Invoke();
-        }
-
-        private IEnumerator EnemiesAct()
-        {
-            OnEnemiesTurnStart?.Invoke();
+            yield return new WaitUntil(() => endedProcesses.All(f => f.Invoke()));
             
-            foreach (Enemy enemy in EnemiesWithoutNulls)
-            {
-                CurrentlyTurningUnit = enemy;
-                yield return StartCoroutine(enemy.Turn());
-            }
-            OnCycleEnd?.Invoke();
-            PlayerTurn();
-        }
-
-        private void PlayerTurn()
-        {
-            OnPlayerTurnStart?.Invoke();
-            CurrentlyTurningUnit = Player.Instance;
-            Player.Instance.StartTurn();
-        }
-
-        private void BattleEnd()
-        {
-            CurrentlyTurningUnit = NoTurningUnit;
-            OnBattleEnd?.Invoke();
+            onEnd?.Invoke();
         }
     }
 }

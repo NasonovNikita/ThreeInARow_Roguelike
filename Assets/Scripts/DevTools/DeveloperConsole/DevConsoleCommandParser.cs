@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Battle;
+using Battle.Items;
 using Battle.Modifiers;
-using Battle.Modifiers.Statuses;
 using Battle.Units;
 using Battle.Units.Stats;
+using Battle.Units.Statuses;
 using UnityEngine;
 
 namespace DevTools.DeveloperConsole
@@ -29,7 +30,8 @@ namespace DevTools.DeveloperConsole
             { "GiveStatMod", GiveStatModifier },
             { "ChangeStatValue", ChangeStat },
             { "UnlockMap", UnlockMap },
-            { "LockMap", LockMap }
+            { "LockMap", LockMap },
+            { "GiveItem", GiveItem }
         };
         
         public string Parse(string input)
@@ -41,7 +43,6 @@ namespace DevTools.DeveloperConsole
             return reply;
         }
         
-
         #region Info
         
         private static readonly Dictionary<string, CommandInfo> CommandInfos = new()
@@ -117,10 +118,7 @@ namespace DevTools.DeveloperConsole
         #endregion
 
         #region Battle
-
         
-
-
         private static string ChangeStat(List<string> args)
         {
             switch (args.Count)
@@ -229,11 +227,11 @@ namespace DevTools.DeveloperConsole
         
         private static bool TryCreateStatusMod(IReadOnlyList<string> args, string modName,
             out Modifier modifier, out string errorMessage) =>
-            TryCreateMod(args, modName, "Battle.Modifiers.Statuses", out modifier, out errorMessage);
+            TryCreateMod(args, modName, "Battle.Units.Statuses", out modifier, out errorMessage);
         
         private static bool TryCreateStatMod(IReadOnlyList<string> args, string modName,
             out Modifier modifier, out string errorMessage) => 
-            TryCreateMod(args, modName, "Battle.Modifiers.StatModifiers", out modifier, out errorMessage);
+            TryCreateMod(args, modName, "Battle.Units.StatModifiers", out modifier, out errorMessage);
 
         private static bool TryCreateMod(IReadOnlyCollection<string> args,
             string modName, string assembly,
@@ -484,6 +482,50 @@ namespace DevTools.DeveloperConsole
 
         #endregion
 
+        #region OverallActions
+
+        private static string GiveItem(IReadOnlyList<string> args)
+        {
+            switch (args.Count)
+            {
+                case 0:
+                    return ArgumentsRequired;
+                case > 1:
+                    return "Too many arguments";
+            }
+
+            string name = char.ToUpper(args[0][0]) + args[0][1..];
+
+            if (!TryCreateItem(name, out Item item, out string errorMessage))
+            {
+                return errorMessage;
+            }
+            
+            item.Get();
+            return $"Added item: {item}";
+        }
+
+        
+        private static bool TryCreateItem(string name, out Item item, out string errorMessage)
+        {
+            item = null;
+            errorMessage = "";
+            
+            try
+            {
+                item = Resources.Load<Item>($"Items/{name}");
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                errorMessage = $"Caught exception: {e}";
+                return false;
+            }
+        }
+        
+        #endregion
+        
         private static string GetCommand(string input) => input.Split(ArgumentsSeparator)[0];
 
         private static List<string> GetArgs(string input)

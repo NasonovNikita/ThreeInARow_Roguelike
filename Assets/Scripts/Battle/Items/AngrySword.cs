@@ -1,5 +1,5 @@
-using Battle.Modifiers.Statuses;
 using Battle.Units;
+using Battle.Units.Statuses;
 using Other;
 using UnityEngine;
 
@@ -10,11 +10,9 @@ namespace Battle.Items
     {
         [SerializeField] private int hpLessThen;
         [SerializeField] private int bonus;
-        
-        public override string Title => titleKeyRef.Value;
 
-        public override string Description => 
-            string.Format(descriptionKeyRef.Value, hpLessThen, bonus);
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(hpLessThen, bonus);
 
         public override void OnGet()
         {

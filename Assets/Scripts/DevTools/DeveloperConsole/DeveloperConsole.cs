@@ -22,7 +22,7 @@ namespace DevTools.DeveloperConsole
 
         [SerializeField] private int maximumLinesCount;
 
-        private List<string> commandsBuffer = new();
+        private static List<string> _commandsBuffer = new();
         
         public void Submit()
         {
@@ -37,8 +37,8 @@ namespace DevTools.DeveloperConsole
                     Destroy(gameObject);
                     return;
                 case CommandStringToGetPrev:
-                    if (commandsBuffer.Count != 0) 
-                        input.text = commandsBuffer[^1];
+                    if (_commandsBuffer.Count != 0) 
+                        input.text = _commandsBuffer[^1];
                     return;
             }
             AddCommandToBuffer(inputSting);
@@ -60,7 +60,7 @@ namespace DevTools.DeveloperConsole
 
         private void ClearConsole()
         {
-            commandsBuffer = new List<string>();
+            _commandsBuffer = new List<string>();
             text.text = "";
             ClearCommandLine();
         }
@@ -69,7 +69,7 @@ namespace DevTools.DeveloperConsole
 
         private void AddCommandToBuffer(string command)
         {
-            if (commandsBuffer.Count == 0 || commandsBuffer[^1] != command) commandsBuffer.Add(command);
+            if (_commandsBuffer.Count == 0 || _commandsBuffer[^1] != command) _commandsBuffer.Add(command);
         }
     }
 }

@@ -1,5 +1,6 @@
-using Battle.Modifiers.StatModifiers;
 using Battle.Units;
+using Battle.Units.StatModifiers;
+using Other;
 using UnityEngine;
 
 namespace Battle.Items
@@ -10,9 +11,8 @@ namespace Battle.Items
         [SerializeField] private int lostDamage;
         [SerializeField] private int notGottenDamage;
 
-        public override string Title => titleKeyRef.Value;
-
-        public override string Description => string.Format(descriptionKeyRef.Value, lostDamage, notGottenDamage);
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(lostDamage, notGottenDamage);
 
         public override void OnGet()
         {

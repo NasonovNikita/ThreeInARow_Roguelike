@@ -7,9 +7,14 @@ namespace Battle.Spells
     public class Healing : Spell
     {
         [SerializeField] private int healAmount;
-        
-        protected override void Action() =>
+
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, healAmount);
+
+        protected override void Action()
+        {
             unitBelong.hp.Heal(healAmount);
+        }
 
         public void MapCast()
         {
@@ -17,8 +22,5 @@ namespace Battle.Spells
             Player.data.mana.Waste(useCost);
             Player.data.hp.Heal(healAmount);
         }
-
-        public override string Description =>
-            string.Format(descriptionKeyRef.Value, healAmount);
     }
 }

@@ -119,12 +119,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 469275216430010845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8f0bc8b4ad40b7b089e3c9f71b0dd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a2a8ba27c7d40b8816c1c5ea6c78459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  descriptionKeyRef:
+    _key: AttackCellDescription
+    _formatters: []
+  possibleReward: 1
   mover: {fileID: 5324837422655727208}
   scaler: {fileID: 3694046946374975764}
   baseAttackVal: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &3694046946374975764 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -5747296517565542142, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}

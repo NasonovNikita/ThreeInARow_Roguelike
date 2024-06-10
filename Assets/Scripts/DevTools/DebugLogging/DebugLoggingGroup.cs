@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using System;
 using UnityEngine;
 
@@ -18,3 +20,5 @@ namespace DevTools.DebugLogging
         public abstract void UnAttach();
     }
 }
+
+#endif

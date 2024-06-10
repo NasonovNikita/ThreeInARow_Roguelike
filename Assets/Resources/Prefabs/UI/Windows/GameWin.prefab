@@ -127,14 +127,14 @@ PrefabInstance:
     - target: {fileID: 7728365181366174695, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4232334948075677302}
     - target: {fileID: 7728365181366174695, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: exit
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 7728365181366174695, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: UI.MenuButtons, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9046461763817857111, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_text
@@ -147,14 +147,14 @@ PrefabInstance:
     - target: {fileID: 9046461764272318497, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4232334948075677302}
     - target: {fileID: 9046461764272318497, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: restart
+      value: NewGame
       objectReference: {fileID: 0}
     - target: {fileID: 9046461764272318497, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: UI.MenuButtons, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9046461764272318503, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_Name
@@ -221,6 +221,17 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &4232334948075677302 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2109227862924191559, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
+  m_PrefabInstance: {fileID: 2880401223905067313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec78b61cd366e84a8ba3ffc5e1331a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4511767744366997544 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1829650557677678873, guid: 6cbf7e851d145414c879a9b908960182, type: 3}

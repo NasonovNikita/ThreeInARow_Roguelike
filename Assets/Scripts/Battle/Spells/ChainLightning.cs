@@ -1,5 +1,6 @@
 using System;
 using Battle.Units;
+using Other;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -10,12 +11,15 @@ namespace Battle.Spells
         [SerializeField] private int dmg;
         [SerializeField] private float rise;
 
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, dmg, Tools.Percents(rise - 1));
+
         protected override void Action()
         {
-            int nulls = 0;
-            for (int i = 0; i < unitBelong.Enemies.Count; i++)
+            var nulls = 0;
+            for (var i = 0; i < unitBelong.Enemies.Count; i++)
             {
-                int damage = (int)(dmg * Math.Pow(rise, i - nulls));
+                var damage = (int)(dmg * Math.Pow(rise, i - nulls));
                 Unit enemy = unitBelong.Enemies[i];
                 if (enemy == null)
                 {
@@ -26,8 +30,5 @@ namespace Battle.Spells
                 enemy.TakeDamage(damage);
             }
         }
-
-        public override string Description =>
-            string.Format(descriptionKeyRef.Value, dmg, Other.Tools.Percents(rise - 1));
     }
 }

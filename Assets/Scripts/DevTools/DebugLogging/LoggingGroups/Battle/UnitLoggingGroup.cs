@@ -1,5 +1,9 @@
+#if UNITY_EDITOR
+
+using System;
 using System.Collections.Generic;
 using Battle;
+using Battle.Modifiers;
 using Battle.Units;
 using Battle.Units.Stats;
 
@@ -9,28 +13,30 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
     {
         public override void Attach()
         {
-
-            Player.Instance.OnDied += () => CheckAndWrite("Player died");
-            Player.Instance.OnMadeHit += () => CheckAndWrite("Player made hit");
-            Player.Instance.OnSpellCasted += () => CheckAndWrite("Player casted spell");
-            AttachToStatChanges(Player.Instance);
-             
-
-            foreach (Enemy enemy in BattleFlowManager.Instance.EnemiesWithoutNulls)
+            foreach (Unit  unit in new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls) { Player.Instance })
             {
-                enemy.OnDied += () => CheckAndWrite($"{ EnemyInfo() } died");
-                enemy.OnMadeHit += () => CheckAndWrite($"{ EnemyInfo() } made hit");
-                enemy.OnSpellCasted += () => CheckAndWrite($"{ EnemyInfo() } casted spell");
-                AttachToStatChanges(enemy);
-
-                continue;
-                
-                string EnemyInfo() =>
-                    $"Enemy ({enemy.name}) " +
-                    $"at index {BattleFlowManager.Instance.EnemiesWithoutNulls.IndexOf(enemy)}";
+                unit.OnDied += () => CheckAndWrite($"{ UnitInfo(unit) } died");
+                unit.OnMadeHit += () => CheckAndWrite($"{ UnitInfo(unit) } made hit");
+                unit.OnSpellCasted += () => CheckAndWrite($"{ UnitInfo(unit) } casted spell");
+                AttachToStatChanges(unit);
+                AttachToModLists(unit);
             }
             
             return;
+
+            string UnitInfo(Unit unit)
+            {
+                return unit switch
+                {
+                    Player => "Player",
+                    Enemy enemy => EnemyInfo(enemy),
+                    _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, null)
+                };
+            }
+                
+            string EnemyInfo(Enemy enemy) =>
+                $"Enemy ({enemy.name}) " +
+                $"at index {BattleFlowManager.Instance.EnemiesWithoutNulls.IndexOf(enemy)}";
 
             void AttachToStatChanges(Unit unit)
             {
@@ -40,9 +46,17 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
                 return;
                 
                 void WriteStatChange(Stat stat, int value) => 
-                    CheckAndWrite($"Unit's ({unit.name}) stat ({stat}) changed by {value}");
+                    CheckAndWrite($"{unit.name}' {stat} changed by {value}");
 
                 List<Stat> GetStats() => new() { unit.hp, unit.mana, unit.damage };
+            }
+            
+            void AttachToModLists(Unit unit)
+            {
+                foreach (ModifierList list in unit.AllModifierLists)
+                {
+                    list.OnModAdded += modifier => CheckAndWrite($"{unit.name} got {modifier} to {list}");
+                }
             }
         }
 
@@ -52,3 +66,5 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
         }
     }
 }
+
+#endif

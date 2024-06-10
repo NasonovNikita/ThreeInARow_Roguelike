@@ -124,6 +124,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 7728365181366174695, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 222311449702967640}
+    - target: {fileID: 7728365181366174695, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728365181366174695, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.MenuButtons, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 9046461763817857111, guid: 6cbf7e851d145414c879a9b908960182, type: 3}
       propertyPath: m_text
       value: New Game

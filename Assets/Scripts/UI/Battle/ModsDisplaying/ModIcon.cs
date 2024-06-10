@@ -12,9 +12,9 @@ namespace UI.Battle.ModsDisplaying
         [SerializeField] private Text subInfo;
         [SerializeField] private Image img;
         [SerializeField] private InfoObject modInfo;
-        private DisplayedModifier mod;
+        private IModIconModifier mod;
 
-        public static void Create(DisplayedModifier mod, Transform parentTransform)
+        public static void Create(IModIconModifier mod, Transform parentTransform)
         {
             if (mod.Sprite is null) return;
             

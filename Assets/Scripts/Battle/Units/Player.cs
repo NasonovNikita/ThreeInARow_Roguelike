@@ -3,50 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using Audio;
 using Battle.Modifiers;
-using Battle.Modifiers.Statuses;
 using Battle.Spells;
+using Battle.Units.Statuses;
+using UnityEngine;
 
 namespace Battle.Units
 {
     [Serializable]
     public class Player : Unit
     {
-        public static Player Instance { get; private set; }
-        
         public static PlayerData data;
+        [SerializeField] private int maxMoves;
+        private int currentMovesCount;
 
-        public override List<Unit> Enemies => new(battleFlowManager.EnemiesWithoutNulls);
+        public static Player Instance { get; private set; }
+
+        public override List<Unit> Enemies => new(BattleFlowManager.Instance.EnemiesWithoutNulls);
 
         public override void Awake()
         {
             Instance = this;
-            
+
             hp.OnValueChanged += _ => AudioManager.Instance.Play(AudioEnum.PlayerHit);
-            
+
+            RefillMoves();
             Load();
             base.Awake();
         }
 
-        public void Start()
+        public void OnDestroy()
         {
-            LateLoad();
+            Save();
         }
 
-        public void OnDestroy() => Save();
-
-        public override void WasteMove()
+        public void RefillMoves()
         {
-            base.WasteMove();
-            if (HasMoves) return;
-            
-            battleFlowManager.StartEnemiesTurn();
-            RefillMoves();
+            currentMovesCount = maxMoves;
+        }
+
+        public void WasteAllMoves()
+        {
+            currentMovesCount = 0;
+        }
+
+        public void AddMove()
+        {
+            currentMovesCount++;
+        }
+
+        public void WasteMove()
+        {
+            currentMovesCount -= 1;
         }
 
         public void StartTurn()
         {
-            if (HasMoves) return;
-            battleFlowManager.StartEnemiesTurn();
+            BattleFlowManager.Instance.endedProcesses.Add(() => currentMovesCount == 0);
+            
+            if (statuses.ModList.Exists(mod => mod is Stun { EndedWork: false }))
+                currentMovesCount = 0;
         }
 
         private void Load()
@@ -54,24 +69,23 @@ namespace Battle.Units
             hp = data.hp;
             mana = data.mana;
             damage = data.damage;
-            
-            manaPerGem = data.manaPerGem;
+
             spells = new List<Spell>(data.spells);
             statuses = new ModifierList(data.statuses);
         }
 
-        private void LateLoad()
+        public void LateLoad()
         {
             hp.Init();
             mana.Init();
             damage.Init();
 
-            foreach (Status status in statuses.ModList.Cast<Status>())
-            {
-                status.Init(this);
-            }
+            foreach (Status status in statuses.ModList.Cast<Status>()) status.Init(this);
         }
 
-        private void Save() => data = PlayerData.NewData(this, data);
+        private void Save()
+        {
+            data = PlayerData.NewData(this, data);
+        }
     }
 }

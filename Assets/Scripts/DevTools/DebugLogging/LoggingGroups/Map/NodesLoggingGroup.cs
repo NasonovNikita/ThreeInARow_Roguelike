@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using Node = Map.Nodes.Node;
 
 namespace DevTools.DebugLogging.LoggingGroups.Map
@@ -20,3 +22,5 @@ namespace DevTools.DebugLogging.LoggingGroups.Map
         private void WriteNodeClicked(Node node) => CheckAndWrite($"Clicked at node {node}");
     }
 }
+
+#endif

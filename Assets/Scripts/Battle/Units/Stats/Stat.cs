@@ -1,6 +1,4 @@
 using System;
-using UnityEngine;
-using Random = UnityEngine.Random;
 using SerializeField = UnityEngine.SerializeField;
 
 namespace Battle.Units.Stats
@@ -12,8 +10,36 @@ namespace Battle.Units.Stats
         [SerializeField] private int value;
         public int Value => value;
         public int BorderUp => borderUp;
-        
+
         public event Action<int> OnValueChanged;
+
+        public void ChangeBorderUp(int dBorder, int dValue = 0)
+        {
+            borderUp += dBorder;
+
+            dValue = FixedValueChange(dValue);
+            value += dValue;
+
+            OnValueChanged?.Invoke(dValue);
+        }
+
+        public void ChangeValue(int change)
+        {
+            change = FixedValueChange(change);
+            value += change;
+
+            OnValueChanged?.Invoke(change);
+        }
+
+        protected int FixedValueChange(int change)
+        {
+            return change >= 0 ? Math.Min(BorderUp - value, change) : -Math.Min(value, -change);
+        }
+
+        public void UnAttach()
+        {
+            OnValueChanged = null;
+        }
 
 
         #region Initializers
@@ -23,7 +49,7 @@ namespace Battle.Units.Stats
             this.value = value;
             this.borderUp = borderUp;
         }
-        
+
         protected Stat(int v, Stat stat)
         {
             value = v;
@@ -41,58 +67,61 @@ namespace Battle.Units.Stats
             value = v;
             borderUp = value;
         }
-        
+
         #endregion
 
-        public void ChangeBorderUp(int dBorder, int dValue = 0)
-        {
-            borderUp += dBorder;
-            
-            dValue = FixedValueChange(dValue);
-            value += dValue;
-            
-            OnValueChanged?.Invoke(dValue);
-        }
-
-        public void ChangeValue(int change)
-        {
-            change = FixedValueChange(change);
-            value += change;
-            
-            OnValueChanged?.Invoke(change);
-        }
-
-        protected int FixedValueChange(int change) => 
-            change >= 0 ? Math.Min(BorderUp - value, change) : -Math.Min(value, -change);
-
-        public void UnAttach()
-        {
-            OnValueChanged = null;
-        }
-
         #region operators
-        
-        public static bool operator == (Stat stat, int n) => stat?.value == n;
 
-        public static bool operator != (Stat stat, int n) => stat?.value == n;
+        public static bool operator ==(Stat stat, int n)
+        {
+            return stat?.value == n;
+        }
 
-        public static bool operator >= (Stat stat, int n) => stat.value >= n;
+        public static bool operator !=(Stat stat, int n)
+        {
+            return stat?.value == n;
+        }
 
-        public static bool operator <= (Stat stat, int n) => stat.value <= n;
+        public static bool operator >=(Stat stat, int n)
+        {
+            return stat.value >= n;
+        }
 
-        public static bool operator > (Stat stat, int n) => stat.value > n;
+        public static bool operator <=(Stat stat, int n)
+        {
+            return stat.value <= n;
+        }
 
-        public static bool operator < (Stat stat, int n) => stat.value < n;
+        public static bool operator >(Stat stat, int n)
+        {
+            return stat.value > n;
+        }
 
-        public static explicit operator int(Stat stat) => stat.value;
+        public static bool operator <(Stat stat, int n)
+        {
+            return stat.value < n;
+        }
 
-        protected bool Equals(Stat stat) => ReferenceEquals(this, stat);
+        public static explicit operator int(Stat stat)
+        {
+            return stat.value;
+        }
 
-        public override bool Equals(object obj) =>
-            !ReferenceEquals(null, obj) &&
-            (ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((Stat)obj));
+        protected bool Equals(Stat stat)
+        {
+            return ReferenceEquals(this, stat);
+        }
 
-        public override int GetHashCode() => HashCode.Combine(ToString());
+        public override bool Equals(object obj)
+        {
+            return !ReferenceEquals(null, obj) &&
+                   (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((Stat)obj)));
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ToString());
+        }
 
         #endregion
     }

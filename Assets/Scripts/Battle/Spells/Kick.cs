@@ -6,8 +6,12 @@ namespace Battle.Spells
     public class Kick : Spell
     {
         [SerializeField] private int damage;
-        protected override void Action() => unitBelong.target.TakeDamage(damage);
 
         public override string Description => string.Format(descriptionKeyRef.Value, damage);
+
+        protected override void Action()
+        {
+            unitBelong.target.TakeDamage(damage);
+        }
     }
 }

@@ -1,5 +1,4 @@
-using Battle.Modifiers.StatModifiers;
-using Battle.Modifiers.Statuses;
+using Battle.Units.StatModifiers;
 using UnityEngine;
 
 namespace Battle.Spells

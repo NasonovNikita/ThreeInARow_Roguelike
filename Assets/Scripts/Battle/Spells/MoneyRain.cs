@@ -12,18 +12,21 @@ namespace Battle.Spells
             battleFlowManager.CurrentlyTurningUnit is not Player ||
             Player.data.money < useCost;
 
-        protected override void Waste() => Player.data.money -= useCost;
+        public override string Description => string.Format(descriptionKeyRef.Value, damage);
+
+        protected override void Waste()
+        {
+            Player.data.money -= useCost;
+        }
 
         protected override void Action()
         {
-            for (int i = 0; i < useCost; i++)
+            for (var i = 0; i < useCost; i++)
             {
-                int index = Random.Range(0, unitBelong.Enemies.Count);
+                var index = Random.Range(0, unitBelong.Enemies.Count);
                 while (unitBelong.Enemies[index] == null) index = Random.Range(0, unitBelong.Enemies.Count);
-                unitBelong.Enemies[index].TakeDamage(damage);
+                unitBelong.Enemies[index].TakeDamage(unitBelong.damage.ApplyDamage(damage));
             }
         }
-
-        public override string Description => string.Format(descriptionKeyRef.Value, damage);
     }
 }
