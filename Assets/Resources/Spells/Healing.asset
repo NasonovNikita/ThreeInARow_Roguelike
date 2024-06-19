@@ -18,7 +18,7 @@ MonoBehaviour:
     _key: Healing
     _formatters: []
   descriptionKeyRef:
-    _key: HealingDescription
+    _key: HealingSpellDescription
     _formatters: []
   useCost: 31
   healAmount: 10

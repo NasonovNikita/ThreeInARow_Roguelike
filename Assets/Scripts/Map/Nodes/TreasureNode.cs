@@ -1,20 +1,12 @@
 using Core.Singleton;
-using Map.Nodes.Managers;
-using Treasure;
 
 namespace Map.Nodes
 {
     public class TreasureNode : Node
     {
-        protected override void Action()
-        {
-            TreasureManager.treasure = Generator.Instance.ChooseTreasure(layer);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Treasure");
-        }
+        protected override void Action() => RoomLoader.LoadTreasure(layer, seed);
 
-        public static TreasureNode Create(int layer, int randomSeed)
-        {
-            return (TreasureNode)Node.Create(PrefabsContainer.instance.treasureNode, layer, randomSeed);
-        }
+        public static TreasureNode Create(int layer, int randomSeed) => 
+            (TreasureNode)Node.Create(PrefabsContainer.instance.treasureNode, layer, randomSeed);
     }
 }

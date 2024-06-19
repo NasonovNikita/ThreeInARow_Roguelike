@@ -51,6 +51,8 @@ namespace Battle.Units
             currentMovesCount++;
         }
 
+        public void AddMoves(int count) => currentMovesCount += count;
+
         public void WasteMove()
         {
             currentMovesCount -= 1;

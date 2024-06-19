@@ -131,7 +131,7 @@ MonoBehaviour:
   - _key: Healing
     _rawText: Healing
   - _key: HealingSpellDescription
-    _rawText: Heal {0}% of maximum hp
+    _rawText: Heal {0} hp
   - _key: HotBlood
     _rawText: Hot Blood
   - _key: HotBloodDescription

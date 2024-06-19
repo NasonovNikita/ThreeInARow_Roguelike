@@ -21,6 +21,8 @@ namespace Battle
 
         public Unit CurrentlyTurningUnit { get; private set; }
 
+        public int CyclesDone { get; private set; } = 0;
+
         public List<Func<bool>> endedProcesses;
 
         public event Action OnBattleStart;
@@ -91,6 +93,7 @@ namespace Battle
             }
 
             OnCycleEnd?.Invoke();
+            CyclesDone++;
             yield return StartCoroutine(WaitForProcessesToEnd());
             PlayerTurn();
         }

@@ -239,6 +239,7 @@ namespace DevTools.DeveloperConsole
         {
             modifier = null;
             errorMessage = "";
+
             
             try
             {

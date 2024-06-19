@@ -5,32 +5,45 @@ using Map.Nodes.Managers;
 using Other;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Random = UnityEngine.Random;
+using UnityEngine.Serialization;
 
 namespace Map.Nodes
 {
     public abstract class Node: MonoBehaviour, IPointerClickHandler
     {
-        public ObjectScaler scaler;
+        [FormerlySerializedAs("prefab")] [SerializeField]
+        private Edge edgePrefab;
         
-        [SerializeField] private Edge prefab;
+        [SerializeField]
+        private ObjectScaler scaler;
     
         public List<Node> next;
-
+        
+        protected int layer;
+        protected int seed;
+        
         private readonly List<Edge> edges = new();
 
-        protected int layer;
-
-        private int randomSeed;
-
         public static event Action<Node> OnArrive;
-        public static event Action<Node> OnClicked; 
+        public static event Action<Node> OnClicked;
+
+        protected static Node Create(Node prefab, int layer, int randomSeed)
+        {
+            Node node = Instantiate(prefab);
+            node.layer = layer;
+            node.seed = randomSeed;
+            GameObject gameObject = node.gameObject;
+            DontDestroyOnLoad(gameObject);
+            gameObject.SetActive(false);
+
+            return node;
+        }
 
         public void OnEnable()
         {
             foreach (Node node in next)
             {
-                Edge edge = Instantiate(prefab);
+                Edge edge = Instantiate(edgePrefab);
                 edge.Draw(transform.position, node.transform.position);
                 edges.Add(edge);
             }
@@ -47,16 +60,14 @@ namespace Map.Nodes
             }
         }
 
-        protected static Node Create(Node prefab, int layer, int randomSeed)
+        public void Choose()
         {
-            Node node = Instantiate(prefab);
-            node.layer = layer;
-            node.randomSeed = randomSeed;
-            GameObject gameObject = node.gameObject;
-            DontDestroyOnLoad(gameObject);
-            gameObject.SetActive(false);
+            StartCoroutine(scaler.ScaleUp());
+        }
 
-            return node;
+        public void UnChoose()
+        {
+            StartCoroutine(scaler.UnScale());
         }
 
         public bool BelongsToNext(Node other) => next.Contains(other);
@@ -80,9 +91,5 @@ namespace Map.Nodes
         }
 
         protected abstract void Action();
-
-        protected void SetNodeRandom() => Random.InitState(randomSeed);
-
-        protected void ResetRandom() => Tools.Random.ResetRandom();
     }
 }

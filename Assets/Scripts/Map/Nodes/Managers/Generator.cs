@@ -224,7 +224,7 @@ namespace Map.Nodes.Managers
             };
         }
 
-        private BattleNode GenBattle(int layer) => BattleNode.Create(layer, RandomSeed);
+        private BattleNode GenBattle(int layer) => BattleNode.Create(layer, RandomSeed, false);
 
         public EnemyGroup ChooseBattleEnemyGroup(int layer)
         {
@@ -240,7 +240,7 @@ namespace Map.Nodes.Managers
 
         private BattleNode GenBoss(int layer)
         {
-            var vertex = BattleNode.CreateBoss(layer, RandomSeed);
+            var vertex = BattleNode.Create(layer, RandomSeed, true);
             
             return vertex;
         }

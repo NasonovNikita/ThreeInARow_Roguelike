@@ -79,11 +79,10 @@ namespace Battle.Grid
                 }
                 
                 if (BoxIsStable) successVariants.Add(variant);
-                if (tries >= maxTries)
-                {
-                    Debug.unityLogger.LogWarning("Grid", "maximum refill tries reached");
-                    break;
-                }
+                if (tries < maxTries) continue;
+                
+                Debug.unityLogger.LogWarning("Grid", "maximum refill tries reached");
+                break;
             }
 
             if (successVariants.Count == 0)

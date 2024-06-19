@@ -336,28 +336,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2524805ede9714a8c8b36cd08db845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoves: 1
   hp:
     borderUp: 125
     value: 125
-    onTakingDamageMods:
-      modList: []
     onHealingMods:
+      modList: []
+    onTakingDamageMods:
       modList: []
   mana:
     borderUp: 0
     value: 0
-    wastingMods:
-      modList: []
     refillingMods:
       modList: []
+    wastingMods:
+      modList: []
   damage:
-    borderUp: 8
-    value: 8
+    borderUp: 14
+    value: 14
     mods:
       modList: []
   spells: []
-  manaPerGem: 1
   target: {fileID: 0}
   ai: {fileID: 4528978514573126716}
   references:

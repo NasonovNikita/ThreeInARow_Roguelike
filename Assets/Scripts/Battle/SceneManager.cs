@@ -24,12 +24,9 @@ namespace Battle
         private BattleWinWindow winMessageWindow;
 
         private readonly List<Enemy> enemiesWithNulls = new();
-        public static SceneManager Instance { get; private set; }
 
         public void Awake()
         {
-            Instance = this;
-
             GameSave.Save();
 
             InitEnemies();

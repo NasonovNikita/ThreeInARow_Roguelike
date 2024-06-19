@@ -1,8 +1,10 @@
+using Battle.Grid.Modifiers;
+using Battle.Modifiers;
 using Battle.Units;
 
 namespace Battle.Grid.Cells.MovingCell.MatchingCells
 {
-    public class Hourglass : MatchingCell
+    public class Hourglass : MatchingCell, IModifierAble
     {
         private static bool _added;
 
@@ -23,8 +25,12 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         {
             if (_added) return;
             
-            Player.Instance.AddMove();
+            Player.Instance.AddMoves(IIntModifier.UseModList(Modifiers.ModList, Value));
             _added = true;
         }
+
+        public ModifierList Modifiers { get; } = new();
+
+        public int Value => 1;
     }
 }

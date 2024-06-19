@@ -47,10 +47,7 @@ namespace Map.Nodes.Managers
             if (CameOutFromFinalNode) OnCameOutFromFinalNode?.Invoke();
         }
 
-        public void OnSceneLeave()
-        {
-            HideNodes();
-        }
+        public void OnSceneLeave() => HideNodes();
 
         public void RegenerateNodes()
         {
@@ -75,7 +72,7 @@ namespace Map.Nodes.Managers
             
             if (!success) return false;
             
-            if (!noNodeIsChosen) StartCoroutine(CurrentNode.scaler.UnScale());
+            if (!noNodeIsChosen) CurrentNode.UnChoose();
             SetCurrentNode(node);
 
             return true;
@@ -89,7 +86,7 @@ namespace Map.Nodes.Managers
 
         private void ScaleCurrentNode()
         {
-            if (!noNodeIsChosen) StartCoroutine(CurrentNode.scaler.ScaleUp());
+            if (!noNodeIsChosen) CurrentNode.Choose();
         }
 
         private void ShowNodes()

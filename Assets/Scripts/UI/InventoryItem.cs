@@ -2,7 +2,6 @@ using Core.Singleton;
 using Other;
 using UI.MessageWindows;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
