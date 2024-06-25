@@ -76,66 +76,66 @@ namespace Other
                 UnityRandom.InitState((int) DateTime.Now.Ticks);
         }
         
-        public static class Json
+    public static class Json
+    {
+        public static string ListToJson<T>(IEnumerable<T> list)
         {
-            public static string ListToJson<T>(IEnumerable<T> list)
-            {
-                var elements = list.Select(elem => JsonUtility.ToJson(elem)).ToList();
-                
-                return "{[" + string.Join(",", elements) + "]}";
-            }
-
-            public static List<T> JsonToList<T>(string json) where T : ScriptableObject
-            {
-                var elements = ParseList(json);
-                var res = new List<T>();
-                for (int i = 0; i < elements.Count; i++)
-                {
-                    res.Add(ScriptableObject.CreateInstance<T>());
-                }
-                
-                for (int i = 0; i < elements.Count; i++)
-                {
-                    JsonUtility.FromJsonOverwrite(elements[i], res[i]);
-                }
-
-                return res;
-            }
-
-            private static List<string> ParseList(string json)
-            {
-                json = json[2..^2];
-                var elements = new List<string>();
-                string nextElem = "";
-                int openedBracesCnt = 0;
-                int i = 0;
-                while (i < json.Length)
-                {
-                    switch (json[i])
-                    {
-                        case '{':
-                            nextElem += "{";
-                            openedBracesCnt += 1;
-                            break;
-                        case '}':
-                            nextElem += "}";
-                            openedBracesCnt -= 1;
-                            break;
-                        default:
-                            nextElem += json[i];
-                            break;
-                    }
-
-                    i++;
-                    if (openedBracesCnt != 0) continue;
-                    
-                    elements.Add(nextElem);
-                    nextElem = "";
-                    i++;
-                }
-                return elements;
-            }
+            var elements = list.Select(elem => JsonUtility.ToJson(elem)).ToList();
+            
+            return "{[" + string.Join(",", elements) + "]}";
         }
+
+        public static List<T> JsonToListScriptableObjects<T>(string json) where T : ScriptableObject
+        {
+            var elements = ParseList(json);
+            var res = new List<T>();
+            for (int i = 0; i < elements.Count; i++)
+            {
+                res.Add(ScriptableObject.CreateInstance<T>());
+            }
+            
+            for (int i = 0; i < elements.Count; i++)
+            {
+                JsonUtility.FromJsonOverwrite(elements[i], res[i]);
+            }
+
+            return res;
+        }
+
+        private static List<string> ParseList(string json)
+        {
+            json = json[2..^2];
+            var elements = new List<string>();
+            string nextElem = "";
+            int openedBracesCnt = 0;
+            int i = 0;
+            while (i < json.Length)
+            {
+                switch (json[i])
+                {
+                    case '{':
+                        nextElem += "{";
+                        openedBracesCnt += 1;
+                        break;
+                    case '}':
+                        nextElem += "}";
+                        openedBracesCnt -= 1;
+                        break;
+                    default:
+                        nextElem += json[i];
+                        break;
+                }
+
+                i++;
+                if (openedBracesCnt != 0) continue;
+                
+                elements.Add(nextElem);
+                nextElem = "";
+                i++;
+            }
+            return elements;
+        }
+    }
 
         public static T InstantiateUI<T>(T obj) where T : Object => 
             Object.Instantiate(obj, UICanvas.Instance.transform);

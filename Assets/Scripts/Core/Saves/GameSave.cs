@@ -59,7 +59,7 @@ namespace Core.Saves
             Battle.SceneManager.enemyGroup = ScriptableObject.CreateInstance<EnemyGroup>();
             JsonUtility.FromJsonOverwrite(enemyGroup, Battle.SceneManager.enemyGroup);
             
-            ShopManager.goods = Tools.Json.JsonToList<Good>(goods);
+            ShopManager.goods = Tools.Json.JsonToListScriptableObjects<Good>(goods);
 
             TreasureManager.treasure = ScriptableObject.CreateInstance<LongScythe>(); // TODO doesn't work
             // No matter what type of LootItem instance is created json overwriting works
@@ -75,7 +75,9 @@ namespace Core.Saves
                     item.OnGet();
                 }
             }
-            
+
+
+
             SceneManager.LoadScene(scene);
         }
 

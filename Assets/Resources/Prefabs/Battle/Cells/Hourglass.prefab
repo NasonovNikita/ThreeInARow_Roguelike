@@ -142,7 +142,7 @@ MonoBehaviour:
   descriptionKeyRef:
     _key: HourglassCellDescription
     _formatters: []
-  possibleReward: 1
+  possibleReward: 0
   mover: {fileID: 3413453018137101811}
   scaler: {fileID: 6195121451311948431}
   references:
