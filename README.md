@@ -1,7 +1,7 @@
 # Match3 roguelike (Early developing stage)
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Description
-This is a turn-based combat roguelike game based on *Match three* game (As sugar crush)
+This is a **turn-based** combat roguelike game based on **Match three** game (As sugar crush)
 Fight enemies, earn gold and other rewards and survive till the final boss.
 
 Plot is to be made.
@@ -18,7 +18,7 @@ Plot is to be made.
 
 ## How to play it now?
 The game's code is fully opened for investigating.
-You can make own build using Unity Engine. If you don't know how, the build is in "build' folder. It will be updated sometimes.
+You can make own build using Unity Engine. If you don't know how, the build is in *build* folder. It will be updated sometimes.
 
 ## If you want to cooperate...
 ### My contacts:
