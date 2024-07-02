@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Battle.Spells;
 using Battle.Units;
-using Core;
 using Core.Singleton;
 using Other;
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace UI.MessageWindows
             for (int i = 0; i < 4; i++)
             {
                 var index = i;
-                Tools.InitButton(buttons[i], () => ReplaceSpell(index), Player.data.spells[i].Title);
+                buttons[i].InitButton(() => ReplaceSpell(index), Player.data.spells[i].Title);
             }
         }
 

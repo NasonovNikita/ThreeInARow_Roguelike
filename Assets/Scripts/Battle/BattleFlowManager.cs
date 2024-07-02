@@ -69,12 +69,12 @@ namespace Battle
         private void PlayerTurn()
         {
             endedProcesses = new List<Func<bool>>();
-            
+
             Player.Instance.RefillMoves();
             CurrentlyTurningUnit = Player.Instance;
-            
+
             OnPlayerTurnStart?.Invoke();
-            
+
             Player.Instance.StartTurn();
 
             StartCoroutine(WaitForProcessesToEnd(() => StartCoroutine(EnemiesTurn())));
@@ -134,7 +134,7 @@ namespace Battle
         private IEnumerator WaitForProcessesToEnd(Action onEnd = null)
         {
             yield return new WaitUntil(() => endedProcesses.All(f => f.Invoke()));
-            
+
             onEnd?.Invoke();
         }
     }

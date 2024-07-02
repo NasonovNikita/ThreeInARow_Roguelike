@@ -6,7 +6,7 @@ namespace Map.Nodes
     public class SecretNode : Node
     {
         private List<Action> Rooms => new() { Treasure, Battle, Shop };
-        // TODO add PlotRoom ("Slay the Spire"-like)
+        // TODO add Plot ("Slay the Spire"-like)
         
         protected override void Action()
         {

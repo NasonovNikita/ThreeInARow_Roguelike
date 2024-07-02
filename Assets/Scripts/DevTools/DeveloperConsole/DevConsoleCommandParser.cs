@@ -22,7 +22,7 @@ namespace DevTools.DeveloperConsole
         private const string ArgumentsSeparator = " ~";
         
         private delegate string Command(List<string> args);
-        private readonly Dictionary<string, Command> commands = new() 
+        private readonly Dictionary<string, Command> _commands = new() 
         {
             { "Info", Info },
             { "Kill", Kill },
@@ -36,7 +36,7 @@ namespace DevTools.DeveloperConsole
         
         public string Parse(string input)
         {
-            if (!commands.TryGetValue(GetCommand(input), out Command command)) return WrongCommandReply;
+            if (!_commands.TryGetValue(GetCommand(input), out Command command)) return WrongCommandReply;
 
             string reply = command?.Invoke(GetArgs(input));
             

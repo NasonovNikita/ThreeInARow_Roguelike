@@ -140,10 +140,10 @@ namespace Other
         public static T InstantiateUI<T>(T obj) where T : Object => 
             Object.Instantiate(obj, UICanvas.Instance.transform);
 
-        public static void InitButton(this Button btn, UnityEngine.Events.UnityAction onClick,
+        public static void InitButton(this Button btn, Action onClick,
             string content)
         {
-            btn.onClick.AddListener(onClick);
+            btn.onClick.AddListener(() => onClick());
             btn.GetComponentInChildren<Text>().text = content;
         }
 

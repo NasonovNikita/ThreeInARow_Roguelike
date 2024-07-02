@@ -16,6 +16,9 @@ scopes = {
 	"last_search.45F317DD" = ""
 	"OpenInspectorPreview.45F317DD" = "0"
 	"currentGroup.45F317DD" = "all"
+	"last_search.310DEAF1" = ""
+	"OpenInspectorPreview.310DEAF1" = "0"
+	"currentGroup.310DEAF1" = "all"
 }
 providers = {
 	asset = {
@@ -31,7 +34,7 @@ providers = {
 	packages = {
 		active = true
 		priority = 90
-		defaultAction = null
+		defaultAction = "open"
 	}
 	profilermarkers = {
 		active = false
@@ -76,6 +79,26 @@ providers = {
 	at = {
 		active = true
 		priority = 100
+		defaultAction = null
+	}
+	menu = {
+		active = true
+		priority = 80
+		defaultAction = null
+	}
+	settings = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	calculator = {
+		active = true
+		priority = 10
+		defaultAction = null
+	}
+	static_methods = {
+		active = true
+		priority = 85
 		defaultAction = null
 	}
 }
