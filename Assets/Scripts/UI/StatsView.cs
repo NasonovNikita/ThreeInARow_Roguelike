@@ -1,6 +1,4 @@
-using Battle;
 using Battle.Units;
-using Core;
 using Knot.Localization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +12,7 @@ namespace UI
         [SerializeField] private KnotTextKeyReference mana;
         [SerializeField] private KnotTextKeyReference cash;
         private Text text;
-        
+
         public void Awake()
         {
             text = GetComponent<Text>();

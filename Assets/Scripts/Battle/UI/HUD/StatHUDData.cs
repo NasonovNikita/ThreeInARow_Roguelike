@@ -1,8 +1,7 @@
 using System;
-using Battle.Units.Stats;
 using UnityEngine;
 
-namespace UI.Battle.HUD
+namespace Battle.UI.HUD
 {
     [Serializable]
     public struct StatHUDData
@@ -11,20 +10,24 @@ namespace UI.Battle.HUD
         [SerializeField] private Color decreaseColor;
         [SerializeField] private Color defaultColor;
 
-        public Color ColorByStatValueChange(int delta) => 
-            delta switch
+        public Color ColorByStatValueChange(int delta)
+        {
+            return delta switch
             {
                 > 0 => increaseColor,
                 0 => defaultColor,
                 < 0 => decreaseColor
             };
+        }
 
-        public HUDMoveDirection HUDMoveDirectionByStatValueChange(int delta) =>
-            delta switch
+        public HUDMoveDirection HUDMoveDirectionByStatValueChange(int delta)
+        {
+            return delta switch
             {
                 > 0 => HUDMoveDirection.Up,
                 0 => HUDMoveDirection.None,
                 < 0 => HUDMoveDirection.Down
             };
+        }
     }
 }

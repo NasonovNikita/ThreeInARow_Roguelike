@@ -10,7 +10,8 @@ namespace Battle.Items
         [SerializeField] private int minMana;
         [SerializeField] private int damage;
 
-        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(minMana, damage);
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(minMana, damage);
 
         public override void OnGet()
         {

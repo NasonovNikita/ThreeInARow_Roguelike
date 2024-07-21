@@ -13,10 +13,10 @@ namespace Treasure
         {
             AudioManager.Instance.StopAll();
             GameSave.Save();
-            
+
             var treasureBox = FindFirstObjectByType<TreasureBox>();
             treasureBox.treasure = treasure;
-            
+
             AudioManager.Instance.Play(AudioEnum.Treasure);
         }
     }

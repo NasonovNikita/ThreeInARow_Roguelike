@@ -6,11 +6,10 @@ namespace Core.Saves
     [Serializable]
     public class SettingsSave : SaveObject
     {
+        private const string Path = "/Settings.dat";
         [SerializeField] private float volume;
         [SerializeField] private float difficulty;
         [SerializeField] private bool altBattleUI;
-
-        private const string Path = "/Settings.dat";
 
         public SettingsSave()
         {
@@ -28,6 +27,7 @@ namespace Core.Saves
         {
             SavesManager.Load<SettingsSave>(Path).Apply();
         }
+
         public override void Apply()
         {
             Globals.Instance.volume = volume;

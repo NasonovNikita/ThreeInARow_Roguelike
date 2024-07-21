@@ -5,8 +5,6 @@ namespace Core.Singleton
 {
     public class ModifierSpritesContainer : MonoBehaviour
     {
-        public static ModifierSpritesContainer Instance { get; private set; }
-        
         public Sprite burning;
         public Sprite damage;
         public Sprite deal;
@@ -21,7 +19,8 @@ namespace Core.Singleton
         public Sprite randomIgnition;
         public Sprite sharp;
         [FormerlySerializedAs("Vampirism")] public Sprite vampirism;
-        
+        public static ModifierSpritesContainer Instance { get; private set; }
+
         public void Awake()
         {
             if (Instance == null)
@@ -29,7 +28,10 @@ namespace Core.Singleton
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
-            else Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

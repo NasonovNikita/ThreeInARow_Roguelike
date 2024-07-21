@@ -10,10 +10,27 @@ namespace Other
         public bool doMove;
         public float time;
         public SpeedType speedType;
-        private Vector3 speed;
         private Vector3 acceleration;
         private Action onEnd;
-    
+        private Vector3 speed;
+
+
+        private void FixedUpdate()
+        {
+            if (doMove)
+            {
+                transform.position +=
+                    (speed * Time.deltaTime).magnitude < (endPos - transform.position).magnitude
+                        ? speed * Time.deltaTime
+                        : endPos - transform.position;
+                speed += acceleration * Time.deltaTime;
+            }
+
+            if (transform.position != endPos) return;
+            doMove = false;
+            onEnd?.Invoke();
+        }
+
         public IEnumerator MoveTo(Vector3 end, Action doAfterMove = null)
         {
             Vector3 delta = end - transform.position;
@@ -28,21 +45,6 @@ namespace Other
             onEnd = doAfterMove;
 
             return new WaitUntil(() => !doMove);
-        }
-
-
-        private void FixedUpdate() {
-            if (doMove) {
-                transform.position +=
-                    (speed * Time.deltaTime).magnitude < (endPos - transform.position).magnitude
-                    ? speed * Time.deltaTime
-                    : endPos - transform.position;
-                speed += acceleration * Time.deltaTime;
-            }
-
-            if (transform.position != endPos) return;
-            doMove = false;
-            onEnd?.Invoke();
         }
 
         private void SetSpeedAcceleration(Vector3 delta)

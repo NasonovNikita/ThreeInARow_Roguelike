@@ -115,7 +115,8 @@ namespace Battle.Units.Stats
         public override bool Equals(object obj)
         {
             return !ReferenceEquals(null, obj) &&
-                   (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((Stat)obj)));
+                   (ReferenceEquals(this, obj) ||
+                    (obj.GetType() == GetType() && Equals((Stat)obj)));
         }
 
         public override int GetHashCode()

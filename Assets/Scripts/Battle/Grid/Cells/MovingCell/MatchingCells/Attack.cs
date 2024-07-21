@@ -1,6 +1,7 @@
 using Battle.Grid.Modifiers;
 using Battle.Modifiers;
 using Battle.Units;
+using Other;
 using UnityEngine;
 
 namespace Battle.Grid.Cells.MovingCell.MatchingCells
@@ -8,6 +9,9 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
     public class Attack : MatchingCell, IModifierAble
     {
         [SerializeField] private int baseAttackVal;
+
+        public override string Description =>
+            Tools.IndexErrorProtectedFormat(descriptionKeyRef.Value, baseAttackVal);
 
         public ModifierList Modifiers { get; } = new();
 
@@ -26,8 +30,5 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         {
             return other is Attack;
         }
-
-        public override string Description =>
-            Other.Tools.IndexErrorProtectedFormat(descriptionKeyRef.Value, baseAttackVal);
     }
 }

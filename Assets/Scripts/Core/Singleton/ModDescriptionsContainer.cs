@@ -6,18 +6,6 @@ namespace Core.Singleton
 {
     public class ModDescriptionsContainer : MonoBehaviour
     {
-        public static ModDescriptionsContainer Instance { get; private set; }
-
-        public void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else Destroy(gameObject);
-        }
-
         public KnotTextKeyReference shield;
         public KnotTextKeyReference damagePositive;
         public KnotTextKeyReference damageNegative;
@@ -37,5 +25,19 @@ namespace Core.Singleton
         public KnotTextKeyReference sharp;
         public KnotTextKeyReference stun;
         public KnotTextKeyReference vampirism;
+        public static ModDescriptionsContainer Instance { get; private set; }
+
+        public void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

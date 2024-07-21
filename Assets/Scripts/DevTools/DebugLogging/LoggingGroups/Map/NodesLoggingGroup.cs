@@ -18,8 +18,15 @@ namespace DevTools.DebugLogging.LoggingGroups.Map
             Node.OnClicked -= WriteNodeClicked;
         }
 
-        private void WriteNodeArrival(Node node) => CheckAndWrite($"Arrived to node {node}");
-        private void WriteNodeClicked(Node node) => CheckAndWrite($"Clicked at node {node}");
+        private void WriteNodeArrival(Node node)
+        {
+            CheckAndWrite($"Arrived to node {node}");
+        }
+
+        private void WriteNodeClicked(Node node)
+        {
+            CheckAndWrite($"Clicked at node {node}");
+        }
     }
 }
 

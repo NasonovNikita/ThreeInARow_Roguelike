@@ -7,7 +7,6 @@ namespace UI
 {
     public class MenuButtons : MonoBehaviour
     {
-
         public void NewGame()
         {
             GameManager.instance.NewGame();
@@ -17,6 +16,7 @@ namespace UI
         {
             GameManager.instance.Continue();
         }
+
         public void Exit()
         {
             GameManager.instance.Exit();

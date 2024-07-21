@@ -1,7 +1,7 @@
 using System;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Core.Singleton;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -19,7 +19,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.vampirism;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.vampirism.Value, heal);
+            IModIconModifier.SimpleFormatDescription(
+                ModDescriptionsContainer.Instance.vampirism.Value, heal);
 
         public override string SubInfo => heal.ToString();
         public override bool ToDelete => heal == 0;

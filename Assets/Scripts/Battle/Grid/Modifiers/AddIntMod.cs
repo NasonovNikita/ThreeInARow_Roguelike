@@ -18,9 +18,14 @@ namespace Battle.Grid.Modifiers
             return val + value;
         }
 
-        protected override bool CanConcat(Modifier other) => 
-            other is AddIntMod;
+        protected override bool CanConcat(Modifier other)
+        {
+            return other is AddIntMod;
+        }
 
-        public override void Concat(Modifier other) => value += ((AddIntMod)other).value;
+        public override void Concat(Modifier other)
+        {
+            value += ((AddIntMod)other).value;
+        }
     }
 }

@@ -4,8 +4,6 @@ namespace Core
 {
     public class Globals : MonoBehaviour
     {
-        public static Globals Instance { get; private set; }
-
         public bool randomSeed;
 
         public int seed;
@@ -17,7 +15,8 @@ namespace Core
         public bool altBattleUI;
 
         public (int, int) gridSize;
-    
+        public static Globals Instance { get; private set; }
+
         public void Awake()
         {
             if (Instance == null)
@@ -26,7 +25,9 @@ namespace Core
                 DontDestroyOnLoad(gameObject);
             }
             else
+            {
                 Destroy(gameObject);
+            }
         }
     }
 }

@@ -10,7 +10,8 @@ namespace Battle.Items
     {
         [SerializeField] private int value;
 
-        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(value);
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(value);
 
         public override void OnGet()
         {

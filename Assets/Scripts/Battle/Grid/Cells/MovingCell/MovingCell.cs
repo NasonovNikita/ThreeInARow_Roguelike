@@ -45,7 +45,7 @@ namespace Battle.Grid.Cells.MovingCell
                 Grid.Instance.SwitchCells(this, _chosen);
                 OnMoveDone();
                 _chosen.OnMoveDone();
-                
+
                 _chosen = null;
 
                 (BattleFlowManager.Instance.CurrentlyTurningUnit as Player)?.WasteMove();

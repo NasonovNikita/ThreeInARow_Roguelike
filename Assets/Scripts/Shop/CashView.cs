@@ -11,7 +11,7 @@ namespace Shop
         [SerializeField] private Text text;
         [SerializeField] private KnotTextKeyReference cashTextRef;
 
-    
+
         public void Update()
         {
             text.text = $"{cashTextRef.Value}: {Player.data.money}";

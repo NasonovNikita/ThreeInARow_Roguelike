@@ -12,18 +12,18 @@ namespace UI.MessageWindows
     {
         [SerializeField] private Button cellRewardButton;
         [SerializeField] private InfoObject cellInfoObject;
-        
+
         [SerializeField] private Button moneyRewardButton;
         [SerializeField] private Text moneyRewardButtonText;
-        
+
         [SerializeField] private KnotTextKeyReference moneyRewardTextKeyReference;
-        private int money;
         private Cell cell;
+        private int money;
 
         public void Create(int moneyReward, Transform uiCanvas)
         {
             BattleWinWindow window = Instantiate(this, uiCanvas);
-            
+
             window.moneyRewardButtonText.text =
                 moneyRewardTextKeyReference.Value.IndexErrorProtectedFormat(moneyReward);
             window.money = moneyReward;
@@ -32,7 +32,7 @@ namespace UI.MessageWindows
                 .Where(loadedCell =>
                     !Player.data.cells.Exists(playerCell => playerCell.IsSameType(loadedCell)) &&
                     loadedCell.possibleReward).ToList();
-            
+
             if (possibleToAddCells.Count == 0)
             {
                 Destroy(window.cellRewardButton.gameObject);

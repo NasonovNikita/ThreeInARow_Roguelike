@@ -51,7 +51,10 @@ namespace Battle.Units
             currentMovesCount++;
         }
 
-        public void AddMoves(int count) => currentMovesCount += count;
+        public void AddMoves(int count)
+        {
+            currentMovesCount += count;
+        }
 
         public void WasteMove()
         {
@@ -61,7 +64,7 @@ namespace Battle.Units
         public void StartTurn()
         {
             BattleFlowManager.Instance.endedProcesses.Add(() => currentMovesCount == 0);
-            
+
             if (statuses.ModList.Exists(mod => mod is Stun { EndedWork: false }))
                 currentMovesCount = 0;
         }

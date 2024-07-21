@@ -10,7 +10,8 @@ namespace Battle.Items
     {
         [SerializeField] private int healAmount;
 
-        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(healAmount);
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(healAmount);
 
         public override void OnGet()
         {

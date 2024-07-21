@@ -7,14 +7,14 @@ namespace Battle.Grid
     [Serializable]
     public abstract class Cell : MonoBehaviour
     {
-        [NonSerialized] public bool isInGridBox = false;
         [SerializeField] protected KnotTextKeyReference descriptionKeyRef;
 
         public bool possibleReward;
-        
+        [NonSerialized] public bool isInGridBox = false;
+
+        public abstract string Description { get; }
+
         public abstract bool BoxIsStable(Cell[,] box);
         public abstract bool IsSameType(Cell other);
-        
-        public abstract string Description { get; }
     }
 }

@@ -5,23 +5,19 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 namespace Core
 {
     public class GameManager : MonoBehaviour
     {
         public static GameManager instance;
+
         public void Awake()
         {
             if (instance == null)
-            {
                 instance = this;
-            }
             else
-            {
                 Destroy(gameObject);
-            }
-        
+
             DontDestroyOnLoad(gameObject);
 
             Player.data = ScriptableObject.CreateInstance<PlayerData>();
@@ -35,14 +31,14 @@ namespace Core
         public void MainMenu()
         {
             SceneManager.LoadScene("MainMenu");
-        
+
             AudioManager.Instance.StopAll();
-        
+
             AudioManager.Instance.Play(AudioEnum.MainMenu);
-        
+
             SettingsSave.Save();
         }
-    
+
         public void NewGame()
         {
             GameSave.CreateEmptySave().Apply();

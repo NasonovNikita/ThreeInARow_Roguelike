@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Core.Singleton;
 using Other;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -27,7 +27,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.randomIgnition;
 
         public override string Description =>
-            IModIconModifier.FormatDescriptionByKeys(ModDescriptionsContainer.Instance.randomIgnition.Value,
+            IModIconModifier.FormatDescriptionByKeys(
+                ModDescriptionsContainer.Instance.randomIgnition.Value,
                 new Dictionary<string, object>
                 {
                     { "chance", chance },

@@ -1,7 +1,7 @@
 using System;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Knot.Localization;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.StatModifiers
@@ -11,32 +11,40 @@ namespace Battle.Units.StatModifiers
     {
         [SerializeField] protected int value;
 
-        public override bool EndedWork => ToDelete;
-
         protected ValuedStatModifier(int value, bool save) : base(save)
         {
             this.value = value;
         }
-
-        public virtual string SubInfo => value.ToString();
-        public virtual bool ToDelete => value == 0;
 
         protected abstract bool IsPositive { get; }
 
         protected abstract KnotTextKeyReference DescriptionKnotKeyReferencePositive { get; }
         protected abstract KnotTextKeyReference DescriptionKnotKeyReferenceNegative { get; }
 
+        protected abstract Sprite SpritePositive { get; }
+        protected abstract Sprite SpriteNegative { get; }
+
+
+        int IIntModifier.Modify(int val)
+        {
+            return val + value;
+        }
+
+        public override bool EndedWork => ToDelete;
+
+        public virtual string SubInfo => value.ToString();
+        public virtual bool ToDelete => value == 0;
+
         public string Description =>
             IsPositive switch
             {
-                true => IModIconModifier.SimpleFormatDescription(DescriptionKnotKeyReferencePositive.Value, 
+                true => IModIconModifier.SimpleFormatDescription(
+                    DescriptionKnotKeyReferencePositive.Value,
                     Math.Abs(value)),
-                false => IModIconModifier.SimpleFormatDescription(DescriptionKnotKeyReferenceNegative.Value, 
+                false => IModIconModifier.SimpleFormatDescription(
+                    DescriptionKnotKeyReferenceNegative.Value,
                     Math.Abs(value))
             };
-
-        protected abstract Sprite SpritePositive { get; }
-        protected abstract Sprite SpriteNegative { get; }
 
         public Sprite Sprite =>
             IsPositive switch
@@ -44,12 +52,6 @@ namespace Battle.Units.StatModifiers
                 true => SpritePositive,
                 false => SpriteNegative
             };
-
-
-        int IIntModifier.Modify(int val)
-        {
-            return val + value;
-        }
 
         public override void Concat(Modifier other)
         {

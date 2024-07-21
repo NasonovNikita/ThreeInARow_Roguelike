@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 
 using System.Collections.Generic;
+using Battle;
 using UnityEngine;
 using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
 
@@ -14,10 +15,9 @@ namespace DevTools.DebugLogging
         [SerializeField] private List<DebugLoggingGroup> mapLoggingGroups;
 
         private static string CurrentScene => UnitySceneManager.GetActiveScene().name;
-        private static string SeparatingLine => 
-            "--------------------------------------------------------------------------------------------------------";
 
-        public static void WriteDebug(string content) => Debug.unityLogger.Log(content);
+        private static string SeparatingLine =>
+            "--------------------------------------------------------------------------------------------------------";
 
         public void Awake()
         {
@@ -27,13 +27,21 @@ namespace DevTools.DebugLogging
                 DontDestroyOnLoad(gameObject);
                 AttachToScenes();
             }
-            else Destroy(this);
+            else
+            {
+                Destroy(this);
+            }
+        }
+
+        public static void WriteDebug(string content)
+        {
+            Debug.unityLogger.Log(content);
         }
 
         private void AttachToScenes()
         {
-            Battle.SceneManager.OnSceneFullyLoaded += () => AttachScene(battleLoggingGroups);
-            Battle.SceneManager.OnSceneLeave += () => UnAttachScene(battleLoggingGroups);
+            SceneManager.OnSceneFullyLoaded += () => AttachScene(battleLoggingGroups);
+            SceneManager.OnSceneLeave += () => UnAttachScene(battleLoggingGroups);
 
             Map.SceneManager.OnSceneFullyLoaded += () => AttachScene(mapLoggingGroups);
             Map.SceneManager.OnSceneLeave += () => UnAttachScene(mapLoggingGroups);
@@ -41,16 +49,16 @@ namespace DevTools.DebugLogging
 
         private void AttachScene(List<DebugLoggingGroup> groups)
         {
-            WriteDebug($"Attached to scene { CurrentScene }\n{ SeparatingLine }");
-            
+            WriteDebug($"Attached to scene {CurrentScene}\n{SeparatingLine}");
+
             AttachGroups(groups);
         }
 
         private void UnAttachScene(List<DebugLoggingGroup> groups)
         {
             UnAttachGroups(groups);
-            
-            WriteDebug($"UnAttached from scene { CurrentScene }\n{ SeparatingLine }");
+
+            WriteDebug($"UnAttached from scene {CurrentScene}\n{SeparatingLine}");
         }
 
         private void AttachGroups(List<DebugLoggingGroup> groups)

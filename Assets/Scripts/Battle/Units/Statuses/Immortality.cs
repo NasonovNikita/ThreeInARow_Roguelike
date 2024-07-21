@@ -1,8 +1,8 @@
 using System;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Core.Singleton;
 using Other;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -20,7 +20,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.immortality;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.immortality.Value);
+            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.immortality
+                .Value);
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
         public override bool ToDelete => chance <= 0;

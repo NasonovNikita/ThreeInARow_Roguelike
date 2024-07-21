@@ -12,18 +12,16 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         private static int _cellsToUseCount;
         private static bool _refilled;
         private static List<(int, int)> _cellsToDeleteCoordinates = new();
-        
+
         protected override void OnMoveDone()
         {
             _refilled = false;
-            
+
             var rowedCells = FindRowedCells();
 
             foreach (MatchingCell cell in rowedCells)
-            {
                 _cellsToDeleteCoordinates.Add(Grid.Instance.FindCell(cell));
-            }
-            
+
             _cellsToUseCount += 1;
 
             BattleFlowManager.Instance.endedProcesses.Add(() => _cellsToUseCount == 0);
@@ -39,15 +37,15 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
                 OffScreenPoint.Instance.Hide(cell.gameObject);
 
                 yield return new WaitForSeconds(0.3f);
-
             }
+
             _cellsToUseCount--;
 
             // ReSharper disable once InvertIf
             if (_cellsToUseCount == 0 && !_refilled)
             {
                 GridGenerator.Instance.ReplaceCellsByCoordinates(_cellsToDeleteCoordinates);
-                
+
                 _cellsToDeleteCoordinates = new List<(int, int)>();
                 _refilled = true;
             }

@@ -24,7 +24,8 @@ namespace Battle.Spells
             for (var i = 0; i < useCost; i++)
             {
                 var index = Random.Range(0, unitBelong.Enemies.Count);
-                while (unitBelong.Enemies[index] == null) index = Random.Range(0, unitBelong.Enemies.Count);
+                while (unitBelong.Enemies[index] == null)
+                    index = Random.Range(0, unitBelong.Enemies.Count);
                 unitBelong.Enemies[index].TakeDamage(unitBelong.damage.ApplyDamage(damage));
             }
         }

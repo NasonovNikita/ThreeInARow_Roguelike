@@ -13,10 +13,15 @@ namespace Core.Singleton
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
-            else Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
-        public void Hide(GameObject obj) => 
+        public void Hide(GameObject obj)
+        {
             obj.transform.SetParent(transform, false);
+        }
     }
 }

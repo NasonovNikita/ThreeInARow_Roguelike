@@ -7,14 +7,16 @@ namespace Map.Nodes
     {
         [SerializeField] private bool isBoss;
 
-        protected override void Action() => RoomLoader.LoadBattle(layer, seed, isBoss);
+        protected override void Action()
+        {
+            RoomLoader.LoadBattle(layer, seed, isBoss);
+        }
 
         public static BattleNode Create(int layer, int seed, bool isBoss)
         {
-
-            var node = (BattleNode)Node.Create(PrefabsContainer.instance.battleNode, layer, seed);
+            var node = (BattleNode)Create(PrefabsContainer.instance.battleNode, layer, seed);
             node.isBoss = isBoss;
-            
+
             return node;
         }
     }

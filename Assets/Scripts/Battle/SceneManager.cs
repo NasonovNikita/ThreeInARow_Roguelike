@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Audio;
+using Battle.UI;
 using Battle.Units;
 using Core.Saves;
 using UI;
-using UI.Battle;
 using UI.MessageWindows;
 using UnityEngine;
 using UnityEngine.Serialization;

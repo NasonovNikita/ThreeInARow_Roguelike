@@ -9,35 +9,19 @@ using UnityEngine.Serialization;
 
 namespace Map.Nodes
 {
-    public abstract class Node: MonoBehaviour, IPointerClickHandler
+    public abstract class Node : MonoBehaviour, IPointerClickHandler
     {
         [FormerlySerializedAs("prefab")] [SerializeField]
         private Edge edgePrefab;
-        
-        [SerializeField]
-        private ObjectScaler scaler;
-    
+
+        [SerializeField] private ObjectScaler scaler;
+
         public List<Node> next;
-        
-        protected int layer;
-        protected int seed;
-        
+
         private readonly List<Edge> edges = new();
 
-        public static event Action<Node> OnArrive;
-        public static event Action<Node> OnClicked;
-
-        protected static Node Create(Node prefab, int layer, int randomSeed)
-        {
-            Node node = Instantiate(prefab);
-            node.layer = layer;
-            node.seed = randomSeed;
-            GameObject gameObject = node.gameObject;
-            DontDestroyOnLoad(gameObject);
-            gameObject.SetActive(false);
-
-            return node;
-        }
+        protected int layer;
+        protected int seed;
 
         public void OnEnable()
         {
@@ -60,6 +44,31 @@ namespace Map.Nodes
             }
         }
 
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnClicked?.Invoke(this);
+
+            if (eventData.button != PointerEventData.InputButton.Left ||
+                !NodeController.Instance.TryArrive(this)) return;
+
+            StartCoroutine(Arrive());
+        }
+
+        public static event Action<Node> OnArrive;
+        public static event Action<Node> OnClicked;
+
+        protected static Node Create(Node prefab, int layer, int randomSeed)
+        {
+            Node node = Instantiate(prefab);
+            node.layer = layer;
+            node.seed = randomSeed;
+            GameObject gameObject = node.gameObject;
+            DontDestroyOnLoad(gameObject);
+            gameObject.SetActive(false);
+
+            return node;
+        }
+
         public void Choose()
         {
             StartCoroutine(scaler.ScaleUp());
@@ -70,23 +79,16 @@ namespace Map.Nodes
             StartCoroutine(scaler.UnScale());
         }
 
-        public bool BelongsToNext(Node other) => next.Contains(other);
-
-        public void OnPointerClick(PointerEventData eventData)
+        public bool BelongsToNext(Node other)
         {
-            OnClicked?.Invoke(this);
-            
-            if (eventData.button != PointerEventData.InputButton.Left ||
-                !NodeController.Instance.TryArrive(this)) return;
-
-            StartCoroutine(Arrive());
+            return next.Contains(other);
         }
 
         private IEnumerator Arrive()
         {
             yield return StartCoroutine(scaler.ScaleUp());
             OnArrive?.Invoke(this);
-            
+
             Action();
         }
 

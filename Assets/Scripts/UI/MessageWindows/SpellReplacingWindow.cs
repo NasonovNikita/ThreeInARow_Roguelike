@@ -11,15 +11,15 @@ namespace UI.MessageWindows
 {
     public class SpellReplacingWindow : MonoBehaviour
     {
-        private Spell gettingSpell;
         [SerializeField] private List<Button> buttons;
+        private Spell gettingSpell;
 
         public void Start()
         {
             if (Player.data.spells.Count != 4)
                 throw new Exception("Player must have 4 spells if this window is created");
 
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 var index = i;
                 buttons[i].InitButton(() => ReplaceSpell(index), Player.data.spells[i].Title);
@@ -34,7 +34,8 @@ namespace UI.MessageWindows
 
         public static void Create(Spell spell)
         {
-            var window = Tools.InstantiateUI(PrefabsContainer.instance.spellReplacingWindow);
+            SpellReplacingWindow window =
+                Tools.InstantiateUI(PrefabsContainer.instance.spellReplacingWindow);
             window.gettingSpell = spell;
         }
     }

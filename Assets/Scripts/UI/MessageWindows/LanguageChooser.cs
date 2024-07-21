@@ -23,10 +23,7 @@ namespace UI.MessageWindows
         {
             KnotLanguageData knotLanguageData = KnotLocalization.Manager.Languages
                 .FirstOrDefault(d => d.SystemLanguage == language);
-            if (knotLanguageData != null)
-            {
-                KnotLocalization.Manager.LoadLanguage(knotLanguageData);
-            }
+            if (knotLanguageData != null) KnotLocalization.Manager.LoadLanguage(knotLanguageData);
         }
 
         private void Close()

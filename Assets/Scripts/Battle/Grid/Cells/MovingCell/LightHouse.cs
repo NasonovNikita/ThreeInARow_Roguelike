@@ -11,14 +11,17 @@ namespace Battle.Grid.Cells.MovingCell
         [SerializeField] private int count;
         [SerializeField] private int xBonus;
 
+        private readonly Dictionary<IModifierAble, int> givenBonuses = new();
+
+        private List<Cell> currentNeighbours = new();
+
         private int XBonus =>
             Grid.Instance.GetCellNeighbours(this).Exists(cell => cell.IsSameType(this))
                 ? xBonus
                 : xBonus * xBonus;
 
-        private List<Cell> currentNeighbours = new();
-
-        private readonly Dictionary<IModifierAble, int> givenBonuses = new();
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(count, xBonus);
 
         public void OnEnable()
         {
@@ -67,9 +70,5 @@ namespace Battle.Grid.Cells.MovingCell
         {
             return other is LightHouse;
         }
-
-        public override string Description => 
-            descriptionKeyRef.Value.IndexErrorProtectedFormat(count, xBonus);
-
     }
 }

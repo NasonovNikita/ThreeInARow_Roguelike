@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 
-namespace UI.Battle.HUD
+namespace Battle.UI.HUD
 {
     public class HUDSpawner : MonoBehaviour
     {
-        public void SpawnHUD(string content, Color color, HUDMoveDirection hudMoveDirection = HUDMoveDirection.None)
+        public void SpawnHUD(string content, Color color,
+            HUDMoveDirection hudMoveDirection = HUDMoveDirection.None)
         {
             var hud = HUD.Create(content, color, transform);
-            
+
             MoveHUD(hud, hudMoveDirection);
         }
 

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core;
 using UnityEngine;
 
 namespace Map.PlotRooms
@@ -10,14 +9,12 @@ namespace Map.PlotRooms
     {
         [SerializeField] private PlotData plot;
 
-        [NonSerialized] public string currentText;
-
         public List<Action> currentActions;
+
+        [NonSerialized] public string currentText;
 
         public abstract List<string> CurrentActionsTexts { get; }
         protected abstract Dictionary<string, Action> AllActions { get; }
-
-        public event Action OnChanged;
 
         public void Start()
         {
@@ -25,25 +22,18 @@ namespace Map.PlotRooms
             OnChanged?.Invoke();
         }
 
+        public event Action OnChanged;
+
         public void Choose(int index)
         {
             currentActions[index]?.Invoke();
 
-            if (index != plot.next.Count)
-            {
-                plot = plot.next[index];
-            }
+            if (index != plot.next.Count) plot = plot.next[index];
 
             currentText = plot.text.Value;
             currentActions = plot.actions.Select(action => AllActions[action]).ToList();
-            
+
             OnChanged?.Invoke();
-        }
-        
-        
-        private void Quit() 
-        {
-            GameManager.instance.EnterMap();
         }
     }
 }

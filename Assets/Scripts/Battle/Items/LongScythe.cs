@@ -1,4 +1,4 @@
-using UI.Battle;
+using Battle.UI;
 using UnityEngine;
 
 namespace Battle.Items

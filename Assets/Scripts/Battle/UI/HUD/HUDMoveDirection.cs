@@ -1,4 +1,4 @@
-namespace UI.Battle.HUD
+namespace Battle.UI.HUD
 {
     public enum HUDMoveDirection
     {

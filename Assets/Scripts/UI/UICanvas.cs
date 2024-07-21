@@ -6,6 +6,9 @@ namespace UI
     {
         public static UICanvas Instance { get; private set; }
 
-        public void Awake() => Instance = this;
+        public void Awake()
+        {
+            Instance = this;
+        }
     }
 }

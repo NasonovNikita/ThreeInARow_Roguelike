@@ -10,29 +10,19 @@ namespace Battle
 {
     public class BattleFlowManager : MonoBehaviour
     {
-        public static BattleFlowManager Instance { get; private set; }
-
         private const Unit NoTurningUnit = null;
 
+        public List<Func<bool>> endedProcesses;
+
         [NonSerialized] public List<Enemy> enemiesWithNulls = new();
+        public static BattleFlowManager Instance { get; private set; }
 
         public List<Enemy> EnemiesWithoutNulls =>
             enemiesWithNulls.Where(enemy => enemy != null).ToList();
 
         public Unit CurrentlyTurningUnit { get; private set; }
 
-        public int CyclesDone { get; private set; } = 0;
-
-        public List<Func<bool>> endedProcesses;
-
-        public event Action OnBattleStart;
-        public event Action OnCycleEnd;
-        public event Action OnBattleEnd;
-        public event Action OnBattleWin;
-        public event Action OnBattleLose;
-        public event Action OnEnemiesShuffle;
-        public event Action OnEnemiesTurnStart;
-        public event Action OnPlayerTurnStart;
+        public int CyclesDone { get; private set; }
 
         public void Awake()
         {
@@ -43,6 +33,15 @@ namespace Battle
         {
             BattleEnd();
         }
+
+        public event Action OnBattleStart;
+        public event Action OnCycleEnd;
+        public event Action OnBattleEnd;
+        public event Action OnBattleWin;
+        public event Action OnBattleLose;
+        public event Action OnEnemiesShuffle;
+        public event Action OnEnemiesTurnStart;
+        public event Action OnPlayerTurnStart;
 
         public void TurnOn()
         {

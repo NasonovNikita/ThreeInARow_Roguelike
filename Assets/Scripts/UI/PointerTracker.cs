@@ -5,26 +5,30 @@ namespace UI
 {
     public abstract class PointerTracker : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        private const float StandardWaitTime = 2f;
         [SerializeField] public bool actAfterTime;
         [SerializeField] private float waitBeforeShowTime;
-        private const float StandardWaitTime = 2f;
-        private float TmeBeforeAct => waitBeforeShowTime != 0 ? waitBeforeShowTime : StandardWaitTime;
 
-        
+
         private bool isInside;
-        private float timeEnter;
-        private float TimeIn => isInside ? Time.time - timeEnter : 0;
 
         private bool spentTime;
-        
+        private float timeEnter;
+
+        private float TmeBeforeAct =>
+            waitBeforeShowTime != 0 ? waitBeforeShowTime : StandardWaitTime;
+
+        private float TimeIn => isInside ? Time.time - timeEnter : 0;
+
         private Camera MainCamera => Camera.main;
+
         protected Vector3 MousePosition
         {
             get
             {
                 Vector3 position = MainCamera.ScreenToWorldPoint(Input.mousePosition);
-                float x = position.x;
-                float y = position.y;
+                var x = position.x;
+                var y = position.y;
                 return new Vector3(x, y, 0);
             }
         }
@@ -36,9 +40,10 @@ namespace UI
                 OnTimeSpent();
                 spentTime = true;
             }
+
             if (isInside) WhileInside();
         }
-        
+
         public void OnPointerEnter(PointerEventData ignored)
         {
             timeEnter = Time.time;
@@ -51,14 +56,24 @@ namespace UI
         {
             isInside = false;
             spentTime = false;
-            
+
             OnExit();
         }
 
-        protected virtual void OnEnter() {}
+        protected virtual void OnEnter()
+        {
+        }
 
-        protected virtual void OnTimeSpent() {}
-        protected virtual void WhileInside() {}
-        protected virtual void OnExit() {}
+        protected virtual void OnTimeSpent()
+        {
+        }
+
+        protected virtual void WhileInside()
+        {
+        }
+
+        protected virtual void OnExit()
+        {
+        }
     }
 }

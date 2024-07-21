@@ -1,6 +1,6 @@
 using System;
 using Battle.Modifiers;
-using UI.Battle.ModsDisplaying;
+using Battle.UI.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -16,11 +16,6 @@ namespace Battle.Units.Statuses
 
         protected BattleFlowManager BattleFlowManager => BattleFlowManager.Instance;
 
-        public virtual void Init(Unit unit)
-        {
-            belongingUnit = unit;
-        }
-
         public abstract Sprite Sprite { get; }
 
         public abstract string Description { get; }
@@ -29,5 +24,10 @@ namespace Battle.Units.Statuses
         public abstract bool ToDelete { get; }
 
         public override bool EndedWork => ToDelete;
+
+        public virtual void Init(Unit unit)
+        {
+            belongingUnit = unit;
+        }
     }
 }

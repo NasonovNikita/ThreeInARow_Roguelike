@@ -12,31 +12,27 @@ namespace Map
 {
     public class SceneManager : MonoBehaviour
     {
+        public Canvas canvas;
         public static SceneManager Instance { get; private set; }
 
-        public Canvas canvas;
-
-        public static event Action OnSceneFullyLoaded;
-        public static event Action OnSceneLeave;
-        
 
         public void Awake()
         {
             Instance = this;
-        
+
             GameSave.Save();
         }
 
         public void Start()
         {
             AudioManager.Instance.StopAll();
-        
+
             AudioManager.Instance.Play(AudioEnum.Map);
 
             NodeController.Instance.OnCameOutFromFinalNode += Win;
-            
+
             NodeController.Instance.OnSceneEnter();
-            
+
             OnSceneFullyLoaded?.Invoke();
         }
 
@@ -46,9 +42,13 @@ namespace Map
             OnSceneLeave?.Invoke();
         }
 
+        public static event Action OnSceneFullyLoaded;
+        public static event Action OnSceneLeave;
+
         private void Win()
         {
-            GameObject menu = Instantiate(PrefabsContainer.instance.winMessage, UICanvas.Instance.transform, false);
+            GameObject menu = Instantiate(PrefabsContainer.instance.winMessage,
+                UICanvas.Instance.transform, false);
             var buttons = menu.GetComponentsInChildren<Button>();
             buttons[0].onClick.AddListener(GameManager.instance.NewGame);
             buttons[1].onClick.AddListener(GameManager.instance.MainMenu);

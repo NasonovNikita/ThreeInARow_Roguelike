@@ -1,6 +1,6 @@
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Core.Singleton;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -17,7 +17,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.stun;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.stun.Value, moveMod.Moves);
+            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.stun.Value,
+                moveMod.Moves);
 
         public override string SubInfo => moveMod.SubInfo;
         public override bool ToDelete => moveMod.EndedWork;

@@ -7,24 +7,25 @@ namespace UI
 {
     public class MapHeal : MonoBehaviour
     {
-        private Button btn;
+        private Button _btn;
 
         public void Awake()
         {
-            btn = GetComponentInChildren<Button>();
+            _btn = GetComponentInChildren<Button>();
         }
 
         public void Start()
         {
             if (Player.data.spells.Exists(spell => spell is Healing))
             {
-                Healing spell = (Healing) Instantiate(Player.data.spells.Find(spell => spell is Healing));
-                btn.onClick.AddListener(spell.MapCast);
-                btn.GetComponentInChildren<Text>().text = $"{spell.Title} {spell.useCost}";
+                var spell =
+                    (Healing)Instantiate(Player.data.spells.Find(spell => spell is Healing));
+                _btn.onClick.AddListener(spell.MapCast);
+                _btn.GetComponentInChildren<Text>().text = $"{spell.Title} {spell.useCost}";
             }
             else
             {
-                Destroy(btn.gameObject);
+                Destroy(_btn.gameObject);
             }
         }
     }

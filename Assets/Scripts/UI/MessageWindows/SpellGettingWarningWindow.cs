@@ -1,6 +1,5 @@
 using System;
 using Battle.Spells;
-using Core;
 using Core.Singleton;
 using Other;
 using UnityEngine;
@@ -11,14 +10,15 @@ namespace UI.MessageWindows
     {
         private Spell gettingSpell;
         private Action onYes;
-        
+
         public static void Create(Spell spell, Action onYes = null)
         {
-            var window = Tools.InstantiateUI(PrefabsContainer.instance.spellGettingWarningWindow);
+            SpellGettingWarningWindow window =
+                Tools.InstantiateUI(PrefabsContainer.instance.spellGettingWarningWindow);
             window.gettingSpell = spell;
             window.onYes = onYes;
         }
-        
+
         public void Yes()
         {
             onYes?.Invoke();
@@ -28,7 +28,7 @@ namespace UI.MessageWindows
 
         public void No()
         {
-           Close(); 
+            Close();
         }
 
         private void Close()

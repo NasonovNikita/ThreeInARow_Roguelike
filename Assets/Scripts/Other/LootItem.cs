@@ -9,7 +9,10 @@ namespace Other
     {
         [SerializeField] protected Rarity rarity;
         [SerializeField] public Sprite img;
-        
+
+        [SerializeField] protected KnotTextKeyReference titleKeyRef;
+        [SerializeField] protected KnotTextKeyReference descriptionKeyRef;
+
         public int Frequency =>
             rarity switch
             {
@@ -20,9 +23,6 @@ namespace Other
                 Rarity.Secret => 0,
                 _ => throw new ArgumentOutOfRangeException()
             };
-
-        [SerializeField] protected KnotTextKeyReference titleKeyRef;
-        [SerializeField] protected KnotTextKeyReference descriptionKeyRef;
 
         public virtual string Title => titleKeyRef.Value;
         public virtual string Description => descriptionKeyRef.Value;

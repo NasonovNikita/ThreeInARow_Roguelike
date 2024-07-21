@@ -7,10 +7,10 @@ namespace Audio
     public class AudioPlayer : MonoBehaviour
     {
         public AudioEnum audioName;
-  
-        private AudioSource source;
 
         [SerializeField] private float volumeRatio = 1;
+
+        private AudioSource source;
 
         public void Awake()
         {

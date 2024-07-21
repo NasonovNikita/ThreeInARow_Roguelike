@@ -11,9 +11,9 @@ namespace Core.Saves
 
         public static void Save(SaveObject data, string path)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(Path + path, FileMode.Create);
-            
+            var formatter = new BinaryFormatter();
+            var stream = new FileStream(Path + path, FileMode.Create);
+
             formatter.Serialize(stream, data);
             stream.Close();
         }
@@ -21,12 +21,12 @@ namespace Core.Saves
         public static T Load<T>(string path) where T : SaveObject
         {
             if (!File.Exists(Path + path)) return null;
-            
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(Path + path, FileMode.Open);
-            T data = formatter.Deserialize(stream) as T;
+
+            var formatter = new BinaryFormatter();
+            var stream = new FileStream(Path + path, FileMode.Open);
+            var data = formatter.Deserialize(stream) as T;
             stream.Close();
-            
+
             return data;
         }
     }

@@ -1,6 +1,6 @@
 using Battle.Units.Stats;
 
-namespace UI.Battle
+namespace Battle.UI
 {
     public class ManaBar : StatBar
     {

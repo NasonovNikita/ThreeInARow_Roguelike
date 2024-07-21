@@ -9,7 +9,8 @@ namespace Battle.Items
     {
         [SerializeField] private float sale;
 
-        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(Tools.Percents(sale),
+        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(
+            Tools.Percents(sale),
             Tools.Percents(ShopManager.salePrice));
 
         public override void OnGet()

@@ -2,5 +2,7 @@ using UnityEngine;
 
 namespace UI.MessageWindows
 {
-    public class BattleLose : MonoBehaviour {}
+    public class BattleLose : MonoBehaviour
+    {
+    }
 }

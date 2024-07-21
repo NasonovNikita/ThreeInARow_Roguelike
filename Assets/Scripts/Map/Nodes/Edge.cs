@@ -6,7 +6,10 @@ namespace Map.Nodes
     {
         private LineRenderer line;
 
-        public void Awake() => line = GetComponent<LineRenderer>();
+        public void Awake()
+        {
+            line = GetComponent<LineRenderer>();
+        }
 
         public void Draw(Vector3 pos1, Vector3 pos2)
         {

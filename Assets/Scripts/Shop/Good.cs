@@ -18,11 +18,11 @@ namespace Shop
         {
             if (Player.data.money < price) return;
             if (target is Spell spell)
-            {
                 switch (Player.data.spells.Count)
                 {
                     case > 4:
-                        throw new Exception("Player has more then 4 spells. He couldn't have them normally");
+                        throw new Exception(
+                            "Player has more then 4 spells. He couldn't have them normally");
                     case 4:
                         SpellGettingWarningWindow.Create(spell, () =>
                         {
@@ -31,7 +31,6 @@ namespace Shop
                         });
                         return;
                 }
-            }
 
             Buy();
             onBuy?.Invoke();

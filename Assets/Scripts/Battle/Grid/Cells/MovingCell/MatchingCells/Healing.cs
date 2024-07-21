@@ -1,6 +1,7 @@
 using Battle.Grid.Modifiers;
 using Battle.Modifiers;
 using Battle.Units;
+using Other;
 using UnityEngine;
 
 namespace Battle.Grid.Cells.MovingCell.MatchingCells
@@ -8,6 +9,9 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
     public class Healing : MatchingCell, IModifierAble
     {
         [SerializeField] private int amount;
+
+        public override string Description =>
+            Tools.IndexErrorProtectedFormat(descriptionKeyRef.Value, amount);
 
         public int Value => amount;
 
@@ -17,9 +21,6 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         {
             return other is Healing;
         }
-
-        public override string Description =>
-            Other.Tools.IndexErrorProtectedFormat(descriptionKeyRef.Value, amount);
 
         protected override void Use()
         {

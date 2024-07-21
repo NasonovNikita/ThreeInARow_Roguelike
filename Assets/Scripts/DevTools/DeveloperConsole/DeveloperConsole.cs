@@ -13,21 +13,23 @@ namespace DevTools.DeveloperConsole
         private const string CommandStringToClear = "clear";
         private const string CommandStringToExit = "exit";
         private const string CommandStringToGetPrev = "prev";
-        
+
+        private static List<string> _commandsBuffer = new();
+
         [SerializeField] private DevConsoleCommandParser parser;
-        [FormerlySerializedAs("textWindow")]
-        [SerializeField] private Text text;
+
+        [FormerlySerializedAs("textWindow")] [SerializeField]
+        private Text text;
+
         [SerializeField] private InputField input;
         [SerializeField] private Button submitButton;
 
         [SerializeField] private int maximumLinesCount;
 
-        private static List<string> _commandsBuffer = new();
-        
         public void Submit()
         {
-            string inputSting = input.text;
-            
+            var inputSting = input.text;
+
             switch (inputSting)
             {
                 case CommandStringToClear:
@@ -37,24 +39,23 @@ namespace DevTools.DeveloperConsole
                     Destroy(gameObject);
                     return;
                 case CommandStringToGetPrev:
-                    if (_commandsBuffer.Count != 0) 
+                    if (_commandsBuffer.Count != 0)
                         input.text = _commandsBuffer[^1];
                     return;
             }
+
             AddCommandToBuffer(inputSting);
-            
-            string reply = parser.Parse(inputSting);
+
+            var reply = parser.Parse(inputSting);
             Write(reply);
-            
+
             ClearCommandLine();
         }
 
         private void Write(string content)
         {
             if (text.text.Count(c => c == '\n') == maximumLinesCount - 1)
-            {
                 text.text = string.Join("\n", text.text.Split('\n')[1..]);
-            }
             text.text = $"{text.text}{content}\n";
         }
 
@@ -64,12 +65,16 @@ namespace DevTools.DeveloperConsole
             text.text = "";
             ClearCommandLine();
         }
-        
-        private void ClearCommandLine() => input.text = "";
+
+        private void ClearCommandLine()
+        {
+            input.text = "";
+        }
 
         private void AddCommandToBuffer(string command)
         {
-            if (_commandsBuffer.Count == 0 || _commandsBuffer[^1] != command) _commandsBuffer.Add(command);
+            if (_commandsBuffer.Count == 0 || _commandsBuffer[^1] != command)
+                _commandsBuffer.Add(command);
         }
     }
 }

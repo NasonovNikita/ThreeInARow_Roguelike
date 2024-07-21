@@ -1,6 +1,8 @@
+using System;
+
 namespace Core.Saves
 {
-    [System.Serializable]
+    [Serializable]
     public abstract class SaveObject
     {
         public abstract void Apply();

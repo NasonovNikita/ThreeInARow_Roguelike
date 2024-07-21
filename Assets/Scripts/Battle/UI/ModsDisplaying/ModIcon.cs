@@ -1,10 +1,9 @@
-using System;
 using Core.Singleton;
 using UI.MessageWindows;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Battle.ModsDisplaying
+namespace Battle.UI.ModsDisplaying
 {
     [RequireComponent(typeof(InfoObject))]
     public class ModIcon : MonoBehaviour
@@ -14,23 +13,23 @@ namespace UI.Battle.ModsDisplaying
         [SerializeField] private InfoObject modInfo;
         private IModIconModifier mod;
 
+        public void OnDestroy()
+        {
+            mod.OnChanged -= CheckMod;
+        }
+
         public static void Create(IModIconModifier mod, Transform parentTransform)
         {
             if (mod.Sprite is null) return;
-            
+
             ModIcon icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);
-            
+
             icon.mod = mod;
-            
+
             icon.img.sprite = mod.Sprite;
             icon.subInfo.text = mod.SubInfo;
             icon.modInfo.text = mod.Description;
             icon.mod.OnChanged += icon.CheckMod;
-        }
-
-        public void OnDestroy()
-        {
-            mod.OnChanged -= CheckMod;
         }
 
         private void CheckMod()

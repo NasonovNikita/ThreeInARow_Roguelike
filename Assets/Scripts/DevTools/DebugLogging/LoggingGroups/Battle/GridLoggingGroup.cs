@@ -8,7 +8,8 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
     {
         public override void Attach()
         {
-            Grid.Instance.OnSwitchedCells += (cell1, cell2) => CheckAndWrite($"Switched cells {cell1} and {cell2}");
+            Grid.Instance.OnSwitchedCells += (cell1, cell2) =>
+                CheckAndWrite($"Switched cells {cell1} and {cell2}");
         }
 
         public override void UnAttach()

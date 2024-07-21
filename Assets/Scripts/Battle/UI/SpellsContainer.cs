@@ -5,7 +5,7 @@ using UI.MessageWindows;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Battle
+namespace Battle.UI
 {
     public class SpellsContainer : MonoBehaviour
     {
@@ -13,14 +13,15 @@ namespace UI.Battle
         {
             var player = FindFirstObjectByType<Player>();
             var spellButtons = GetComponentsInChildren<Button>();
-            for (int i = 0; i < player.spells.Count && i < 4; i++)
+            for (var i = 0; i < player.spells.Count && i < 4; i++)
             {
                 Button button = spellButtons[i];
                 Spell spell = player.spells[i];
                 var objectWithInfo = button.GetComponent<InfoObject>();
                 objectWithInfo.text = spell.Description;
-                objectWithInfo.actAfterTime = true;// btn must have this component
-                button.InitButton(() => StartCoroutine(spell.Cast()), spell.Title + " " + spell.useCost);
+                objectWithInfo.actAfterTime = true; // btn must have this component
+                button.InitButton(() => StartCoroutine(spell.Cast()),
+                    spell.Title + " " + spell.useCost);
             }
         }
     }

@@ -8,29 +8,29 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
     {
         private static bool _added;
 
+        public override string Description => descriptionKeyRef.Value;
+
         public void Awake()
         {
             BattleFlowManager.Instance.OnBattleEnd += () => _added = false;
             BattleFlowManager.Instance.OnCycleEnd += () => _added = false;
         }
 
+        public ModifierList Modifiers { get; } = new();
+
+        public int Value => 1;
+
         public override bool IsSameType(Cell other)
         {
             return other is Hourglass;
         }
 
-        public override string Description => descriptionKeyRef.Value;
-
         protected override void Use()
         {
             if (_added) return;
-            
+
             Player.Instance.AddMoves(IIntModifier.UseModList(Modifiers.ModList, Value));
             _added = true;
         }
-
-        public ModifierList Modifiers { get; } = new();
-
-        public int Value => 1;
     }
 }

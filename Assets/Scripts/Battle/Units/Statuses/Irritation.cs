@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Battle.Units.StatModifiers;
 using Core.Singleton;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -24,7 +24,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.irritation;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.irritation.Value, damageAddition);
+            IModIconModifier.SimpleFormatDescription(
+                ModDescriptionsContainer.Instance.irritation.Value, damageAddition);
 
         public override string SubInfo => moveCounter.SubInfo;
         public override bool ToDelete => moveCounter.EndedWork || damageAddition == 0;

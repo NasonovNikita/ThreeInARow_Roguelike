@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Core.Singleton;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -22,7 +22,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.passiveBomb;
 
         public override string Description =>
-            IModIconModifier.FormatDescriptionByKeys(ModDescriptionsContainer.Instance.passiveBomb.Value,
+            IModIconModifier.FormatDescriptionByKeys(
+                ModDescriptionsContainer.Instance.passiveBomb.Value,
                 new Dictionary<string, object>
                 {
                     { "damage", dmg },

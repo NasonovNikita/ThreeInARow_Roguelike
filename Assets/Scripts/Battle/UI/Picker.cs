@@ -1,14 +1,13 @@
-using Battle;
 using Battle.Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI.Battle
+namespace Battle.UI
 {
     public class Picker : MonoBehaviour, IPointerClickHandler
     {
         public Enemy enemy;
-        
+
         private PickerManager pickerManager;
 
         public void Awake()

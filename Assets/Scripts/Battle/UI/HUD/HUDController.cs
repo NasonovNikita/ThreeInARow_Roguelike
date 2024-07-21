@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Battle.Units.Stats;
 using UnityEngine;
 
-namespace UI.Battle.HUD
+namespace Battle.UI.HUD
 {
     public class HUDController : MonoBehaviour
     {
@@ -10,10 +10,10 @@ namespace UI.Battle.HUD
         [SerializeField] private StatHUDDataContainer statHUDDataContainer;
 
         [SerializeField] private float statChangeBufferTime;
+        private readonly Dictionary<Stat, StatHUDData> hudDataByStat = new();
 
         private readonly Dictionary<Stat, float> lastChangeTime = new();
         private readonly Dictionary<Stat, int> statValueChangeBuffer = new();
-        private readonly Dictionary<Stat, StatHUDData> hudDataByStat = new();
 
         public void Start()
         {
@@ -27,11 +27,11 @@ namespace UI.Battle.HUD
         public void Update()
         {
             var statsToDeleteDataAbout = new List<Stat>();
-            
-            foreach ((Stat stat, float time) in lastChangeTime)
+
+            foreach ((Stat stat, var time) in lastChangeTime)
             {
                 if (Time.time - time < statChangeBufferTime) continue;
-                
+
                 SpawnStatHUD(statValueChangeBuffer[stat], hudDataByStat[stat]);
                 statsToDeleteDataAbout.Add(stat);
             }
@@ -57,7 +57,7 @@ namespace UI.Battle.HUD
                 statValueChangeBuffer[stat] += value;
             }
         }
-        
+
         private void SpawnStatHUD(int statValueChange, StatHUDData hudData)
         {
             hudSpawner.SpawnHUD(statValueChange.ToString(),

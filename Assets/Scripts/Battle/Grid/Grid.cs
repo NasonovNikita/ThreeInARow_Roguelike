@@ -111,7 +111,7 @@ namespace Battle.Grid
         private void RemoveCell(Cell cell)
         {
             if (cell == null || !cell.isInGridBox) return;
-            
+
             cell.isInGridBox = false;
             CellPool.Instance.Release(cell);
         }

@@ -3,12 +3,12 @@ using Battle.Units;
 using Battle.Units.Stats;
 using UnityEngine;
 
-namespace UI.Battle.HUD
+namespace Battle.UI.HUD
 {
     public class StatHUDDataContainer : MonoBehaviour
     {
         [SerializeField] private Unit unit;
-        
+
         [SerializeField] private StatHUDData hpStatHUDData;
         [SerializeField] private StatHUDData manaStatHUDData;
 

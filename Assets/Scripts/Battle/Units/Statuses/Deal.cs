@@ -1,8 +1,8 @@
 using System;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Battle.Units.StatModifiers;
 using Core.Singleton;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -22,7 +22,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.deal;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.deal.Value, value);
+            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.deal.Value,
+                value);
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
         public override bool ToDelete => usedSpells;

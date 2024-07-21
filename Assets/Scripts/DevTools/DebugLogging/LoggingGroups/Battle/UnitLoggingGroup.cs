@@ -13,15 +13,16 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
     {
         public override void Attach()
         {
-            foreach (Unit  unit in new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls) { Player.Instance })
+            foreach (Unit unit in new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls)
+                         { Player.Instance })
             {
-                unit.OnDied += () => CheckAndWrite($"{ UnitInfo(unit) } died");
-                unit.OnMadeHit += () => CheckAndWrite($"{ UnitInfo(unit) } made hit");
-                unit.OnSpellCasted += () => CheckAndWrite($"{ UnitInfo(unit) } casted spell");
+                unit.OnDied += () => CheckAndWrite($"{UnitInfo(unit)} died");
+                unit.OnMadeHit += () => CheckAndWrite($"{UnitInfo(unit)} made hit");
+                unit.OnSpellCasted += () => CheckAndWrite($"{UnitInfo(unit)} casted spell");
                 AttachToStatChanges(unit);
                 AttachToModLists(unit);
             }
-            
+
             return;
 
             string UnitInfo(Unit unit)
@@ -33,30 +34,36 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
                     _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, null)
                 };
             }
-                
-            string EnemyInfo(Enemy enemy) =>
-                $"Enemy ({enemy.name}) " +
-                $"at index {BattleFlowManager.Instance.EnemiesWithoutNulls.IndexOf(enemy)}";
+
+            string EnemyInfo(Enemy enemy)
+            {
+                return $"Enemy ({enemy.name}) " +
+                       $"at index {BattleFlowManager.Instance.EnemiesWithoutNulls.IndexOf(enemy)}";
+            }
 
             void AttachToStatChanges(Unit unit)
             {
-                foreach (Stat stat in GetStats()) 
+                foreach (Stat stat in GetStats())
                     stat.OnValueChanged += value => WriteStatChange(stat, value);
-                
-                return;
-                
-                void WriteStatChange(Stat stat, int value) => 
-                    CheckAndWrite($"{unit.name}' {stat} changed by {value}");
 
-                List<Stat> GetStats() => new() { unit.hp, unit.mana, unit.damage };
+                return;
+
+                void WriteStatChange(Stat stat, int value)
+                {
+                    CheckAndWrite($"{unit.name}' {stat} changed by {value}");
+                }
+
+                List<Stat> GetStats()
+                {
+                    return new List<Stat> { unit.hp, unit.mana, unit.damage };
+                }
             }
-            
+
             void AttachToModLists(Unit unit)
             {
                 foreach (ModifierList list in unit.AllModifierLists)
-                {
-                    list.OnModAdded += modifier => CheckAndWrite($"{unit.name} got {modifier} to {list}");
-                }
+                    list.OnModAdded += modifier =>
+                        CheckAndWrite($"{unit.name} got {modifier} to {list}");
             }
         }
 

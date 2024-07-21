@@ -9,14 +9,30 @@ namespace Other
     {
         [SerializeField] private Vector3 endScale;
         [SerializeField] private float time;
-        private Vector3 targetScale;
-        private Vector3 originalScale;
-        private Vector3 speed;
         private bool doScale;
         private Action onEnd;
+        private Vector3 originalScale;
+        private Vector3 speed;
+        private Vector3 targetScale;
 
-        public void Awake() =>
+        public void Awake()
+        {
             originalScale = transform.localScale;
+        }
+
+        private void FixedUpdate()
+        {
+            if (doScale)
+                transform.localScale += (speed * Time.deltaTime).magnitude <
+                                        (targetScale - transform.localScale).magnitude
+                    ? speed * Time.deltaTime
+                    : targetScale - transform.localScale;
+
+            if (transform.localScale != targetScale) return;
+            doScale = false;
+            onEnd?.Invoke();
+            onEnd = null;
+        }
 
         public IEnumerator ScaleUp(Action afterScaleAction = null)
         {
@@ -28,7 +44,7 @@ namespace Other
         public IEnumerator UnScale(Action afterScaleAction = null)
         {
             targetScale = originalScale;
-            
+
             yield return StartCoroutine(Scale(afterScaleAction));
         }
 
@@ -39,21 +55,6 @@ namespace Other
             doScale = true;
 
             return new WaitUntil(() => !doScale);
-        }
-    
-        private void FixedUpdate()
-        {
-            if (doScale)
-            {
-                transform.localScale += (speed * Time.deltaTime).magnitude < (targetScale - transform.localScale).magnitude
-                    ? speed * Time.deltaTime
-                    : targetScale - transform.localScale;
-            }
-
-            if (transform.localScale != targetScale) return;
-            doScale = false;
-            onEnd?.Invoke();
-            onEnd = null;
         }
     }
 }

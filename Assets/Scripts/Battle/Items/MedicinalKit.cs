@@ -9,7 +9,9 @@ namespace Battle.Items
     public class MedicinalKit : Item
     {
         [SerializeField] private int value;
-        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(value);
+
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(value);
 
         public override void OnGet()
         {

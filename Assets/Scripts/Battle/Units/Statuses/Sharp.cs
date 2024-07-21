@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Battle.Units.StatModifiers;
 using Core.Singleton;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -23,7 +23,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.sharp;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.sharp.Value, addition);
+            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.sharp.Value,
+                addition);
 
         public override string SubInfo => addition.ToString();
         public override bool ToDelete => addition == 0;

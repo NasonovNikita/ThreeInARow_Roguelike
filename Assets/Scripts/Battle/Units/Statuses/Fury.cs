@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Battle.Modifiers;
+using Battle.UI.ModsDisplaying;
 using Battle.Units.StatModifiers;
 using Core.Singleton;
-using UI.Battle.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
@@ -66,7 +66,8 @@ namespace Battle.Units.Statuses
         public override void Concat(Modifier other)
         {
             var otherAddition = ((Fury)other).addition;
-            if (Condition && constMod is not null) constMod.Concat(new DamageConstMod(otherAddition));
+            if (Condition && constMod is not null)
+                constMod.Concat(new DamageConstMod(otherAddition));
             addition += otherAddition;
         }
     }
