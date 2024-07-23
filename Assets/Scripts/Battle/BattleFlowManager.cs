@@ -46,6 +46,7 @@ namespace Battle
         public void TurnOn()
         {
             InitEnemies();
+
             PlayerTurn();
 
             Player.Instance.OnDied += OnPlayerDeath;
