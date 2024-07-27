@@ -1,4 +1,0 @@
-{
-    "dotnet.preferCSharpExtension": true,
-    "notebook.defaultFormatter": "esbenp.prettier-vscode"
-}
