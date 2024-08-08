@@ -20,7 +20,7 @@ namespace Core
 
             DontDestroyOnLoad(gameObject);
 
-            Player.data = ScriptableObject.CreateInstance<PlayerData>();
+            Player.Data = ScriptableObject.CreateInstance<PlayerData>();
         }
 
         public void Start()

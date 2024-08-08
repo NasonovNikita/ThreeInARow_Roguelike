@@ -30,7 +30,7 @@ namespace UI.MessageWindows
 
             var possibleToAddCells = Resources.LoadAll<Cell>("Prefabs/Battle/Cells")
                 .Where(loadedCell =>
-                    !Player.data.cells.Exists(playerCell => playerCell.IsSameType(loadedCell)) &&
+                    !Player.Data.cells.Exists(playerCell => playerCell.IsSameType(loadedCell)) &&
                     loadedCell.possibleReward).ToList();
 
             if (possibleToAddCells.Count == 0)
@@ -47,13 +47,13 @@ namespace UI.MessageWindows
 
         public void GetMoney()
         {
-            Player.data.money += money;
+            Player.Data.money += money;
             Destroy(moneyRewardButton.gameObject);
         }
 
         public void GetCell()
         {
-            Player.data.cells.Add(cell);
+            Player.Data.cells.Add(cell);
             Destroy(cellRewardButton.gameObject);
         }
     }

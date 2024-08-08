@@ -22,7 +22,7 @@ namespace Treasure
         private void TryGet()
         {
             if (treasure is Spell spell)
-                switch (Player.data.spells.Count)
+                switch (Player.Data.spells.Count)
                 {
                     case > 4:
                         throw new Exception(

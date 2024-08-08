@@ -11,7 +11,7 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         [SerializeField] private int amount;
 
         public override string Description =>
-            Tools.IndexErrorProtectedFormat(descriptionKeyRef.Value, amount);
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(amount);
 
         public int Value => amount;
 

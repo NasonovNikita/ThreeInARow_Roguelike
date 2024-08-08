@@ -9,7 +9,7 @@ namespace Battle.Items
     {
         public override void Get()
         {
-            Player.data.items.Add(this);
+            Player.Data.items.Add(this);
             OnGet();
         }
 

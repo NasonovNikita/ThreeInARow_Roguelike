@@ -13,10 +13,10 @@ namespace Battle.Grid
         public static GridGenerator Instance { get; private set; }
 
         private static Cell RandomCell =>
-            CellPool.Instance.Acquire(Tools.Random.RandomChoose(Player.data.cells));
+            CellPool.Instance.Acquire(Tools.Random.RandomChoose(Player.Data.cells));
 
         private static bool BoxIsStable =>
-            Player.data.cells.Aggregate(true,
+            Player.Data.cells.Aggregate(true,
                 (prev, cell) => prev && cell.BoxIsStable(Grid.Instance.box));
 
         public void Start()
@@ -67,7 +67,7 @@ namespace Battle.Grid
 
             var successVariants = new List<Cell[]>();
 
-            foreach (var variant in Tools.Repeat(Player.data.cells.ToArray(),
+            foreach (var variant in Tools.Repeat(Player.Data.cells.ToArray(),
                          coordinates.Count))
             {
                 tries++;

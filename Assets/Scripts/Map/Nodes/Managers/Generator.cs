@@ -285,7 +285,7 @@ namespace Map.Nodes.Managers
 
         private bool PlayerHasLootItem(LootItem item)
         {
-            return Player.data.spells.Contains(item) || Player.data.items.Contains(item);
+            return Player.Data.spells.Contains(item) || Player.Data.items.Contains(item);
         }
 
         public LootItem ChooseTreasure(int layer)

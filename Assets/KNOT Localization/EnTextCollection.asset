@@ -367,3 +367,5 @@ MonoBehaviour:
     _rawText: Refills {} mana
   - _key: ShieldCellDescription
     _rawText: Gives you {} shield(s)
+  - _key: TurnsLeft
+    _rawText: 'Turns left: {}'

@@ -12,8 +12,8 @@ namespace UI
 
         public void Awake()
         {
-            getAble.AddRange(Player.data.items);
-            getAble.AddRange(Player.data.spells);
+            getAble.AddRange(Player.Data.items);
+            getAble.AddRange(Player.Data.spells);
 
             foreach (LootItem item in getAble) InventoryItem.Create(item, transform);
         }

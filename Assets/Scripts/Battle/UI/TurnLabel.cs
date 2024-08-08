@@ -1,12 +1,17 @@
+using Battle.Units;
 using Knot.Localization;
+using Other;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Battle.UI
 {
     public class TurnLabel : MonoBehaviour
     {
-        [SerializeField] private Text text;
+        [FormerlySerializedAs("text")] [SerializeField]
+        private Text turningUnitText;
+
 
         [SerializeField] private KnotTextKeyReference playerTurn;
         [SerializeField] private KnotTextKeyReference enemyTurn;
@@ -19,12 +24,12 @@ namespace Battle.UI
 
         public void SetPlayerTurn()
         {
-            text.text = playerTurn.Value;
+            turningUnitText.text = playerTurn.Value;
         }
 
         public void SetEnemyTurn()
         {
-            text.text = enemyTurn.Value;
+            turningUnitText.text = enemyTurn.Value;
         }
     }
 }

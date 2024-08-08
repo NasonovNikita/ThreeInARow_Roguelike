@@ -11,7 +11,7 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         [SerializeField] private int baseAttackVal;
 
         public override string Description =>
-            Tools.IndexErrorProtectedFormat(descriptionKeyRef.Value, baseAttackVal);
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(baseAttackVal);
 
         public ModifierList Modifiers { get; } = new();
 

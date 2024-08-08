@@ -491,3 +491,6 @@ MonoBehaviour:
     _rawText: "\u0412\u043E\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u0442 {} \u043C\u0430\u043D\u044B"
   - _key: ShieldCellDescription
     _rawText: "\u0414\u0430\u0451\u0442 {} \u0449\u0438\u0442(\u043E\u0432)"
+  - _key: TurnsLeft
+    _rawText: "\u041E\u0441\u0442\u0430\u043B\u043E\u0441\u044C \u0445\u043E\u0434\u043E\u0432:
+      {}"

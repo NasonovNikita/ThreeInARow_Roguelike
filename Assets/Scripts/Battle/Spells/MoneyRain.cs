@@ -10,13 +10,13 @@ namespace Battle.Spells
 
         public override bool CantCast =>
             battleFlowManager.CurrentlyTurningUnit is not Player ||
-            Player.data.money < useCost;
+            Player.Data.money < useCost;
 
         public override string Description => string.Format(descriptionKeyRef.Value, damage);
 
         protected override void Waste()
         {
-            Player.data.money -= useCost;
+            Player.Data.money -= useCost;
         }
 
         protected override void Action()

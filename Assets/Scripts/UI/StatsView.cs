@@ -21,8 +21,8 @@ namespace UI
         public void Update()
         {
             text.text =
-                $"{hp.Value}/{mana.Value}: {Player.data.hp.Value}/{Player.data.mana.Value}\n" +
-                $"{cash.Value}: {Player.data.money}\n";
+                $"{hp.Value}/{mana.Value}: {Player.Data.hp.Value}/{Player.Data.mana.Value}\n" +
+                $"{cash.Value}: {Player.Data.money}\n";
         }
     }
 }

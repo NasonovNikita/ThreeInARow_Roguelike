@@ -15,7 +15,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddStatus(new Sharp(addition, true));
+            Player.Data.AddStatus(new Sharp(addition, true));
         }
     }
 }

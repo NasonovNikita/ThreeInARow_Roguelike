@@ -16,19 +16,19 @@ namespace UI.MessageWindows
 
         public void Start()
         {
-            if (Player.data.spells.Count != 4)
+            if (Player.Data.spells.Count != 4)
                 throw new Exception("Player must have 4 spells if this window is created");
 
             for (var i = 0; i < 4; i++)
             {
                 var index = i;
-                buttons[i].InitButton(() => ReplaceSpell(index), Player.data.spells[i].Title);
+                buttons[i].InitButton(() => ReplaceSpell(index), Player.Data.spells[i].Title);
             }
         }
 
         private void ReplaceSpell(int index)
         {
-            Player.data.spells[index] = gettingSpell;
+            Player.Data.spells[index] = gettingSpell;
             Destroy(gameObject);
         }
 

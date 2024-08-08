@@ -27,8 +27,8 @@ MonoBehaviour:
     wastingMods:
       modList: []
   damage:
-    borderUp: 5
-    value: 5
+    borderUp: 7
+    value: 7
     mods:
       modList: []
   items: []

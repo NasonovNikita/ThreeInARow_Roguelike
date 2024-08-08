@@ -56,7 +56,7 @@ namespace Battle.Spells
 
         public override void Get()
         {
-            Player.data.spells.Add(this);
+            Player.Data.spells.Add(this);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Core.Saves
         [SerializeField] private int currentVertex = NodeController.Instance.currentNodeIndex;
         [SerializeField] private bool noNodeIsChosen = NodeController.Instance.noNodeIsChosen;
         [SerializeField] private string scene = SceneManager.GetActiveScene().name;
-        [SerializeField] private string playerData = JsonUtility.ToJson(Player.data);
+        [SerializeField] private string playerData = JsonUtility.ToJson(Player.Data);
         [SerializeField] private int seed = Globals.Instance.seed;
 
         [SerializeField]
@@ -53,7 +53,7 @@ namespace Core.Saves
             NodeController.Instance.currentNodeIndex = currentVertex;
             NodeController.Instance.noNodeIsChosen = noNodeIsChosen;
 
-            JsonUtility.FromJsonOverwrite(playerData, Player.data);
+            JsonUtility.FromJsonOverwrite(playerData, Player.Data);
 
             Globals.Instance.seed = seed;
             Globals.Instance.gridSize = (gridSizeX, gridSizeY);
@@ -72,7 +72,7 @@ namespace Core.Saves
             NodeController.Instance.RegenerateNodes();
 
             if (isEmptySave)
-                foreach (Item item in Player.data.items)
+                foreach (Item item in Player.Data.items)
                     item.OnGet();
 
 

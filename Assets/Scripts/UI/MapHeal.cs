@@ -16,10 +16,10 @@ namespace UI
 
         public void Start()
         {
-            if (Player.data.spells.Exists(spell => spell is Healing))
+            if (Player.Data.spells.Exists(spell => spell is Healing))
             {
                 var spell =
-                    (Healing)Instantiate(Player.data.spells.Find(spell => spell is Healing));
+                    (Healing)Instantiate(Player.Data.spells.Find(spell => spell is Healing));
                 _btn.onClick.AddListener(spell.MapCast);
                 _btn.GetComponentInChildren<Text>().text = $"{spell.Title} {spell.useCost}";
             }

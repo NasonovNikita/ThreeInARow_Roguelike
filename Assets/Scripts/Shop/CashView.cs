@@ -14,7 +14,7 @@ namespace Shop
 
         public void Update()
         {
-            text.text = $"{cashTextRef.Value}: {Player.data.money}";
+            text.text = $"{cashTextRef.Value}: {Player.Data.money}";
         }
     }
 }
