@@ -1,4 +1,3 @@
-using Battle.Units;
 using UnityEngine;
 
 namespace Battle.Spells
@@ -10,7 +9,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            foreach (Enemy enemy in BattleFlowManager.Instance.EnemiesWithoutNulls)
+            foreach (var enemy in BattleFlowManager.Instance.EnemiesWithoutNulls)
                 enemy.TakeDamage(100000);
         }
     }

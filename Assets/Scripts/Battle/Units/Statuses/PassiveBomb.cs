@@ -41,18 +41,19 @@ namespace Battle.Units.Statuses
 
         private void CheckAndApply()
         {
-            if (belongingUnit.mana < manaBorder) return;
+            if (BelongingUnit.mana < manaBorder) return;
 
-            foreach (Enemy enemy in BattleFlowManager.EnemiesWithoutNulls) enemy.TakeDamage(dmg);
+            foreach (var enemy in BattleFlowManager.EnemiesWithoutNulls)
+                enemy.TakeDamage(dmg);
         }
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is PassiveBomb bomb &&
                    bomb.manaBorder == manaBorder;
         }
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             dmg += ((PassiveBomb)other).dmg;
         }

@@ -13,8 +13,13 @@ namespace Core.Singleton
         public KnotTextKeyReference hpDamageNegative;
         public KnotTextKeyReference healingPositive;
         public KnotTextKeyReference healingNegative;
-        [FormerlySerializedAs("manaPositive")] public KnotTextKeyReference manaWastingPositive;
-        [FormerlySerializedAs("manaNegative")] public KnotTextKeyReference manaWastingNegative;
+
+        [FormerlySerializedAs("manaPositive")]
+        public KnotTextKeyReference manaWastingPositive;
+
+        [FormerlySerializedAs("manaNegative")]
+        public KnotTextKeyReference manaWastingNegative;
+
         public KnotTextKeyReference burning;
         public KnotTextKeyReference deal;
         public KnotTextKeyReference fury;

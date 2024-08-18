@@ -4,47 +4,51 @@ using UnityEngine;
 
 namespace Other
 {
+    /// <summary>
+    ///     Moves object by time.
+    /// </summary>
     public class ObjectMover : MonoBehaviour
     {
         public Vector3 endPos;
-        public bool doMove;
         public float time;
         public SpeedType speedType;
-        private Vector3 acceleration;
-        private Action onEnd;
-        private Vector3 speed;
+        private Vector3 _acceleration;
+        private bool _doMove;
+        private Action _onEnd;
+        private Vector3 _speed;
 
 
         private void FixedUpdate()
         {
-            if (doMove)
+            if (_doMove)
             {
                 transform.position +=
-                    (speed * Time.deltaTime).magnitude < (endPos - transform.position).magnitude
-                        ? speed * Time.deltaTime
+                    (_speed * Time.deltaTime).magnitude <
+                    (endPos - transform.position).magnitude
+                        ? _speed * Time.deltaTime
                         : endPos - transform.position;
-                speed += acceleration * Time.deltaTime;
+                _speed += _acceleration * Time.deltaTime;
             }
 
-            if (transform.position != endPos) return;
-            doMove = false;
-            onEnd?.Invoke();
+            if (transform.position == endPos && _doMove) return;
+            _doMove = false;
+            _onEnd?.Invoke();
         }
 
-        public IEnumerator MoveTo(Vector3 end, Action doAfterMove = null)
+        public IEnumerator MoveTo(Vector3 end, Action doAfterMoved = null)
         {
-            Vector3 delta = end - transform.position;
-            return MoveBy(delta, doAfterMove);
+            var delta = end - transform.position;
+            return MoveBy(delta, doAfterMoved);
         }
 
-        public IEnumerator MoveBy(Vector3 delta, Action doAfterMove = null)
+        public IEnumerator MoveBy(Vector3 delta, Action doAfterMoved = null)
         {
             SetSpeedAcceleration(delta);
             endPos = transform.position + delta;
-            doMove = true;
-            onEnd = doAfterMove;
+            _doMove = true;
+            _onEnd = doAfterMoved;
 
-            return new WaitUntil(() => !doMove);
+            return new WaitUntil(() => !_doMove);
         }
 
         private void SetSpeedAcceleration(Vector3 delta)
@@ -52,12 +56,12 @@ namespace Other
             switch (speedType)
             {
                 case SpeedType.Const:
-                    speed = delta / time;
-                    acceleration = Vector2.zero;
+                    _speed = delta / time;
+                    _acceleration = Vector2.zero;
                     break;
                 case SpeedType.LinearDecrease:
-                    speed = delta * 2 / time;
-                    acceleration = -2 * delta / (float)Math.Pow(time, 2);
+                    _speed = delta * 2 / time;
+                    _acceleration = -2 * delta / (float)Math.Pow(time, 2);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

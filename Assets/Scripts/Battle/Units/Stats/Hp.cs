@@ -28,22 +28,22 @@ namespace Battle.Units.Stats
 
         public void Heal(int val)
         {
-            val = Math.Max(0, IIntModifier.UseModList(onHealingMods.ModList, val));
+            val = Math.Max(0, IIntModifier.UseModList(onHealingMods.List, val));
 
             ChangeValue(val);
         }
 
         public void TakeDamage(int val)
         {
-            val = Math.Max(0, IIntModifier.UseModList(onTakingDamageMods.ModList, val));
+            val = Math.Max(0, IIntModifier.UseModList(onTakingDamageMods.List, val));
 
             ChangeValue(-val);
         }
 
         public Hp Save()
         {
-            onHealingMods.SaveMods();
-            onTakingDamageMods.SaveMods();
+            onHealingMods.RemoveTempModsAndUnAttach();
+            onTakingDamageMods.RemoveTempModsAndUnAttach();
             UnAttach();
 
             return this;

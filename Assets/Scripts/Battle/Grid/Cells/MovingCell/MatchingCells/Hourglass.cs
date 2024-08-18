@@ -1,4 +1,3 @@
-using Battle.Grid.Modifiers;
 using Battle.Modifiers;
 using Battle.Units;
 
@@ -29,7 +28,7 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         {
             if (_added) return;
 
-            Player.Instance.AddMoves(IIntModifier.UseModList(Modifiers.ModList, Value));
+            Player.Instance.AddMoves(IIntModifier.UseModList(Modifiers.List, Value));
             _added = true;
         }
     }

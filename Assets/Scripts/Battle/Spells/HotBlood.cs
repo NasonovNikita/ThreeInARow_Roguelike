@@ -17,8 +17,8 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.Statuses.Add(new RandomIgnition(chance, moves, burningMoves));
-            unitBelong.damage.mods.Add(new DamageConstMod(damage));
+            UnitBelong.Statuses.Add(new RandomIgnition(chance, moves, burningMoves));
+            UnitBelong.damage.mods.Add(new DamageConstMod(damage));
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.Statuses.Add(new Units.Statuses.Irritation(damageAdditions, moves));
+            UnitBelong.Statuses.Add(
+                new Units.Statuses.Irritation(damageAdditions, moves));
         }
     }
 }

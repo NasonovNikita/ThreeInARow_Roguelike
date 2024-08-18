@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Shop
 {
+    /// <summary>
+    ///     An item seller. Tries to take player's money and give a <see cref="LootItem"/>.
+    /// </summary>
     [CreateAssetMenu(fileName = "Good", menuName = "Good")]
     [Serializable]
     public class Good : ScriptableObject

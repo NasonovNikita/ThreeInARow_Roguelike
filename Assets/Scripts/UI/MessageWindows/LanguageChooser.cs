@@ -1,6 +1,5 @@
 using System.Linq;
 using Knot.Localization;
-using Knot.Localization.Data;
 using UnityEngine;
 
 namespace UI.MessageWindows
@@ -21,9 +20,10 @@ namespace UI.MessageWindows
 
         private void SetLanguage(SystemLanguage language)
         {
-            KnotLanguageData knotLanguageData = KnotLocalization.Manager.Languages
+            var knotLanguageData = KnotLocalization.Manager.Languages
                 .FirstOrDefault(d => d.SystemLanguage == language);
-            if (knotLanguageData != null) KnotLocalization.Manager.LoadLanguage(knotLanguageData);
+            if (knotLanguageData != null)
+                KnotLocalization.Manager.LoadLanguage(knotLanguageData);
         }
 
         private void Close()

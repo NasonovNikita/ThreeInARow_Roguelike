@@ -14,7 +14,7 @@ namespace Battle.UI.HUD
 
         public static HUD Create(string content, Color color, Transform parentTransform)
         {
-            HUD hud = Instantiate(PrefabsContainer.instance.hud, parentTransform);
+            var hud = Instantiate(PrefabsContainer.Instance.hud, parentTransform);
 
             hud.text.text = content;
             hud.text.color = color;
@@ -35,7 +35,7 @@ namespace Battle.UI.HUD
 
         public void Stay()
         {
-            Move(-0.5f);
+            Move(-0.1f);
         }
 
         private void Move(float direction)

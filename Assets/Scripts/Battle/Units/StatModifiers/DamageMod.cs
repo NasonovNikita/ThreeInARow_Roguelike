@@ -18,7 +18,10 @@ namespace Battle.Units.StatModifiers
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
             ModDescriptionsContainer.Instance.damageNegative;
 
-        protected override Sprite SpriteNegative => ModifierSpritesContainer.Instance.damage;
-        protected override Sprite SpritePositive => ModifierSpritesContainer.Instance.damage;
+        protected override Sprite SpriteNegative =>
+            ModifierSpritesContainer.Instance.damage;
+
+        protected override Sprite SpritePositive =>
+            ModifierSpritesContainer.Instance.damage;
     }
 }

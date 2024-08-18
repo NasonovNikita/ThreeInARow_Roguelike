@@ -9,10 +9,11 @@ namespace Battle.Spells
         [SerializeField] private int damage;
 
         public override bool CantCast =>
-            battleFlowManager.CurrentlyTurningUnit is not Player ||
+            BattleFlowManager.CurrentlyTurningUnit is not Player ||
             Player.Data.money < useCost;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, damage);
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, damage);
 
         protected override void Waste()
         {
@@ -23,10 +24,11 @@ namespace Battle.Spells
         {
             for (var i = 0; i < useCost; i++)
             {
-                var index = Random.Range(0, unitBelong.Enemies.Count);
-                while (unitBelong.Enemies[index] == null)
-                    index = Random.Range(0, unitBelong.Enemies.Count);
-                unitBelong.Enemies[index].TakeDamage(unitBelong.damage.ApplyDamage(damage));
+                var index = Random.Range(0, UnitBelong.Enemies.Count);
+                while (UnitBelong.Enemies[index] == null)
+                    index = Random.Range(0, UnitBelong.Enemies.Count);
+                UnitBelong.Enemies[index]
+                    .TakeDamage(UnitBelong.damage.ApplyDamage(damage));
             }
         }
     }

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Core
 {
+    /// <summary>
+    ///     Global data (settings, game values, etc.).
+    /// </summary>
     public class Globals : MonoBehaviour
     {
         public bool randomSeed;
@@ -14,7 +17,9 @@ namespace Core
 
         public bool altBattleUI;
 
-        public (int, int) gridSize;
+        public float timeBetweenSymbolsInPlotDialog;
+
+        public (int, int) GridSize;
         public static Globals Instance { get; private set; }
 
         public void Awake()

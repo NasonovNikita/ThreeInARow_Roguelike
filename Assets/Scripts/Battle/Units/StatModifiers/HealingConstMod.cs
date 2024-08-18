@@ -13,9 +13,11 @@ namespace Battle.Units.StatModifiers
         {
         }
 
-        protected override Sprite SpritePositive => ModifierSpritesContainer.Instance.healing;
+        protected override Sprite SpritePositive =>
+            ModifierSpritesContainer.Instance.healing;
 
-        protected override Sprite SpriteNegative => ModifierSpritesContainer.Instance.healing;
+        protected override Sprite SpriteNegative =>
+            ModifierSpritesContainer.Instance.healing;
 
         protected override bool IsPositive => value > 0;
 
@@ -25,7 +27,7 @@ namespace Battle.Units.StatModifiers
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
             ModDescriptionsContainer.Instance.healingNegative;
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is HealingConstMod;
         }

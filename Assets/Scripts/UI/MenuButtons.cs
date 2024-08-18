@@ -9,42 +9,42 @@ namespace UI
     {
         public void NewGame()
         {
-            GameManager.instance.NewGame();
+            GameManager.Instance.NewGame();
         }
 
         public void Continue()
         {
-            GameManager.instance.Continue();
+            GameManager.Instance.ContinueGameRun();
         }
 
         public void Exit()
         {
-            GameManager.instance.Exit();
+            GameManager.Instance.Exit();
         }
 
         public void MainMenu()
         {
-            GameManager.instance.MainMenu();
+            GameManager.Instance.MainMenu();
         }
 
         public void Settings()
         {
-            GameManager.instance.Settings();
+            GameManager.Instance.GoToSettings();
         }
 
         public void EnterMap()
         {
-            GameManager.instance.EnterMap();
+            GameManager.Instance.GoToMap();
         }
 
         public void ShowInventory()
         {
-            Tools.InstantiateUI(PrefabsContainer.instance.inventoryManager);
+            Tools.InstantiateUI(PrefabsContainer.Instance.inventoryManager);
         }
 
         public void ChooseLanguage()
         {
-            Tools.InstantiateUI(PrefabsContainer.instance.languageChooser);
+            Tools.InstantiateUI(PrefabsContainer.Instance.languageChooser);
         }
     }
 }

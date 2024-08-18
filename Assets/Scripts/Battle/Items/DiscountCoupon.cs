@@ -1,5 +1,4 @@
 using Other;
-using Shop;
 using UnityEngine;
 
 namespace Battle.Items
@@ -9,13 +8,14 @@ namespace Battle.Items
     {
         [SerializeField] private float sale;
 
-        public override string Description => descriptionKeyRef.Value.IndexErrorProtectedFormat(
-            Tools.Percents(sale),
-            Tools.Percents(ShopManager.salePrice));
+        public override string Description =>
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(
+                Tools.Percents(sale),
+                Tools.Percents(Shop.SceneManager.SalePrice));
 
         public override void OnGet()
         {
-            ShopManager.salePrice = sale;
+            Shop.SceneManager.SalePrice = sale;
         }
     }
 }

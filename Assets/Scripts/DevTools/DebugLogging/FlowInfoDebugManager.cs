@@ -7,6 +7,10 @@ using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace DevTools.DebugLogging
 {
+    /// <summary>
+    ///     Uses <see cref="DebugLoggingGroup">logging groups</see>
+    ///     to write debug info about flow.
+    /// </summary>
     public class FlowInfoDebugManager : MonoBehaviour // Battle only yet
     {
         private static FlowInfoDebugManager _instance;
@@ -63,12 +67,12 @@ namespace DevTools.DebugLogging
 
         private void AttachGroups(List<DebugLoggingGroup> groups)
         {
-            foreach (DebugLoggingGroup group in groups) group.Attach();
+            foreach (var group in groups) group.Attach();
         }
 
         private void UnAttachGroups(List<DebugLoggingGroup> groups)
         {
-            foreach (DebugLoggingGroup group in groups) group.UnAttach();
+            foreach (var group in groups) group.UnAttach();
         }
     }
 }

@@ -1,12 +1,13 @@
+using System;
 using Knot.Localization;
 using UnityEngine;
 
 namespace Core.Singleton
 {
+    [Obsolete("Is never used or replaced by other similar objects.")]
     public class LocalizedStringsKeysContainer : MonoBehaviour
     {
-        public static LocalizedStringsKeysContainer instance;
-
+        public static LocalizedStringsKeysContainer Instance;
 
         public KnotTextKeyReference instakillProtectionLocalizedKey;
         public KnotTextKeyReference unitInfoLocalizedKey;
@@ -14,9 +15,9 @@ namespace Core.Singleton
 
         public void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else

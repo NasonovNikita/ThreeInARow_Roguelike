@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 namespace Battle.Grid.Cells.MovingCell
 {
+    /// <summary>
+    ///     A cell that can be moved in grid.
+    ///     Touch two neighboring MovingCells to swap them.
+    /// </summary>
     public abstract class MovingCell : Cell, IPointerClickHandler
     {
         private static MovingCell _chosen;
@@ -13,8 +17,8 @@ namespace Battle.Grid.Cells.MovingCell
         [SerializeField] private ObjectMover mover;
         [SerializeField] private ObjectScaler scaler;
 
-        private (bool, bool) finishedOperation;
-        private bool Finished => finishedOperation == (true, true);
+        private (bool, bool) _finishedOperation;
+        private bool Finished => _finishedOperation == (true, true);
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -64,23 +68,23 @@ namespace Battle.Grid.Cells.MovingCell
 
         private IEnumerator MoveCells()
         {
-            finishedOperation = (false, false);
+            _finishedOperation = (false, false);
 
             yield return StartCoroutine(scaler.ScaleUp());
             StartCoroutine(mover.MoveTo(_chosen.transform.position,
-                () => finishedOperation.Item2 = true));
+                () => _finishedOperation.Item2 = true));
             StartCoroutine(_chosen.mover.MoveTo(transform.position,
-                () => finishedOperation.Item1 = true));
+                () => _finishedOperation.Item1 = true));
 
             yield return new WaitUntil(() => Finished);
         }
 
         private IEnumerator ScaleCells()
         {
-            finishedOperation = (false, false);
+            _finishedOperation = (false, false);
 
-            StartCoroutine(scaler.UnScale(() => finishedOperation.Item1 = true));
-            StartCoroutine(_chosen.scaler.UnScale(() => finishedOperation.Item2 = true));
+            StartCoroutine(scaler.UnScale(() => _finishedOperation.Item1 = true));
+            StartCoroutine(_chosen.scaler.UnScale(() => _finishedOperation.Item2 = true));
 
             yield return new WaitUntil(() => Finished);
         }

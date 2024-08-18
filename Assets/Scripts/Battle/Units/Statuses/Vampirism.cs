@@ -34,15 +34,15 @@ namespace Battle.Units.Statuses
 
         private void Heal()
         {
-            belongingUnit.hp.Heal(heal);
+            BelongingUnit.hp.Heal(heal);
         }
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is Vampirism;
         }
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             heal += ((Vampirism)other).heal;
         }

@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Battle.Units
 {
+    /// <summary>
+    ///     Has Player as a <see cref="Unit.target"/>.
+    ///     Uses <see cref="Units.AI.Ai"/> to make moves.
+    /// </summary>
     [Serializable]
     public class Enemy : Unit
     {
@@ -22,9 +26,12 @@ namespace Battle.Units
             base.Awake();
         }
 
+        /// <summary>
+        ///     Starts Enemy's turn.
+        /// </summary>
         public IEnumerator Turn()
         {
-            if (!statuses.ModList.Exists(mod => mod is Stun { ToDelete: false }))
+            if (!Statuses.List.Exists(mod => mod is Stun { ToDelete: false }))
                 yield return StartCoroutine(ai.Act());
         }
     }

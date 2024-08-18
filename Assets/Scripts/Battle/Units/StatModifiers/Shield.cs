@@ -2,6 +2,7 @@ using System;
 using Battle.Modifiers;
 using Battle.UI.ModsDisplaying;
 using Core.Singleton;
+using Other;
 using UnityEngine;
 
 namespace Battle.Units.StatModifiers
@@ -16,30 +17,31 @@ namespace Battle.Units.StatModifiers
             counter = CreateChangeableSubSystem(new Counter(count));
         }
 
+        public override bool EndedWork => ToDelete;
+
         int IIntModifier.Modify(int val)
         {
             return counter.Decrease(val);
         }
 
-        public override bool EndedWork => ToDelete;
-
         public Sprite Sprite => ModifierSpritesContainer.Instance.shield;
 
         public string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.shield.Value,
+            IModIconModifier.SimpleFormatDescription(
+                ModDescriptionsContainer.Instance.shield.Value,
                 counter.Count);
 
         public string SubInfo => counter.SubInfo;
         public bool ToDelete => counter.EndedWork;
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is Shield;
         }
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
-            counter.Concat(((Shield)other).counter);
+            counter.ConcatWith(((Shield)other).counter);
         }
     }
 }

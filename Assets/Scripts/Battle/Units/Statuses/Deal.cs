@@ -22,7 +22,8 @@ namespace Battle.Units.Statuses
         public override Sprite Sprite => ModifierSpritesContainer.Instance.deal;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.deal.Value,
+            IModIconModifier.SimpleFormatDescription(
+                ModDescriptionsContainer.Instance.deal.Value,
                 value);
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
@@ -30,23 +31,25 @@ namespace Battle.Units.Statuses
 
         public void CheckAndAddMod()
         {
-            if (!usedSpells) belongingUnit.damage.mods.Add(new DamageConstMod(value, true));
+            if (!usedSpells)
+                BelongingUnit.damage.mods.Add(new DamageConstMod(value, true));
         }
 
         public override void Init(Unit unit)
         {
             usedSpells = false;
-            belongingUnit.OnSpellCasted += () => usedSpells = true;
-            Object.FindFirstObjectByType<BattleFlowManager>().OnBattleEnd += CheckAndAddMod;
+            BelongingUnit.OnSpellCasted += () => usedSpells = true;
+            Object.FindFirstObjectByType<BattleFlowManager>().OnBattleEnd +=
+                CheckAndAddMod;
             base.Init(unit);
         }
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is Deal;
         }
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             value += ((Deal)other).value;
         }

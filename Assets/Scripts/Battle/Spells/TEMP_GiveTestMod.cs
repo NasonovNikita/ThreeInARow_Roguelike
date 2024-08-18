@@ -8,7 +8,7 @@ namespace Battle.Spells
     {
         protected override void Action()
         {
-            unitBelong.hp.onTakingDamageMods.Add(new Shield(1));
+            UnitBelong.hp.onTakingDamageMods.Add(new Shield(1));
         }
     }
 }

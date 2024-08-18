@@ -16,12 +16,13 @@ namespace Battle.Units.StatModifiers
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
         }
 
-        protected override List<IChangeAble> ChangeAblesToInitialize => new() { moveCounter };
+        protected override List<IChangeAble> ChangeAblesToInitialize =>
+            new() { moveCounter };
 
-        public string SubInfo => moveCounter.SubInfo;
-        public bool ToDelete => moveCounter.EndedWork || base.ToDelete;
+        public override string SubInfo => moveCounter.SubInfo;
+        public override bool ToDelete => moveCounter.EndedWork || base.ToDelete;
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is DamageMoveMod damageMoveMod &&
                    damageMoveMod.moveCounter.Moves == moveCounter.Moves;

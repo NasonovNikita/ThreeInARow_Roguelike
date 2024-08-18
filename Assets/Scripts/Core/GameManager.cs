@@ -7,14 +7,17 @@ using UnityEngine.SceneManagement;
 
 namespace Core
 {
+    /// <summary>
+    ///     Is used for common actions.
+    /// </summary>
     public class GameManager : MonoBehaviour
     {
-        public static GameManager instance;
+        public static GameManager Instance;
 
         public void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
 
@@ -25,7 +28,7 @@ namespace Core
 
         public void Start()
         {
-            SettingsSave.Load();
+            SettingsSave.Load().Apply();
         }
 
         public void MainMenu()
@@ -44,12 +47,12 @@ namespace Core
             GameSave.CreateEmptySave().Apply();
         }
 
-        public void Continue()
+        public void ContinueGameRun()
         {
-            GameSave.Load();
+            GameSave.Load().Apply();
         }
 
-        public void Settings()
+        public void GoToSettings()
         {
             SceneManager.LoadScene("Settings");
         }
@@ -63,7 +66,7 @@ namespace Core
             Application.Quit();
         }
 
-        public void EnterMap()
+        public void GoToMap()
         {
             SceneManager.LoadScene("Map");
         }

@@ -1,4 +1,3 @@
-using Battle.Grid.Modifiers;
 using Battle.Modifiers;
 using Other;
 using UnityEngine;
@@ -19,7 +18,8 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
         protected override void Use()
         {
             BattleFlowManager.Instance.CurrentlyTurningUnit.hp.onTakingDamageMods.Add(
-                new Units.StatModifiers.Shield(IIntModifier.UseModList(Modifiers.ModList, amount)));
+                new Units.StatModifiers.Shield(
+                    IIntModifier.UseModList(Modifiers.List, amount)));
         }
 
         public override bool IsSameType(Cell other)

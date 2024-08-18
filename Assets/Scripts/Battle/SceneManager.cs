@@ -13,7 +13,7 @@ namespace Battle
 {
     public class SceneManager : MonoBehaviour
     {
-        public static EnemyGroup enemyGroup;
+        public static EnemyGroup EnemyGroup;
 
         [SerializeField] private Canvas mainCanvas;
         [SerializeField] private EnemyPlacer placer;
@@ -23,7 +23,7 @@ namespace Battle
         [FormerlySerializedAs("winMessage")] [SerializeField]
         private BattleWinWindow winMessageWindow;
 
-        private readonly List<Enemy> enemiesWithNulls = new();
+        private readonly List<Enemy> _enemiesWithNulls = new();
 
         public void Awake()
         {
@@ -39,17 +39,19 @@ namespace Battle
 
             TurnLabel.Instance.SetPlayerTurn();
 
-            BattleFlowManager.Instance.enemiesWithNulls = enemiesWithNulls;
-            BattleFlowManager.Instance.TurnOn();
+            BattleFlowManager.Instance.EnemiesWithNulls = _enemiesWithNulls;
+            BattleFlowManager.Instance.Init();
             PickerManager.Instance.PickNextPossible();
 
-            Player.Instance.LateLoad();
+            Player.Instance.Init();
 
             BattleFlowManager.Instance.OnBattleWin += WinBattle;
             BattleFlowManager.Instance.OnBattleLose += LoseBattle;
             BattleFlowManager.Instance.OnEnemiesShuffle += PlaceEnemies;
-            BattleFlowManager.Instance.OnEnemiesTurnStart += TurnLabel.Instance.SetEnemyTurn;
-            BattleFlowManager.Instance.OnPlayerTurnStart += TurnLabel.Instance.SetPlayerTurn;
+            BattleFlowManager.Instance.OnEnemiesTurnStart +=
+                TurnLabel.Instance.SetEnemyTurn;
+            BattleFlowManager.Instance.OnPlayerTurnStart +=
+                TurnLabel.Instance.SetPlayerTurn;
 
             OnSceneFullyLoaded?.Invoke();
         }
@@ -64,15 +66,15 @@ namespace Battle
 
         private void InitEnemies()
         {
-            foreach (Enemy enemy in enemyGroup.Enemies)
+            foreach (var enemy in EnemyGroup.Enemies)
             {
                 if (enemy == null)
                 {
-                    enemiesWithNulls.Add(null);
+                    _enemiesWithNulls.Add(null);
                     continue;
                 }
 
-                enemiesWithNulls.Add(LoadEnemy(enemy));
+                _enemiesWithNulls.Add(LoadEnemy(enemy));
             }
 
             PlaceEnemies();
@@ -85,7 +87,7 @@ namespace Battle
 
         private void PlaceEnemies()
         {
-            EnemyPlacer.Instance.Place(enemiesWithNulls);
+            EnemyPlacer.Instance.Place(_enemiesWithNulls);
         }
 
         private void LoseBattle()
@@ -95,7 +97,7 @@ namespace Battle
 
         private void WinBattle()
         {
-            winMessageWindow.Create(enemyGroup.Reward, UICanvas.Instance.transform);
+            winMessageWindow.Create(EnemyGroup.Reward, UICanvas.Instance.transform);
         }
     }
 }

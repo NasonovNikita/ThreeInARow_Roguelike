@@ -27,7 +27,8 @@ namespace Battle.UI.HUD
                     hud.Stay();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction,
+                        null);
             }
         }
     }

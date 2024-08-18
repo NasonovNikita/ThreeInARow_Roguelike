@@ -1,3 +1,7 @@
+'''
+Count total lines of code in Scripts folder. Does not count empty lines
+and lines with { or } brackets only.
+'''
 import os
 
 cnt = 0

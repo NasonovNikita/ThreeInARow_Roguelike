@@ -1,4 +1,3 @@
-using Battle.Units;
 using Battle.Units.Statuses;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            foreach (Unit enemy in unitBelong.Enemies)
+            foreach (var enemy in UnitBelong.Enemies)
             {
                 enemy.TakeDamage(dmg);
                 enemy.Statuses.Add(new Burning());

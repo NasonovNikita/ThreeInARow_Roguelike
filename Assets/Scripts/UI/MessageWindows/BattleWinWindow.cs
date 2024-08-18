@@ -17,20 +17,21 @@ namespace UI.MessageWindows
         [SerializeField] private Text moneyRewardButtonText;
 
         [SerializeField] private KnotTextKeyReference moneyRewardTextKeyReference;
-        private Cell cell;
-        private int money;
+        private Cell _cell;
+        private int _money;
 
         public void Create(int moneyReward, Transform uiCanvas)
         {
-            BattleWinWindow window = Instantiate(this, uiCanvas);
+            var window = Instantiate(this, uiCanvas);
 
             window.moneyRewardButtonText.text =
                 moneyRewardTextKeyReference.Value.IndexErrorProtectedFormat(moneyReward);
-            window.money = moneyReward;
+            window._money = moneyReward;
 
             var possibleToAddCells = Resources.LoadAll<Cell>("Prefabs/Battle/Cells")
                 .Where(loadedCell =>
-                    !Player.Data.cells.Exists(playerCell => playerCell.IsSameType(loadedCell)) &&
+                    !Player.Data.cells.Exists(playerCell =>
+                        playerCell.IsSameType(loadedCell)) &&
                     loadedCell.possibleReward).ToList();
 
             if (possibleToAddCells.Count == 0)
@@ -39,21 +40,22 @@ namespace UI.MessageWindows
             }
             else
             {
-                window.cell = Tools.Random.RandomChoose(possibleToAddCells);
-                window.cellRewardButton.image.sprite = window.cell.GetComponent<Image>().sprite;
-                window.cellInfoObject.text = window.cell.Description; // TODO
+                window._cell = Tools.Random.RandomChoose(possibleToAddCells);
+                window.cellRewardButton.image.sprite =
+                    window._cell.GetComponent<Image>().sprite;
+                window.cellInfoObject.text = window._cell.Description; // TODO
             }
         }
 
         public void GetMoney()
         {
-            Player.Data.money += money;
+            Player.Data.money += _money;
             Destroy(moneyRewardButton.gameObject);
         }
 
         public void GetCell()
         {
-            Player.Data.cells.Add(cell);
+            Player.Data.cells.Add(_cell);
             Destroy(cellRewardButton.gameObject);
         }
     }

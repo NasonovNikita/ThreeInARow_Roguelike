@@ -10,17 +10,19 @@ namespace Battle.UI.HUD
         [SerializeField] private StatHUDDataContainer statHUDDataContainer;
 
         [SerializeField] private float statChangeBufferTime;
-        private readonly Dictionary<Stat, StatHUDData> hudDataByStat = new();
+        private readonly Dictionary<Stat, StatHUDData> _hudDataByStat = new();
 
-        private readonly Dictionary<Stat, float> lastChangeTime = new();
-        private readonly Dictionary<Stat, int> statValueChangeBuffer = new();
+        private readonly Dictionary<Stat, float> _lastChangeTime = new();
+        private readonly Dictionary<Stat, int> _statValueChangeBuffer = new();
 
         public void Start()
         {
-            foreach ((Stat stat, StatHUDData statHUDData) in statHUDDataContainer.StatHUDDataList)
+            foreach (var (stat, statHUDData) in statHUDDataContainer
+                         .StatHUDDataList)
             {
-                hudDataByStat.Add(stat, statHUDData);
-                stat.OnValueChanged += value => CollectStatChangeData(stat, value);
+                _hudDataByStat.Add(stat, statHUDData);
+                stat.OnValueChanged +=
+                    value => CollectStatChangeData(stat, value);
             }
         }
 
@@ -28,33 +30,35 @@ namespace Battle.UI.HUD
         {
             var statsToDeleteDataAbout = new List<Stat>();
 
-            foreach ((Stat stat, var time) in lastChangeTime)
+            foreach (var (stat, time) in _lastChangeTime)
             {
                 if (Time.time - time < statChangeBufferTime) continue;
 
-                SpawnStatHUD(statValueChangeBuffer[stat], hudDataByStat[stat]);
+                SpawnStatHUD(_statValueChangeBuffer[stat],
+                    _hudDataByStat[stat]);
                 statsToDeleteDataAbout.Add(stat);
             }
 
-            foreach (Stat stat in statsToDeleteDataAbout) DeleteStatBufferData(stat);
+            foreach (var stat in statsToDeleteDataAbout)
+                DeleteStatBufferData(stat);
         }
 
         private void DeleteStatBufferData(Stat stat)
         {
-            lastChangeTime.Remove(stat);
-            statValueChangeBuffer.Remove(stat);
+            _lastChangeTime.Remove(stat);
+            _statValueChangeBuffer.Remove(stat);
         }
 
         private void CollectStatChangeData(Stat stat, int value)
         {
-            if (lastChangeTime.TryAdd(stat, Time.time))
+            if (_lastChangeTime.TryAdd(stat, Time.time))
             {
-                statValueChangeBuffer.Add(stat, value);
+                _statValueChangeBuffer.Add(stat, value);
             }
             else
             {
-                lastChangeTime[stat] = Time.time;
-                statValueChangeBuffer[stat] += value;
+                _lastChangeTime[stat] = Time.time;
+                _statValueChangeBuffer[stat] += value;
             }
         }
 

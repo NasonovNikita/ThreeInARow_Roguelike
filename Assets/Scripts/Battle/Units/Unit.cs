@@ -10,6 +10,10 @@ using Tools = Other.Tools;
 
 namespace Battle.Units
 {
+    /// <summary>
+    ///     Contains <see cref="Stat">stats</see> (hp, mana, damage), <see cref="spells"/>,
+    ///     <see cref="Statuses"/>, <see cref="target"/> to deal damage to
+    /// </summary>
     public abstract class Unit : MonoBehaviour
     {
         public Hp hp;
@@ -20,10 +24,16 @@ namespace Battle.Units
 
         public Unit target;
 
-        protected ModifierList statuses = new();
-        public abstract List<Unit> Enemies { get; }
-        public ModifierList Statuses => statuses;
+        [NonSerialized] public ModifierList Statuses = new();
 
+        /// <summary>
+        ///     Can be used to deal damage to all enemies of this unit at once.
+        /// </summary>
+        public abstract List<Unit> Enemies { get; }
+
+        /// <summary>
+        ///     Easy way to get all ModifierLists of this unit.
+        /// </summary>
         public List<ModifierList> AllModifierLists => new()
         {
             hp.onHealingMods,
@@ -40,15 +50,18 @@ namespace Battle.Units
         {
             Tools.InstantiateAll(spells);
 
-            foreach (Spell spell in spells) spell.Init(this);
+            foreach (var spell in spells) spell.Init(this);
 
-            statuses.OnModAdded += modifier => ((Status)modifier).Init(this);
+            Statuses.OnModAdded += modifier => ((Status)modifier).Init(this);
         }
 
         public event Action OnSpellCasted;
         public event Action OnMadeHit;
         public event Action OnDied;
 
+        /// <summary>
+        ///     Invokes <see cref="OnSpellCasted"/>.
+        /// </summary>
         public void UseSpell()
         {
             OnSpellCasted?.Invoke();

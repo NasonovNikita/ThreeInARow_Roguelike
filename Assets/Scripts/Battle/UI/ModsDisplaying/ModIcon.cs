@@ -5,43 +5,46 @@ using UnityEngine.UI;
 
 namespace Battle.UI.ModsDisplaying
 {
+    /// <summary>
+    ///     View for an <see cref="IModIconModifier"/> mod.
+    /// </summary>
     [RequireComponent(typeof(InfoObject))]
     public class ModIcon : MonoBehaviour
     {
         [SerializeField] private Text subInfo;
         [SerializeField] private Image img;
         [SerializeField] private InfoObject modInfo;
-        private IModIconModifier mod;
+        private IModIconModifier _mod;
 
         public void OnDestroy()
         {
-            mod.OnChanged -= CheckMod;
+            _mod.OnChanged -= CheckMod;
         }
 
         public static void Create(IModIconModifier mod, Transform parentTransform)
         {
             if (mod.Sprite is null) return;
 
-            ModIcon icon = Instantiate(PrefabsContainer.instance.modIcon, parentTransform);
+            var icon = Instantiate(PrefabsContainer.Instance.modIcon, parentTransform);
 
-            icon.mod = mod;
+            icon._mod = mod;
 
             icon.img.sprite = mod.Sprite;
             icon.subInfo.text = mod.SubInfo;
             icon.modInfo.text = mod.Description;
-            icon.mod.OnChanged += icon.CheckMod;
+            icon._mod.OnChanged += icon.CheckMod;
         }
 
         private void CheckMod()
         {
-            if (mod.ToDelete)
+            if (_mod.ToDelete)
             {
                 Delete();
             }
             else
             {
-                subInfo.text = mod.SubInfo;
-                modInfo.text = mod.Description;
+                subInfo.text = _mod.SubInfo;
+                modInfo.text = _mod.Description;
             }
         }
 

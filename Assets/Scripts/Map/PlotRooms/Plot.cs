@@ -9,16 +9,16 @@ namespace Map.PlotRooms
     {
         [SerializeField] private PlotData plot;
 
-        public List<Action> currentActions;
+        public List<Action> CurrentActions;
 
-        [NonSerialized] public string currentText;
+        [NonSerialized] public string CurrentText;
 
         public abstract List<string> CurrentActionsTexts { get; }
         protected abstract Dictionary<string, Action> AllActions { get; }
 
         public void Start()
         {
-            currentText = plot.text.Value;
+            CurrentText = plot.text.Value;
             OnChanged?.Invoke();
         }
 
@@ -26,12 +26,12 @@ namespace Map.PlotRooms
 
         public void Choose(int index)
         {
-            currentActions[index]?.Invoke();
+            CurrentActions[index]?.Invoke();
 
             if (index != plot.next.Count) plot = plot.next[index];
 
-            currentText = plot.text.Value;
-            currentActions = plot.actions.Select(action => AllActions[action]).ToList();
+            CurrentText = plot.text.Value;
+            CurrentActions = plot.actions.Select(action => AllActions[action]).ToList();
 
             OnChanged?.Invoke();
         }

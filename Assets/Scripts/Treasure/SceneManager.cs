@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Treasure
 {
-    public class TreasureManager : MonoBehaviour
+    public class SceneManager : MonoBehaviour
     {
-        public static LootItem treasure;
+        public static LootItem Treasure;
 
         public void Awake()
         {
@@ -15,7 +15,7 @@ namespace Treasure
             GameSave.Save();
 
             var treasureBox = FindFirstObjectByType<TreasureBox>();
-            treasureBox.treasure = treasure;
+            treasureBox.treasure = Treasure;
 
             AudioManager.Instance.Play(AudioEnum.Treasure);
         }

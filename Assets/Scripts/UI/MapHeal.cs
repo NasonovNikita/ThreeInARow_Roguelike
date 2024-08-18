@@ -19,9 +19,11 @@ namespace UI
             if (Player.Data.spells.Exists(spell => spell is Healing))
             {
                 var spell =
-                    (Healing)Instantiate(Player.Data.spells.Find(spell => spell is Healing));
+                    (Healing)Instantiate(
+                        Player.Data.spells.Find(spell => spell is Healing));
                 _btn.onClick.AddListener(spell.MapCast);
-                _btn.GetComponentInChildren<Text>().text = $"{spell.Title} {spell.useCost}";
+                _btn.GetComponentInChildren<Text>().text =
+                    $"{spell.Title} {spell.useCost}";
             }
             else
             {

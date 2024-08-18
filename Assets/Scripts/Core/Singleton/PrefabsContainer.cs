@@ -10,7 +10,7 @@ namespace Core.Singleton
 {
     public class PrefabsContainer : MonoBehaviour
     {
-        public static PrefabsContainer instance;
+        public static PrefabsContainer Instance;
 
         public InventoryItem inventoryItem;
 
@@ -22,9 +22,9 @@ namespace Core.Singleton
 
         public void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else

@@ -27,12 +27,12 @@ namespace Battle.Units.Stats
 
         public int ApplyDamage(int val)
         {
-            return val * IIntModifier.UseModList(mods.ModList, Value);
+            return val * IIntModifier.UseModList(mods.List, Value);
         }
 
         public Damage Save()
         {
-            mods.SaveMods();
+            mods.RemoveTempModsAndUnAttach();
             UnAttach();
 
             return this;

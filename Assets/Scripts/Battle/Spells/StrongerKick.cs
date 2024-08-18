@@ -16,7 +16,7 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.damage.mods.Add(new DamageMoveMod(damage, moves));
+            UnitBelong.damage.mods.Add(new DamageMoveMod(damage, moves));
         }
     }
 }

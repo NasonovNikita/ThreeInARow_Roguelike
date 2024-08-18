@@ -4,14 +4,18 @@ using UnityEngine.EventSystems;
 
 namespace UI.MessageWindows
 {
+    /// <summary>
+    ///     Shows info text when pointer is on this object for some time
+    ///     or after right click.
+    /// </summary>
     public class InfoObject : PointerTracker, IPointerClickHandler
     {
         public string text;
 
         public KnotTextKeyReference keyReference;
-        protected virtual string Text => text != "" ? text : keyReference.Value;
+        private string Text => text != "" ? text : keyReference.Value;
 
-        private Vector3 Shift => InfoWindow.instance.WindowSize * 0.6f;
+        private Vector3 Shift => InfoWindow.Instance.WindowSize * 0.6f;
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -22,17 +26,17 @@ namespace UI.MessageWindows
 
         private void ShowInfo()
         {
-            InfoWindow.instance.Write(Text);
+            InfoWindow.Instance.Write(Text);
         }
 
         private void CloseInfo()
         {
-            InfoWindow.instance.Close();
+            InfoWindow.Instance.Close();
         }
 
         private void PlaceInfo()
         {
-            InfoWindow.instance.MoveTo(MousePosition, Shift);
+            InfoWindow.Instance.MoveTo(MousePosition, Shift);
         }
 
         private void InitInfo()

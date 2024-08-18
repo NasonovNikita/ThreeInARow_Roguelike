@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Battle.Units.StatModifiers
 {
+    /// <summary>
+    ///     Created because of <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>.
+    /// </summary>
     [Serializable]
     public abstract class ValuedStatModifier : Modifier, IIntModifier, IModIconModifier
     {
@@ -18,19 +21,26 @@ namespace Battle.Units.StatModifiers
 
         protected abstract bool IsPositive { get; }
 
-        protected abstract KnotTextKeyReference DescriptionKnotKeyReferencePositive { get; }
-        protected abstract KnotTextKeyReference DescriptionKnotKeyReferenceNegative { get; }
+        protected abstract KnotTextKeyReference DescriptionKnotKeyReferencePositive
+        {
+            get;
+        }
+
+        protected abstract KnotTextKeyReference DescriptionKnotKeyReferenceNegative
+        {
+            get;
+        }
 
         protected abstract Sprite SpritePositive { get; }
         protected abstract Sprite SpriteNegative { get; }
+
+        public override bool EndedWork => ToDelete;
 
 
         int IIntModifier.Modify(int val)
         {
             return val + value;
         }
-
-        public override bool EndedWork => ToDelete;
 
         public virtual string SubInfo => value.ToString();
         public virtual bool ToDelete => value == 0;
@@ -53,7 +63,7 @@ namespace Battle.Units.StatModifiers
                 false => SpriteNegative
             };
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             value += ((ValuedStatModifier)other).value;
         }

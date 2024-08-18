@@ -4,7 +4,6 @@ using Battle.Units;
 using Map.Nodes.Managers;
 using Other;
 using Shop;
-using Treasure;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -12,6 +11,10 @@ using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Core.Saves
 {
+    /// <summary>
+    ///     Contains data about last game run
+    ///     (map position, player, and last rooms data to be able to load instantly).
+    /// </summary>
     [Serializable]
     public class GameSave : SaveObject
     {
@@ -19,60 +22,70 @@ namespace Core.Saves
 
         private const string NullObject = "{}";
         private const string EmptyList = "{[]}";
-        [SerializeField] private int currentVertex = NodeController.Instance.currentNodeIndex;
-        [SerializeField] private bool noNodeIsChosen = NodeController.Instance.noNodeIsChosen;
+
+        [SerializeField]
+        private int currentVertex = NodeController.Instance.CurrentNodeIndex;
+
+        [SerializeField]
+        private bool noNodeIsChosen = NodeController.Instance.NoNodeIsChosen;
+
         [SerializeField] private string scene = SceneManager.GetActiveScene().name;
         [SerializeField] private string playerData = JsonUtility.ToJson(Player.Data);
         [SerializeField] private int seed = Globals.Instance.seed;
 
         [SerializeField]
-        private string enemyGroup = JsonUtility.ToJson(Battle.SceneManager.enemyGroup);
+        private string enemyGroup = JsonUtility.ToJson(Battle.SceneManager.EnemyGroup);
 
-        [SerializeField] private string goods = Tools.Json.ListToJson(ShopManager.goods);
-        [SerializeField] private string treasure = JsonUtility.ToJson(TreasureManager.treasure);
-        [SerializeField] private int gridSizeX = Globals.Instance.gridSize.Item1;
-        [SerializeField] private int gridSizeY = Globals.Instance.gridSize.Item2;
+        [SerializeField]
+        private string goods = Tools.Json.ListToJson(Shop.SceneManager.Goods);
 
-        private bool isEmptySave;
+        [SerializeField]
+        private string treasure = JsonUtility.ToJson(Treasure.SceneManager.Treasure);
+
+        [SerializeField] private int gridSizeX = Globals.Instance.GridSize.Item1;
+        [SerializeField] private int gridSizeY = Globals.Instance.GridSize.Item2;
+
+        private bool _isEmptySave;
 
         public static void Save()
         {
             SavesManager.Save(new GameSave(), Path);
         }
 
-        public static void Load()
+        /// <summary>
+        ///     Loads data from memory.
+        /// </summary>
+        public static GameSave Load()
         {
-            var save = SavesManager.Load<GameSave>(Path);
-
-            if (save == null) CreateEmptySave().Apply();
-            else save.Apply();
+            return SavesManager.Load<GameSave>(Path) ?? CreateEmptySave();
         }
 
         public override void Apply()
         {
-            NodeController.Instance.currentNodeIndex = currentVertex;
-            NodeController.Instance.noNodeIsChosen = noNodeIsChosen;
+            NodeController.Instance.CurrentNodeIndex = currentVertex;
+            NodeController.Instance.NoNodeIsChosen = noNodeIsChosen;
 
             JsonUtility.FromJsonOverwrite(playerData, Player.Data);
 
             Globals.Instance.seed = seed;
-            Globals.Instance.gridSize = (gridSizeX, gridSizeY);
+            Globals.Instance.GridSize = (gridSizeX, gridSizeY);
 
-            Battle.SceneManager.enemyGroup = ScriptableObject.CreateInstance<EnemyGroup>();
-            JsonUtility.FromJsonOverwrite(enemyGroup, Battle.SceneManager.enemyGroup);
+            Battle.SceneManager.EnemyGroup =
+                ScriptableObject.CreateInstance<EnemyGroup>();
+            JsonUtility.FromJsonOverwrite(enemyGroup, Battle.SceneManager.EnemyGroup);
 
-            ShopManager.goods = Tools.Json.JsonToListScriptableObjects<Good>(goods);
+            Shop.SceneManager.Goods = Tools.Json.JsonToListScriptableObjects<Good>(goods);
 
-            TreasureManager.treasure =
+            Treasure.SceneManager.Treasure =
                 ScriptableObject.CreateInstance<LongScythe>(); // TODO doesn't work
             // No matter what type of LootItem instance is created json overwriting works
 
-            JsonUtility.FromJsonOverwrite(treasure, TreasureManager.treasure);
+            JsonUtility.FromJsonOverwrite(treasure, Treasure.SceneManager.Treasure);
 
             NodeController.Instance.RegenerateNodes();
 
-            if (isEmptySave)
-                foreach (Item item in Player.Data.items)
+            if (_isEmptySave)
+                foreach (var item in Player.Data.items)
                     item.OnGet();
 
 
@@ -92,9 +105,9 @@ namespace Core.Saves
                     ? Random.Range(0, (int)Math.Pow(10, 6))
                     : Globals.Instance.seed,
                 enemyGroup = NullObject,
-                treasure = JsonUtility.ToJson(null),
+                treasure = NullObject,
                 goods = EmptyList,
-                isEmptySave = true
+                _isEmptySave = true
             };
         }
     }

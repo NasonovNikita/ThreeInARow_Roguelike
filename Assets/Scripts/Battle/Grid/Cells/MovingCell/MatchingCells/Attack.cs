@@ -1,6 +1,4 @@
-using Battle.Grid.Modifiers;
 using Battle.Modifiers;
-using Battle.Units;
 using Other;
 using UnityEngine;
 
@@ -19,10 +17,11 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
 
         protected override void Use()
         {
-            Unit unit = BattleFlowManager.Instance.CurrentlyTurningUnit;
+            var unit = BattleFlowManager.Instance.CurrentlyTurningUnit;
 
             unit.target.TakeDamage(
-                unit.damage.ApplyDamage(IIntModifier.UseModList(Modifiers.ModList, baseAttackVal)));
+                unit.damage.ApplyDamage(IIntModifier.UseModList(Modifiers.List,
+                    baseAttackVal)));
             unit.InvokeOnMadeHit();
         }
 

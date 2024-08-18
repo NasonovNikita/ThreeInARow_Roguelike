@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Other
 {
+    /// <summary>
+    ///     Obtainable by player item.
+    /// </summary>
     [Serializable]
     public abstract class LootItem : ScriptableObject
     {

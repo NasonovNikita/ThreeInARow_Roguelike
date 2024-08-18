@@ -28,22 +28,22 @@ namespace Battle.Units.Stats
 
         public void Refill(int val)
         {
-            val = Math.Max(0, IIntModifier.UseModList(refillingMods.ModList, val));
+            val = Math.Max(0, IIntModifier.UseModList(refillingMods.List, val));
 
             ChangeValue(val);
         }
 
         public void Waste(int val)
         {
-            val = Math.Max(0, IIntModifier.UseModList(wastingMods.ModList, val));
+            val = Math.Max(0, IIntModifier.UseModList(wastingMods.List, val));
 
             ChangeValue(-val);
         }
 
         public Mana Save()
         {
-            refillingMods.SaveMods();
-            wastingMods.SaveMods();
+            refillingMods.RemoveTempModsAndUnAttach();
+            wastingMods.RemoveTempModsAndUnAttach();
             UnAttach();
 
             return this;

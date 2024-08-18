@@ -1,4 +1,3 @@
-using Battle.Units;
 using Battle.Units.Statuses;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            foreach (Unit enemy in unitBelong.Enemies) enemy.Statuses.Add(new Stun(moves));
+            foreach (var enemy in UnitBelong.Enemies) enemy.Statuses.Add(new Stun(moves));
         }
     }
 }

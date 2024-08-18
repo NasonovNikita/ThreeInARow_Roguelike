@@ -3,6 +3,10 @@ using SerializeField = UnityEngine.SerializeField;
 
 namespace Battle.Units.Stats
 {
+    /// <summary>
+    ///     Its value is not less than zero and is less than fixed value (<see cref="BorderUp"/>).
+    ///     Supports <c>int</c> operations besides multiplication.
+    /// </summary>
     [Serializable]
     public abstract class Stat
     {
@@ -13,34 +17,43 @@ namespace Battle.Units.Stats
 
         public event Action<int> OnValueChanged;
 
-        public void ChangeBorderUp(int dBorder, int dValue = 0)
+        /// <summary>
+        ///     Protected border change. Keeps border not less than zero.
+        /// </summary>
+        /// <seealso cref="ChangeValue"/>
+        public void ChangeBorderUp(int dBorder)
         {
             borderUp += dBorder;
-
-            dValue = FixedValueChange(dValue);
-            value += dValue;
-
-            OnValueChanged?.Invoke(dValue);
+            borderUp = borderUp >= 0 ? borderUp : 0;
         }
 
+        /// <summary>
+        ///     Protected value change that keeps the value not less than zero
+        ///     and less than fixed value.<br/>Also invokes <see cref="OnValueChanged"/>.
+        /// </summary>
+        /// <seealso cref="ChangeBorderUp"/>
         public void ChangeValue(int change)
         {
-            change = FixedValueChange(change);
+            change = FixedValueChange(change); // Get the actually applying change
             value += change;
 
             OnValueChanged?.Invoke(change);
         }
 
-        protected int FixedValueChange(int change)
-        {
-            return change >= 0 ? Math.Min(BorderUp - value, change) : -Math.Min(value, -change);
-        }
-
+        /// <summary>
+        ///     Deletes all existing <see cref="OnValueChanged"/> event listeners.
+        /// </summary>
         public void UnAttach()
         {
             OnValueChanged = null;
         }
 
+        protected int FixedValueChange(int change)
+        {
+            return change >= 0
+                ? Math.Min(BorderUp - value, change)
+                : -Math.Min(value, -change);
+        }
 
         #region Initializers
 
@@ -114,9 +127,9 @@ namespace Battle.Units.Stats
 
         public override bool Equals(object obj)
         {
-            return !ReferenceEquals(null, obj) &&
-                   (ReferenceEquals(this, obj) ||
-                    (obj.GetType() == GetType() && Equals((Stat)obj)));
+            return !ReferenceEquals(null, obj) && (ReferenceEquals(this, obj) ||
+                                                   (obj.GetType() == GetType() &&
+                                                    Equals((Stat)obj)));
         }
 
         public override int GetHashCode()

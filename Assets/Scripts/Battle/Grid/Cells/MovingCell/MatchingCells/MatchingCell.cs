@@ -19,19 +19,19 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
 
             var rowedCells = FindRowedCells();
 
-            foreach (MatchingCell cell in rowedCells)
+            foreach (var cell in rowedCells)
                 _cellsToDeleteCoordinates.Add(Grid.Instance.FindCell(cell));
 
             _cellsToUseCount += 1;
 
-            BattleFlowManager.Instance.endedProcesses.Add(() => _cellsToUseCount == 0);
-            BattleFlowManager.Instance.endedProcesses.Add(() => _refilled);
+            BattleFlowManager.Instance.EndedProcesses.Add(() => _cellsToUseCount == 0);
+            BattleFlowManager.Instance.EndedProcesses.Add(() => _refilled);
             Grid.Instance.StartCoroutine(UseAndHideCells(rowedCells));
         }
 
         private IEnumerator UseAndHideCells(List<MatchingCell> cells)
         {
-            foreach (MatchingCell cell in cells)
+            foreach (var cell in cells)
             {
                 if (BattleFlowManager.Instance.CurrentlyTurningUnit is Player) cell.Use();
                 OffScreenPoint.Instance.Hide(cell.gameObject);
@@ -44,7 +44,9 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
             // ReSharper disable once InvertIf
             if (_cellsToUseCount == 0 && !_refilled)
             {
-                GridGenerator.Instance.ReplaceCellsByCoordinates(_cellsToDeleteCoordinates);
+                GridGenerator.Instance.ReplaceCellsByCoordinates(
+                    _cellsToDeleteCoordinates);
+                Grid.Instance.InitGrid();
 
                 _cellsToDeleteCoordinates = new List<(int, int)>();
                 _refilled = true;
@@ -61,16 +63,16 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
                 if (i < Grid.Instance.sizeY - 2 && RowExists(i, j, 1))
                     found.UnionWith(new[]
                     {
-                        (MatchingCell)Grid.Instance.box[i, j],
-                        (MatchingCell)Grid.Instance.box[i + 1, j],
-                        (MatchingCell)Grid.Instance.box[i + 2, j]
+                        (MatchingCell)Grid.Instance.Box[i, j],
+                        (MatchingCell)Grid.Instance.Box[i + 1, j],
+                        (MatchingCell)Grid.Instance.Box[i + 2, j]
                     });
                 if (j < Grid.Instance.sizeX - 2 && RowExists(i, j, dj: 1))
                     found.UnionWith(new[]
                     {
-                        (MatchingCell)Grid.Instance.box[i, j],
-                        (MatchingCell)Grid.Instance.box[i, j + 1],
-                        (MatchingCell)Grid.Instance.box[i, j + 2]
+                        (MatchingCell)Grid.Instance.Box[i, j],
+                        (MatchingCell)Grid.Instance.Box[i, j + 1],
+                        (MatchingCell)Grid.Instance.Box[i, j + 2]
                     });
             }
 
@@ -81,9 +83,9 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
 
         private bool RowExists(int i, int j, int di = 0, int dj = 0)
         {
-            return Grid.Instance.box[i, j] is MatchingCell cell1 &&
-                   Grid.Instance.box[i + di, j + dj] is MatchingCell cell2 &&
-                   Grid.Instance.box[i + di * 2, j + dj * 2] is MatchingCell cell3 &&
+            return Grid.Instance.Box[i, j] is MatchingCell cell1 &&
+                   Grid.Instance.Box[i + di, j + dj] is MatchingCell cell2 &&
+                   Grid.Instance.Box[i + di * 2, j + dj * 2] is MatchingCell cell3 &&
                    IsSameType(cell1) &&
                    IsSameType(cell2) &&
                    IsSameType(cell3);

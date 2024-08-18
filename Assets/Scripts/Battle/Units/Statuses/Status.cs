@@ -5,16 +5,22 @@ using UnityEngine;
 
 namespace Battle.Units.Statuses
 {
+    /// <summary>
+    ///     Modifier that belongs to <see cref="Unit"/>. Is usually used as a mark
+    ///     or has some additional behaviour such as <see cref="Burning"/>.
+    /// </summary>
     [Serializable]
     public abstract class Status : Modifier, IModIconModifier
     {
-        protected Unit belongingUnit;
+        protected Unit BelongingUnit;
 
         protected Status(bool save = false) : base(save)
         {
         }
 
         protected BattleFlowManager BattleFlowManager => BattleFlowManager.Instance;
+
+        public override bool EndedWork => ToDelete;
 
         public abstract Sprite Sprite { get; }
 
@@ -23,11 +29,9 @@ namespace Battle.Units.Statuses
 
         public abstract bool ToDelete { get; }
 
-        public override bool EndedWork => ToDelete;
-
         public virtual void Init(Unit unit)
         {
-            belongingUnit = unit;
+            BelongingUnit = unit;
         }
     }
 }

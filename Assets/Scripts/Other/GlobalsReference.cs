@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Other
 {
+    /// <summary>
+    ///     Ridiculous shi-. Never do this.<br/>Don't look how it works.
+    /// </summary>
     public class GlobalsReference : MonoBehaviour
     {
         public string currentField;

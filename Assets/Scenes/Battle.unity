@@ -578,7 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 3436260127323351143, guid: 57684cfa4ea18a943b7155408c690343, type: 3}
-  sizeX: 5
+  sizeX: 4
   sizeY: 5
 --- !u!114 &812737805
 MonoBehaviour:
@@ -2153,6 +2153,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 242500706954717015, guid: 59c5e0f307160c4458dfbaf72781b481, type: 3}
+      propertyPath: sizeX
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 242500706954717015, guid: 59c5e0f307160c4458dfbaf72781b481, type: 3}
+      propertyPath: sizeY
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4535539106508747780, guid: 59c5e0f307160c4458dfbaf72781b481, type: 3}
       propertyPath: m_Name
       value: FrequentlyUpdatedCanvas

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Battle.Units;
 using Other;
@@ -7,6 +8,7 @@ using UnityEngine;
 
 namespace Battle.Grid
 {
+    /// Generates a normalized (correct/stable) box of Cells for Grid
     public class GridGenerator : MonoBehaviour
     {
         [SerializeField] private float refillTime;
@@ -17,14 +19,20 @@ namespace Battle.Grid
 
         private static bool BoxIsStable =>
             Player.Data.cells.Aggregate(true,
-                (prev, cell) => prev && cell.BoxIsStable(Grid.Instance.box));
+                (prev, cell) => prev && cell.BoxIsStable(Grid.Instance.Box));
 
         public void Start()
         {
             Instance = this;
             Generate();
+
+            Grid.Instance.InitGrid();
         }
 
+        /// Generates and sets a random but appropriate box of Cells in
+        /// <see cref="Grid"/>
+        /// .
+        /// <seealso cref="ReplaceCellsByCoordinates"/>
         private void Generate()
         {
             Grid.Instance.CreateEmptyBox();
@@ -35,10 +43,9 @@ namespace Battle.Grid
                 for (var j = 0; j < Grid.Instance.sizeX; j++)
                     Grid.Instance.SetCell(RandomCell, i, j);
             } while (!BoxIsStable);
-
-            Grid.Instance.InitGrid();
         }
 
+        [Obsolete("Use ReplaceCellsByCoordinates instead")]
         public void Refill()
         {
             const int maxTries = 1000;
@@ -49,17 +56,31 @@ namespace Battle.Grid
                 tries++;
                 for (var i = 0; i < Grid.Instance.sizeY; i++)
                 for (var j = 0; j < Grid.Instance.sizeX; j++)
-                    if (!Grid.Instance.box[i, j].isActiveAndEnabled)
+                    if (!Grid.Instance.Box[i, j].isActiveAndEnabled)
                         Grid.Instance.SetCell(RandomCell, i, j);
 
                 if (tries <= maxTries) continue;
 
-                throw new OperationCanceledException("Couldn't refill the grid. Too many attempts");
+                throw new OperationCanceledException(
+                    "Couldn't refill the grid. Too many attempts");
             } while (!BoxIsStable);
 
             Grid.Instance.InitGrid();
         }
 
+        /// <summary>
+        ///     Replaces/sets cells in <see cref="Grid"/> with new ones by coordinates in its <see cref="Grid.Box">box.</see>.
+        ///     The combinations is garanteed to be appropriate for cells logic as in
+        ///     <see cref="Generate">first time generation func</see>.
+        /// </summary>
+        /// <param name="coordinates">Coordinates of cells in Grid box that are to be replaced.</param>
+        /// <exception cref="OperationCanceledException">
+        ///     No possible appropriate variants of replacement found or finding one was taking too long (see other exception).
+        /// </exception>
+        /// <exception cref="WarningException">
+        ///     The function only checks 10000 variants of cells combination.
+        ///     It skips to choosing one of them after reaching that limit.
+        /// </exception>
         public void ReplaceCellsByCoordinates(List<(int, int)> coordinates)
         {
             const int maxTries = 10000;
@@ -78,8 +99,8 @@ namespace Battle.Grid
                 if (BoxIsStable) successVariants.Add(variant);
                 if (tries < maxTries) continue;
 
-                Debug.unityLogger.LogWarning("Grid", "maximum refill tries reached");
-                break;
+                throw new WarningException(
+                    "Too many variants to iterate. Some will be skipped.");
             }
 
             if (successVariants.Count == 0)
@@ -91,8 +112,6 @@ namespace Battle.Grid
             for (var i = 0; i < coordinates.Count; i++)
                 Grid.Instance.SetCell(CellPool.Instance.Acquire(chosenVariant[i]),
                     coordinates[i].Item1, coordinates[i].Item2);
-
-            Grid.Instance.InitGrid();
         }
     }
 }

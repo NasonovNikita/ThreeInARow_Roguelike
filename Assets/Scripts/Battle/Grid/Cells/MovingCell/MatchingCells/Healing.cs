@@ -1,4 +1,3 @@
-using Battle.Grid.Modifiers;
 using Battle.Modifiers;
 using Battle.Units;
 using Other;
@@ -24,7 +23,7 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
 
         protected override void Use()
         {
-            Player.Instance.hp.Heal(IIntModifier.UseModList(Modifiers.ModList, amount));
+            Player.Instance.hp.Heal(IIntModifier.UseModList(Modifiers.List, amount));
         }
     }
 }

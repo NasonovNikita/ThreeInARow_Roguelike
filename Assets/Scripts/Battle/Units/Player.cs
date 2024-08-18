@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace Battle.Units
 {
+    /// <summary>
+    ///     Has moves (does multiple actions in one turn).
+    ///     Is controlled by <i>Player</i>.
+    /// </summary>
     [Serializable]
     public class Player : Unit
     {
@@ -18,9 +22,8 @@ namespace Battle.Units
 
         public static Player Instance { get; private set; }
 
-        public override List<Unit> Enemies => new(BattleFlowManager.Instance.EnemiesWithoutNulls);
-
-        public event Action OnMovesCountChanged;
+        public override List<Unit> Enemies =>
+            new(BattleFlowManager.Instance.EnemiesWithoutNulls);
 
         public override void Awake()
         {
@@ -37,6 +40,8 @@ namespace Battle.Units
         {
             Save();
         }
+
+        public event Action OnMovesCountChanged;
 
         public void RefillMoves()
         {
@@ -68,10 +73,10 @@ namespace Battle.Units
 
         public void StartTurn()
         {
-            BattleFlowManager.Instance.endedProcesses.Add(() => CurrentMovesCount == 0);
+            BattleFlowManager.Instance.EndedProcesses.Add(() => CurrentMovesCount == 0);
 
-            if (statuses.ModList.Exists(mod => mod is Stun { EndedWork: false }))
-                CurrentMovesCount = 0;
+            if (Statuses.List.Exists(mod => mod is Stun { EndedWork: false }))
+                WasteAllMoves();
         }
 
         private void Load()
@@ -81,16 +86,16 @@ namespace Battle.Units
             damage = Data.damage;
 
             spells = new List<Spell>(Data.spells);
-            statuses = new ModifierList(Data.statuses);
+            Statuses = new ModifierList(Data.statuses);
         }
 
-        public void LateLoad()
+        public void Init()
         {
             hp.Init();
             mana.Init();
             damage.Init();
 
-            foreach (Status status in statuses.ModList.Cast<Status>()) status.Init(this);
+            foreach (var status in Statuses.List.Cast<Status>()) status.Init(this);
         }
 
         private void Save()

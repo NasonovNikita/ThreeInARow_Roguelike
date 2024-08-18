@@ -13,7 +13,7 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.hp.Heal(healAmount);
+            UnitBelong.hp.Heal(healAmount);
         }
 
         public void MapCast()

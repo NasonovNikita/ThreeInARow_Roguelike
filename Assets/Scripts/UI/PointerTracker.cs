@@ -3,22 +3,26 @@ using UnityEngine.EventSystems;
 
 namespace UI
 {
-    public abstract class PointerTracker : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    /// <summary>
+    ///     Tracks if pointer is on an object and does some action after time.
+    /// </summary>
+    public abstract class PointerTracker : MonoBehaviour, IPointerEnterHandler,
+        IPointerExitHandler
     {
         private const float StandardWaitTime = 2f;
         [SerializeField] public bool actAfterTime;
         [SerializeField] private float waitBeforeShowTime;
 
 
-        private bool isInside;
+        private bool _isInside;
 
-        private bool spentTime;
-        private float timeEnter;
+        private bool _spentTime;
+        private float _timeEnter;
 
         private float TmeBeforeAct =>
             waitBeforeShowTime != 0 ? waitBeforeShowTime : StandardWaitTime;
 
-        private float TimeIn => isInside ? Time.time - timeEnter : 0;
+        private float TimeIn => _isInside ? Time.time - _timeEnter : 0;
 
         private Camera MainCamera => Camera.main;
 
@@ -26,7 +30,7 @@ namespace UI
         {
             get
             {
-                Vector3 position = MainCamera.ScreenToWorldPoint(Input.mousePosition);
+                var position = MainCamera.ScreenToWorldPoint(Input.mousePosition);
                 var x = position.x;
                 var y = position.y;
                 return new Vector3(x, y, 0);
@@ -35,27 +39,27 @@ namespace UI
 
         public void Update()
         {
-            if (actAfterTime && !spentTime && TimeIn > TmeBeforeAct)
+            if (actAfterTime && !_spentTime && TimeIn > TmeBeforeAct)
             {
                 OnTimeSpent();
-                spentTime = true;
+                _spentTime = true;
             }
 
-            if (isInside) WhileInside();
+            if (_isInside) WhileInside();
         }
 
         public void OnPointerEnter(PointerEventData ignored)
         {
-            timeEnter = Time.time;
-            isInside = true;
+            _timeEnter = Time.time;
+            _isInside = true;
 
             OnEnter();
         }
 
         public void OnPointerExit(PointerEventData ignored)
         {
-            isInside = false;
-            spentTime = false;
+            _isInside = false;
+            _spentTime = false;
 
             OnExit();
         }

@@ -11,16 +11,16 @@ namespace UI
         [SerializeField] private KnotTextKeyReference hp;
         [SerializeField] private KnotTextKeyReference mana;
         [SerializeField] private KnotTextKeyReference cash;
-        private Text text;
+        private Text _text;
 
         public void Awake()
         {
-            text = GetComponent<Text>();
+            _text = GetComponent<Text>();
         }
 
         public void Update()
         {
-            text.text =
+            _text.text =
                 $"{hp.Value}/{mana.Value}: {Player.Data.hp.Value}/{Player.Data.mana.Value}\n" +
                 $"{cash.Value}: {Player.Data.money}\n";
         }

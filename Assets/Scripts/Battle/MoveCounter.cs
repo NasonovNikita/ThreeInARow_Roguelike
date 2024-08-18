@@ -2,10 +2,14 @@ using System;
 using Other;
 using UnityEngine;
 
-namespace Battle.Modifiers
+namespace Battle
 {
+    /// <summary>
+    ///     Has move counter and subtracts one move each finished cycle in battle.
+    ///     Action done on each move can be attached. Stops invoking action if no moves left.
+    /// </summary>
     [Serializable]
-    public class MoveCounter : IChangeAble, IInit
+    public class MoveCounter : IChangeAble, IInitiated
     {
         [SerializeField] private int moves;
         [SerializeField] private bool delay;
@@ -19,9 +23,9 @@ namespace Battle.Modifiers
 
         public int Moves => moves;
         public string SubInfo => moves.ToString();
-        public event Action OnChanged;
 
         public bool EndedWork => moves == 0;
+        public event Action OnChanged;
 
         public void Init()
         {

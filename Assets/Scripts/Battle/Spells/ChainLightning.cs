@@ -1,5 +1,4 @@
 using System;
-using Battle.Units;
 using Other;
 using UnityEngine;
 
@@ -17,10 +16,10 @@ namespace Battle.Spells
         protected override void Action()
         {
             var nulls = 0;
-            for (var i = 0; i < unitBelong.Enemies.Count; i++)
+            for (var i = 0; i < UnitBelong.Enemies.Count; i++)
             {
                 var damage = (int)(dmg * Math.Pow(rise, i - nulls));
-                Unit enemy = unitBelong.Enemies[i];
+                var enemy = UnitBelong.Enemies[i];
                 if (enemy == null)
                 {
                     nulls += 1;

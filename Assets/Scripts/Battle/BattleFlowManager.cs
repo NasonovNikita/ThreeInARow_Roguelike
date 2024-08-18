@@ -8,20 +8,30 @@ using Random = UnityEngine.Random;
 
 namespace Battle
 {
+    /// <summary>
+    ///     Main battle manager.<br/>
+    ///     Controls which unit is turning,
+    /// </summary>
     public class BattleFlowManager : MonoBehaviour
     {
         private const Unit NoTurningUnit = null;
 
-        public List<Func<bool>> endedProcesses;
+        /// <summary>
+        ///     <b>Put processes</b>, that must be ended
+        ///     before manager goes to next step (e.g. next unit's turn), <b>here</b>.
+        /// </summary>
+        public List<Func<bool>> EndedProcesses;
 
-        [NonSerialized] public List<Enemy> enemiesWithNulls = new();
+        [NonSerialized] public List<Enemy> EnemiesWithNulls = new();
         public static BattleFlowManager Instance { get; private set; }
 
         public List<Enemy> EnemiesWithoutNulls =>
-            enemiesWithNulls.Where(enemy => enemy != null).ToList();
+            EnemiesWithNulls.Where(enemy => enemy != null).ToList();
 
         public Unit CurrentlyTurningUnit { get; private set; }
 
+        // Was used before. Will be kept to possibly use in some mechanics.
+        // ReSharper disable once MemberCanBePrivate.Global
         public int CyclesDone { get; private set; }
 
         public void Awake()
@@ -35,7 +45,12 @@ namespace Battle
         }
 
         public event Action OnBattleStart;
+
+        /// <summary>
+        ///     One cycle is when Player and Enemies made their turns.
+        /// </summary>
         public event Action OnCycleEnd;
+
         public event Action OnBattleEnd;
         public event Action OnBattleWin;
         public event Action OnBattleLose;
@@ -43,7 +58,10 @@ namespace Battle
         public event Action OnEnemiesTurnStart;
         public event Action OnPlayerTurnStart;
 
-        public void TurnOn()
+        /// <summary>
+        ///     Not only inits units but also start the battle itself.
+        /// </summary>
+        public void Init()
         {
             InitEnemies();
             PlayerTurn();
@@ -59,15 +77,21 @@ namespace Battle
             CurrentlyTurningUnit = NoTurningUnit;
         }
 
+        /// <summary>
+        ///     Enemies change their order in collection.<br/>
+        ///     This affects game rule with front and backing row.
+        /// </summary>
+        /// <seealso cref="OnEnemiesShuffle"/>
         public void ShuffleEnemies()
         {
-            enemiesWithNulls = enemiesWithNulls.OrderBy(_ => Random.Range(0, 100000)).ToList();
+            EnemiesWithNulls =
+                EnemiesWithNulls.OrderBy(_ => Random.Range(0, 100000)).ToList();
             OnEnemiesShuffle?.Invoke();
         }
 
         private void PlayerTurn()
         {
-            endedProcesses = new List<Func<bool>>();
+            EndedProcesses = new List<Func<bool>>();
 
             Player.Instance.RefillMoves();
             CurrentlyTurningUnit = Player.Instance;
@@ -84,7 +108,7 @@ namespace Battle
             yield return StartCoroutine(WaitForProcessesToEnd());
             OnEnemiesTurnStart?.Invoke();
 
-            foreach (Enemy enemy in EnemiesWithoutNulls)
+            foreach (var enemy in EnemiesWithoutNulls)
             {
                 CurrentlyTurningUnit = enemy;
                 yield return StartCoroutine(enemy.Turn());
@@ -105,7 +129,7 @@ namespace Battle
 
         private void InitEnemies()
         {
-            foreach (Enemy enemy in EnemiesWithoutNulls)
+            foreach (var enemy in EnemiesWithoutNulls)
             {
                 enemy.target = Player.Instance;
                 enemy.OnDied += OnEnemyDeath;
@@ -132,7 +156,7 @@ namespace Battle
 
         private IEnumerator WaitForProcessesToEnd(Action onEnd = null)
         {
-            yield return new WaitUntil(() => endedProcesses.All(f => f.Invoke()));
+            yield return new WaitUntil(() => EndedProcesses.All(f => f.Invoke()));
 
             onEnd?.Invoke();
         }

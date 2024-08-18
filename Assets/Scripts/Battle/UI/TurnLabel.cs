@@ -1,6 +1,4 @@
-using Battle.Units;
 using Knot.Localization;
-using Other;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;

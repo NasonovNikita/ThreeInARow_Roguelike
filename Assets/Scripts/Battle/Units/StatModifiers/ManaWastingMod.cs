@@ -18,8 +18,10 @@ namespace Battle.Units.StatModifiers
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
             ModDescriptionsContainer.Instance.manaWastingNegative;
 
-        protected override Sprite SpritePositive => ModifierSpritesContainer.Instance.manaMod;
+        protected override Sprite SpritePositive =>
+            ModifierSpritesContainer.Instance.manaMod;
 
-        protected override Sprite SpriteNegative => ModifierSpritesContainer.Instance.manaMod;
+        protected override Sprite SpriteNegative =>
+            ModifierSpritesContainer.Instance.manaMod;
     }
 }

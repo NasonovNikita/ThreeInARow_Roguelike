@@ -42,20 +42,21 @@ namespace Battle.Units.Statuses
         {
             moveCounter.OnMove += () =>
             {
-                if (Tools.Random.RandomChance(chance)) unit.Statuses.Add(new Burning(burningMoves));
+                if (Tools.Random.RandomChance(chance))
+                    unit.Statuses.Add(new Burning(burningMoves));
             };
 
             base.Init(unit);
         }
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is RandomIgnition ignition &&
                    ignition.moveCounter.Moves == moveCounter.Moves &&
                    ignition.burningMoves == burningMoves;
         }
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             chance += ((RandomIgnition)other).chance;
         }

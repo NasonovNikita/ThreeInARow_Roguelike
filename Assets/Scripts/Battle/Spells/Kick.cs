@@ -7,11 +7,12 @@ namespace Battle.Spells
     {
         [SerializeField] private int damage;
 
-        public override string Description => string.Format(descriptionKeyRef.Value, damage);
+        public override string Description =>
+            string.Format(descriptionKeyRef.Value, damage);
 
         protected override void Action()
         {
-            unitBelong.target.TakeDamage(damage);
+            UnitBelong.target.TakeDamage(damage);
         }
     }
 }

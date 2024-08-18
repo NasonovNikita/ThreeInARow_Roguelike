@@ -15,7 +15,8 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.Data.mana.ChangeBorderUp(addToBorder, addValue);
+            Player.Data.mana.ChangeBorderUp(addToBorder);
+            Player.Data.mana.ChangeValue(addValue);
         }
     }
 }

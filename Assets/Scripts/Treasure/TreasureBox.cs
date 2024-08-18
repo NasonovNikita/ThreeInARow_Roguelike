@@ -8,10 +8,14 @@ using UnityEngine.UI;
 
 namespace Treasure
 {
+    /// <summary>
+    ///     Contains <see cref="LootItem"/> treasure.
+    ///     Adds some logic to obtaining of an item (e.g. spell).
+    /// </summary>
     public class TreasureBox : MonoBehaviour
     {
         public LootItem treasure;
-        [SerializeField] private Button button;
+        [SerializeField] private Button button; // TODO place TryGet in editor
 
         public void Start()
         {
@@ -19,7 +23,7 @@ namespace Treasure
             button.GetComponent<InfoObject>().text = treasure.Description;
         }
 
-        private void TryGet()
+        public void TryGet()
         {
             if (treasure is Spell spell)
                 switch (Player.Data.spells.Count)

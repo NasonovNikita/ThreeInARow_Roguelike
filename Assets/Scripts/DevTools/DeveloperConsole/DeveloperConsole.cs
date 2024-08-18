@@ -46,8 +46,8 @@ namespace DevTools.DeveloperConsole
 
             AddCommandToBuffer(inputSting);
 
-            var reply = parser.Parse(inputSting);
-            Write(reply);
+            var func = parser.Parse(inputSting, out var reply);
+            Write(func is null ? reply : func.Invoke());
 
             ClearCommandLine();
         }

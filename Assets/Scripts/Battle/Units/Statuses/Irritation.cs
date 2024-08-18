@@ -13,7 +13,7 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int damageAddition;
         [SerializeField] private MoveCounter moveCounter;
-        private bool enemyDied;
+        private bool _enemyDied;
 
         public Irritation(int damageAddition, int moves, bool save = false) : base(save)
         {
@@ -32,7 +32,7 @@ namespace Battle.Units.Statuses
 
         public override void Init(Unit unit)
         {
-            foreach (Unit enemy in unit.Enemies.Where(enemy => enemy != null))
+            foreach (var enemy in unit.Enemies.Where(enemy => enemy != null))
                 enemy.hp.OnValueChanged += _ => CheckEnemy(enemy);
 
             BattleFlowManager.OnCycleEnd += CheckAndApply;
@@ -42,21 +42,22 @@ namespace Battle.Units.Statuses
 
         private void CheckEnemy(Unit enemy)
         {
-            if (enemy.Dead) enemyDied = true;
+            if (enemy.Dead) _enemyDied = true;
         }
 
         private void CheckAndApply()
         {
-            if (!enemyDied) belongingUnit.damage.mods.Add(new DamageConstMod(damageAddition));
-            enemyDied = false;
+            if (!_enemyDied)
+                BelongingUnit.damage.mods.Add(new DamageConstMod(damageAddition));
+            _enemyDied = false;
         }
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is Irritation;
         }
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             damageAddition += ((Irritation)other).damageAddition;
         }

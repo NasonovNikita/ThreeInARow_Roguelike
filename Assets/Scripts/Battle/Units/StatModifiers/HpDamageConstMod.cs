@@ -8,7 +8,7 @@ namespace Battle.Units.StatModifiers
         {
         }
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
             return other is HpDamageConstMod;
         }

@@ -6,30 +6,31 @@ namespace Audio
     [RequireComponent(typeof(AudioSource))]
     public class AudioPlayer : MonoBehaviour
     {
+        /// Audio ID
         public AudioEnum audioName;
 
-        [SerializeField] private float volumeRatio = 1;
+        [SerializeField] private float volumeRatio;
 
-        private AudioSource source;
+        private AudioSource _source;
 
         public void Awake()
         {
-            source = GetComponent<AudioSource>();
+            _source = GetComponent<AudioSource>();
         }
 
         public void Update()
         {
-            source.volume = Globals.Instance.volume * volumeRatio / 100;
+            _source.volume = Globals.Instance.volume * volumeRatio / 100;
         }
 
         public void Play()
         {
-            source.Play();
+            _source.Play();
         }
 
         public void Stop()
         {
-            source.Stop();
+            _source.Stop();
         }
     }
 }

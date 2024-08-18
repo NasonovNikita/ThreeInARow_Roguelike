@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Battle.Grid.Modifiers;
+using Battle.Modifiers;
 using Other;
 using UnityEngine;
 
@@ -11,9 +11,9 @@ namespace Battle.Grid.Cells.MovingCell
         [SerializeField] private int count;
         [SerializeField] private int xBonus;
 
-        private readonly Dictionary<IModifierAble, int> givenBonuses = new();
+        private readonly Dictionary<IModifierAble, int> _givenBonuses = new();
 
-        private List<Cell> currentNeighbours = new();
+        private List<Cell> _currentNeighbours = new();
 
         private int XBonus =>
             Grid.Instance.GetCellNeighbours(this).Exists(cell => cell.IsSameType(this))
@@ -34,30 +34,32 @@ namespace Battle.Grid.Cells.MovingCell
         {
             var neighbours = Grid.Instance.GetCellNeighbours(this);
 
-            var oldNeighbours = currentNeighbours.Where(cell => !neighbours.Contains(cell));
-            var newNeighbours = neighbours.Where(cell => !currentNeighbours.Contains(cell));
+            var oldNeighbours =
+                _currentNeighbours.Where(cell => !neighbours.Contains(cell));
+            var newNeighbours =
+                neighbours.Where(cell => !_currentNeighbours.Contains(cell));
 
             GiveBonus(newNeighbours);
             DeleteBonus(oldNeighbours);
 
-            currentNeighbours = neighbours.ToList();
+            _currentNeighbours = neighbours.ToList();
         }
 
         private void GiveBonus(IEnumerable<Cell> cells)
         {
-            foreach (IModifierAble cell in cells.OfType<IModifierAble>())
+            foreach (var cell in cells.OfType<IModifierAble>())
             {
-                givenBonuses.Add(cell, cell.Value * (XBonus - 1));
+                _givenBonuses.Add(cell, cell.Value * (XBonus - 1));
                 cell.Modifiers.Add(new AddIntMod(cell.Value * (XBonus - 1)));
             }
         }
 
         private void DeleteBonus(IEnumerable<Cell> cells)
         {
-            foreach (IModifierAble cell in cells.OfType<IModifierAble>())
+            foreach (var cell in cells.OfType<IModifierAble>())
             {
-                cell.Modifiers.Add(new AddIntMod(-givenBonuses[cell]));
-                givenBonuses.Remove(cell);
+                cell.Modifiers.Add(new AddIntMod(-_givenBonuses[cell]));
+                _givenBonuses.Remove(cell);
             }
         }
 
