@@ -1,7 +1,7 @@
 using Battle.Modifiers;
 using Battle.Units;
 
-namespace Battle.Grid.Cells.MovingCell.MatchingCells
+namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
     public class Hourglass : MatchingCell, IModifierAble
     {
@@ -19,10 +19,7 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
 
         public int Value => 1;
 
-        public override bool IsSameType(Cell other)
-        {
-            return other is Hourglass;
-        }
+        public override bool IsSameType(Cell other) => other is Hourglass;
 
         protected override void Use()
         {

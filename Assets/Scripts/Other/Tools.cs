@@ -25,10 +25,8 @@ namespace Other
         /// <summary>
         ///     Instantiates into <see cref="UICanvas"/>.
         /// </summary>
-        public static T InstantiateUI<T>(T obj) where T : Object
-        {
-            return Object.Instantiate(obj, UICanvas.Instance.transform);
-        }
+        public static T InstantiateUI<T>(T obj) where T : Object =>
+            Object.Instantiate(obj, UICanvas.Instance.transform);
 
         public static void InitButton(this Button btn, Action onClick,
             string content)
@@ -40,10 +38,7 @@ namespace Other
         /// <summary>
         ///     Convert float value to percents (rounded).
         /// </summary>
-        public static int Percents(float v)
-        {
-            return (int)(v * 100);
-        }
+        public static int Percents(float v) => (int)(v * 100);
 
         /// <summary>
         ///     Gets all items from two dimensional array and returns as a single list.
@@ -76,36 +71,18 @@ namespace Other
         /// <param name="items">Items that will be repeated.</param>
         /// <param name="count">Count of items in each returned array.</param>
         /// <returns>Iterator for all combinations of items.</returns>
-        public static IEnumerable<T[]> Repeat<T>(T[] items, int count)
+        public static T[][] Repeat<T>(T[] items, int count)
         {
-            return Product(Enumerable.Repeat(items, count).ToArray());
-        }
+            var sequences = new List<T[]> { Array.Empty<T>() };
 
-        // ReSharper disable once SuggestBaseTypeForParameter
-        // Got this algorithm from internet
-        // https://ru.stackoverflow.com/questions/1518629/%D0%90%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3-product-%D0%B8%D0%B7-python-itertools-%D0%B2-%D0%A1
-        private static IEnumerable<T[]> Product<T>(T[][] items)
-        {
-            var length = items.Length;
-            var indexes = new int[length];
+            for (var i = 0; i < count; i++)
+                sequences = sequences
+                    .SelectMany(
+                        _ => items,
+                        (seq, item) => seq.Concat(new[] { item }).ToArray()
+                    ).ToList();
 
-            while (true)
-            {
-                var arr = new T[length];
-                for (var i = 0; i < length; i++) arr[i] = items[i][indexes[i]];
-                yield return arr;
-
-                var row = length - 1;
-                indexes[row]++;
-                while (indexes[row] == items[row].Length)
-                {
-                    if (row == 0)
-                        yield break;
-                    indexes[row] = 0;
-                    row--;
-                    indexes[row]++;
-                }
-            }
+            return sequences.ToArray();
         }
 
         public static string FormatByKeys(this string formattedString,
@@ -184,10 +161,8 @@ namespace Other
 
         public static class Random
         {
-            public static bool RandomChance(int chance)
-            {
-                return UnityRandom.Range(1, 101) <= chance;
-            }
+            public static bool RandomChance(int chance) =>
+                UnityRandom.Range(1, 101) <= chance;
 
             public static T RandomChoose<T>(IEnumerable<T> toChoose)
             {

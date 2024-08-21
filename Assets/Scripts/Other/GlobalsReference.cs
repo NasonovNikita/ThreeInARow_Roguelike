@@ -15,9 +15,7 @@ namespace Other
             typeof(Globals).GetField(currentField).SetValue(Globals.Instance, value);
         }
 
-        public T GetValue<T>()
-        {
-            return (T)typeof(Globals).GetField(currentField).GetValue(Globals.Instance);
-        }
+        public T GetValue<T>() =>
+            (T)typeof(Globals).GetField(currentField).GetValue(Globals.Instance);
     }
 }

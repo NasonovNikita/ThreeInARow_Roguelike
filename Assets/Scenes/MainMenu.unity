@@ -386,6 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd0f4bb925e70246b6484b25daf4b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 3409028896318203545, guid: c366518e1149a2e459e83cd5e2e069dc, type: 3}
+  inventoryManager: {fileID: 5194967847300656914, guid: 34ea5d7648c4043488c9e4c94f712932, type: 3}
+  modIcon: {fileID: 1606239242982794547, guid: d24b8f2015a7a854292d194eac721bd4, type: 3}
+  hud: {fileID: 6277296317740278923, guid: 7c2cc85c0ff04f74595e3f09de7286ab, type: 3}
   winMessage: {fileID: 2188612303319430005, guid: 0176c58bca5452d4dae563e7896417e4, type: 3}
   spellGettingWarningWindow: {fileID: 3249984304521703575, guid: d60f55fc6a25dab4f9dbe6952da2d69f, type: 3}
   spellReplacingWindow: {fileID: 6715011800204960958, guid: ce906c6e3d9376d4ea06b7814f04d72e, type: 3}
@@ -393,10 +397,6 @@ MonoBehaviour:
   battleNode: {fileID: 4151228096430590339, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
   shopNode: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
   treasureNode: {fileID: 171546427078445624, guid: 76714e3d2afa7e644b0a358c75be5138, type: 3}
-  inventoryItem: {fileID: 3409028896318203545, guid: c366518e1149a2e459e83cd5e2e069dc, type: 3}
-  inventoryManager: {fileID: 5194967847300656914, guid: 34ea5d7648c4043488c9e4c94f712932, type: 3}
-  modIcon: {fileID: 1606239242982794547, guid: d24b8f2015a7a854292d194eac721bd4, type: 3}
-  hud: {fileID: 6277296317740278923, guid: 7c2cc85c0ff04f74595e3f09de7286ab, type: 3}
 --- !u!4 &193633472
 Transform:
   m_ObjectHideFlags: 0
@@ -1191,6 +1191,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c52a6992f54893a6756772dcb1740a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instakillProtectionLocalizedKey:
+    _key: InstakillProtection
+    _formatters: []
+  unitInfoLocalizedKey:
+    _key: UnitInfo
+    _formatters: []
+  miss:
+    _key: Miss
+    _formatters: []
   blind:
     _key: BlindDescription
     _formatters: []
@@ -1238,15 +1247,6 @@ MonoBehaviour:
     _formatters: []
   less:
     _key: less
-    _formatters: []
-  instakillProtectionLocalizedKey:
-    _key: InstakillProtection
-    _formatters: []
-  unitInfoLocalizedKey:
-    _key: UnitInfo
-    _formatters: []
-  miss:
-    _key: Miss
     _formatters: []
   references:
     version: 2
@@ -3163,7 +3163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00a0ef7d8e149dd82e594a2c45075ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
 --- !u!4 &1976907544
 Transform:
   m_ObjectHideFlags: 0
@@ -3208,7 +3207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef3e2910637b849aed3c5275120762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
   depth: 6
   minWidth: 2
   maxWidth: 3

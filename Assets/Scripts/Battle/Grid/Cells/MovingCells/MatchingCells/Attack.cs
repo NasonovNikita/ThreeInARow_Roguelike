@@ -2,7 +2,7 @@ using Battle.Modifiers;
 using Other;
 using UnityEngine;
 
-namespace Battle.Grid.Cells.MovingCell.MatchingCells
+namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
     public class Attack : MatchingCell, IModifierAble
     {
@@ -25,9 +25,6 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
             unit.InvokeOnMadeHit();
         }
 
-        public override bool IsSameType(Cell other)
-        {
-            return other is Attack;
-        }
+        public override bool IsSameType(Cell other) => other is Attack;
     }
 }

@@ -4,7 +4,7 @@ using Battle.Modifiers;
 using Other;
 using UnityEngine;
 
-namespace Battle.Grid.Cells.MovingCell
+namespace Battle.Grid.Cells.MovingCells
 {
     public class LightHouse : MovingCell
     {
@@ -63,14 +63,9 @@ namespace Battle.Grid.Cells.MovingCell
             }
         }
 
-        public override bool BoxIsStable(Cell[,] box)
-        {
-            return Tools.MultiDimToOne(box).Count(IsSameType) == count;
-        }
+        public override bool BoxIsStable(Cell[,] box) =>
+            Tools.MultiDimToOne(box).Count(IsSameType) == count;
 
-        public override bool IsSameType(Cell other)
-        {
-            return other is LightHouse;
-        }
+        public override bool IsSameType(Cell other) => other is LightHouse;
     }
 }

@@ -43,7 +43,8 @@ namespace UI.MessageWindows
                 window._cell = Tools.Random.RandomChoose(possibleToAddCells);
                 window.cellRewardButton.image.sprite =
                     window._cell.GetComponent<Image>().sprite;
-                window.cellInfoObject.text = window._cell.Description; // TODO
+                window.cellInfoObject.text =
+                    window._cell.Description; // TODO descriptions in editor
             }
         }
 

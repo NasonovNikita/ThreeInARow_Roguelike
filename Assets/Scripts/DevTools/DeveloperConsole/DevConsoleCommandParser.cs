@@ -51,16 +51,11 @@ namespace DevTools.DeveloperConsole
             reply = WrongCommandReply;
             return null;
 
-            string ResultingFunc()
-            {
-                return command.Invoke(GetArgs(input));
-            }
+            string ResultingFunc() => command.Invoke(GetArgs(input));
         }
 
-        private static string GetCommand(string input)
-        {
-            return input.Split(ArgumentsSeparator)[0];
-        }
+        private static string GetCommand(string input) =>
+            input.Split(ArgumentsSeparator)[0];
 
         private static List<string> GetArgs(string input)
         {
@@ -116,12 +111,10 @@ namespace DevTools.DeveloperConsole
             }
         };
 
-        private static string Info(string command)
-        {
-            return !CommandInfos.TryGetValue(command, out var info)
+        private static string Info(string command) =>
+            !CommandInfos.TryGetValue(command, out var info)
                 ? "No info about command"
                 : $"{info.Description}\n{info.UseGuide}";
-        }
 
         private static string Info(List<string> args)
         {
@@ -262,18 +255,14 @@ namespace DevTools.DeveloperConsole
             };
 
         private static bool TryCreateStatusMod(IReadOnlyList<string> args, string modName,
-            out Modifier modifier, out string errorMessage)
-        {
-            return TryCreateMod(args, modName, "Battle.Units.Statuses", out modifier,
+            out Modifier modifier, out string errorMessage) =>
+            TryCreateMod(args, modName, "Battle.Units.Statuses", out modifier,
                 out errorMessage);
-        }
 
         private static bool TryCreateStatMod(IReadOnlyList<string> args, string modName,
-            out Modifier modifier, out string errorMessage)
-        {
-            return TryCreateMod(args, modName, "Battle.Units.StatModifiers", out modifier,
+            out Modifier modifier, out string errorMessage) =>
+            TryCreateMod(args, modName, "Battle.Units.StatModifiers", out modifier,
                 out errorMessage);
-        }
 
         private static bool TryCreateMod(IReadOnlyCollection<string> args,
             string modName, string assembly,

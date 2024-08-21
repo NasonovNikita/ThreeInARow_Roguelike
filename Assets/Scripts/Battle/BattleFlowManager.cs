@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.Units;
+using Other;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,13 +17,16 @@ namespace Battle
     {
         private const Unit NoTurningUnit = null;
 
+        private SmartCoroutine _mainFlowCoroutine;
+
+        [NonSerialized] public List<Enemy> EnemiesWithNulls = new();
+
         /// <summary>
         ///     <b>Put processes</b>, that must be ended
         ///     before manager goes to next step (e.g. next unit's turn), <b>here</b>.
         /// </summary>
-        public List<Func<bool>> EndedProcesses;
+        public List<SmartCoroutine> Processes = new();
 
-        [NonSerialized] public List<Enemy> EnemiesWithNulls = new();
         public static BattleFlowManager Instance { get; private set; }
 
         public List<Enemy> EnemiesWithoutNulls =>
@@ -64,10 +68,28 @@ namespace Battle
         public void Init()
         {
             InitEnemies();
-            PlayerTurn();
 
             Player.Instance.OnDied += OnPlayerDeath;
 
+            _mainFlowCoroutine = new SmartCoroutine(
+                this,
+                SmartCoroutine.StackCoroutines(
+                    this,
+                    new Func<IEnumerator>[]
+                    {
+                        WaitForProcessesToEnd,
+                        EnemiesTurn,
+                        WaitForProcessesToEnd
+                    }
+                ),
+                () =>
+                {
+                    Processes = new List<SmartCoroutine>(); // Initiate new Cycle
+                    LaunchPlayerTurn();
+                });
+            _mainFlowCoroutine.Last.Next = _mainFlowCoroutine; // Cycle
+
+            _mainFlowCoroutine.Start();
             OnBattleStart?.Invoke();
         }
 
@@ -89,23 +111,18 @@ namespace Battle
             OnEnemiesShuffle?.Invoke();
         }
 
-        private void PlayerTurn()
+        private void LaunchPlayerTurn()
         {
-            EndedProcesses = new List<Func<bool>>();
-
             Player.Instance.RefillMoves();
             CurrentlyTurningUnit = Player.Instance;
 
             OnPlayerTurnStart?.Invoke();
 
             Player.Instance.StartTurn();
-
-            StartCoroutine(WaitForProcessesToEnd(() => StartCoroutine(EnemiesTurn())));
         }
 
         private IEnumerator EnemiesTurn()
         {
-            yield return StartCoroutine(WaitForProcessesToEnd());
             OnEnemiesTurnStart?.Invoke();
 
             foreach (var enemy in EnemiesWithoutNulls)
@@ -117,8 +134,6 @@ namespace Battle
 
             OnCycleEnd?.Invoke();
             CyclesDone++;
-            yield return StartCoroutine(WaitForProcessesToEnd());
-            PlayerTurn();
         }
 
         private void BattleEnd()
@@ -154,11 +169,10 @@ namespace Battle
             OnBattleLose?.Invoke();
         }
 
-        private IEnumerator WaitForProcessesToEnd(Action onEnd = null)
+        private IEnumerator WaitForProcessesToEnd()
         {
-            yield return new WaitUntil(() => EndedProcesses.All(f => f.Invoke()));
-
-            onEnd?.Invoke();
+            yield return new WaitUntil(() =>
+                Processes.All(coroutine => coroutine.Finished));
         }
     }
 }

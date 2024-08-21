@@ -45,7 +45,7 @@ namespace Battle.Grid
             } while (!BoxIsStable);
         }
 
-        [Obsolete("Use ReplaceCellsByCoordinates instead")]
+        [Obsolete("Method was deprecated. Use ReplaceCellsByCoordinates instead")]
         public void Refill()
         {
             const int maxTries = 1000;
@@ -69,13 +69,17 @@ namespace Battle.Grid
         }
 
         /// <summary>
-        ///     Replaces/sets cells in <see cref="Grid"/> with new ones by coordinates in its <see cref="Grid.Box">box.</see>.
-        ///     The combinations is garanteed to be appropriate for cells logic as in
+        ///     Replaces/sets cells in <see cref="Grid"/> with new ones by coordinates in
+        ///     its <see cref="Grid.Box">box.</see>.
+        ///     The combinations are garanteed to be appropriate for cells logic as in
         ///     <see cref="Generate">first time generation func</see>.
         /// </summary>
-        /// <param name="coordinates">Coordinates of cells in Grid box that are to be replaced.</param>
+        /// <param name="coordinates">
+        ///     Coordinates of cells in Grid box that are to be replaced.
+        /// </param>
         /// <exception cref="OperationCanceledException">
-        ///     No possible appropriate variants of replacement found or finding one was taking too long (see other exception).
+        ///     No possible appropriate variants of replacement found or
+        ///     finding one was taking too long (see other exception).
         /// </exception>
         /// <exception cref="WarningException">
         ///     The function only checks 10000 variants of cells combination.
@@ -99,8 +103,8 @@ namespace Battle.Grid
                 if (BoxIsStable) successVariants.Add(variant);
                 if (tries < maxTries) continue;
 
-                throw new WarningException(
-                    "Too many variants to iterate. Some will be skipped.");
+                Debug.unityLogger.LogWarning("Grid", new WarningException(
+                    "Too many variants to iterate. Some will be skipped."));
             }
 
             if (successVariants.Count == 0)
@@ -112,6 +116,8 @@ namespace Battle.Grid
             for (var i = 0; i < coordinates.Count; i++)
                 Grid.Instance.SetCell(CellPool.Instance.Acquire(chosenVariant[i]),
                     coordinates[i].Item1, coordinates[i].Item2);
+            
+            Grid.Instance.InitGrid();
         }
     }
 }

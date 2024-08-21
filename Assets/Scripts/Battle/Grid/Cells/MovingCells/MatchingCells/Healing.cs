@@ -3,7 +3,7 @@ using Battle.Units;
 using Other;
 using UnityEngine;
 
-namespace Battle.Grid.Cells.MovingCell.MatchingCells
+namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
     public class Healing : MatchingCell, IModifierAble
     {
@@ -16,10 +16,7 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
 
         public ModifierList Modifiers { get; } = new();
 
-        public override bool IsSameType(Cell other)
-        {
-            return other is Healing;
-        }
+        public override bool IsSameType(Cell other) => other is Healing;
 
         protected override void Use()
         {

@@ -83,13 +83,10 @@ namespace Map.Nodes
 
         public void UnChoose()
         {
-            StartCoroutine(scaler.UnScale());
+            StartCoroutine(scaler.Unscale());
         }
 
-        public bool BelongsToNext(Node other)
-        {
-            return next.Contains(other);
-        }
+        public bool BelongsToNext(Node other) => next.Contains(other);
 
         private IEnumerator Arrive()
         {

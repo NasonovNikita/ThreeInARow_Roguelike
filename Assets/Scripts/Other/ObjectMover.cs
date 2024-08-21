@@ -9,55 +9,51 @@ namespace Other
     /// </summary>
     public class ObjectMover : MonoBehaviour
     {
-        public Vector3 endPos;
-        public float time;
-        public SpeedType speedType;
+        [SerializeField] private Vector3 endPos;
+        [SerializeField] private float time;
+        [SerializeField] private SpeedType speedType;
+
         private Vector3 _acceleration;
-        private bool _doMove;
-        private Action _onEnd;
         private Vector3 _speed;
 
-
-        private void FixedUpdate()
+        public IEnumerator MoveTo(Vector3 endPosition)
         {
-            if (_doMove)
+            endPos = endPosition;
+            var delta = endPosition - transform.position;
+
+            yield return StartCoroutine(MoveBy(delta));
+        }
+
+        public IEnumerator MoveBy(Vector3 delta)
+        {
+            SetSpeedAndAcceleration(delta);
+
+            yield return StartCoroutine(Move());
+        }
+
+        private IEnumerator Move()
+        {
+            var startTime = Time.time;
+
+            while ((transform.position - endPos).magnitude >
+                   (_speed * Time.deltaTime).magnitude && startTime + time > Time.time)
             {
-                transform.position +=
-                    (_speed * Time.deltaTime).magnitude <
-                    (endPos - transform.position).magnitude
-                        ? _speed * Time.deltaTime
-                        : endPos - transform.position;
+                transform.position += _speed * Time.deltaTime;
                 _speed += _acceleration * Time.deltaTime;
+
+                yield return new WaitForFixedUpdate();
             }
 
-            if (transform.position == endPos && _doMove) return;
-            _doMove = false;
-            _onEnd?.Invoke();
+            transform.position = endPos;
         }
 
-        public IEnumerator MoveTo(Vector3 end, Action doAfterMoved = null)
-        {
-            var delta = end - transform.position;
-            return MoveBy(delta, doAfterMoved);
-        }
-
-        public IEnumerator MoveBy(Vector3 delta, Action doAfterMoved = null)
-        {
-            SetSpeedAcceleration(delta);
-            endPos = transform.position + delta;
-            _doMove = true;
-            _onEnd = doAfterMoved;
-
-            return new WaitUntil(() => !_doMove);
-        }
-
-        private void SetSpeedAcceleration(Vector3 delta)
+        private void SetSpeedAndAcceleration(Vector3 delta)
         {
             switch (speedType)
             {
                 case SpeedType.Const:
                     _speed = delta / time;
-                    _acceleration = Vector2.zero;
+                    _acceleration = Vector3.zero;
                     break;
                 case SpeedType.LinearDecrease:
                     _speed = delta * 2 / time;

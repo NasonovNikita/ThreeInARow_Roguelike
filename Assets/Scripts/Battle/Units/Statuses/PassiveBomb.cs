@@ -47,11 +47,9 @@ namespace Battle.Units.Statuses
                 enemy.TakeDamage(dmg);
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is PassiveBomb bomb &&
-                   bomb.manaBorder == manaBorder;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is PassiveBomb bomb &&
+            bomb.manaBorder == manaBorder;
 
         protected override void HiddenConcat(Modifier other)
         {

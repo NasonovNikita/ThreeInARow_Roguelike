@@ -15,7 +15,7 @@ namespace Battle.Grid
         public int sizeX;
         public int sizeY;
 
-        private ObjectPool<Cell> _cells;
+        private ObjectPool<Cell> _cellPool;
         private RectTransform[,] _points;
 
         /// A [,] array with cells in Grid as-they-are.

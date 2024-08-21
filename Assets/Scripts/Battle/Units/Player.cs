@@ -5,6 +5,7 @@ using Audio;
 using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Statuses;
+using Other;
 using UnityEngine;
 
 namespace Battle.Units
@@ -73,7 +74,8 @@ namespace Battle.Units
 
         public void StartTurn()
         {
-            BattleFlowManager.Instance.EndedProcesses.Add(() => CurrentMovesCount == 0);
+            BattleFlowManager.Instance.Processes.Add(new SmartCoroutine(this,
+                () => new WaitUntil(() => CurrentMovesCount == 0)).Start());
 
             if (Statuses.List.Exists(mod => mod is Stun { EndedWork: false }))
                 WasteAllMoves();

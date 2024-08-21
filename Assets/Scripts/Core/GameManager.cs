@@ -3,7 +3,6 @@ using Battle.Units;
 using Core.Saves;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Core
 {
@@ -33,7 +32,7 @@ namespace Core
 
         public void MainMenu()
         {
-            SceneManager.LoadScene("MainMenu");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
 
             AudioManager.Instance.StopAll();
 
@@ -54,7 +53,7 @@ namespace Core
 
         public void GoToSettings()
         {
-            SceneManager.LoadScene("Settings");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
         }
 
         public void Exit()
@@ -68,7 +67,7 @@ namespace Core
 
         public void GoToMap()
         {
-            SceneManager.LoadScene("Map");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Map");
         }
     }
 }

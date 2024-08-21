@@ -17,9 +17,6 @@ namespace Battle.Grid.Cells
             return 1 <= count && count <= maximumCount;
         }
 
-        public override bool IsSameType(Cell other)
-        {
-            return other is Stone;
-        }
+        public override bool IsSameType(Cell other) => other is Stone;
     }
 }

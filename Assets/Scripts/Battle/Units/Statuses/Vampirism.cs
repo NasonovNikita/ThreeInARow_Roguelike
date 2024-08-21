@@ -11,10 +11,8 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int heal;
 
-        public Vampirism(int healAmount, bool save = false) : base(save)
-        {
+        public Vampirism(int healAmount, bool save = false) : base(save) =>
             heal = healAmount;
-        }
 
         public override Sprite Sprite => ModifierSpritesContainer.Instance.vampirism;
 
@@ -37,10 +35,7 @@ namespace Battle.Units.Statuses
             BelongingUnit.hp.Heal(heal);
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Vampirism;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Vampirism;
 
         protected override void HiddenConcat(Modifier other)
         {

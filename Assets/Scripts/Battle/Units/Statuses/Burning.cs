@@ -12,10 +12,8 @@ namespace Battle.Units.Statuses
         [SerializeField] private MoveCounter moveCounter;
         private int _dmg = 10;
 
-        public Burning(int moves = 1)
-        {
-            moveCounter = CreateChangeableSubSystem(new MoveCounter(moves, true));
-        }
+        public Burning(int moves = 1) => moveCounter =
+            CreateChangeableSubSystem(new MoveCounter(moves, true));
 
         public override Sprite Sprite => ModifierSpritesContainer.Instance.burning;
 
@@ -33,11 +31,9 @@ namespace Battle.Units.Statuses
             base.Init(unit);
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Burning burning &&
-                   burning.moveCounter.Moves == moveCounter.Moves;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is Burning burning &&
+            burning.moveCounter.Moves == moveCounter.Moves;
 
         protected override void HiddenConcat(Modifier other)
         {

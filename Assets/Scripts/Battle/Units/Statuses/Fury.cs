@@ -58,11 +58,9 @@ namespace Battle.Units.Statuses
             unit.hp.OnValueChanged += _ => CheckHpAndApplyMod();
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Fury fury &&
-                   fury.hpBorder == hpBorder;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is Fury fury &&
+            fury.hpBorder == hpBorder;
 
         protected override void HiddenConcat(Modifier other)
         {

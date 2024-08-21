@@ -15,10 +15,8 @@ namespace Battle.Units.Statuses
 
         private List<Unit> _hitEnemies = new();
 
-        public Sharp(int addition, bool save = false) : base(save)
-        {
+        public Sharp(int addition, bool save = false) : base(save) =>
             this.addition = addition;
-        }
 
         public override Sprite Sprite => ModifierSpritesContainer.Instance.sharp;
 
@@ -53,10 +51,7 @@ namespace Battle.Units.Statuses
             _hitEnemies = new List<Unit>();
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Sharp;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Sharp;
 
         protected override void HiddenConcat(Modifier other)
         {

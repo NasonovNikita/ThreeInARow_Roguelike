@@ -9,10 +9,8 @@ namespace Battle.Units.Statuses
     {
         private readonly MoveCounter _moveMod;
 
-        public Stun(int moves, bool save = false) : base(save)
-        {
+        public Stun(int moves, bool save = false) : base(save) =>
             _moveMod = CreateChangeableSubSystem(new MoveCounter(moves));
-        }
 
         public override Sprite Sprite => ModifierSpritesContainer.Instance.stun;
 
@@ -24,10 +22,7 @@ namespace Battle.Units.Statuses
         public override string SubInfo => _moveMod.SubInfo;
         public override bool ToDelete => _moveMod.EndedWork;
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Stun;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Stun;
 
         protected override void HiddenConcat(Modifier other)
         {

@@ -38,7 +38,6 @@ namespace Map.Nodes.Managers
         {
             (NodeType.Battle, 13),
             (NodeType.Shop, 6)
-            // (NodeType.Treasure, 3) TODO decide if needed
         };
 
         private List<Good> _allGoods;
@@ -253,10 +252,8 @@ namespace Map.Nodes.Managers
             };
         }
 
-        private BattleNode GenBattle(int layer)
-        {
-            return BattleNode.Create(layer, RandomSeed, false);
-        }
+        private BattleNode GenBattle(int layer) =>
+            BattleNode.Create(layer, RandomSeed, false);
 
         public EnemyGroup ChooseBattleEnemyGroup(int layer)
         {
@@ -302,15 +299,10 @@ namespace Map.Nodes.Managers
             );
         }
 
-        private ShopNode GenShop(int layer)
-        {
-            return ShopNode.Create(layer, RandomSeed);
-        }
+        private ShopNode GenShop(int layer) => ShopNode.Create(layer, RandomSeed);
 
-        private TreasureNode GenTreasure(int layer)
-        {
-            return TreasureNode.Create(layer, RandomSeed);
-        }
+        private TreasureNode GenTreasure(int layer) =>
+            TreasureNode.Create(layer, RandomSeed);
 
         public List<Good> ChooseGoods(int layer)
         {
@@ -338,10 +330,8 @@ namespace Map.Nodes.Managers
             return Tools.Random.RandomChooseWithChances(chances);
         }
 
-        private bool PlayerHasLootItem(LootItem item)
-        {
-            return Player.Data.spells.Contains(item) || Player.Data.items.Contains(item);
-        }
+        private bool PlayerHasLootItem(LootItem item) =>
+            Player.Data.spells.Contains(item) || Player.Data.items.Contains(item);
 
         public LootItem ChooseTreasure(int layer)
         {
@@ -354,10 +344,8 @@ namespace Map.Nodes.Managers
             return Tools.Random.RandomChooseWithChances(treasures).target;
         }
 
-        private float LayerPow(int freq, int layer)
-        {
-            return (float)Math.Pow(freq, layer != 0 ? 1 / (float)layer : 1);
-        }
+        private float LayerPow(int freq, int layer) =>
+            (float)Math.Pow(freq, layer != 0 ? 1 / (float)layer : 1);
 
         private bool CrossExists(IEnumerable<(int, int)> bounds, int c, int d)
         {

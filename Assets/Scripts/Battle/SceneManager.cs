@@ -80,10 +80,8 @@ namespace Battle
             PlaceEnemies();
         }
 
-        private Enemy LoadEnemy(Enemy enemy)
-        {
-            return Instantiate(enemy, mainCanvas.transform, false);
-        }
+        private Enemy LoadEnemy(Enemy enemy) =>
+            Instantiate(enemy, mainCanvas.transform, false);
 
         private void PlaceEnemies()
         {

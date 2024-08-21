@@ -27,9 +27,7 @@ namespace Battle.Units.StatModifiers
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
             ModDescriptionsContainer.Instance.healingNegative;
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is HealingConstMod;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is HealingConstMod;
     }
 }

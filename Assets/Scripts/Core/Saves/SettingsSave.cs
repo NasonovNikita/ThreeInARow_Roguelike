@@ -22,10 +22,8 @@ namespace Core.Saves
         /// <summary>
         ///     Loads data from memory.
         /// </summary>
-        public static SettingsSave Load()
-        {
-            return SavesManager.Load<SettingsSave>(Path) ?? new SettingsSave();
-        }
+        public static SettingsSave Load() =>
+            SavesManager.Load<SettingsSave>(Path) ?? new SettingsSave();
 
         public override void Apply()
         {

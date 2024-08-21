@@ -12,10 +12,8 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int chance;
 
-        public Immortality(int chance, bool save = false) : base(save)
-        {
+        public Immortality(int chance, bool save = false) : base(save) =>
             this.chance = chance;
-        }
 
         public override Sprite Sprite => ModifierSpritesContainer.Instance.immortality;
 
@@ -41,10 +39,7 @@ namespace Battle.Units.Statuses
                 BelongingUnit.hp.Heal(1);
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Immortality;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Immortality;
 
         protected override void HiddenConcat(Modifier other)
         {

@@ -6,22 +6,13 @@ namespace Battle.Modifiers
     {
         private int _value;
 
-        public AddIntMod(int value)
-        {
-            _value = value;
-        }
+        public AddIntMod(int value) => _value = value;
 
         public override bool EndedWork => _value == 0;
 
-        int IIntModifier.Modify(int val)
-        {
-            return val + _value;
-        }
+        int IIntModifier.Modify(int val) => val + _value;
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is AddIntMod;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is AddIntMod;
 
         protected override void HiddenConcat(Modifier other)
         {

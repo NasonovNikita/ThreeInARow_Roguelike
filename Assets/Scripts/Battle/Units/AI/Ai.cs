@@ -12,8 +12,8 @@ namespace Battle.Units.AI
     {
         [SerializeField] protected Enemy attachedEnemy;
 
-        // TODO use with BattleFlowManager.EndedProcesses .
-        // TODO Maybe also create object for those processes to launch as Coroutine.
+        // TODO use with BattleFlowManager.EndedProcesses
+        // TODO Maybe also create object for those processes to launch as Coroutine
         /// <summary>
         ///     Enemy's act during battle.
         /// </summary>

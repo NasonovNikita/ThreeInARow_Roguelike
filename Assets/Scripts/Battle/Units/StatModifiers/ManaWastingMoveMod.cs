@@ -12,10 +12,8 @@ namespace Battle.Units.StatModifiers
         [SerializeField] private MoveCounter moveCounter;
 
         public ManaWastingMoveMod(int value, int moves, bool save = false) : base(value,
-            save)
-        {
+            save) =>
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
-        }
 
         protected override List<IChangeAble> ChangeAblesToInitialize =>
             new() { moveCounter };
@@ -23,10 +21,8 @@ namespace Battle.Units.StatModifiers
         public override string SubInfo => moveCounter.SubInfo;
         public override bool ToDelete => moveCounter.EndedWork || base.ToDelete;
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is ManaWastingMoveMod mod &&
-                   mod.moveCounter.Moves == moveCounter.Moves;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is ManaWastingMoveMod mod &&
+            mod.moveCounter.Moves == moveCounter.Moves;
     }
 }

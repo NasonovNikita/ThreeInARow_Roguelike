@@ -25,10 +25,8 @@ namespace Battle.Units.Stats
         {
         }
 
-        public int ApplyDamage(int val)
-        {
-            return val * IIntModifier.UseModList(mods.List, Value);
-        }
+        public int ApplyDamage(int val) =>
+            val * IIntModifier.UseModList(mods.List, Value);
 
         public Damage Save()
         {

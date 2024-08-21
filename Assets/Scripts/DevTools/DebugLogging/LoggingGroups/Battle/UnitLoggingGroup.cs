@@ -36,11 +36,9 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
                 };
             }
 
-            string EnemyInfo(Enemy enemy)
-            {
-                return $"Enemy ({enemy.name}) " +
-                       $"at index {BattleFlowManager.Instance.EnemiesWithoutNulls.IndexOf(enemy)}";
-            }
+            string EnemyInfo(Enemy enemy) =>
+                $"Enemy ({enemy.name}) " +
+                $"at index {BattleFlowManager.Instance.EnemiesWithoutNulls.IndexOf(enemy)}";
 
             void AttachToStatChanges(Unit unit)
             {
@@ -54,10 +52,7 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
                     CheckAndWrite($"{unit.name}' {stat} changed by {value}");
                 }
 
-                List<Stat> GetStats()
-                {
-                    return new List<Stat> { unit.hp, unit.mana, unit.damage };
-                }
+                List<Stat> GetStats() => new() { unit.hp, unit.mana, unit.damage };
             }
 
             void AttachToModLists(Unit unit)

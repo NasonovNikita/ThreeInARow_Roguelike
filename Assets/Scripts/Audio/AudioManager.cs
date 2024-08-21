@@ -45,9 +45,6 @@ namespace Audio
             foreach (var sound in _sounds.Values) sound.Stop();
         }
 
-        private AudioPlayer GetAudio(AudioEnum soundEnum)
-        {
-            return _sounds[soundEnum];
-        }
+        private AudioPlayer GetAudio(AudioEnum soundEnum) => _sounds[soundEnum];
     }
 }

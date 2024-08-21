@@ -48,12 +48,10 @@ namespace Battle.Units.Stats
             OnValueChanged = null;
         }
 
-        protected int FixedValueChange(int change)
-        {
-            return change >= 0
+        protected int FixedValueChange(int change) =>
+            change >= 0
                 ? Math.Min(BorderUp - value, change)
                 : -Math.Min(value, -change);
-        }
 
         #region Initializers
 
@@ -85,57 +83,28 @@ namespace Battle.Units.Stats
 
         #region operators
 
-        public static bool operator ==(Stat stat, int n)
-        {
-            return stat?.value == n;
-        }
+        public static bool operator ==(Stat stat, int n) => stat?.value == n;
 
-        public static bool operator !=(Stat stat, int n)
-        {
-            return stat?.value == n;
-        }
+        public static bool operator !=(Stat stat, int n) => stat?.value == n;
 
-        public static bool operator >=(Stat stat, int n)
-        {
-            return stat.value >= n;
-        }
+        public static bool operator >=(Stat stat, int n) => stat.value >= n;
 
-        public static bool operator <=(Stat stat, int n)
-        {
-            return stat.value <= n;
-        }
+        public static bool operator <=(Stat stat, int n) => stat.value <= n;
 
-        public static bool operator >(Stat stat, int n)
-        {
-            return stat.value > n;
-        }
+        public static bool operator >(Stat stat, int n) => stat.value > n;
 
-        public static bool operator <(Stat stat, int n)
-        {
-            return stat.value < n;
-        }
+        public static bool operator <(Stat stat, int n) => stat.value < n;
 
-        public static explicit operator int(Stat stat)
-        {
-            return stat.value;
-        }
+        public static explicit operator int(Stat stat) => stat.value;
 
-        protected bool Equals(Stat stat)
-        {
-            return ReferenceEquals(this, stat);
-        }
+        protected bool Equals(Stat stat) => ReferenceEquals(this, stat);
 
-        public override bool Equals(object obj)
-        {
-            return !ReferenceEquals(null, obj) && (ReferenceEquals(this, obj) ||
-                                                   (obj.GetType() == GetType() &&
-                                                    Equals((Stat)obj)));
-        }
+        public override bool Equals(object obj) =>
+            !ReferenceEquals(null, obj) && (ReferenceEquals(this, obj) ||
+                                            (obj.GetType() == GetType() &&
+                                             Equals((Stat)obj)));
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(ToString());
-        }
+        public override int GetHashCode() => HashCode.Combine(ToString());
 
         #endregion
     }

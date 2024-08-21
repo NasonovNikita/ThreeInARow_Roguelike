@@ -14,10 +14,7 @@ namespace Battle.Units.Statuses
         [SerializeField] private int value;
         [SerializeField] private bool usedSpells;
 
-        public Deal(int value, bool save = false) : base(save)
-        {
-            this.value = value;
-        }
+        public Deal(int value, bool save = false) : base(save) => this.value = value;
 
         public override Sprite Sprite => ModifierSpritesContainer.Instance.deal;
 
@@ -44,10 +41,7 @@ namespace Battle.Units.Statuses
             base.Init(unit);
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Deal;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Deal;
 
         protected override void HiddenConcat(Modifier other)
         {

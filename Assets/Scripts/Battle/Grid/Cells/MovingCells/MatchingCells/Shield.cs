@@ -2,7 +2,7 @@ using Battle.Modifiers;
 using Other;
 using UnityEngine;
 
-namespace Battle.Grid.Cells.MovingCell.MatchingCells
+namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
     public class Shield : MatchingCell, IModifierAble
     {
@@ -22,9 +22,6 @@ namespace Battle.Grid.Cells.MovingCell.MatchingCells
                     IIntModifier.UseModList(Modifiers.List, amount)));
         }
 
-        public override bool IsSameType(Cell other)
-        {
-            return other is Shield;
-        }
+        public override bool IsSameType(Cell other) => other is Shield;
     }
 }

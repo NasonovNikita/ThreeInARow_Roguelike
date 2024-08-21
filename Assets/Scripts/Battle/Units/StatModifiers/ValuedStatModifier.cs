@@ -14,10 +14,8 @@ namespace Battle.Units.StatModifiers
     {
         [SerializeField] protected int value;
 
-        protected ValuedStatModifier(int value, bool save) : base(save)
-        {
+        protected ValuedStatModifier(int value, bool save) : base(save) =>
             this.value = value;
-        }
 
         protected abstract bool IsPositive { get; }
 
@@ -37,10 +35,7 @@ namespace Battle.Units.StatModifiers
         public override bool EndedWork => ToDelete;
 
 
-        int IIntModifier.Modify(int val)
-        {
-            return val + value;
-        }
+        int IIntModifier.Modify(int val) => val + value;
 
         public virtual string SubInfo => value.ToString();
         public virtual bool ToDelete => value == 0;

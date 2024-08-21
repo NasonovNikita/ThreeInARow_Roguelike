@@ -28,11 +28,9 @@ namespace Battle.Units
         [SerializeField] public List<Cell> cells;
         [SerializeField] public int money;
 
-        public static PlayerData NewData(Player player, PlayerData oldData)
-        {
-            return NewData(player.hp, player.mana, player.damage, player.Statuses,
+        public static PlayerData NewData(Player player, PlayerData oldData) =>
+            NewData(player.hp, player.mana, player.damage, player.Statuses,
                 oldData);
-        }
 
         public static PlayerData NewData(
             Hp hp,

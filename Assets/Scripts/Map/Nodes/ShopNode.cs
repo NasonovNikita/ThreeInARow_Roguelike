@@ -9,9 +9,7 @@ namespace Map.Nodes
             RoomLoader.LoadShop(Layer, Seed);
         }
 
-        public static ShopNode Create(int layer, int seed)
-        {
-            return (ShopNode)Create(PrefabsContainer.Instance.shopNode, layer, seed);
-        }
+        public static ShopNode Create(int layer, int seed) =>
+            (ShopNode)Create(PrefabsContainer.Instance.shopNode, layer, seed);
     }
 }

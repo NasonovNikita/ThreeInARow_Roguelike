@@ -17,15 +17,11 @@ namespace Battle.UI.ModsDisplaying
         public bool ToDelete { get; }
 
         protected static string SimpleFormatDescription(string original,
-            params object[] args)
-        {
-            return original.IndexErrorProtectedFormat(args);
-        }
+            params object[] args) =>
+            original.IndexErrorProtectedFormat(args);
 
         protected static string FormatDescriptionByKeys(string original,
-            Dictionary<string, object> args)
-        {
-            return original.FormatByKeys(args);
-        }
+            Dictionary<string, object> args) =>
+            original.FormatByKeys(args);
     }
 }

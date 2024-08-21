@@ -10,9 +10,7 @@ namespace Battle.Units.StatModifiers
         {
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is ManaWastingConstMod;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is ManaWastingConstMod;
     }
 }

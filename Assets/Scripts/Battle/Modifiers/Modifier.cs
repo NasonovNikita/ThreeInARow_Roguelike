@@ -14,10 +14,7 @@ namespace Battle.Modifiers
     {
         [SerializeField] public bool save;
 
-        protected Modifier(bool save = false)
-        {
-            this.save = save;
-        }
+        protected Modifier(bool save = false) => this.save = save;
 
         protected virtual List<IChangeAble> ChangeAblesToInitialize => new();
 
@@ -48,10 +45,8 @@ namespace Battle.Modifiers
 
         #region ConcatAbility
 
-        public bool CanConcat(Modifier other)
-        {
-            return save == other.save && !EndedWork && HiddenCanConcat(other);
-        }
+        public bool CanConcat(Modifier other) =>
+            save == other.save && !EndedWork && HiddenCanConcat(other);
 
         protected abstract bool HiddenCanConcat(Modifier other);
 

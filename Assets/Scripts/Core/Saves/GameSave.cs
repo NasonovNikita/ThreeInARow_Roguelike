@@ -7,7 +7,6 @@ using Shop;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
-using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Core.Saves
 {
@@ -29,7 +28,9 @@ namespace Core.Saves
         [SerializeField]
         private bool noNodeIsChosen = NodeController.Instance.NoNodeIsChosen;
 
-        [SerializeField] private string scene = SceneManager.GetActiveScene().name;
+        [SerializeField] private string scene =
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
         [SerializeField] private string playerData = JsonUtility.ToJson(Player.Data);
         [SerializeField] private int seed = Globals.Instance.seed;
 
@@ -55,10 +56,8 @@ namespace Core.Saves
         /// <summary>
         ///     Loads data from memory.
         /// </summary>
-        public static GameSave Load()
-        {
-            return SavesManager.Load<GameSave>(Path) ?? CreateEmptySave();
-        }
+        public static GameSave Load() =>
+            SavesManager.Load<GameSave>(Path) ?? CreateEmptySave();
 
         public override void Apply()
         {
@@ -89,12 +88,11 @@ namespace Core.Saves
                     item.OnGet();
 
 
-            SceneManager.LoadScene(scene);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
         }
 
-        public static GameSave CreateEmptySave()
-        {
-            return new GameSave
+        public static GameSave CreateEmptySave() =>
+            new()
             {
                 currentVertex = -1,
                 noNodeIsChosen = true,
@@ -109,6 +107,5 @@ namespace Core.Saves
                 goods = EmptyList,
                 _isEmptySave = true
             };
-        }
     }
 }

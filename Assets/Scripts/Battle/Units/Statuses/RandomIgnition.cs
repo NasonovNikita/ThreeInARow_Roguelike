@@ -49,12 +49,10 @@ namespace Battle.Units.Statuses
             base.Init(unit);
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is RandomIgnition ignition &&
-                   ignition.moveCounter.Moves == moveCounter.Moves &&
-                   ignition.burningMoves == burningMoves;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is RandomIgnition ignition &&
+            ignition.moveCounter.Moves == moveCounter.Moves &&
+            ignition.burningMoves == burningMoves;
 
         protected override void HiddenConcat(Modifier other)
         {

@@ -12,10 +12,7 @@ namespace Other
     {
         [SerializeField] private int count;
 
-        public Counter(int count)
-        {
-            this.count = count;
-        }
+        public Counter(int count) => this.count = count;
 
         public int Count => count;
 
@@ -74,9 +71,7 @@ namespace Other
             return res;
         }
 
-        public static Counter operator +(Counter first, Counter second)
-        {
-            return new Counter(first.count + second.count);
-        }
+        public static Counter operator +(Counter first, Counter second) =>
+            new(first.count + second.count);
     }
 }

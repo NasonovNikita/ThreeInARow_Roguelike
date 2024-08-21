@@ -52,10 +52,7 @@ namespace Battle.Units.Statuses
             _enemyDied = false;
         }
 
-        protected override bool HiddenCanConcat(Modifier other)
-        {
-            return other is Irritation;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Irritation;
 
         protected override void HiddenConcat(Modifier other)
         {

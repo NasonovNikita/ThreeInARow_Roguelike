@@ -9,10 +9,8 @@ namespace Map.Nodes
             RoomLoader.LoadTreasure(Layer, Seed);
         }
 
-        public static TreasureNode Create(int layer, int randomSeed)
-        {
-            return (TreasureNode)Create(PrefabsContainer.Instance.treasureNode, layer,
+        public static TreasureNode Create(int layer, int randomSeed) =>
+            (TreasureNode)Create(PrefabsContainer.Instance.treasureNode, layer,
                 randomSeed);
-        }
     }
 }
