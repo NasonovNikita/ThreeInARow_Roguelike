@@ -60,7 +60,8 @@ namespace Battle.Modifiers
 
         public void RemoveTempMods()
         {
-            foreach (var mod in list.ToList().Where(mod => !mod.save)) list.Remove(mod);
+            foreach (var mod in list.ToList().Where(mod => !mod.save))
+                list.Remove(mod);
         }
 
         public void UnAttachEvents()

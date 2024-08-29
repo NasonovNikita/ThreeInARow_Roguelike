@@ -14,14 +14,14 @@ namespace Battle.Units.Statuses
         public Vampirism(int healAmount, bool save = false) : base(save) =>
             heal = healAmount;
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.vampirism;
+        public override Sprite Sprite => ModSpritesContainer.Instance.vampirism;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
                 ModDescriptionsContainer.Instance.vampirism.Value, heal);
 
         public override string SubInfo => heal.ToString();
-        public override bool ToDelete => heal == 0;
+        protected override bool HiddenEndedWork => heal == 0;
 
         public override void Init(Unit unit)
         {

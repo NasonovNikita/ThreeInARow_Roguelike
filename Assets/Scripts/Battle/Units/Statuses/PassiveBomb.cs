@@ -19,7 +19,7 @@ namespace Battle.Units.Statuses
             this.manaBorder = manaBorder;
         }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.passiveBomb;
+        public override Sprite Sprite => ModSpritesContainer.Instance.passiveBomb;
 
         public override string Description =>
             IModIconModifier.FormatDescriptionByKeys(
@@ -31,7 +31,7 @@ namespace Battle.Units.Statuses
                 });
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
-        public override bool ToDelete => dmg <= 0;
+        protected override bool HiddenEndedWork => dmg <= 0;
 
         public override void Init(Unit unit)
         {

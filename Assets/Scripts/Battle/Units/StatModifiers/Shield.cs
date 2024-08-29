@@ -8,32 +8,30 @@ using UnityEngine;
 namespace Battle.Units.StatModifiers
 {
     [Serializable]
-    public class Shield : Modifier, IIntModifier, IModIconModifier
+    public class Shield : UnitModifier, IIntModifier
     {
-        [SerializeField] private Counter counter;
+        private readonly Counter _counter;
+
 
         public Shield(int count, bool save = false) : base(save) =>
-            counter = CreateChangeableSubSystem(new Counter(count));
+            _counter = CreateChangeableSubSystem(new Counter(count));
 
-        public override bool EndedWork => ToDelete;
+        int IIntModifier.Modify(int val) => _counter.Decrease(val);
 
-        int IIntModifier.Modify(int val) => counter.Decrease(val);
+        public override Sprite Sprite => ModSpritesContainer.Instance.shield;
 
-        public Sprite Sprite => ModifierSpritesContainer.Instance.shield;
-
-        public string Description =>
+        public override string Description =>
             IModIconModifier.SimpleFormatDescription(
-                ModDescriptionsContainer.Instance.shield.Value,
-                counter.Count);
+                ModDescriptionsContainer.Instance.shield.Value, _counter.Count);
 
-        public string SubInfo => counter.SubInfo;
-        public bool ToDelete => counter.EndedWork;
+        public override string SubInfo => _counter.SubInfo;
+        protected override bool HiddenEndedWork => _counter.EndedWork;
 
         protected override bool HiddenCanConcat(Modifier other) => other is Shield;
 
         protected override void HiddenConcat(Modifier other)
         {
-            counter.ConcatWith(((Shield)other).counter);
+            _counter.ConcatWith(((Shield)other)._counter);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
-    public class Attack : MatchingCell, IModifierAble
+    public class Attack : Match3Cell, IModifierAble
     {
         [SerializeField] private int baseAttackVal;
 
@@ -17,7 +17,7 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
 
         protected override void Use()
         {
-            var unit = BattleFlowManager.Instance.CurrentlyTurningUnit;
+            var unit = BattleFlowManager.Instance.CurrentlyTurningUnit; // Always player now
 
             unit.target.TakeDamage(
                 unit.damage.ApplyDamage(IIntModifier.UseModList(Modifiers.List,

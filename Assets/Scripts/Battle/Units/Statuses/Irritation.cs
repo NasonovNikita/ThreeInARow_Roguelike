@@ -21,14 +21,16 @@ namespace Battle.Units.Statuses
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
         }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.irritation;
+        public override Sprite Sprite => ModSpritesContainer.Instance.irritation;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
                 ModDescriptionsContainer.Instance.irritation.Value, damageAddition);
 
         public override string SubInfo => moveCounter.SubInfo;
-        public override bool ToDelete => moveCounter.EndedWork || damageAddition == 0;
+
+        protected override bool HiddenEndedWork =>
+            moveCounter.EndedWork || damageAddition == 0;
 
         public override void Init(Unit unit)
         {

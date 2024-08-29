@@ -76,7 +76,7 @@ namespace Core.Saves
             Shop.SceneManager.Goods = Tools.Json.JsonToListScriptableObjects<Good>(goods);
 
             Treasure.SceneManager.Treasure =
-                ScriptableObject.CreateInstance<LongScythe>(); // TODO doesn't work
+                ScriptableObject.CreateInstance<LongScythe>(); // TODO doesn't work?
             // No matter what type of LootItem instance is created json overwriting works
 
             JsonUtility.FromJsonOverwrite(treasure, Treasure.SceneManager.Treasure);

@@ -19,9 +19,9 @@ namespace Battle.Units.StatModifiers
             ModDescriptionsContainer.Instance.manaWastingNegative;
 
         protected override Sprite SpritePositive =>
-            ModifierSpritesContainer.Instance.manaMod;
+            ModSpritesContainer.Instance.manaMod;
 
         protected override Sprite SpriteNegative =>
-            ModifierSpritesContainer.Instance.manaMod;
+            ModSpritesContainer.Instance.manaMod;
     }
 }

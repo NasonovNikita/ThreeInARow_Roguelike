@@ -24,7 +24,7 @@ namespace Battle.Units.Statuses
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
         }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.randomIgnition;
+        public override Sprite Sprite => ModSpritesContainer.Instance.randomIgnition;
 
         public override string Description =>
             IModIconModifier.FormatDescriptionByKeys(
@@ -36,7 +36,7 @@ namespace Battle.Units.Statuses
                 });
 
         public override string SubInfo => moveCounter.SubInfo;
-        public override bool ToDelete => moveCounter.EndedWork || chance == 0;
+        protected override bool HiddenEndedWork => moveCounter.EndedWork || chance == 0;
 
         public override void Init(Unit unit)
         {

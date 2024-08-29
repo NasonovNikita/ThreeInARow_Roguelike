@@ -21,7 +21,8 @@ namespace Battle.Units.StatModifiers
 
         public override string SubInfo => moveCounter.SubInfo;
 
-        public override bool ToDelete => moveCounter.EndedWork || base.ToDelete;
+        protected override bool HiddenEndedWork =>
+            moveCounter.EndedWork || base.HiddenEndedWork;
 
         protected override bool HiddenCanConcat(Modifier other) =>
             other is HpDamageMoveMod damageMoveMod &&

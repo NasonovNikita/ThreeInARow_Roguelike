@@ -65,9 +65,10 @@ namespace Battle.Grid
             OnChanged?.Invoke();
         }
 
+        /// <summary>
         /// Removes old cell and sets a new one in
-        /// <see cref="Box"/>
-        /// [i, j].
+        /// <see cref="Box"/>[i, j].
+        /// </summary>
         public void SetCell(Cell newCell, int i, int j)
         {
             RemoveCell(Box[i, j]);
@@ -76,13 +77,21 @@ namespace Battle.Grid
             newCell.IsInGridBox = true;
         }
 
+        /// <summary>
+        /// The same as <see cref="SetCell"/> but also invokes <see cref="OnChanged"/>.
+        /// </summary>
+        public void SetCellInvoked(Cell newCell, int i, int j)
+        {
+            SetCell(newCell, i, j);
+            
+            OnChanged?.Invoke();
+        }
+
         public void InitGrid()
         {
             for (var i = 0; i < sizeY; i++)
             for (var j = 0; j < sizeX; j++)
                 InitCell(Box[i, j], i, j);
-
-            OnChanged?.Invoke();
         }
 
         public (int, int) FindCell(Object cell)

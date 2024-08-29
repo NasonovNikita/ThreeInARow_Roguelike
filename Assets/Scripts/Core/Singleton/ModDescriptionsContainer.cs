@@ -22,7 +22,9 @@ namespace Core.Singleton
 
         public KnotTextKeyReference burning;
         public KnotTextKeyReference deal;
+        public KnotTextKeyReference endurance;
         public KnotTextKeyReference fury;
+        public KnotTextKeyReference frozen;
         public KnotTextKeyReference immortality;
         public KnotTextKeyReference irritation;
         public KnotTextKeyReference passiveBomb;
@@ -30,6 +32,7 @@ namespace Core.Singleton
         public KnotTextKeyReference sharp;
         public KnotTextKeyReference stun;
         public KnotTextKeyReference vampirism;
+        public KnotTextKeyReference reflection;
         public static ModDescriptionsContainer Instance { get; private set; }
 
         public void Awake()

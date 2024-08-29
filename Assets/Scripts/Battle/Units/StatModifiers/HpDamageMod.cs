@@ -19,9 +19,9 @@ namespace Battle.Units.StatModifiers
             ModDescriptionsContainer.Instance.hpDamageNegative;
 
         protected override Sprite SpritePositive =>
-            ModifierSpritesContainer.Instance.damage;
+            ModSpritesContainer.Instance.damage;
 
         protected override Sprite SpriteNegative =>
-            ModifierSpritesContainer.Instance.damage;
+            ModSpritesContainer.Instance.damage;
     }
 }

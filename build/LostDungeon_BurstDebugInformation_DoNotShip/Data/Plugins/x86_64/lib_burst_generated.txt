@@ -27,6 +27,7 @@ Library: C:\Users\Никита\Documents\GitHub\ThreeInARow_Rouglike\Temp\BurstO
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=Unity.Burst.Unsafe;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
@@ -117,6 +118,7 @@ Library: C:\Users\Никита\Documents\GitHub\ThreeInARow_Rouglike\Temp\BurstO
 --assembly-defines=Unity.VisualScripting.State;
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=Unity.Burst.Unsafe;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;

@@ -3,7 +3,7 @@ using Battle.Units;
 
 namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
-    public class Hourglass : MatchingCell, IModifierAble
+    public class Hourglass : Match3Cell, IModifierAble
     {
         private static bool _added;
 

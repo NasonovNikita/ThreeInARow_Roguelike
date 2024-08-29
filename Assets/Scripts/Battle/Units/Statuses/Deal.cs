@@ -16,7 +16,7 @@ namespace Battle.Units.Statuses
 
         public Deal(int value, bool save = false) : base(save) => this.value = value;
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.deal;
+        public override Sprite Sprite => ModSpritesContainer.Instance.deal;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
@@ -24,7 +24,7 @@ namespace Battle.Units.Statuses
                 value);
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
-        public override bool ToDelete => usedSpells;
+        protected override bool HiddenEndedWork => usedSpells;
 
         public void CheckAndAddMod()
         {

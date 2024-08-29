@@ -1,4 +1,5 @@
 using System.Collections;
+using Battle.Grid.Cells.MovingCells;
 using Battle.Units;
 using Other;
 using UnityEngine;
@@ -13,9 +14,6 @@ namespace Battle.Grid.Cells
     public abstract class MovingCell : Cell, IPointerClickHandler
     {
         private static MovingCell _chosen;
-
-        [SerializeField] private ObjectMover mover;
-        [SerializeField] private ObjectScaler scaler;
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -42,7 +40,7 @@ namespace Battle.Grid.Cells
             else if (Grid.Instance.CellsAreNeighbours(_chosen, this)) // And switch
             {
                 var switchCells = new SmartCoroutine(this,
-                    SwitchCells);
+                    () => SwitchCells(_chosen, this));
                 var unscaleCells = new SmartCoroutine(this,
                     UnscaleCells);
 
@@ -51,8 +49,12 @@ namespace Battle.Grid.Cells
 
                 (BattleFlowManager.Instance.CurrentlyTurningUnit as Player)?.WasteMove();
 
+                yield return StartCoroutine(scaler.ScaleUp());
                 yield return switchCells.Start();
                 yield return unscaleCells.Start();
+            
+                
+                Grid.Instance.SwitchCells(this, _chosen);
 
                 OnMoveDone();
                 _chosen.OnMoveDone();
@@ -75,23 +77,9 @@ namespace Battle.Grid.Cells
             }
         }
 
+        // Maybe redundant
         protected virtual void OnMoveDone()
         {
-        }
-
-        private IEnumerator SwitchCells()
-        {
-            yield return StartCoroutine(scaler.ScaleUp());
-
-            var moveFirst = new SmartCoroutine(this,
-                    () => mover.MoveTo(_chosen.transform.position))
-                .Start();
-            var moveSecond = new SmartCoroutine(this,
-                    () => _chosen.mover.MoveTo(transform.position))
-                .Start();
-
-            yield return new WaitUntil(() => moveFirst.Finished && moveSecond.Finished);
-            Grid.Instance.SwitchCells(this, _chosen);
         }
 
         private IEnumerator UnscaleCells()

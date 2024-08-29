@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Core.Singleton;
 using UnityEngine;
 
@@ -6,19 +7,21 @@ namespace Battle.Grid.Cells.MovingCells
 {
     public abstract class MatchingCell : MovingCell
     {
+        protected abstract int CountInRow { get; }
+
         public override bool BoxIsStable(Cell[,] box) =>
-            MatchingCellsManager.Instance.FindRowedCells().Count == 0;
+            GetCellsToUse().Count == 0;
 
-        protected sealed override void OnMoveDone()
-        {
-            MatchingCellsManager.Instance.Process();
-        }
-
+        /// <summary>
+        /// Is called by <see cref="MatchingCellsManager">manager</see> when matched.
+        /// </summary>
         public IEnumerator Process()
         {
             yield return StartCoroutine(TimedUse());
-            OffScreenPoint.Instance.Hide(gameObject);
+            yield return StartCoroutine(OnUsed());
         }
+
+        public abstract List<MatchingCell> GetCellsToUse();
 
         protected abstract void Use();
 
@@ -27,5 +30,13 @@ namespace Battle.Grid.Cells.MovingCells
             Use();
             yield return new WaitForSeconds(0.1f);
         }
+
+        protected virtual IEnumerator OnUsed()
+        {
+            OffScreenPoint.Instance.Hide(gameObject);
+            yield break;
+        }
+
+        
     }
 }

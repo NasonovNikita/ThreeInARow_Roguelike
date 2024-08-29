@@ -15,7 +15,7 @@ namespace Battle.Units.Statuses
         public Immortality(int chance, bool save = false) : base(save) =>
             this.chance = chance;
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.immortality;
+        public override Sprite Sprite => ModSpritesContainer.Instance.immortality;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance
@@ -23,7 +23,7 @@ namespace Battle.Units.Statuses
                 .Value);
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
-        public override bool ToDelete => chance <= 0;
+        protected override bool HiddenEndedWork => chance <= 0;
 
         public override void Init(Unit unit)
         {

@@ -15,14 +15,14 @@ namespace Battle.Units.Statuses
         public Burning(int moves = 1) => moveCounter =
             CreateChangeableSubSystem(new MoveCounter(moves, true));
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.burning;
+        public override Sprite Sprite => ModSpritesContainer.Instance.burning;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
                 ModDescriptionsContainer.Instance.burning.Value, _dmg);
 
         public override string SubInfo => moveCounter.SubInfo;
-        public override bool ToDelete => moveCounter.EndedWork;
+        protected override bool HiddenEndedWork => moveCounter.EndedWork;
 
         public override void Init(Unit unit)
         {

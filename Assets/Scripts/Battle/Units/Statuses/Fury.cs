@@ -23,7 +23,7 @@ namespace Battle.Units.Statuses
 
         private bool Condition => BelongingUnit.hp <= hpBorder;
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.fury;
+        public override Sprite Sprite => ModSpritesContainer.Instance.fury;
 
         public override string Description =>
             IModIconModifier.FormatDescriptionByKeys(
@@ -35,7 +35,7 @@ namespace Battle.Units.Statuses
                 });
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
-        public override bool ToDelete => addition == 0;
+        protected override bool HiddenEndedWork => addition == 0;
 
         private void CheckHpAndApplyMod()
         {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Stats;
-using Battle.Units.Statuses;
 using Core.Singleton;
 using UnityEngine;
 using Tools = Other.Tools;
@@ -52,7 +51,11 @@ namespace Battle.Units
 
             foreach (var spell in spells) spell.Init(this);
 
-            Statuses.OnModAdded += modifier => ((Status)modifier).Init(this);
+            foreach (var modList in AllModifierLists)
+            {
+                // Every mod is initialized after adding
+                modList.OnModAdded += modifier => ((UnitModifier)modifier).Init(this);
+            }
         }
 
         public event Action OnSpellCasted;
@@ -85,7 +88,9 @@ namespace Battle.Units
 
             Dead = true;
             Die();
-        } // ReSharper disable Unity.PerformanceAnalysis
+        }
+        
+        // ReSharper disable Unity.PerformanceAnalysis
         public void Die()
         {
             OffScreenPoint.Instance.Hide(gameObject);

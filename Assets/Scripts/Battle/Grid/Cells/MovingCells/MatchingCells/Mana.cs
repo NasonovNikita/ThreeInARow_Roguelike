@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
-    public class Mana : MatchingCell, IModifierAble
+    public class Mana : Match3Cell, IModifierAble
     {
         [SerializeField] private int amount;
 

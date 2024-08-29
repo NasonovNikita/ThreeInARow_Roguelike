@@ -8,7 +8,7 @@ namespace Battle.Modifiers
 
         public AddIntMod(int value) => _value = value;
 
-        public override bool EndedWork => _value == 0;
+        protected override bool HiddenEndedWork => _value == 0;
 
         int IIntModifier.Modify(int val) => val + _value;
 

@@ -3,11 +3,14 @@ using UnityEngine.Serialization;
 
 namespace Core.Singleton
 {
-    public class ModifierSpritesContainer : MonoBehaviour
+    public class ModSpritesContainer : MonoBehaviour
     {
+        public static ModSpritesContainer Instance { get; private set; }
+        
         public Sprite burning;
         public Sprite damage;
         public Sprite deal;
+        public Sprite endurance;
         public Sprite fury;
         public Sprite manaMod;
         public Sprite shield;
@@ -18,8 +21,9 @@ namespace Core.Singleton
         public Sprite irritation;
         public Sprite randomIgnition;
         public Sprite sharp;
+        public Sprite frozen;
+        public Sprite reflection;
         [FormerlySerializedAs("Vampirism")] public Sprite vampirism;
-        public static ModifierSpritesContainer Instance { get; private set; }
 
         public void Awake()
         {

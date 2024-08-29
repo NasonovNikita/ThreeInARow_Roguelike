@@ -10,7 +10,7 @@ namespace Battle.Units.StatModifiers
     ///     Created because of <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>.
     /// </summary>
     [Serializable]
-    public abstract class ValuedStatModifier : Modifier, IIntModifier, IModIconModifier
+    public abstract class ValuedStatModifier : UnitModifier, IIntModifier
     {
         [SerializeField] protected int value;
 
@@ -32,15 +32,13 @@ namespace Battle.Units.StatModifiers
         protected abstract Sprite SpritePositive { get; }
         protected abstract Sprite SpriteNegative { get; }
 
-        public override bool EndedWork => ToDelete;
-
 
         int IIntModifier.Modify(int val) => val + value;
 
-        public virtual string SubInfo => value.ToString();
-        public virtual bool ToDelete => value == 0;
+        public override string SubInfo => value.ToString();
+        protected override bool HiddenEndedWork => value == 0;
 
-        public string Description =>
+        public override string Description =>
             IsPositive switch
             {
                 true => IModIconModifier.SimpleFormatDescription(
@@ -51,7 +49,7 @@ namespace Battle.Units.StatModifiers
                     Math.Abs(value))
             };
 
-        public Sprite Sprite =>
+        public override Sprite Sprite =>
             IsPositive switch
             {
                 true => SpritePositive,

@@ -19,7 +19,9 @@ namespace Battle.Units.StatModifiers
             new() { moveCounter };
 
         public override string SubInfo => moveCounter.SubInfo;
-        public override bool ToDelete => moveCounter.EndedWork || base.ToDelete;
+
+        protected override bool HiddenEndedWork =>
+            moveCounter.EndedWork || base.HiddenEndedWork;
 
         protected override bool HiddenCanConcat(Modifier other) =>
             other is ManaWastingMoveMod mod &&

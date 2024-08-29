@@ -14,10 +14,10 @@ namespace Battle.Units.StatModifiers
         }
 
         protected override Sprite SpritePositive =>
-            ModifierSpritesContainer.Instance.healing;
+            ModSpritesContainer.Instance.healing;
 
         protected override Sprite SpriteNegative =>
-            ModifierSpritesContainer.Instance.healing;
+            ModSpritesContainer.Instance.healing;
 
         protected override bool IsPositive => value > 0;
 

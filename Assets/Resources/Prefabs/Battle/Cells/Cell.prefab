@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2498874067317279280}
   - component: {fileID: 8119622151057266318}
   m_Layer: 0
-  m_Name: MovingCell
+  m_Name: Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPos: {x: 0, y: 0, z: 0}
-  doMove: 0
   time: 0.4
   speedType: 0
 --- !u!114 &2498874067317279280

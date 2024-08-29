@@ -18,7 +18,7 @@ namespace Battle.Units.Statuses
         public Sharp(int addition, bool save = false) : base(save) =>
             this.addition = addition;
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.sharp;
+        public override Sprite Sprite => ModSpritesContainer.Instance.sharp;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
@@ -26,7 +26,7 @@ namespace Battle.Units.Statuses
                 addition);
 
         public override string SubInfo => addition.ToString();
-        public override bool ToDelete => addition == 0;
+        protected override bool HiddenEndedWork => addition == 0;
 
         public override void Init(Unit unit)
         {
