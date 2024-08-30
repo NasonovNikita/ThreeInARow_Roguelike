@@ -41,7 +41,7 @@ namespace Other
         public static int Percents(float v) => (int)(v * 100);
 
         /// <summary>
-        ///     Gets all items from two dimensional array and returns as a single list.
+        ///     Gets all items from two-dimensional array and returns as a single list.
         /// </summary>
         public static List<T> MultiDimToOne<T>(T[,] orig)
         {
@@ -80,7 +80,7 @@ namespace Other
                     .SelectMany(
                         _ => items,
                         (seq, item) => seq.Concat(new[] { item }).ToArray()
-                    ).ToList();
+                    ).ToList(); 
 
             return sequences.ToArray();
         }

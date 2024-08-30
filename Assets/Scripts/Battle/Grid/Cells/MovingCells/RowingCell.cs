@@ -35,25 +35,13 @@ namespace Battle.Grid.Cells.MovingCells
 
         private bool RowExists(int i, int j, int di = 0, int dj = 0)
         {
-            var cells = new List<RowingCell>();
+            var cells = new List<Cell>();
             for (var k = 0; k < CountInRow; k++)
             {
-                if (Grid.Instance.Box[i + di * k, j + dj * k] is RowingCell cell)
-                {
-                    cells.Add(cell);
-                }
-                else
-                {
-                    return false;
-                }
+                cells.Add(Grid.Instance.Box[i + di * k, j + dj * k]);
             }
 
-            for (var index = 0; index < cells.Count - 1; index++)
-            {
-                if (!cells[index].IsSameType(cells[index + 1])) return false;
-            }
-
-            return true;
+            return cells.All(IsSameType);
         }
     }
 }

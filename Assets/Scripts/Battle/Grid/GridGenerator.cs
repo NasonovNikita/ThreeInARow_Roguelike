@@ -105,6 +105,7 @@ namespace Battle.Grid
 
                 Debug.unityLogger.LogWarning("Grid", new WarningException(
                     "Too many variants to iterate. Some will be skipped."));
+                break;
             }
 
             if (successVariants.Count == 0)
