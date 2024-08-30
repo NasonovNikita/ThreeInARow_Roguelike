@@ -11,7 +11,7 @@ namespace Battle.Grid.Cells.MovingCells
     {
         private List<(int, int)> _cellsCoordinates = new();
 
-        private SmartCoroutine _onMoveDoneProcess;
+        public SmartCoroutine _onMoveDoneProcess; // public for debug
         private List<MatchingCell> _rowedCells;
 
         public void Start()

@@ -39,17 +39,21 @@ namespace Battle.Grid.Cells
             }
             else if (Grid.Instance.CellsAreNeighbours(_chosen, this)) // And switch
             {
+                var scaleSecond = new SmartCoroutine(this,
+                    scaler.ScaleUp);
                 var switchCells = new SmartCoroutine(this,
                     () => SwitchCells(_chosen, this));
                 var unscaleCells = new SmartCoroutine(this,
                     UnscaleCells);
 
+                BattleFlowManager.Instance.Processes.Add(scaleSecond);
                 BattleFlowManager.Instance.Processes.Add(switchCells);
                 BattleFlowManager.Instance.Processes.Add(unscaleCells);
 
                 (BattleFlowManager.Instance.CurrentlyTurningUnit as Player)?.WasteMove();
 
-                yield return StartCoroutine(scaler.ScaleUp());
+                
+                yield return scaleSecond.Start();
                 yield return switchCells.Start();
                 yield return unscaleCells.Start();
             

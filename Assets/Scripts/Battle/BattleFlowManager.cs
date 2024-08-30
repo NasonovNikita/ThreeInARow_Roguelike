@@ -172,7 +172,7 @@ namespace Battle
         private IEnumerator WaitForProcessesToEnd()
         {
             yield return new WaitUntil(() =>
-                Processes.All(coroutine => coroutine.Finished));
+                Processes.All(coroutine => coroutine.Last.Finished));
         }
     }
 }
