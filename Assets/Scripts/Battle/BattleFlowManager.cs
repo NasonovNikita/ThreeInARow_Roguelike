@@ -25,7 +25,7 @@ namespace Battle
         ///     <b>Put processes</b>, that must be ended
         ///     before manager goes to next step (e.g. next unit's turn), <b>here</b>.
         /// </summary>
-        public List<SmartCoroutine> Processes = new();
+        public readonly ProcessHolder Processes = new();
 
         public static BattleFlowManager Instance { get; private set; }
 
@@ -77,17 +77,17 @@ namespace Battle
                     this,
                     new Func<IEnumerator>[]
                     {
-                        WaitForProcessesToEnd,
+                        WaitForProcessesToEnd, // TODO is broken here
                         EnemiesTurn,
                         WaitForProcessesToEnd
                     }
                 ),
                 () =>
                 {
-                    Processes = new List<SmartCoroutine>(); // Initiate new Cycle
+                    Processes.Clear(); // Initiate new Cycle
                     LaunchPlayerTurn();
                 });
-            _mainFlowCoroutine.Last.Next = _mainFlowCoroutine; // Cycle
+            _mainFlowCoroutine.Last.OnFinished += () => _mainFlowCoroutine.Start(); // Cycle
 
             _mainFlowCoroutine.Start();
             OnBattleStart?.Invoke();
@@ -123,6 +123,7 @@ namespace Battle
 
         private IEnumerator EnemiesTurn()
         {
+            Debug.unityLogger.Log("aaaaaaaaa");
             OnEnemiesTurnStart?.Invoke();
 
             foreach (var enemy in EnemiesWithoutNulls)
@@ -171,8 +172,7 @@ namespace Battle
 
         private IEnumerator WaitForProcessesToEnd()
         {
-            yield return new WaitUntil(() =>
-                Processes.All(coroutine => coroutine.Last.Finished));
+            yield return StartCoroutine(Processes.WaitUntilAllFinished());
         }
     }
 }

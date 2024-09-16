@@ -20,7 +20,8 @@ namespace Battle.Grid.Cells
             if (eventData.button != PointerEventData.InputButton.Left ||
                 BattleFlowManager.Instance.CurrentlyTurningUnit is not Player) return;
 
-            StartCoroutine(Choose());
+            BattleFlowManager.Instance.Processes.Add(new SmartCoroutine(this, Choose)
+                .Start());
         }
 
         public IEnumerator Choose()
@@ -93,7 +94,8 @@ namespace Battle.Grid.Cells
             var scaleSecond = new SmartCoroutine(this,
                 () => _chosen.scaler.Unscale()).Start();
 
-            yield return new WaitUntil(() => scaleFirst.Finished && scaleSecond.Finished);
+            yield return scaleFirst;
+            yield return scaleSecond;
         }
     }
 }

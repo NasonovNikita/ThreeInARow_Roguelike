@@ -11,7 +11,7 @@ namespace Battle.Grid.Cells.MovingCells
     {
         private List<(int, int)> _cellsCoordinates = new();
 
-        public SmartCoroutine _onMoveDoneProcess; // public for debug
+        private SmartCoroutine _onMoveDoneProcess;
         private List<MatchingCell> _rowedCells;
 
         public void Start()
@@ -21,7 +21,6 @@ namespace Battle.Grid.Cells.MovingCells
             _onMoveDoneProcess = new SmartCoroutine(this, ProcessAllCells,
                 GetCellsToUse,
                 RefillGrid);
-            BattleFlowManager.Instance.Processes.Add(_onMoveDoneProcess);
 
             Grid.Instance.OnChanged += Process;
             return;
@@ -37,7 +36,7 @@ namespace Battle.Grid.Cells.MovingCells
             }
         }
 
-        private void Process() => _onMoveDoneProcess.TryRestart();
+        private void Process() => BattleFlowManager.Instance.Processes.Add(_onMoveDoneProcess.TryRestart());
 
 
         private IEnumerator ProcessAllCells()

@@ -21,6 +21,9 @@ namespace Other
         /// </summary>
         [CanBeNull] public SmartCoroutine Next;
 
+        // Decide if needed as public
+        public bool Finished { get; private set; } = true;
+
         public SmartCoroutine(
             [NotNull] MonoBehaviour coroutineLauncher,
             [NotNull] Func<IEnumerator> routine,
@@ -39,8 +42,6 @@ namespace Other
             coroutineLauncher, coroutine.StartCoroutine, onStart, onEnd)
         {
         }
-
-        public bool Finished { get; private set; } = true;
 
         /// <summary>
         ///     The last coroutine, that will be started in <see cref="Next"/> chain.
@@ -75,7 +76,7 @@ namespace Other
 
         public SmartCoroutine Start()
         {
-            Finished = false;
+            SetAllNotFinished();
             _onStart?.Invoke();
             OnStart?.Invoke();
             _coroutineLauncher.StartCoroutine(ActualCoroutine());
@@ -87,12 +88,9 @@ namespace Other
         ///     Starts if possible (prohibited if process is still running).
         /// </summary>
         /// <returns>Succeed or not</returns>
-        public bool TryRestart()
+        public SmartCoroutine TryRestart()
         {
-            if (!Finished) return false;
-
-            Start();
-            return true;
+            return !Finished ? null : Start();
         }
 
         private IEnumerator ActualCoroutine()
@@ -112,6 +110,16 @@ namespace Other
         {
             Start();
             yield return this;
+        }
+
+        private void SetAllNotFinished()
+        {
+            var cur = this;
+            while (cur is not null)
+            {
+                cur.Finished = false;
+                cur = cur.Next;
+            }
         }
     }
 }

@@ -87,7 +87,7 @@ namespace Battle.Grid
         /// </exception>
         public void ReplaceCellsByCoordinates(List<(int, int)> coordinates)
         {
-            const int maxTries = 10000;
+            const int maxTries = 1000;
             var tries = 0;
 
             var successVariants = new List<Cell[]>();
