@@ -36,7 +36,7 @@ namespace Battle.Grid.Cells.MovingCells
             }
         }
 
-        private void Process() => BattleFlowManager.Instance.Processes.Add(_onMoveDoneProcess.TryRestart());
+        private void Process() => BattleFlowManager.Instance.AddProcess(_onMoveDoneProcess.TryRestart());
 
 
         private IEnumerator ProcessAllCells()

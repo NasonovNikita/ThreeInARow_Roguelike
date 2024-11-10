@@ -34,7 +34,7 @@ namespace Battle.Grid.Cells
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (_counter.Moves > 0) return;
+            if (_counter.Moves > 0 && BattleFlowManager.Instance.AllowedToUseGrid) return;
 
             BattleFlowManager.Instance.CurrentlyTurningUnit.hp.onTakingDamageMods.Add(
                 new Shield(shieldCount));

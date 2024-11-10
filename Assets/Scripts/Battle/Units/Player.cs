@@ -74,9 +74,6 @@ namespace Battle.Units
 
         public void StartTurn()
         {
-            BattleFlowManager.Instance.Processes.Add(new SmartCoroutine(this,
-                () => new WaitUntil(() => CurrentMovesCount == 0)).Start());
-
             if (Statuses.List.Exists(mod => mod is Stun { EndedWork: false }))
                 WasteAllMoves();
         }

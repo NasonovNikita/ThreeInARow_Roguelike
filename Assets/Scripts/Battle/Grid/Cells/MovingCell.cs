@@ -1,8 +1,6 @@
 using System.Collections;
-using Battle.Grid.Cells.MovingCells;
 using Battle.Units;
 using Other;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Battle.Grid.Cells
@@ -18,9 +16,10 @@ namespace Battle.Grid.Cells
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left ||
-                BattleFlowManager.Instance.CurrentlyTurningUnit is not Player) return;
+                BattleFlowManager.Instance.AllowedToUseGrid) return;
 
-            BattleFlowManager.Instance.Processes.Add(new SmartCoroutine(this, Choose)
+            
+            BattleFlowManager.Instance.AddProcess(new SmartCoroutine(this, Choose)
                 .Start());
         }
 
@@ -47,10 +46,6 @@ namespace Battle.Grid.Cells
                 var unscaleCells = new SmartCoroutine(this,
                     UnscaleCells);
 
-                BattleFlowManager.Instance.Processes.Add(scaleSecond);
-                BattleFlowManager.Instance.Processes.Add(switchCells);
-                BattleFlowManager.Instance.Processes.Add(unscaleCells);
-
                 (BattleFlowManager.Instance.CurrentlyTurningUnit as Player)?.WasteMove();
 
                 
@@ -73,9 +68,6 @@ namespace Battle.Grid.Cells
                 var unscaleSecond = new SmartCoroutine(this,
                     () => scaler.ScaleUp()).Start();
                 _chosen = this;
-
-                BattleFlowManager.Instance.Processes.Add(unscaleFirst);
-                BattleFlowManager.Instance.Processes.Add(unscaleSecond);
 
                 yield return unscaleFirst;
                 yield return unscaleSecond;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Battle.Units;
 using Other;
@@ -15,24 +16,29 @@ namespace Battle
     /// </summary>
     public class BattleFlowManager : MonoBehaviour
     {
-        private const Unit NoTurningUnit = null;
-
-        private SmartCoroutine _mainFlowCoroutine;
-
+        public static BattleFlowManager Instance { get; private set; }
+        
         [NonSerialized] public List<Enemy> EnemiesWithNulls = new();
 
         /// <summary>
         ///     <b>Put processes</b>, that must be ended
         ///     before manager goes to next step (e.g. next unit's turn), <b>here</b>.
         /// </summary>
-        public readonly ProcessHolder Processes = new();
-
-        public static BattleFlowManager Instance { get; private set; }
 
         public List<Enemy> EnemiesWithoutNulls =>
             EnemiesWithNulls.Where(enemy => enemy != null).ToList();
 
         public Unit CurrentlyTurningUnit { get; private set; }
+
+        public bool AllowedToUseGrid => _states.Peek() == BattleState.PlayerTurn;
+        public bool AllowedToUseSpells => _states.Peek() == BattleState.PlayerTurn;
+        
+        private const Unit NoTurningUnit = null;
+        
+        private readonly Stack<BattleState> _states = new();
+
+        private readonly List<SmartCoroutine> _processes = new();
+
 
         // Was used before. Will be kept to possibly use in some mechanics.
         // ReSharper disable once MemberCanBePrivate.Global
@@ -67,34 +73,32 @@ namespace Battle
         /// </summary>
         public void Init()
         {
+            _states.Push(BattleState.Entry);
+            
             InitEnemies();
 
             Player.Instance.OnDied += OnPlayerDeath;
 
-            _mainFlowCoroutine = new SmartCoroutine(
-                this,
-                SmartCoroutine.StackCoroutines(
-                    this,
-                    new Func<IEnumerator>[]
-                    {
-                        WaitForProcessesToEnd, // TODO is broken here
-                        EnemiesTurn,
-                        WaitForProcessesToEnd
-                    }
-                ),
-                () =>
-                {
-                    Processes.Clear(); // Initiate new Cycle
-                    LaunchPlayerTurn();
-                });
-            _mainFlowCoroutine.Last.OnFinished += () => _mainFlowCoroutine.Start(); // Cycle
-
-            _mainFlowCoroutine.Start();
+            LaunchPlayerTurn();
             OnBattleStart?.Invoke();
+        }
+
+        public void AddProcess(SmartCoroutine coroutine)
+        {
+            _states.Push(BattleState.Processing);
+            if (_processes.Contains(coroutine)) return;
+            _processes.Add(coroutine);
+            coroutine.Last.OnFinished += () => _states.Pop();
         }
 
         public void StopPlayerTurn()
         {
+            if (_states.Peek() != BattleState.PlayerTurn)
+            {
+                throw new WarningException(
+                    "Asked to stop Player's turn immediately when it isn't his turn or some processes are to be made..");
+            }
+            
             Player.Instance.WasteAllMoves();
             CurrentlyTurningUnit = NoTurningUnit;
         }
@@ -113,32 +117,48 @@ namespace Battle
 
         private void LaunchPlayerTurn()
         {
+            _states.Push(BattleState.PlayerTurn);
             Player.Instance.RefillMoves();
             CurrentlyTurningUnit = Player.Instance;
 
             OnPlayerTurnStart?.Invoke();
 
             Player.Instance.StartTurn();
+
+            new SmartCoroutine(this,
+                () => new WaitUntil(() =>
+                    Player.Instance.CurrentMovesCount == 0 && _states.Peek() == BattleState.PlayerTurn),
+                onEnd: () =>
+                {
+                    Debug.unityLogger.Log(Player.Instance.CurrentMovesCount);
+                    Debug.unityLogger.Log(_states.Peek());
+                    _states.Pop();
+                    StartCoroutine(EnemiesTurn());
+                }).Start();
         }
 
         private IEnumerator EnemiesTurn()
         {
-            Debug.unityLogger.Log("aaaaaaaaa");
+            _states.Push(BattleState.EnemyTurn);
             OnEnemiesTurnStart?.Invoke();
 
             foreach (var enemy in EnemiesWithoutNulls)
             {
                 CurrentlyTurningUnit = enemy;
                 yield return StartCoroutine(enemy.Turn());
-                yield return StartCoroutine(WaitForProcessesToEnd());
             }
 
             OnCycleEnd?.Invoke();
             CyclesDone++;
+
+            yield return new WaitUntil(() => _states.Peek() != BattleState.Processing);
+            _states.Pop();
+            LaunchPlayerTurn();
         }
 
         private void BattleEnd()
         {
+            _states.Push(BattleState.End);
             CurrentlyTurningUnit = NoTurningUnit;
             OnBattleEnd?.Invoke();
         }
@@ -168,11 +188,6 @@ namespace Battle
         {
             BattleEnd();
             OnBattleLose?.Invoke();
-        }
-
-        private IEnumerator WaitForProcessesToEnd()
-        {
-            yield return StartCoroutine(Processes.WaitUntilAllFinished());
         }
     }
 }

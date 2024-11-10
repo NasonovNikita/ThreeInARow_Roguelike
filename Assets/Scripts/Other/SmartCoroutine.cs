@@ -46,7 +46,7 @@ namespace Other
         /// <summary>
         ///     The last coroutine, that will be started in <see cref="Next"/> chain.
         /// </summary>
-        public SmartCoroutine Last => Next is null ? this : Next.Last;
+        [NotNull] public SmartCoroutine Last => Next is null ? this : Next.Last;
 
         public override bool keepWaiting => !Finished;
 
@@ -90,7 +90,7 @@ namespace Other
         /// <returns>Succeed or not</returns>
         public SmartCoroutine TryRestart()
         {
-            return !Finished ? null : Start();
+            return !Last.Finished ? null : Start();
         }
 
         private IEnumerator ActualCoroutine()

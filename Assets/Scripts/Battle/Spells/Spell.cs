@@ -32,7 +32,7 @@ namespace Battle.Spells
         /// <summary>   The same as <see cref="Cast"/> but also checks if it's Player's turn.   </summary>
         public void PlayerCast()
         {
-            if (BattleFlowManager.CurrentlyTurningUnit is Player)
+            if (BattleFlowManager.Instance.AllowedToUseSpells)
                 UnitBelong.StartCoroutine(Cast());
         }
 
