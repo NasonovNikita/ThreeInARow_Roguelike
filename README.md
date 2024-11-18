@@ -1,4 +1,4 @@
-# Match3 roguelike (Early developing stage) [currently frozen due to studying in MIPT]
+# Match3 roguelike (Early developing stage)
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Description
 This is a **turn-based** combat roguelike game based on **Match three** game (As sugar crush)
