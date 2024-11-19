@@ -64,6 +64,7 @@ namespace Battle.Units
         public void AddMoves(int count)
         {
             CurrentMovesCount += count;
+            OnMovesCountChanged?.Invoke();
         }
 
         public void WasteMove()

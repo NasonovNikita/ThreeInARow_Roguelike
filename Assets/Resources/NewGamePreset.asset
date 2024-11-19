@@ -16,27 +16,27 @@ MonoBehaviour:
     borderUp: 200
     value: 200
     onHealingMods:
-      modList: []
+      list: []
     onTakingDamageMods:
-      modList: []
+      list: []
   mana:
     borderUp: 100
     value: 100
     refillingMods:
-      modList: []
+      list: []
     wastingMods:
-      modList: []
+      list: []
   damage:
     borderUp: 7
     value: 7
     mods:
-      modList: []
+      list: []
   items: []
   spells:
   - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
   - {fileID: 11400000, guid: e5e9d4c2e2785e64595efd7239ebbf4f, type: 2}
   statuses:
-    modList: []
+    list: []
   cells:
   - {fileID: 7779857467893497367, guid: 82dd727a3acf0b948af76be66206a37a, type: 3}
   - {fileID: 9069243778840958549, guid: e63002fb71afe6f4fb8ab4a2373d6b69, type: 3}

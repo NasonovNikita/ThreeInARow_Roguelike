@@ -139,12 +139,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e839d766b2484285a021e9923d1fb4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mover: {fileID: 3413453018137101811}
+  scaler: {fileID: 6195121451311948431}
   descriptionKeyRef:
     _key: HourglassCellDescription
     _formatters: []
-  possibleReward: 0
-  mover: {fileID: 3413453018137101811}
-  scaler: {fileID: 6195121451311948431}
+  possibleReward: 1
   references:
     version: 2
     RefIds: []

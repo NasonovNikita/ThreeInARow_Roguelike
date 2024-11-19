@@ -16,7 +16,7 @@ namespace Battle.Grid.Cells
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left ||
-                BattleFlowManager.Instance.AllowedToUseGrid) return;
+                !BattleFlowManager.Instance.AllowedToUseGrid) return;
 
             
             BattleFlowManager.Instance.AddProcess(new SmartCoroutine(this, Choose)

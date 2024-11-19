@@ -124,7 +124,8 @@ namespace Battle
             OnPlayerTurnStart?.Invoke();
 
             Player.Instance.StartTurn();
-
+            
+            // Be careful with changing. There can't be any WaitUntil waiting only for turnCount becoming 0 (see. Hourglass cell).
             new SmartCoroutine(this,
                 () => new WaitUntil(() =>
                     Player.Instance.CurrentMovesCount == 0 && _states.Peek() == BattleState.PlayerTurn),
