@@ -24,11 +24,7 @@ namespace Battle.Units.StatModifiers
 
         int IIntModifier.Modify(int val)
         {
-            var was = val;
-
-            val = _counter.Decrease(val);
-            
-            BelongingUnit.target.TakeDamage(was - val);
+            BelongingUnit.target.TakeDamage(val - _counter.Decrease(val));
 
             return val;
         }
