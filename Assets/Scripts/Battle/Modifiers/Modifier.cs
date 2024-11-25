@@ -20,7 +20,7 @@ namespace Battle.Modifiers
         protected virtual List<IChangeAble> ChangeAblesToInitialize => new();
 
         protected abstract bool HiddenEndedWork { get; }
-        public bool EndedWork => HiddenEndedWork && killed;
+        public bool EndedWork => HiddenEndedWork || killed;
 
         public event Action OnChanged;
 

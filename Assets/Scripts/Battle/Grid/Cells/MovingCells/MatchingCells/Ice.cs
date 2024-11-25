@@ -7,19 +7,19 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
     public class Ice : Match3Cell, IModifierAble
     {
-        [SerializeField] private int value;
+        [SerializeField] private int freezeAmount;
 
         public ModifierList Modifiers { get; } = new();
-        public int Value => value;
+        public int Value => freezeAmount;
 
         public override string Description =>
-            descriptionKeyRef.Value.IndexErrorProtectedFormat(value);
+            descriptionKeyRef.Value.IndexErrorProtectedFormat(freezeAmount);
         public override bool IsSameType(Cell other) => other is Ice;
 
         protected override void Use()
         {
-            BattleFlowManager.Instance.CurrentlyTurningUnit.target.Statuses.Add(
-                new Frozen(value));
+            BattleFlowManager.Instance.CurrentlyTurningUnit.target.damage.mods.Add(
+                new Frozen(freezeAmount));
         }
     }
 }
