@@ -32,6 +32,8 @@ namespace Battle.Grid.Cells.MovingCells
                 {
                     _rowedCells.AddRange(((MatchingCell)cell).GetCellsToUse());
                 }
+                _rowedCells = new List<MatchingCell>(new HashSet<MatchingCell>(_rowedCells));
+                
                 _cellsCoordinates = GetCellsCoordinates();
             }
         }
