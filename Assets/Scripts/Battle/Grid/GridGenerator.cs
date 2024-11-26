@@ -5,13 +5,13 @@ using System.Linq;
 using Battle.Units;
 using Other;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Battle.Grid
 {
     /// Generates a normalized (correct/stable) box of Cells for Grid
     public class GridGenerator : MonoBehaviour
     {
-        [SerializeField] private float refillTime;
         public static GridGenerator Instance { get; private set; }
 
         private static Cell RandomCell =>
@@ -20,6 +20,8 @@ namespace Battle.Grid
         private static bool BoxIsStable =>
             Player.Data.cells.Aggregate(true,
                 (prev, cell) => prev && cell.BoxIsStable(Grid.Instance.Box));
+        
+        [SerializeField] private float refillTime;
 
         public void Start()
         {
@@ -119,6 +121,32 @@ namespace Battle.Grid
                     coordinates[i].Item1, coordinates[i].Item2);
             
             Grid.Instance.InitGrid();
+        }
+
+        public Cell CellToShuffleWith(Cell cell)
+        {
+            var done = false;
+            Cell second;
+            
+            do
+            {
+                int x;
+                int y;
+                do
+                {
+                    x = Random.Range(0, Grid.Instance.sizeX);
+                    y = Random.Range(0, Grid.Instance.sizeY);
+                } while (Grid.Instance.Box[x, y].IsInGridBox && Grid.Instance.Box[x, y].IsSameType(cell));
+                
+                second = Grid.Instance.Box[x, y];
+                
+                Grid.Instance.SwitchCellsMuted(cell, second);
+                if (!BoxIsStable) Grid.Instance.SwitchCellsMuted(cell, second);
+                else done = true;
+            } while (!done);
+
+            Grid.Instance.SwitchCellsMuted(cell, second);
+            return second;
         }
     }
 }

@@ -54,6 +54,6 @@ namespace Battle.Grid.Cells.MovingCells
         }
 
         private List<(int, int)> GetCellsCoordinates() =>
-            _rowedCells.Select(cell => Grid.Instance.FindCell(cell)).ToList();
+            _rowedCells.Where(cell => !cell.IsInGridBox).Select(cell => Grid.Instance.FindCell(cell)).ToList();
     }
 }

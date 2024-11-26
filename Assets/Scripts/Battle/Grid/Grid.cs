@@ -25,6 +25,13 @@ namespace Battle.Grid
 
         public static Grid Instance { get; private set; }
 
+        /// Is called when two cells were switched using
+        /// <see cref="SwitchCells"/>
+        /// function.
+        public event Action<Cell, Cell> OnSwitchedCells;
+
+        public event Action OnChanged;
+
         public void Awake()
         {
             Instance = this;
@@ -35,13 +42,6 @@ namespace Battle.Grid
             for (var j = 0; j < sizeX; j++)
                 _points[i, j] = Instantiate(cellPrefab, transform);
         }
-
-        /// Is called when two cells were switched using
-        /// <see cref="SwitchCells"/>
-        /// function.
-        public event Action<Cell, Cell> OnSwitchedCells;
-
-        public event Action OnChanged;
 
         /// Replaces Grid's Box with a new empty one
         public void CreateEmptyBox()
@@ -57,12 +57,24 @@ namespace Battle.Grid
         {
             var (x1, y1) = FindCell(first);
             var (x2, y2) = FindCell(second);
-
-            (Box[x1, y1], Box[x2, y2]) =
-                (Box[x2, y2], Box[x1, y1]);
+            SwitchCellsMuted(first, second);
 
             OnSwitchedCells?.Invoke(Box[x1, y1], Box[x2, y2]);
             OnChanged?.Invoke();
+        }
+
+        public void SwitchCellsMuted(Cell first, Cell second)
+        {
+            var (x1, y1) = FindCell(first);
+            var (x2, y2) = FindCell(second);
+
+            (Box[x1, y1], Box[x2, y2]) =
+                (Box[x2, y2], Box[x1, y1]);
+        }
+
+        public void InvokeSwitchCells()
+        {
+            
         }
 
         /// <summary>

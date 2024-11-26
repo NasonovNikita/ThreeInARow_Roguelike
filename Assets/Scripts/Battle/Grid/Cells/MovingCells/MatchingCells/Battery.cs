@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Battle.Modifiers;
 using Other;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 namespace Battle.Grid.Cells.MovingCells.MatchingCells
 {
     public class Battery : Match3Cell, IModifierAble
     {
         [SerializeField] private int damage;
-        [SerializeField] private float multiplier;
+        [SerializeField] private int addition;
         [SerializeField] private int timesToIncrease;
-
+        
         public override string Description => descriptionKeyRef.Value.FormatByKeys(
             new Dictionary<string, object>
             {
                 {"damage", damage},
-                {"multiplier", multiplier},
+                {"multiplier", addition},
                 {"timesToIncrease", timesToIncrease}
             });
 
@@ -34,25 +34,18 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
             unit.InvokeOnMadeHit();
 
             if (timesToIncrease <= 0) return;
-            
-            damage = (int)(damage * multiplier);
+
+            damage += addition;
             timesToIncrease--;
         }
 
         protected override IEnumerator OnUsed()
         {
-            int x;
-            int y;
-            do
-            {
-                x = Random.Range(0, Grid.Instance.sizeX);
-                y = Random.Range(0, Grid.Instance.sizeY);
-            } while (Grid.Instance.Box[x, y] is Battery);
-
-            var second = Grid.Instance.Box[x, y];
+            var second = GridGenerator.Instance.CellToShuffleWith(this);
+            
             yield return new SmartCoroutine(this, () => SwitchCells(this, second))
                 .Start();
-            Grid.Instance.SwitchCells(this, Grid.Instance.Box[x, y]);
+            Grid.Instance.SwitchCells(this, second);
         }
 
         public ModifierList Modifiers { get; } = new();

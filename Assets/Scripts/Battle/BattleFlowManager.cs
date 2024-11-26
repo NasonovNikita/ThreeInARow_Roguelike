@@ -85,8 +85,8 @@ namespace Battle
 
         public void AddProcess(SmartCoroutine coroutine)
         {
+            if (coroutine is null || _processes.Contains(coroutine)) return;
             _states.Push(BattleState.Processing);
-            if (_processes.Contains(coroutine)) return;
             _processes.Add(coroutine);
             coroutine.Last.OnFinished += () => _states.Pop();
         }
