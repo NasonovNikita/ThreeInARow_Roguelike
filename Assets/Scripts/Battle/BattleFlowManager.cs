@@ -85,8 +85,9 @@ namespace Battle
 
         public void AddProcess(SmartCoroutine coroutine)
         {
-            if (coroutine is null || _processes.Contains(coroutine)) return;
+            if (coroutine is null) return;  // In case when coroutine is launched through TryRestart (may not restart with null)
             _states.Push(BattleState.Processing);
+            if (_processes.Contains(coroutine)) return;  // In case the same coroutine is being restarted
             _processes.Add(coroutine);
             coroutine.Last.OnFinished += () => _states.Pop();
         }

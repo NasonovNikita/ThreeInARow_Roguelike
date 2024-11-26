@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Grid.Cells.MovingCells.MatchingCells;
 using Battle.Units;
 using Other;
 using UnityEngine;
@@ -54,6 +55,6 @@ namespace Battle.Grid.Cells.MovingCells
         }
 
         private List<(int, int)> GetCellsCoordinates() =>
-            _rowedCells.Where(cell => !cell.IsInGridBox).Select(cell => Grid.Instance.FindCell(cell)).ToList();
+            _rowedCells.Where(cell => cell is not Battery).Select(cell => Grid.Instance.FindCell(cell)).ToList();
     }
 }
