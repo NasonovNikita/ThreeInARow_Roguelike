@@ -21,9 +21,7 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
         {
             var unit = BattleFlowManager.Instance.CurrentlyTurningUnit;
 
-            unit.target.TakeDamage(
-                (int)(unit.damage.ApplyDamage(IIntModifier.UseModList(Modifiers.List,
-                    baseAttackVal)) * 1.5f));
+            unit.target.TakeDamage(unit.damage.ApplyDamage(IIntModifier.UseModList(Modifiers.List, baseAttackVal)));
             unit.InvokeOnMadeHit();
         }
 
