@@ -25,6 +25,7 @@ namespace Battle.Grid.Cells
         public void Awake()
         {
             _counter = new MoveCounter(startingCooldown);
+            _counter.Init();
         }
 
         public override bool BoxIsStable(Cell[,] box) =>
