@@ -12,9 +12,20 @@ namespace Battle.Units.StatModifiers
     {
         private readonly Counter _counter;
 
-
-        public Shield(int count, bool save = false) : base(save) =>
+        public Shield(int count, bool save = false) : base(save)
+        {
             _counter = CreateChangeableSubSystem(new Counter(count));
+
+            BattleFlowManager.Instance.OnCycleEnd += OnCycleEnd;
+            return;
+            void OnCycleEnd()
+            {
+                _counter.Kill();
+                Kill();
+
+                BattleFlowManager.Instance.OnCycleEnd -= OnCycleEnd;
+            }
+        }
 
         int IIntModifier.Modify(int val) => _counter.Decrease(val);
 

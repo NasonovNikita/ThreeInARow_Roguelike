@@ -71,6 +71,15 @@ namespace Other
             return res;
         }
 
+        /// <summary>
+        /// Makes counter zero (with <see cref="OnChanged"/> invoke!)
+        /// </summary>
+        public void Kill()
+        {
+            count = 0;
+            OnChanged?.Invoke();
+        }
+
         public static Counter operator +(Counter first, Counter second) =>
             new(first.count + second.count);
     }
