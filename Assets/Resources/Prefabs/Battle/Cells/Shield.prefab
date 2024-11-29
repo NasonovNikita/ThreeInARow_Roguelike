@@ -136,13 +136,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6ba90923024a4a9c15b8af5780c260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mover: {fileID: 2012928630110493356}
+  scaler: {fileID: 7010170170264452560}
   descriptionKeyRef:
     _key: ShieldCellDescription
     _formatters: []
   possibleReward: 1
-  mover: {fileID: 2012928630110493356}
-  scaler: {fileID: 7010170170264452560}
-  amount: 1
+  amount: 2
   references:
     version: 2
     RefIds: []
