@@ -72,8 +72,8 @@ namespace Battle.Grid
 
         /// <summary>
         ///     Replaces/sets cells in <see cref="Grid"/> with new ones by coordinates in
-        ///     its <see cref="Grid.Box">box.</see>.
-        ///     The combinations are garanteed to be appropriate for cells logic as in
+        ///     its <see cref="Grid.Box">box</see>.
+        ///     The combinations are guaranteed to be appropriate for cells logic as in
         ///     <see cref="Generate">first time generation func</see>.
         /// </summary>
         /// <param name="coordinates">
@@ -95,7 +95,7 @@ namespace Battle.Grid
             var successVariants = new List<Cell[]>();
 
             foreach (var variant in Tools.Repeat(Player.Data.cells.ToArray(),
-                         coordinates.Count))
+                         coordinates.Count).OrderBy(_ => Random.Range(0, 10000)))
             {
                 tries++;
                 for (var i = 0; i < coordinates.Count; i++)
