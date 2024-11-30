@@ -6,7 +6,7 @@ namespace Battle.Units.StatModifiers
 {
     public abstract class ManaWastingMod : ValuedStatModifier
     {
-        protected ManaWastingMod(int value, bool save = false) : base(value, save)
+        protected ManaWastingMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 

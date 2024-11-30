@@ -11,7 +11,7 @@ namespace Battle.Units.Statuses
     [Serializable]
     public abstract class Status : UnitModifier
     {
-        protected Status(bool save = false) : base(save)
+        protected Status(bool isSaved = false) : base(isSaved)
         {
         }
 

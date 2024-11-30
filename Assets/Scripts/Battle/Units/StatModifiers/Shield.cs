@@ -12,7 +12,7 @@ namespace Battle.Units.StatModifiers
     {
         private readonly Counter _counter;
 
-        public Shield(int count, bool save = false) : base(save)
+        public Shield(int count, bool isSaved = false) : base(isSaved)
         {
             _counter = CreateChangeableSubSystem(new Counter(count));
 

@@ -12,7 +12,7 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int chance;
 
-        public Immortality(int chance, bool save = false) : base(save) =>
+        public Immortality(int chance, bool isSaved = false) : base(isSaved) =>
             this.chance = chance;
 
         public override Sprite Sprite => ModSpritesContainer.Instance.immortality;

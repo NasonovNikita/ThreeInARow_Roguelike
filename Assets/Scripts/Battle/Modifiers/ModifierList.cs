@@ -35,16 +35,6 @@ namespace Battle.Modifiers
             if (list.Contains(elem)) OnModAdded?.Invoke(elem);
         }
 
-        private void SmartAdd(Modifier other)
-        {
-            var second = list.FirstOrDefault(obj =>
-                obj.CanConcat(other));
-
-            if (second is not null)
-                second.Concat(other); // If found mod, can concat with, concat
-            else list.Add(other); // Else just add
-        }
-
         public void InitMods()
         {
             foreach (var mod in list) mod.Init();
@@ -60,13 +50,23 @@ namespace Battle.Modifiers
 
         public void RemoveTempMods()
         {
-            foreach (var mod in list.ToList().Where(mod => !mod.save))
+            foreach (var mod in list.ToList().Where(mod => !mod.isSaved))
                 list.Remove(mod);
         }
 
         public void UnAttachEvents()
         {
             OnModAdded = null;
+        }
+        
+        private void SmartAdd(Modifier other)
+        {
+            var second = list.FirstOrDefault(obj =>
+                obj.CanConcat(other));
+
+            if (second is not null)
+                second.Concat(other); // If found mod, can concat with, concat
+            else list.Add(other); // Else just add
         }
     }
 }

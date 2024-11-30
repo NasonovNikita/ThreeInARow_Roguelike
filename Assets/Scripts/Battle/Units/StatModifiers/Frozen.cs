@@ -12,7 +12,7 @@ namespace Battle.Units.StatModifiers
 
         protected override bool HiddenEndedWork => _counter.EndedWork;
 
-        public Frozen(int count, bool save = false) : base(save)
+        public Frozen(int count, bool isSaved = false) : base(isSaved)
         {
             _counter = CreateChangeableSubSystem(new Counter(count));
         }

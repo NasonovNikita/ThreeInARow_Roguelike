@@ -13,7 +13,7 @@ namespace Battle.Units.Statuses
         [SerializeField] private int dmg;
         [SerializeField] private int manaBorder;
 
-        public PassiveBomb(int damage, int manaBorder, bool save = false) : base(save)
+        public PassiveBomb(int damage, int manaBorder, bool isSaved = false) : base(isSaved)
         {
             dmg = damage;
             this.manaBorder = manaBorder;

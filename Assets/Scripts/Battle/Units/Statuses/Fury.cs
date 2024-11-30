@@ -15,7 +15,7 @@ namespace Battle.Units.Statuses
         [SerializeField] private int hpBorder;
         [SerializeField] private DamageConstMod constMod;
 
-        public Fury(int addition, int hpBorder, bool save = false) : base(save)
+        public Fury(int addition, int hpBorder, bool isSaved = false) : base(isSaved)
         {
             this.addition = addition;
             this.hpBorder = hpBorder;

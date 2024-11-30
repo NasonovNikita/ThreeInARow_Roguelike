@@ -8,7 +8,7 @@ namespace Battle.Units
     {
         protected Unit BelongingUnit;
         
-        protected UnitModifier(bool save = false) : base(save) {}
+        protected UnitModifier(bool isSaved = false) : base(isSaved) {}
 
         public virtual void Init(Unit unit)
         {

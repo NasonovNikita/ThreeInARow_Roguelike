@@ -4,7 +4,7 @@ namespace Battle.Units.StatModifiers
 {
     public class HpDamageConstMod : HpDamageMod
     {
-        public HpDamageConstMod(int value, bool save = false) : base(value, save)
+        public HpDamageConstMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 

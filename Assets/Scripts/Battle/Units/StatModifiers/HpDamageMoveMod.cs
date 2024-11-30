@@ -11,8 +11,8 @@ namespace Battle.Units.StatModifiers
     {
         [SerializeField] private MoveCounter moveCounter;
 
-        public HpDamageMoveMod(int value, int moves, bool save = false) : base(value,
-            save) =>
+        public HpDamageMoveMod(int value, int moves, bool isSaved = false) : base(value,
+            isSaved) =>
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
 
 

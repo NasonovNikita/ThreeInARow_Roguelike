@@ -15,7 +15,7 @@ namespace Battle.Units.Statuses
         [SerializeField] private MoveCounter moveCounter;
         private bool _enemyDied;
 
-        public Irritation(int damageAddition, int moves, bool save = false) : base(save)
+        public Irritation(int damageAddition, int moves, bool isSaved = false) : base(isSaved)
         {
             this.damageAddition = damageAddition;
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));

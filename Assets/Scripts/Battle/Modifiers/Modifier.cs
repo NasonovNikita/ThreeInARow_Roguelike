@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Other;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle.Modifiers
 {
@@ -12,10 +13,10 @@ namespace Battle.Modifiers
     [Serializable]
     public abstract class Modifier : IChangeAble
     {
-        [SerializeField] public bool save;
+        [SerializeField] public bool isSaved;
         [SerializeField] protected bool killed;
 
-        protected Modifier(bool save = false) => this.save = save;
+        protected Modifier(bool isSaved = false) => this.isSaved = isSaved;
 
         protected virtual List<IChangeAble> ChangeAblesToInitialize => new();
 
@@ -53,7 +54,7 @@ namespace Battle.Modifiers
         #region ConcatAbility
 
         public bool CanConcat(Modifier other) =>
-            save == other.save && !EndedWork && HiddenCanConcat(other);
+            isSaved == other.isSaved && !EndedWork && HiddenCanConcat(other);
 
         public void Concat(Modifier other)
         {

@@ -13,7 +13,7 @@ namespace Battle.Units.Statuses
 
         protected override bool HiddenEndedWork => _counter.EndedWork;
 
-        public Endurance(int moves, int bonus, bool save = false) : base(save)
+        public Endurance(int moves, int bonus, bool isSaved = false) : base(isSaved)
         {
             _counter = CreateChangeableSubSystem(new MoveCounter(moves));
             _bonus = bonus;

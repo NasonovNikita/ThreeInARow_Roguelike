@@ -11,7 +11,7 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int heal;
 
-        public Vampirism(int healAmount, bool save = false) : base(save) =>
+        public Vampirism(int healAmount, bool isSaved = false) : base(isSaved) =>
             heal = healAmount;
 
         public override Sprite Sprite => ModSpritesContainer.Instance.vampirism;

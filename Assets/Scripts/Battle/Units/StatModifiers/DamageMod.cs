@@ -6,7 +6,7 @@ namespace Battle.Units.StatModifiers
 {
     public abstract class DamageMod : ValuedStatModifier
     {
-        protected DamageMod(int value, bool save = false) : base(value, save)
+        protected DamageMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 

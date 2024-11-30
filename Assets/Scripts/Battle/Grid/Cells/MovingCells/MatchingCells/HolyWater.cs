@@ -10,7 +10,7 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
         protected override void Use()
         {
             foreach (var mod in BattleFlowManager.Instance.CurrentlyTurningUnit
-                         .AllModifierLists.SelectMany(modifierList => modifierList.List))
+                         .AllModifierLists.SelectMany(modifierList => modifierList.List).Where(mod => !mod.isSaved))
             {
                 mod.Kill();
             }

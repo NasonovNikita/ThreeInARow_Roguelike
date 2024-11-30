@@ -15,7 +15,7 @@ namespace Battle.Units.Statuses
 
         private List<Unit> _hitEnemies = new();
 
-        public Sharp(int addition, bool save = false) : base(save) =>
+        public Sharp(int addition, bool isSaved = false) : base(isSaved) =>
             this.addition = addition;
 
         public override Sprite Sprite => ModSpritesContainer.Instance.sharp;

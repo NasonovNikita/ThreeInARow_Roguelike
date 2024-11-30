@@ -9,7 +9,7 @@ namespace Battle.Units.StatModifiers
     [Serializable]
     public class HealingConstMod : ValuedStatModifier
     {
-        public HealingConstMod(int value, bool save = false) : base(value, save)
+        public HealingConstMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 

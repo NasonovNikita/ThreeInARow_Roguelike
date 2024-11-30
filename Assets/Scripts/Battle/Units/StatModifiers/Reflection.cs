@@ -12,7 +12,7 @@ namespace Battle.Units.StatModifiers
 
         protected override bool HiddenEndedWork => _counter.EndedWork;
 
-        public Reflection(int count, bool save = false) : base(save)
+        public Reflection(int count, bool isSaved = false) : base(isSaved)
         {
             _counter = CreateChangeableSubSystem(new Counter(count));
         }

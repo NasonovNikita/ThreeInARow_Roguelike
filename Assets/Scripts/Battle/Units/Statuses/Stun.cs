@@ -9,7 +9,7 @@ namespace Battle.Units.Statuses
     {
         private readonly MoveCounter _moveMod;
 
-        public Stun(int moves, bool save = false) : base(save) =>
+        public Stun(int moves, bool isSaved = false) : base(isSaved) =>
             _moveMod = CreateChangeableSubSystem(new MoveCounter(moves));
 
         public override Sprite Sprite => ModSpritesContainer.Instance.stun;

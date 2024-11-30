@@ -14,7 +14,7 @@ namespace Battle.Units.Statuses
         [SerializeField] private int value;
         [SerializeField] private bool usedSpells;
 
-        public Deal(int value, bool save = false) : base(save) => this.value = value;
+        public Deal(int value, bool isSaved = false) : base(isSaved) => this.value = value;
 
         public override Sprite Sprite => ModSpritesContainer.Instance.deal;
 

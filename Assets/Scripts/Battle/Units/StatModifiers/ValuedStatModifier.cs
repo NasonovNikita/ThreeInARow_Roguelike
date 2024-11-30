@@ -14,7 +14,7 @@ namespace Battle.Units.StatModifiers
     {
         [SerializeField] protected int value;
 
-        protected ValuedStatModifier(int value, bool save) : base(save) =>
+        protected ValuedStatModifier(int value, bool isSaved) : base(isSaved) =>
             this.value = value;
 
         protected abstract bool IsPositive { get; }
