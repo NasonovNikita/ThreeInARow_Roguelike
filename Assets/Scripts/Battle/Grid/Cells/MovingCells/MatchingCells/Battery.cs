@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Battle.Modifiers;
 using Other;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
         [SerializeField] private int damage;
         [SerializeField] private int addition;
         [SerializeField] private int timesToIncrease;
+
+        [SerializeField] private int count;
         
         public override string Description => descriptionKeyRef.Value.FormatByKeys(
             new Dictionary<string, object>
@@ -22,6 +25,11 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
             });
 
         public override bool IsSameType(Cell other) => other is Battery;
+
+        public override bool BoxIsStable(Cell[,] box)
+        {
+            return base.BoxIsStable(box) && Tools.MultiDimToOne(box).Count(IsSameType) == count;
+        }
 
         protected override void Use()
         {

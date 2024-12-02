@@ -141,6 +141,7 @@ MonoBehaviour:
   damage: 1
   addition: 1
   timesToIncrease: 3
+  count: 5
   references:
     version: 2
     RefIds: []

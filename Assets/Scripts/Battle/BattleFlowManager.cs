@@ -132,8 +132,6 @@ namespace Battle
                     Player.Instance.CurrentMovesCount == 0 && _states.Peek() == BattleState.PlayerTurn),
                 onEnd: () =>
                 {
-                    Debug.unityLogger.Log(Player.Instance.CurrentMovesCount);
-                    Debug.unityLogger.Log(_states.Peek());
                     _states.Pop();
                     StartCoroutine(EnemiesTurn());
                 }).Start();
