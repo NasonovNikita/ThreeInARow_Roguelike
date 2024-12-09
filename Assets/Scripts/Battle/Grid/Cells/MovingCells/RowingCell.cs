@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Battle.Grid.Cells.MovingCells
 {
@@ -12,7 +13,7 @@ namespace Battle.Grid.Cells.MovingCells
             for (var i = 0; i < Grid.Instance.sizeY; i++)
             for (var j = 0; j < Grid.Instance.sizeX; j++)
             {
-                if (i < Grid.Instance.sizeY - 2 && RowExists(i, j, di: 1))
+                if (i < Grid.Instance.sizeY - CountInRow + 1 && RowExists(i, j, di: 1))
                 {
                     for (var di = 0; di < CountInRow; di++)
                     {
@@ -21,9 +22,9 @@ namespace Battle.Grid.Cells.MovingCells
                 }
 
                 // ReSharper disable once InvertIf
-                if (j < Grid.Instance.sizeX - 2 && RowExists(i, j, dj: 1))
+                if (j < Grid.Instance.sizeX - CountInRow + 1 && RowExists(i, j, dj: 1))
                 {
-                    for (var dj = 0; dj < CountInRow; dj++)
+                    for (var dj = 0; dj < CountInRow; dj++) 
                     {
                         found.Add((RowingCell)Grid.Instance.Box[i, j + dj]);
                     }

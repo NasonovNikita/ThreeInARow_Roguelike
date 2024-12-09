@@ -9,10 +9,17 @@ namespace Battle.UI
     /// </summary>
     public class GridResizer : MonoBehaviour
     {
+        public static GridResizer Instance { get; private set; }
+        
         [SerializeField] private Grid.Grid grid;
         [SerializeField] private GridLayoutGroup layout;
 
-        public void Start()
+        public void Awake()
+        {
+            Instance = this;
+        }
+
+        public void Resize()
         {
             // Sizes required to fit cells
             var x = (int)((layout.spacing.x + layout.cellSize.x) * grid.sizeX);

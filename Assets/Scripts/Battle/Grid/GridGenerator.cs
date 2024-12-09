@@ -23,9 +23,13 @@ namespace Battle.Grid
         
         [SerializeField] private float refillTime;
 
-        public void Start()
+        public void Awake()
         {
             Instance = this;
+        }
+
+        public void Init()
+        {
             Generate();
 
             Grid.Instance.InitGrid();
@@ -125,8 +129,6 @@ namespace Battle.Grid
 
         public Cell CellToShuffleWith(Cell cell)
         {
-            const int maxTries = 1000;
-
             var successVariants = new List<(int, int)>();
 
             foreach (var x in Enumerable.Range(0, Grid.Instance.sizeX))
@@ -151,29 +153,6 @@ namespace Battle.Grid
             var chosenVariant = Tools.Random.RandomChoose(successVariants);
 
             return Grid.Instance.Box[chosenVariant.Item1, chosenVariant.Item2];
-            
-            // var done = false;
-            // Cell second;
-            //
-            // do
-            // {
-            //     int x;
-            //     int y;
-            //     do
-            //     {
-            //         x = Random.Range(0, Grid.Instance.sizeX);
-            //         y = Random.Range(0, Grid.Instance.sizeY);
-            //     } while (Grid.Instance.Box[x, y].IsInGridBox && Grid.Instance.Box[x, y].IsSameType(cell));
-            //     
-            //     second = Grid.Instance.Box[x, y];
-            //     
-            //     Grid.Instance.SwitchCellsMuted(cell, second);
-            //     if (!BoxIsStable) Grid.Instance.SwitchCellsMuted(cell, second);
-            //     else done = true;
-            // } while (!done);
-            //
-            // Grid.Instance.SwitchCellsMuted(cell, second);
-            // return second;
         }
     }
 }

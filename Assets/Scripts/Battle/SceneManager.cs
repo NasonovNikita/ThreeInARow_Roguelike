@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Audio;
+using Battle.Grid;
 using Battle.UI;
 using Battle.Units;
 using Core.Saves;
@@ -43,6 +44,17 @@ namespace Battle
             BattleFlowManager.Instance.Init();
             PickerManager.Instance.PickNextPossible();
 
+            if (EnemyGroup.isBoss)
+            {
+                ChangeGridSize(2);
+
+                BattleFlowManager.Instance.OnBattleEnd += () => ChangeGridSize(-2);
+            }
+            Grid.Grid.Instance.Init();
+            GridResizer.Instance.Resize();
+            GridGenerator.Instance.Init();
+            
+
             Player.Instance.Init();
 
             BattleFlowManager.Instance.OnBattleWin += WinBattle;
@@ -82,6 +94,12 @@ namespace Battle
 
         private Enemy LoadEnemy(Enemy enemy) =>
             Instantiate(enemy, mainCanvas.transform, false);
+
+        private void ChangeGridSize(int dSize)
+        {
+            Grid.Grid.Instance.sizeX += dSize;
+            Grid.Grid.Instance.sizeY += dSize;
+        }
 
         private void PlaceEnemies()
         {

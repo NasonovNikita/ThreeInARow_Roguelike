@@ -35,9 +35,11 @@ namespace Battle.Grid
         public void Awake()
         {
             Instance = this;
+        }
 
+        public void Init()
+        {
             _points = new RectTransform[sizeY, sizeX];
-
             for (var i = 0; i < sizeY; i++)
             for (var j = 0; j < sizeX; j++)
                 _points[i, j] = Instantiate(cellPrefab, transform);
