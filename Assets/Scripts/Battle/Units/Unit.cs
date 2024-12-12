@@ -86,13 +86,14 @@ namespace Battle.Units
         {
             if (Dead || hp > 0) return;
 
-            Dead = true;
             Die();
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
         public void Die()
         {
+            Dead = true;
+            
             OffScreenPoint.Instance.Hide(gameObject);
             OnDied?.Invoke();
         }

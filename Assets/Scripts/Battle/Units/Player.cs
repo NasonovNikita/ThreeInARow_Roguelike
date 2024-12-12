@@ -24,7 +24,7 @@ namespace Battle.Units
         public static Player Instance { get; private set; }
 
         public override List<Unit> Enemies =>
-            new(BattleFlowManager.Instance.EnemiesWithoutNulls);
+            new(BattleFlowManager.Instance.EnemiesAlive);
 
         public override void Awake()
         {

@@ -25,8 +25,8 @@ namespace Battle
         ///     before manager goes to next step (e.g. next unit's turn), <b>here</b>.
         /// </summary>
 
-        public List<Enemy> EnemiesWithoutNulls =>
-            EnemiesWithNulls.Where(enemy => enemy != null).ToList();
+        public List<Enemy> EnemiesAlive =>
+            EnemiesWithNulls.Where(enemy => enemy != null && !enemy.Dead).ToList();
 
         public Unit CurrentlyTurningUnit { get; private set; }
 
@@ -142,7 +142,7 @@ namespace Battle
             _states.Push(BattleState.EnemyTurn);
             OnEnemiesTurnStart?.Invoke();
 
-            foreach (var enemy in EnemiesWithoutNulls)
+            foreach (var enemy in EnemiesAlive)
             {
                 CurrentlyTurningUnit = enemy;
                 yield return StartCoroutine(enemy.Turn());
@@ -165,7 +165,7 @@ namespace Battle
 
         private void InitEnemies()
         {
-            foreach (var enemy in EnemiesWithoutNulls)
+            foreach (var enemy in EnemiesAlive)
             {
                 enemy.target = Player.Instance;
                 enemy.OnDied += OnEnemyDeath;
@@ -178,7 +178,7 @@ namespace Battle
 
         private void OnEnemyDeath()
         {
-            if (EnemiesWithoutNulls.Any(enemy => !enemy.Dead)) return;
+            if (EnemiesAlive.Any(enemy => !enemy.Dead)) return;
 
             BattleEnd();
             OnBattleWin?.Invoke();

@@ -13,7 +13,7 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
         public override void Attach()
         {
             foreach (var unit in new List<Unit>(BattleFlowManager.Instance
-                             .EnemiesWithoutNulls)
+                             .EnemiesAlive)
                          { Player.Instance })
             {
                 unit.OnDied += () => CheckAndWrite($"{UnitInfo(unit)} died");
@@ -38,7 +38,7 @@ namespace DevTools.DebugLogging.LoggingGroups.Battle
 
             string EnemyInfo(Enemy enemy) =>
                 $"Enemy ({enemy.name}) " +
-                $"at index {BattleFlowManager.Instance.EnemiesWithoutNulls.IndexOf(enemy)}";
+                $"at index {BattleFlowManager.Instance.EnemiesAlive.IndexOf(enemy)}";
 
             void AttachToStatChanges(Unit unit)
             {

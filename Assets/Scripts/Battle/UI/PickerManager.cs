@@ -30,7 +30,7 @@ namespace Battle.UI
 
         public void PickNextPossible()
         {
-            if (BattleFlowManager.Instance.EnemiesWithoutNulls.All(enemy => enemy.Dead))
+            if (BattleFlowManager.Instance.EnemiesAlive.All(enemy => enemy.Dead))
                 return;
 
             for (var i = 0; i < _allowedToPick.Length; i++)

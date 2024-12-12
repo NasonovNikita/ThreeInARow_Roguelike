@@ -43,7 +43,7 @@ namespace Battle.Units.Statuses
         {
             if (BelongingUnit.mana < manaBorder) return;
 
-            foreach (var enemy in BattleFlowManager.EnemiesWithoutNulls)
+            foreach (var enemy in BattleFlowManager.EnemiesAlive)
                 enemy.TakeDamage(dmg);
         }
 

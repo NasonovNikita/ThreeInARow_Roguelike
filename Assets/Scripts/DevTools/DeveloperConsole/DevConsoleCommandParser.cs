@@ -466,7 +466,7 @@ namespace DevTools.DeveloperConsole
             {
                 case "everyone":
                 case "all":
-                    units = new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls)
+                    units = new List<Unit>(BattleFlowManager.Instance.EnemiesAlive)
                         { Player.Instance };
                     break;
                 case "player":
@@ -474,7 +474,7 @@ namespace DevTools.DeveloperConsole
                     break;
                 case "enemies":
                     units = new List<Unit>(BattleFlowManager.Instance
-                        .EnemiesWithoutNulls);
+                        .EnemiesAlive);
                     break;
                 case "enemy":
                     if (args.Count == 1)

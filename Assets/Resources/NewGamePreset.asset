@@ -41,7 +41,6 @@ MonoBehaviour:
   - {fileID: 7779857467893497367, guid: 82dd727a3acf0b948af76be66206a37a, type: 3}
   - {fileID: 9069243778840958549, guid: e63002fb71afe6f4fb8ab4a2373d6b69, type: 3}
   - {fileID: 8266571195816668199, guid: 8c866997fb6788a45befd66edca5fc79, type: 3}
-  - {fileID: 6324670042073988301, guid: 394c1e431ab2fa43785eeb5c8c2528a6, type: 3}
   money: 20
   references:
     version: 2
