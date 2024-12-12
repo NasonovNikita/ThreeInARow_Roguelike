@@ -15,6 +15,11 @@ namespace Battle.Grid
         public int sizeX;
         public int sizeY;
 
+        /// <summary>
+        /// Count of cells
+        /// </summary>
+        public int Size => sizeX * sizeY;
+
         private ObjectPool<Cell> _cellPool;
         private RectTransform[,] _points;
 

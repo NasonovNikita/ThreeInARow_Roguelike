@@ -1,3 +1,4 @@
+using Battle.Units;
 using Battle.Units.StatModifiers;
 using Battle.Units.Statuses;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Battle.Spells
         {
             UnitBelong.damage.mods.Add(new DamageMoveMod(damage, damageModMoves));
             UnitBelong.Statuses.Add(new Stun(stunMoves));
+            
+            if (UnitBelong is Player) Player.Instance.WasteAllMoves();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
 
         public override bool BoxIsStable(Cell[,] box)
         {
-            return base.BoxIsStable(box) && Tools.MultiDimToOne(box).Count(IsSameType) == count;
+            return base.BoxIsStable(box) && Tools.MultiDimToOne(box).Count(IsSameType) <= Grid.Instance.Size / 6;
         }
 
         protected override void Use()

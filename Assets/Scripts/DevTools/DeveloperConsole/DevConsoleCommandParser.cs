@@ -577,7 +577,14 @@ namespace DevTools.DeveloperConsole
                 return false;
             }
         }
-
+    
+        private static string GiveCell(IReadOnlyList<string> args)
+        {
+            return "";
+        }
+        
+        
+        
         #endregion
     }
 }

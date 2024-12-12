@@ -33,7 +33,12 @@ namespace Battle.Units.StatModifiers
         protected abstract Sprite SpriteNegative { get; }
 
 
-        int IIntModifier.Modify(int val) => val + value;
+        int IIntModifier.Modify(int val)
+        {
+            if (EndedWork) return val;
+            
+            return val + value;
+        }
 
         public override string SubInfo => value.ToString();
         protected override bool HiddenEndedWork => value == 0;
