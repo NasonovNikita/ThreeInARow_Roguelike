@@ -49,12 +49,15 @@ namespace Battle.Units.Statuses
 
         private void CheckAndApply()
         {
-            if (!_enemyDied)
+            if (!EndedWork && !_enemyDied)
                 BelongingUnit.damage.mods.Add(new DamageConstMod(damageAddition));
             _enemyDied = false;
         }
 
-        protected override bool HiddenCanConcat(Modifier other) => other is Irritation;
+        protected override bool HiddenCanConcat(Modifier other)
+        {
+            return other is Irritation irritation && irritation.moveCounter.Moves == moveCounter.Moves;
+        }
 
         protected override void HiddenConcat(Modifier other)
         {

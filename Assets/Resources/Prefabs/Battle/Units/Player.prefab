@@ -328,7 +328,7 @@ MonoBehaviour:
       list: []
   spells: []
   target: {fileID: 0}
-  maxMoves: 5
+  maxMoves: 4
   references:
     version: 2
     RefIds: []

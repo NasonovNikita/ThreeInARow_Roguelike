@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Battle;
+using Battle.Grid;
 using Battle.Items;
 using Battle.Modifiers;
 using Battle.Units;
@@ -31,7 +32,8 @@ namespace DevTools.DeveloperConsole
             { "ChangeStatValue", ChangeStat },
             { "UnlockMap", UnlockMap },
             { "LockMap", LockMap },
-            { "GiveItem", GiveItem }
+            { "GiveItem", GiveItem },
+            { "GiveCell", GiveCell }
         };
 
         /// <summary>
@@ -580,11 +582,48 @@ namespace DevTools.DeveloperConsole
     
         private static string GiveCell(IReadOnlyList<string> args)
         {
-            return "";
+            switch (args.Count)
+            {
+                case 0:
+                    return ArgumentsRequired;
+                case > 1:
+                    return "Too many arguments";
+            }
+
+            if (Player.Data.cells is null) return "Can't add cells while not loaded. Start new game or continue";
+
+            var name = char.ToUpper(args[0][0]) + args[0][1..];
+
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            if (!TryCreateCell(name, out var cell, out var errorMessage))
+                return errorMessage;
+            
+            if (!Player.Data.cells.Contains(cell))
+            {
+                Player.Data.cells.Add(cell);
+            }
+
+            return $"Added cell: {cell}";
         }
-        
-        
-        
+
+        private static bool TryCreateCell(string name, out Cell cell, out string errorMessage)
+        {
+            cell = null;
+            errorMessage = "";
+
+            try
+            {
+                cell = Resources.Load<Cell>($"Prefabs/Battle/Cells/{name}");
+                
+                return true;
+            }
+            catch (Exception e)
+            {
+                errorMessage = $"Caught exception: {e}";
+                return false;
+            }
+        }
+
         #endregion
     }
 }
