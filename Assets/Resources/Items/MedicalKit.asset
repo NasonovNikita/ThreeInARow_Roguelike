@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fb7244e7e848f3b33ba5b205f8cca3, type: 3}
   m_Name: MedicalKit
   m_EditorClassIdentifier: 
-  rarity: 1
+  rarity: 4
   img: {fileID: 0}
   titleKeyRef:
     _key: MedicalKit

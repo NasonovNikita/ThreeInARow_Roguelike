@@ -1,5 +1,4 @@
 using Battle.Modifiers;
-using Battle.Units.StatModifiers;
 using Other;
 using UnityEngine;
 
@@ -18,8 +17,9 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
 
         protected override void Use()
         {
-            BattleFlowManager.Instance.CurrentlyTurningUnit.target.damage.mods.Add(
-                new Frozen(freezeAmount));
+            BattleFlowManager.Instance.CurrentlyTurningUnit.damage.mods.Add(
+                new Units.StatModifiers.Frozen(
+                    IIntModifier.UseModList(Modifiers.List, freezeAmount)));
         }
     }
 }

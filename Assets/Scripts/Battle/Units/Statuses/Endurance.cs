@@ -6,10 +6,14 @@ using UnityEngine;
 
 namespace Battle.Units.Statuses
 {
+    /// <summary>
+    ///     Get more shield when getting shield
+    /// </summary>
     public class Endurance : Status
     {
         private readonly MoveCounter _counter;
         private readonly int _bonus;
+        private bool _isAddedByEndurance;
 
         protected override bool HiddenEndedWork => _counter.EndedWork;
 
@@ -22,8 +26,14 @@ namespace Battle.Units.Statuses
         public override void Init(Unit unit)
         {
             base.Init(unit);
+            if (_isAddedByEndurance)  // Prevents loop of adding shields
+            {
+                _isAddedByEndurance = false;
+                return;
+            }
             BelongingUnit.hp.onTakingDamageMods.OnModAdded += mod =>
             {
+                _isAddedByEndurance = true;
                 if (mod is Shield)
                     BelongingUnit.hp.onTakingDamageMods.Add(new Shield(_bonus));
             };

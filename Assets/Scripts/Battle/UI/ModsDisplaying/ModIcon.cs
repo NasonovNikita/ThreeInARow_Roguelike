@@ -29,10 +29,10 @@ namespace Battle.UI.ModsDisplaying
 
             icon._mod = mod;
 
+            icon._mod.OnChanged += icon.CheckMod;
             icon.img.sprite = mod.Sprite;
             icon.subInfo.text = mod.SubInfo;
             icon.modInfo.text = mod.Description;
-            icon._mod.OnChanged += icon.CheckMod;
         }
 
         private void CheckMod()

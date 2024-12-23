@@ -2300,7 +2300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield:
-    _key: ModShieldDescription
+    _key: ShieldModDescription
     _formatters: []
   damagePositive:
     _key: DamageModDescriptionPositive
@@ -2333,13 +2333,13 @@ MonoBehaviour:
     _key: DealModDescription
     _formatters: []
   endurance:
-    _key: 
+    _key: EnduranceModDescription
     _formatters: []
   fury:
     _key: FuryModDescription
     _formatters: []
   frozen:
-    _key: 
+    _key: FrozenModDescription
     _formatters: []
   immortality:
     _key: ImmortalityModDescription
@@ -2363,7 +2363,7 @@ MonoBehaviour:
     _key: VampirismModDescription
     _formatters: []
   reflection:
-    _key: 
+    _key: ReflectionModDescription
     _formatters: []
   references:
     version: 2
@@ -3291,8 +3291,8 @@ MonoBehaviour:
   burning: {fileID: 21300000, guid: 34bbf9e14bffd6644ac36b3416772dfb, type: 3}
   damage: {fileID: -460376368110710891, guid: 27afab3641c169b428409c0e136685c0, type: 3}
   deal: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
-  endurance: {fileID: 0}
-  fury: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
+  endurance: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
+  fury: {fileID: 21300000, guid: 92935d7f48fadda778be709f394f8601, type: 3}
   manaMod: {fileID: 7946027417908342247, guid: d08bbbebaf761954bb19bc3ec975123d, type: 3}
   shield: {fileID: -4471335532245260209, guid: b995ee947cebe454a8db8e1c55fb8efc, type: 3}
   healing: {fileID: -3094117710451779448, guid: 284e30720a629de4697c930bf25d6c18, type: 3}
@@ -3301,9 +3301,9 @@ MonoBehaviour:
   stun: {fileID: -1937328843035238197, guid: e67749658568bdc41bb42430f9752772, type: 3}
   irritation: {fileID: -4733730143810245763, guid: bbd974a0f96397f4ea4f879813f7d12c, type: 3}
   randomIgnition: {fileID: -8821602397545208518, guid: 4c2e3660853cfb142bf8963cf51b41b4, type: 3}
-  sharp: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
-  frozen: {fileID: 0}
-  reflection: {fileID: 0}
+  sharp: {fileID: 21300000, guid: 4ccd69705ccd087deb1cf60364df654e, type: 3}
+  frozen: {fileID: 21300000, guid: ccbcfff57caef6324a4871be8a6385f7, type: 3}
+  reflection: {fileID: 21300000, guid: 1d69addeac404c82b9a393a57e3c5160, type: 3}
   vampirism: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
 --- !u!1 &2061605703
 GameObject:

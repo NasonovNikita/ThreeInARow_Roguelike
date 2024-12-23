@@ -129,7 +129,7 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
-  - _key: FrozenDescription
+  - _key: FrozenModDescription
     _metadata:
       _runtime: []
       _editor: []
@@ -557,7 +557,7 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
-  - _key: ModShieldDescription
+  - _key: ShieldModDescription
     _metadata:
       _runtime: []
       _editor: []
@@ -686,6 +686,14 @@ MonoBehaviour:
       _runtime: []
       _editor: []
   - _key: TurnsLeft
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: ReflectionModDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: EnduranceModDescription
     _metadata:
       _runtime: []
       _editor: []

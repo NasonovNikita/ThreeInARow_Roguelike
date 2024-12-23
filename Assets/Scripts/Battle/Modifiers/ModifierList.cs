@@ -25,8 +25,8 @@ namespace Battle.Modifiers
         public event Action<Modifier> OnModAdded;
 
         /// <summary>
-        ///     Adds a new modifier to list. If it is possible to <see cref="Modifier.Concat">concat</see> a mod with another one
-        ///     it will.
+        ///     Adds a new modifier to list. If it is possible to <see cref="Modifier.Concat">concat</see>
+        ///     a mod with another one it will.
         /// </summary>
         /// <remarks>Invokes OnModAdded event only if mod was added instead of concatenation.</remarks>
         public void Add(Modifier elem)
@@ -41,7 +41,9 @@ namespace Battle.Modifiers
         }
 
 
-        /// <summary>   Shortcut for using both <see cref="RemoveTempMods"/> and <see cref="UnAttachEvents"/>.    </summary>
+        /// <summary>
+        ///     Shortcut for using both <see cref="RemoveTempMods"/> and <see cref="UnAttachEvents"/>.
+        /// </summary>
         public void RemoveTempModsAndUnAttach()
         {
             RemoveTempMods();

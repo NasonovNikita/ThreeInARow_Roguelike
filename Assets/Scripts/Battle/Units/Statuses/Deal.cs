@@ -6,8 +6,12 @@ using Core.Singleton;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+
 namespace Battle.Units.Statuses
 {
+    /// <summary>
+    ///     If you don't use spells during battle get more damage permanently
+    /// </summary>
     [Serializable]
     public class Deal : Status
     {

@@ -251,7 +251,8 @@ namespace DevTools.DeveloperConsole
                         "hpDamageConstMod",
                         "hpDamageMoveMod",
                         "manaWastingConstMod",
-                        "manaWastingMoveMod"
+                        "manaWastingMoveMod",
+                        "frozen"
                     }
                 }
             };

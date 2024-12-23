@@ -1,36 +1,31 @@
+using System;
 using Battle.Modifiers;
 using Battle.UI.ModsDisplaying;
 using Core.Singleton;
-using Other;
 using UnityEngine;
 
 namespace Battle.Units.StatModifiers
 {
-    public class Frozen : UnitModifier, IIntModifier, IModIconModifier
+    [Serializable]
+    public class Frozen : OneTurnCounter, IIntModifier
     {
-        private readonly Counter _counter;
+        public Frozen(int count, bool isSaved = false) : base(count, isSaved)
+        { }
 
-        protected override bool HiddenEndedWork => _counter.EndedWork;
-
-        public Frozen(int count, bool isSaved = false) : base(isSaved)
-        {
-            _counter = CreateChangeableSubSystem(new Counter(count));
-        }
-
-        protected override bool HiddenCanConcat(Modifier other) =>
-            other is Frozen;
-
-        protected override void HiddenConcat(Modifier other) => 
-            _counter.ConcatWith(((Frozen)other)._counter);
-
-        int IIntModifier.Modify(int val) => _counter.Decrease(val);
+        int IIntModifier.Modify(int val) => Counter.Decrease(val);
 
         public override Sprite Sprite => ModSpritesContainer.Instance.frozen;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
-                ModDescriptionsContainer.Instance.frozen.Value, _counter.Count);
+                ModDescriptionsContainer.Instance.frozen.Value, Counter.Count);
 
-        public override string SubInfo => _counter.SubInfo;
+        public override string SubInfo => Counter.SubInfo;
+
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is Frozen;
+
+        protected override void HiddenConcat(Modifier other) => 
+            Counter.ConcatWith(((Frozen)other).Counter);
     }
 }

@@ -15,7 +15,7 @@ namespace Battle.Modifiers
         public static int UseModList(IEnumerable<Modifier> list, int val)
         {
             // ReSharper disable once PossibleInvalidOperationException
-            return (int)list?.Where(mod => mod is IIntModifier)
+            return (int)list?.Where(mod => mod is IIntModifier && !mod.EndedWork)
                 .Select(mod => (IIntModifier)mod)
                 .Aggregate(val, (current, mod) => mod.Modify(current));
         }

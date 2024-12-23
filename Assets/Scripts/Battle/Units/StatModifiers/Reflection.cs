@@ -6,25 +6,19 @@ using UnityEngine;
 
 namespace Battle.Units.StatModifiers
 {
-    public class Reflection : UnitModifier, IIntModifier, IModIconModifier
+    public class Reflection : OneTurnCounter, IIntModifier, IModIconModifier
     {
-        private readonly Counter _counter;
+        public Reflection(int count, bool isSaved = false) : base(count, isSaved)
+        { }
 
-        protected override bool HiddenEndedWork => _counter.EndedWork;
-
-        public Reflection(int count, bool isSaved = false) : base(isSaved)
-        {
-            _counter = CreateChangeableSubSystem(new Counter(count));
-        }
-        
         protected override bool HiddenCanConcat(Modifier other) => other is Reflection;
 
         protected override void HiddenConcat(Modifier other) =>
-            _counter.ConcatWith(((Reflection)other)._counter);
+            Counter.ConcatWith(((Reflection)other).Counter);
 
         int IIntModifier.Modify(int val)
         {
-            BelongingUnit.target.TakeDamage(val - _counter.Decrease(val));
+            BelongingUnit.target.TakeDamage(val - Counter.Decrease(val));
 
             return val;
         }
@@ -33,8 +27,8 @@ namespace Battle.Units.StatModifiers
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
-                ModDescriptionsContainer.Instance.reflection.Value, _counter.Count);
+                ModDescriptionsContainer.Instance.reflection.Value, Counter.Count);
         
-        public override string SubInfo => _counter.SubInfo;
+        public override string SubInfo => Counter.SubInfo;
     }
 }
