@@ -23,9 +23,9 @@ namespace Battle.Units
         public void Update()
         {
             if (!_doIncrease ||
-                !(Time.time - _lastIncreaseTime > timeBetweenIncrements)) return;
-
-
+                !(Time.time - _lastIncreaseTime > timeBetweenIncrements) ||
+                unit.mana.Value == unit.mana.BorderUp) return;
+            
             unit.mana.Refill(incrementAmount);
             _lastIncreaseTime = Time.time;
         }
