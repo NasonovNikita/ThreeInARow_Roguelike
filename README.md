@@ -24,10 +24,6 @@ You can make own build using Unity Engine. If you don't know how, the build is i
 ### My contacts:
 Email: Cyclist2006@yandex.ru, s24v_nasonov@179.ru
 
-Phone: +7 (916) 612 84-43
-
-Copy-paste able phone: +79166128442
-
 Telegram: @nosokvkokose
 
 
