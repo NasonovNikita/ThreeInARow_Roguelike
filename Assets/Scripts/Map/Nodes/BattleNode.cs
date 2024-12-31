@@ -9,12 +9,13 @@ namespace Map.Nodes
 
         protected override void Action()
         {
-            RoomLoader.LoadBattle(layer, seed, isBoss);
+            RoomLoader.LoadBattle(Layer, Seed, isBoss);
         }
 
         public static BattleNode Create(int layer, int seed, bool isBoss)
         {
-            var node = (BattleNode)Create(PrefabsContainer.instance.battleNode, layer, seed);
+            var node =
+                (BattleNode)Create(PrefabsContainer.Instance.battleNode, layer, seed);
             node.isBoss = isBoss;
 
             return node;

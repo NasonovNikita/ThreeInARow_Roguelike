@@ -80,8 +80,8 @@ MonoBehaviour:
     _rawText: Misses with {0}% chance
   - _key: PoisoningDescription
     _rawText: Takes {0} poison dmg every turn
-  - _key: FrozenDescription
-    _rawText: Skips turn
+  - _key: FrozenModDescription
+    _rawText: Won't deal up to {} damage
   - _key: IrritatedDescription
     _rawText: Will deal {0} more physical dmg per gem if nobody dies this turn
   - _key: IgnitionDescription
@@ -301,8 +301,8 @@ MonoBehaviour:
     _rawText: 'Money found: {}'
   - _key: ToMap
     _rawText: To map
-  - _key: ModShieldDescription
-    _rawText: Absorbs {0} damage
+  - _key: ShieldModDescription
+    _rawText: Absorbs up to {0} damage
   - _key: DamageModDescriptionPositive
     _rawText: Increases damage by {0}
   - _key: DamageModDescriptionNegative
@@ -367,3 +367,20 @@ MonoBehaviour:
     _rawText: Refills {} mana
   - _key: ShieldCellDescription
     _rawText: Gives you {} shield(s)
+  - _key: TurnsLeft
+    _rawText: 'Turns left: {}'
+  - _key: ReflectionModDescription
+    _rawText: Up to {} damage will be reflected to enemy
+  - _key: EnduranceModDescription
+    _rawText: When you get shield and you didnt have it before, gain {} more
+  - _key: BatteryCellDescription
+    _rawText: Deals {damage} damage. Insted of dissapearing it shuffles in the grid
+      and mutiplies its damage by {multiplier} up to {timesToIncrease} times.
+  - _key: HeavyAttackCellDescription
+    _rawText: Deals {0} damage. Needs 4 in a row
+  - _key: HolyWaterCellDescription
+    _rawText: Deletes all statuses
+  - _key: IceCellDescription
+    _rawText: Gives {} freeze
+  - _key: MirrorCellDescription
+    _rawText: Gives {} reflection

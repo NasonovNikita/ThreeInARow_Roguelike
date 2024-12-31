@@ -8,7 +8,6 @@ namespace Core.Saves
     {
         private static string Path => Application.persistentDataPath;
 
-
         public static void Save(SaveObject data, string path)
         {
             var formatter = new BinaryFormatter();

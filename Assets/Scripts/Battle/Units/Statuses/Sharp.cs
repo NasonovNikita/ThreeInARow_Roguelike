@@ -13,25 +13,24 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int addition;
 
-        private List<Unit> hitEnemies = new();
+        private List<Unit> _hitEnemies = new();
 
-        public Sharp(int addition, bool save = false) : base(save)
-        {
+        public Sharp(int addition, bool isSaved = false) : base(isSaved) =>
             this.addition = addition;
-        }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.sharp;
+        public override Sprite Sprite => ModSpritesContainer.Instance.sharp;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.sharp.Value,
+            IModIconModifier.SimpleFormatDescription(
+                ModDescriptionsContainer.Instance.sharp.Value,
                 addition);
 
         public override string SubInfo => addition.ToString();
-        public override bool ToDelete => addition == 0;
+        protected override bool HiddenEndedWork => addition == 0;
 
         public override void Init(Unit unit)
         {
-            foreach (Unit enemy in unit.Enemies)
+            foreach (var enemy in unit.Enemies)
                 enemy.hp.OnValueChanged += _ => ApplyMod(enemy);
 
             BattleFlowManager.OnCycleEnd += EmptyEnemiesList;
@@ -41,23 +40,20 @@ namespace Battle.Units.Statuses
 
         private void ApplyMod(Unit enemy)
         {
-            if (hitEnemies.Contains(enemy)) return;
+            if (_hitEnemies.Contains(enemy)) return;
 
             enemy.hp.onTakingDamageMods.Add(new HpDamageConstMod(addition));
-            hitEnemies.Add(enemy);
+            _hitEnemies.Add(enemy);
         }
 
         private void EmptyEnemiesList()
         {
-            hitEnemies = new List<Unit>();
+            _hitEnemies = new List<Unit>();
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is Sharp;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Sharp;
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             addition += ((Sharp)other).addition;
         }

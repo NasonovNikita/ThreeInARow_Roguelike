@@ -6,7 +6,7 @@ namespace Battle.Units.StatModifiers
 {
     public abstract class ManaWastingMod : ValuedStatModifier
     {
-        protected ManaWastingMod(int value, bool save = false) : base(value, save)
+        protected ManaWastingMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 
@@ -18,8 +18,10 @@ namespace Battle.Units.StatModifiers
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
             ModDescriptionsContainer.Instance.manaWastingNegative;
 
-        protected override Sprite SpritePositive => ModifierSpritesContainer.Instance.manaMod;
+        protected override Sprite SpritePositive =>
+            ModSpritesContainer.Instance.manaMod;
 
-        protected override Sprite SpriteNegative => ModifierSpritesContainer.Instance.manaMod;
+        protected override Sprite SpriteNegative =>
+            ModSpritesContainer.Instance.manaMod;
     }
 }

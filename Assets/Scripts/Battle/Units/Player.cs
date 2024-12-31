@@ -5,20 +5,26 @@ using Audio;
 using Battle.Modifiers;
 using Battle.Spells;
 using Battle.Units.Statuses;
+using Other;
 using UnityEngine;
 
 namespace Battle.Units
 {
+    /// <summary>
+    ///     Has moves (does multiple actions in one turn).
+    ///     Is controlled by <i>Player</i>.
+    /// </summary>
     [Serializable]
     public class Player : Unit
     {
-        public static PlayerData data;
+        public static PlayerData Data;
         [SerializeField] private int maxMoves;
-        private int currentMovesCount;
+        public int CurrentMovesCount { get; private set; }
 
         public static Player Instance { get; private set; }
 
-        public override List<Unit> Enemies => new(BattleFlowManager.Instance.EnemiesWithoutNulls);
+        public override List<Unit> Enemies =>
+            new(BattleFlowManager.Instance.EnemiesAlive);
 
         public override void Awake()
         {
@@ -36,61 +42,65 @@ namespace Battle.Units
             Save();
         }
 
+        public event Action OnMovesCountChanged;
+
         public void RefillMoves()
         {
-            currentMovesCount = maxMoves;
+            CurrentMovesCount = maxMoves;
+            OnMovesCountChanged?.Invoke();
         }
 
         public void WasteAllMoves()
         {
-            currentMovesCount = 0;
+            CurrentMovesCount = 0;
+            OnMovesCountChanged?.Invoke();
         }
 
         public void AddMove()
         {
-            currentMovesCount++;
+            CurrentMovesCount++;
         }
 
         public void AddMoves(int count)
         {
-            currentMovesCount += count;
+            CurrentMovesCount += count;
+            OnMovesCountChanged?.Invoke();
         }
 
         public void WasteMove()
         {
-            currentMovesCount -= 1;
+            CurrentMovesCount -= 1;
+            OnMovesCountChanged?.Invoke();
         }
 
         public void StartTurn()
         {
-            BattleFlowManager.Instance.endedProcesses.Add(() => currentMovesCount == 0);
-
-            if (statuses.ModList.Exists(mod => mod is Stun { EndedWork: false }))
-                currentMovesCount = 0;
+            if (Statuses.List.Exists(mod => mod is Stun { EndedWork: false }))
+                WasteAllMoves();
         }
 
         private void Load()
         {
-            hp = data.hp;
-            mana = data.mana;
-            damage = data.damage;
+            hp = Data.hp;
+            mana = Data.mana;
+            damage = Data.damage;
 
-            spells = new List<Spell>(data.spells);
-            statuses = new ModifierList(data.statuses);
+            spells = new List<Spell>(Data.spells);
+            Statuses = new ModifierList(Data.statuses);
         }
 
-        public void LateLoad()
+        public void Init()
         {
             hp.Init();
             mana.Init();
             damage.Init();
 
-            foreach (Status status in statuses.ModList.Cast<Status>()) status.Init(this);
+            foreach (var status in Statuses.List.Cast<Status>()) status.Init(this);
         }
 
         private void Save()
         {
-            data = PlayerData.NewData(this, data);
+            Data = PlayerData.NewData(this, Data);
         }
     }
 }

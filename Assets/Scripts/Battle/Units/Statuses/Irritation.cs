@@ -13,26 +13,28 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int damageAddition;
         [SerializeField] private MoveCounter moveCounter;
-        private bool enemyDied;
+        private bool _enemyDied;
 
-        public Irritation(int damageAddition, int moves, bool save = false) : base(save)
+        public Irritation(int damageAddition, int moves, bool isSaved = false) : base(isSaved)
         {
             this.damageAddition = damageAddition;
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
         }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.irritation;
+        public override Sprite Sprite => ModSpritesContainer.Instance.irritation;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
                 ModDescriptionsContainer.Instance.irritation.Value, damageAddition);
 
         public override string SubInfo => moveCounter.SubInfo;
-        public override bool ToDelete => moveCounter.EndedWork || damageAddition == 0;
+
+        protected override bool HiddenEndedWork =>
+            moveCounter.EndedWork || damageAddition == 0;
 
         public override void Init(Unit unit)
         {
-            foreach (Unit enemy in unit.Enemies.Where(enemy => enemy != null))
+            foreach (var enemy in unit.Enemies.Where(enemy => enemy != null))
                 enemy.hp.OnValueChanged += _ => CheckEnemy(enemy);
 
             BattleFlowManager.OnCycleEnd += CheckAndApply;
@@ -42,21 +44,22 @@ namespace Battle.Units.Statuses
 
         private void CheckEnemy(Unit enemy)
         {
-            if (enemy.Dead) enemyDied = true;
+            if (enemy.Dead) _enemyDied = true;
         }
 
         private void CheckAndApply()
         {
-            if (!enemyDied) belongingUnit.damage.mods.Add(new DamageConstMod(damageAddition));
-            enemyDied = false;
+            if (!EndedWork && !_enemyDied)
+                BelongingUnit.damage.mods.Add(new DamageConstMod(damageAddition));
+            _enemyDied = false;
         }
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other)
         {
-            return other is Irritation;
+            return other is Irritation irritation && irritation.moveCounter.Moves == moveCounter.Moves;
         }
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             damageAddition += ((Irritation)other).damageAddition;
         }

@@ -13,11 +13,12 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            var possible = unitBelong.Enemies
+            var possible = UnitBelong.Enemies
                 .Where(enemy => enemy != null && enemy.damage != 0)
                 .ToList();
 
-            Tools.Random.RandomChoose(possible).damage.mods.Add(new DamageMoveMod(damage, moves));
+            Tools.Random.RandomChoose(possible).damage.mods
+                .Add(new DamageMoveMod(damage, moves));
         }
     }
 }

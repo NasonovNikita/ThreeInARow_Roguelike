@@ -15,7 +15,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddStatus(new Deal(value, true));
+            Player.Data.AddStatus(new Deal(value, true));
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Battle;
+using Battle.Grid;
 using Battle.Items;
 using Battle.Modifiers;
 using Battle.Units;
@@ -31,23 +32,32 @@ namespace DevTools.DeveloperConsole
             { "ChangeStatValue", ChangeStat },
             { "UnlockMap", UnlockMap },
             { "LockMap", LockMap },
-            { "GiveItem", GiveItem }
+            { "GiveItem", GiveItem },
+            { "GiveCell", GiveCell }
         };
 
-        public string Parse(string input)
+        /// <summary>
+        ///     Parses user's input and converts it to executable
+        ///     <see cref="Func{String}">command</see> that returns an execution reply (string).<br/>
+        ///     Also return a reply itself.
+        /// </summary>
+        /// <param name="input">User's input</param>
+        /// <param name="reply">Parser's reply that can be logged</param>
+        /// <returns>Func with string reply</returns>
+        public Func<string> Parse(string input, out string reply)
         {
-            if (!_commands.TryGetValue(GetCommand(input), out Command command))
-                return WrongCommandReply;
+            reply = "SUCCESSFULLY PARSED COMMAND";
+            if (_commands.TryGetValue(GetCommand(input), out var command))
+                return ResultingFunc;
 
-            var reply = command?.Invoke(GetArgs(input));
+            reply = WrongCommandReply;
+            return null;
 
-            return reply;
+            string ResultingFunc() => command.Invoke(GetArgs(input));
         }
 
-        private static string GetCommand(string input)
-        {
-            return input.Split(ArgumentsSeparator)[0];
-        }
+        private static string GetCommand(string input) =>
+            input.Split(ArgumentsSeparator)[0];
 
         private static List<string> GetArgs(string input)
         {
@@ -56,6 +66,9 @@ namespace DevTools.DeveloperConsole
             return parts.Length == 1 ? new List<string>() : parts[1..].ToList();
         }
 
+        /// <summary>
+        ///     Applies some action (if possible) and return reply (errors/warnings/success/etc.).
+        /// </summary>
         private delegate string Command(List<string> args);
 
         #region Info
@@ -100,12 +113,10 @@ namespace DevTools.DeveloperConsole
             }
         };
 
-        private static string Info(string command)
-        {
-            return !CommandInfos.TryGetValue(command, out CommandInfo info)
+        private static string Info(string command) =>
+            !CommandInfos.TryGetValue(command, out var info)
                 ? "No info about command"
                 : $"{info.Description}\n{info.UseGuide}";
-        }
 
         private static string Info(List<string> args)
         {
@@ -121,7 +132,7 @@ namespace DevTools.DeveloperConsole
 
             if (args.Count == 1) return Info(command);
 
-            if (!CommandInfos.TryGetValue(command, out CommandInfo info))
+            if (!CommandInfos.TryGetValue(command, out var info))
                 return "No info about command";
 
             return args[1] switch
@@ -148,14 +159,15 @@ namespace DevTools.DeveloperConsole
                     return "Too many arguments";
             }
 
-            if (!TryParseUnits(args[0], out var units, out var errorMessage)) return errorMessage;
+            if (!TryParseUnits(args[0], out var units, out var errorMessage))
+                return errorMessage;
 
             if (!int.TryParse(args[2], out var val)) return "Wrong value argument";
 
 
             var count = 0;
 
-            foreach (Unit unit in units)
+            foreach (var unit in units)
             {
                 Stat stat;
 
@@ -203,7 +215,7 @@ namespace DevTools.DeveloperConsole
                )
                 return errorMessage;
 
-            foreach (Unit unit in unitsToKill) unit.Die();
+            foreach (var unit in unitsToKill) unit.Die();
 
             return $"Killed {unitsToKill.Count} units";
         }
@@ -211,51 +223,49 @@ namespace DevTools.DeveloperConsole
 
         #region Modifiers
 
-        private static readonly Dictionary<string, List<string>> ListsOfModifiersByType = new()
-        {
+        private static readonly Dictionary<string, List<string>> ListsOfModifiersByType =
+            new()
             {
-                "status", new List<string>
                 {
-                    "burning",
-                    "deal",
-                    "fury",
-                    "immortality",
-                    "irritation",
-                    "sharp",
-                    "stun",
-                    "vampirism",
-                    "passiveBomb",
-                    "randomIgnition"
-                }
-            },
-            {
-                "stat", new List<string>
+                    "status", new List<string>
+                    {
+                        "burning",
+                        "deal",
+                        "fury",
+                        "immortality",
+                        "irritation",
+                        "sharp",
+                        "stun",
+                        "vampirism",
+                        "passiveBomb",
+                        "randomIgnition"
+                    }
+                },
                 {
-                    "shield",
-                    "damageConstMod",
-                    "damageMoveMod",
-                    "healingConstMod",
-                    "hpDamageConstMod",
-                    "hpDamageMoveMod",
-                    "manaWastingConstMod",
-                    "manaWastingMoveMod"
+                    "stat", new List<string>
+                    {
+                        "shield",
+                        "damageConstMod",
+                        "damageMoveMod",
+                        "healingConstMod",
+                        "hpDamageConstMod",
+                        "hpDamageMoveMod",
+                        "manaWastingConstMod",
+                        "manaWastingMoveMod",
+                        "frozen"
+                    }
                 }
-            }
-        };
+            };
 
         private static bool TryCreateStatusMod(IReadOnlyList<string> args, string modName,
-            out Modifier modifier, out string errorMessage)
-        {
-            return TryCreateMod(args, modName, "Battle.Units.Statuses", out modifier,
+            out Modifier modifier, out string errorMessage) =>
+            TryCreateMod(args, modName, "Battle.Units.Statuses", out modifier,
                 out errorMessage);
-        }
 
         private static bool TryCreateStatMod(IReadOnlyList<string> args, string modName,
-            out Modifier modifier, out string errorMessage)
-        {
-            return TryCreateMod(args, modName, "Battle.Units.StatModifiers", out modifier,
+            out Modifier modifier, out string errorMessage) =>
+            TryCreateMod(args, modName, "Battle.Units.StatModifiers", out modifier,
                 out errorMessage);
-        }
 
         private static bool TryCreateMod(IReadOnlyCollection<string> args,
             string modName, string assembly,
@@ -270,8 +280,9 @@ namespace DevTools.DeveloperConsole
                 var modType = Type.GetType($"{assembly}.{modName}");
                 if (modType != null)
                 {
-                    ConstructorInfo constructor =
-                        modType.GetConstructors(BindingFlags.Instance | BindingFlags.Public)
+                    var constructor =
+                        modType.GetConstructors(BindingFlags.Instance |
+                                                BindingFlags.Public)
                             .First(v => v.GetParameters().Length != 0);
 
                     if (args.Count > constructor.GetParameters().Length)
@@ -281,7 +292,8 @@ namespace DevTools.DeveloperConsole
                     }
 
                     modifier = (Modifier)constructor.Invoke(args.Select((t, i) =>
-                            Convert.ChangeType(t, constructor.GetParameters()[i].ParameterType))
+                            Convert.ChangeType(t,
+                                constructor.GetParameters()[i].ParameterType))
                         .ToArray());
                 }
                 else
@@ -313,21 +325,24 @@ namespace DevTools.DeveloperConsole
 
             if (args[0] == "info") return Info("GiveStatusModifier");
 
-            if (!TryParseUnits(args[0], out var units, out var errorMessage)) return errorMessage;
+            if (!TryParseUnits(args[0], out var units, out var errorMessage))
+                return errorMessage;
 
             var name = args[1].Split(" ")[0];
 
-            if (!ListsOfModifiersByType["status"].Contains(name)) return "No such status mod";
+            if (!ListsOfModifiersByType["status"].Contains(name))
+                return "No such status mod";
 
             name = char.ToUpper(name[0]) + name[1..];
 
-            if (!TryCreateStatusMod(args[1].Split(" ")[1..], name, out Modifier modifier,
+            if (!TryCreateStatusMod(args[1].Split(" ")[1..], name, out var modifier,
                     out errorMessage))
                 return errorMessage;
 
-            foreach (Unit unit in units)
+            foreach (var unit in units)
             {
-                TryCreateStatusMod(args[1].Split(" ")[1..], name, out modifier, out errorMessage);
+                TryCreateStatusMod(args[1].Split(" ")[1..], name, out modifier,
+                    out errorMessage);
 
                 unit.Statuses.Add((Status)modifier);
             }
@@ -349,7 +364,8 @@ namespace DevTools.DeveloperConsole
 
             if (args[0] == "info") return Info("GiveStatMod");
 
-            if (!TryParseUnits(args[0], out var units, out var errorMessage)) return errorMessage;
+            if (!TryParseUnits(args[0], out var units, out var errorMessage))
+                return errorMessage;
 
             var stat = args[1].Split(" ")[0];
             var modList = args[1].Split(" ")[1];
@@ -364,13 +380,13 @@ namespace DevTools.DeveloperConsole
 
             name = char.ToUpper(name[0]) + name[1..];
 
-            if (!TryCreateStatMod(modArgs, name, out Modifier modifier, out errorMessage))
+            if (!TryCreateStatMod(modArgs, name, out var modifier, out errorMessage))
                 return errorMessage;
 
             var count = 0;
 
             const string noSuchList = "No such modifier list";
-            foreach (Unit unit in units)
+            foreach (var unit in units)
             {
                 ModifierList modifierList;
                 switch (stat)
@@ -433,7 +449,8 @@ namespace DevTools.DeveloperConsole
 
         private const string UnitArgInfo = "{unit: all/player/enemies/enemy [indexes]}";
 
-        private static bool TryParseUnits(string arg, out List<Unit> units, out string errorMessage)
+        private static bool TryParseUnits(string arg, out List<Unit> units,
+            out string errorMessage)
         {
             var args = arg.Split(" ").ToList();
             var res = TryParseUnits(args, out var units1, out var errorMessage1);
@@ -452,14 +469,15 @@ namespace DevTools.DeveloperConsole
             {
                 case "everyone":
                 case "all":
-                    units = new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls)
+                    units = new List<Unit>(BattleFlowManager.Instance.EnemiesAlive)
                         { Player.Instance };
                     break;
                 case "player":
                     units = new List<Unit> { Player.Instance };
                     break;
                 case "enemies":
-                    units = new List<Unit>(BattleFlowManager.Instance.EnemiesWithoutNulls);
+                    units = new List<Unit>(BattleFlowManager.Instance
+                        .EnemiesAlive);
                     break;
                 case "enemy":
                     if (args.Count == 1)
@@ -472,13 +490,14 @@ namespace DevTools.DeveloperConsole
                     foreach (var index in args.GetRange(1, args.Count - 1))
                         if (int.TryParse(index, out var i))
                         {
-                            if (!(i >= 0 && i < BattleFlowManager.Instance.enemiesWithNulls.Count))
+                            if (!(i >= 0 && i < BattleFlowManager.Instance
+                                    .EnemiesWithNulls.Count))
                             {
                                 errorMessage = "Index is out of range (enemies)";
                                 return false;
                             }
 
-                            units.Add(BattleFlowManager.Instance.enemiesWithNulls[i]);
+                            units.Add(BattleFlowManager.Instance.EnemiesWithNulls[i]);
                         }
                         else
                         {
@@ -505,7 +524,7 @@ namespace DevTools.DeveloperConsole
         {
             if (args.Count != 0) return "No arguments required";
 
-            NodeController.Instance.unlocked = true;
+            NodeController.Instance.Unlocked = true;
 
             return "unlocked";
         }
@@ -514,7 +533,7 @@ namespace DevTools.DeveloperConsole
         {
             if (args.Count != 0) return "No arguments required";
 
-            NodeController.Instance.unlocked = false;
+            NodeController.Instance.Unlocked = false;
 
             return "locked";
         }
@@ -535,14 +554,16 @@ namespace DevTools.DeveloperConsole
 
             var name = char.ToUpper(args[0][0]) + args[0][1..];
 
-            if (!TryCreateItem(name, out Item item, out var errorMessage)) return errorMessage;
+            if (!TryCreateItem(name, out var item, out var errorMessage))
+                return errorMessage;
 
             item.Get();
             return $"Added item: {item}";
         }
 
 
-        private static bool TryCreateItem(string name, out Item item, out string errorMessage)
+        private static bool TryCreateItem(string name, out Item item,
+            out string errorMessage)
         {
             item = null;
             errorMessage = "";
@@ -551,6 +572,50 @@ namespace DevTools.DeveloperConsole
             {
                 item = Resources.Load<Item>($"Items/{name}");
 
+                return true;
+            }
+            catch (Exception e)
+            {
+                errorMessage = $"Caught exception: {e}";
+                return false;
+            }
+        }
+    
+        private static string GiveCell(IReadOnlyList<string> args)
+        {
+            switch (args.Count)
+            {
+                case 0:
+                    return ArgumentsRequired;
+                case > 1:
+                    return "Too many arguments";
+            }
+
+            if (Player.Data.cells is null) return "Can't add cells while not loaded. Start new game or continue";
+
+            var name = char.ToUpper(args[0][0]) + args[0][1..];
+
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            if (!TryCreateCell(name, out var cell, out var errorMessage))
+                return errorMessage;
+            
+            if (!Player.Data.cells.Contains(cell))
+            {
+                Player.Data.cells.Add(cell);
+            }
+
+            return $"Added cell: {cell}";
+        }
+
+        private static bool TryCreateCell(string name, out Cell cell, out string errorMessage)
+        {
+            cell = null;
+            errorMessage = "";
+
+            try
+            {
+                cell = Resources.Load<Cell>($"Prefabs/Battle/Cells/{name}");
+                
                 return true;
             }
             catch (Exception e)

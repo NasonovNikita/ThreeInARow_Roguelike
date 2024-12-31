@@ -15,7 +15,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddStatus(new Vampirism(healAmount, true));
+            Player.Data.AddStatus(new Vampirism(healAmount, true));
         }
     }
 }

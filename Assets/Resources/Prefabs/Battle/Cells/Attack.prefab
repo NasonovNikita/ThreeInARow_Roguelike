@@ -122,12 +122,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2a8ba27c7d40b8816c1c5ea6c78459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mover: {fileID: 5324837422655727208}
+  scaler: {fileID: 3694046946374975764}
   descriptionKeyRef:
     _key: AttackCellDescription
     _formatters: []
   possibleReward: 1
-  mover: {fileID: 5324837422655727208}
-  scaler: {fileID: 3694046946374975764}
   baseAttackVal: 1
   references:
     version: 2

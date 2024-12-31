@@ -4,13 +4,11 @@ namespace Battle.Units.StatModifiers
 {
     public class HpDamageConstMod : HpDamageMod
     {
-        public HpDamageConstMod(int value, bool save = false) : base(value, save)
+        public HpDamageConstMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is HpDamageConstMod;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is HpDamageConstMod;
     }
 }

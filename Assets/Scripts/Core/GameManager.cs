@@ -3,34 +3,36 @@ using Battle.Units;
 using Core.Saves;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Core
 {
+    /// <summary>
+    ///     Is used for common actions.
+    /// </summary>
     public class GameManager : MonoBehaviour
     {
-        public static GameManager instance;
+        public static GameManager Instance;
 
         public void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
 
             DontDestroyOnLoad(gameObject);
 
-            Player.data = ScriptableObject.CreateInstance<PlayerData>();
+            Player.Data = ScriptableObject.CreateInstance<PlayerData>();
         }
 
         public void Start()
         {
-            SettingsSave.Load();
+            SettingsSave.Load().Apply();
         }
 
         public void MainMenu()
         {
-            SceneManager.LoadScene("MainMenu");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
 
             AudioManager.Instance.StopAll();
 
@@ -44,14 +46,14 @@ namespace Core
             GameSave.CreateEmptySave().Apply();
         }
 
-        public void Continue()
+        public void ContinueGameRun()
         {
-            GameSave.Load();
+            GameSave.Load().Apply();
         }
 
-        public void Settings()
+        public void GoToSettings()
         {
-            SceneManager.LoadScene("Settings");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
         }
 
         public void Exit()
@@ -63,9 +65,9 @@ namespace Core
             Application.Quit();
         }
 
-        public void EnterMap()
+        public void GoToMap()
         {
-            SceneManager.LoadScene("Map");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Map");
         }
     }
 }

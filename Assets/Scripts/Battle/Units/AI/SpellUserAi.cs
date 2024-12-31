@@ -8,7 +8,8 @@ namespace Battle.Units.AI
     public class SpellUserAi : BasicAi
     {
         private Spell ChooseSpell =>
-            Tools.Random.RandomChoose(attachedEnemy.spells.Where(spell => !spell.CantCast));
+            Tools.Random.RandomChoose(
+                attachedEnemy.spells.Where(spell => !spell.CantCast));
 
         public override IEnumerator Act()
         {

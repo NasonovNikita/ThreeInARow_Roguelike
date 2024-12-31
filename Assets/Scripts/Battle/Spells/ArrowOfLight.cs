@@ -14,7 +14,7 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.target.TakeDamage(dmg);
+            UnitBelong.target.TakeDamage(dmg);
         }
     }
 }

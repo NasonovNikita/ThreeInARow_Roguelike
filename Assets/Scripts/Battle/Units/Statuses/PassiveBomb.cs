@@ -13,13 +13,13 @@ namespace Battle.Units.Statuses
         [SerializeField] private int dmg;
         [SerializeField] private int manaBorder;
 
-        public PassiveBomb(int damage, int manaBorder, bool save = false) : base(save)
+        public PassiveBomb(int damage, int manaBorder, bool isSaved = false) : base(isSaved)
         {
             dmg = damage;
             this.manaBorder = manaBorder;
         }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.passiveBomb;
+        public override Sprite Sprite => ModSpritesContainer.Instance.passiveBomb;
 
         public override string Description =>
             IModIconModifier.FormatDescriptionByKeys(
@@ -31,7 +31,7 @@ namespace Battle.Units.Statuses
                 });
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
-        public override bool ToDelete => dmg <= 0;
+        protected override bool HiddenEndedWork => dmg <= 0;
 
         public override void Init(Unit unit)
         {
@@ -41,18 +41,17 @@ namespace Battle.Units.Statuses
 
         private void CheckAndApply()
         {
-            if (belongingUnit.mana < manaBorder) return;
+            if (BelongingUnit.mana < manaBorder) return;
 
-            foreach (Enemy enemy in BattleFlowManager.EnemiesWithoutNulls) enemy.TakeDamage(dmg);
+            foreach (var enemy in BattleFlowManager.EnemiesAlive)
+                enemy.TakeDamage(dmg);
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is PassiveBomb bomb &&
-                   bomb.manaBorder == manaBorder;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is PassiveBomb bomb &&
+            bomb.manaBorder == manaBorder;
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             dmg += ((PassiveBomb)other).dmg;
         }

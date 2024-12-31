@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Battle
 {
+    /// <summary>
+    ///     Visually places enemies to given anchor points.2
+    /// </summary>
     public class EnemyPlacer : MonoBehaviour
     {
         [SerializeField] private GameObject[] points;
@@ -18,7 +21,7 @@ namespace Battle
         {
             for (var i = 0; i < enemiesToPlace.Count; i++)
             {
-                Enemy enemy = enemiesToPlace[i];
+                var enemy = enemiesToPlace[i];
                 if (enemy == null) continue;
                 enemy.transform.position = points[i].transform.position;
             }

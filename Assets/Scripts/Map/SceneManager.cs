@@ -12,9 +12,7 @@ namespace Map
 {
     public class SceneManager : MonoBehaviour
     {
-        public Canvas canvas;
         public static SceneManager Instance { get; private set; }
-
 
         public void Awake()
         {
@@ -47,11 +45,11 @@ namespace Map
 
         private void Win()
         {
-            GameObject menu = Instantiate(PrefabsContainer.instance.winMessage,
+            var menu = Instantiate(PrefabsContainer.Instance.winMessage,
                 UICanvas.Instance.transform, false);
             var buttons = menu.GetComponentsInChildren<Button>();
-            buttons[0].onClick.AddListener(GameManager.instance.NewGame);
-            buttons[1].onClick.AddListener(GameManager.instance.MainMenu);
+            buttons[0].onClick.AddListener(GameManager.Instance.NewGame);
+            buttons[1].onClick.AddListener(GameManager.Instance.MainMenu);
             menu.gameObject.SetActive(true);
         }
     }

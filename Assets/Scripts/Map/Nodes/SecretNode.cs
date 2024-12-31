@@ -12,7 +12,7 @@ namespace Map.Nodes
 
         protected override void Action()
         {
-            Random.InitState(seed);
+            Random.InitState(Seed);
 
             // TODO Choose and create room from Rooms
 
@@ -21,17 +21,17 @@ namespace Map.Nodes
 
         private void Treasure()
         {
-            RoomLoader.LoadTreasure(layer, seed);
+            RoomLoader.LoadTreasure(Layer, Seed);
         }
 
         private void Battle()
         {
-            RoomLoader.LoadBattle(layer, seed, false);
+            RoomLoader.LoadBattle(Layer, Seed, false);
         }
 
         private void Shop()
         {
-            RoomLoader.LoadShop(layer, seed);
+            RoomLoader.LoadShop(Layer, Seed);
         }
     }
 }

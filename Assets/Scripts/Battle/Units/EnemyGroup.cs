@@ -5,6 +5,10 @@ using UnityEngine.Serialization;
 
 namespace Battle.Units
 {
+    /// <summary>
+    ///     A holder of battle data
+    ///     (<see cref="Enemies"/>, <see cref="Reward"/>, <see cref="Difficulty"/>, etc.).
+    /// </summary>
     [CreateAssetMenu(fileName = "EnemyGroup", menuName = "Enemy Group")]
     [Serializable]
     public class EnemyGroup : ScriptableObject
@@ -17,7 +21,7 @@ namespace Battle.Units
         [SerializeField] public bool isBoss;
 
         public int Difficulty => difficulty;
-        public List<Enemy> Enemies => enemies;
+        public List<Enemy> Enemies => new(enemies);
         public int Reward => reward;
     }
 }

@@ -11,7 +11,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddStatus(new Immortality(chance, true));
+            Player.Data.AddStatus(new Immortality(chance, true));
         }
     }
 }

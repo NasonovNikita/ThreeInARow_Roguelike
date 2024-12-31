@@ -13,11 +13,18 @@ namespace Core.Singleton
         public KnotTextKeyReference hpDamageNegative;
         public KnotTextKeyReference healingPositive;
         public KnotTextKeyReference healingNegative;
-        [FormerlySerializedAs("manaPositive")] public KnotTextKeyReference manaWastingPositive;
-        [FormerlySerializedAs("manaNegative")] public KnotTextKeyReference manaWastingNegative;
+
+        [FormerlySerializedAs("manaPositive")]
+        public KnotTextKeyReference manaWastingPositive;
+
+        [FormerlySerializedAs("manaNegative")]
+        public KnotTextKeyReference manaWastingNegative;
+
         public KnotTextKeyReference burning;
         public KnotTextKeyReference deal;
+        public KnotTextKeyReference endurance;
         public KnotTextKeyReference fury;
+        public KnotTextKeyReference frozen;
         public KnotTextKeyReference immortality;
         public KnotTextKeyReference irritation;
         public KnotTextKeyReference passiveBomb;
@@ -25,6 +32,7 @@ namespace Core.Singleton
         public KnotTextKeyReference sharp;
         public KnotTextKeyReference stun;
         public KnotTextKeyReference vampirism;
+        public KnotTextKeyReference reflection;
         public static ModDescriptionsContainer Instance { get; private set; }
 
         public void Awake()

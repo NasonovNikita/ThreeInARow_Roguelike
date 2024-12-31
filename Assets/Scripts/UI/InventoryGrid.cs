@@ -8,14 +8,14 @@ namespace UI
     public class InventoryGrid : MonoBehaviour
     {
         [SerializeField] private GameObject inventoryWindow;
-        private readonly List<LootItem> getAble = new();
+        private readonly List<LootItem> _getAble = new();
 
         public void Awake()
         {
-            getAble.AddRange(Player.data.items);
-            getAble.AddRange(Player.data.spells);
+            _getAble.AddRange(Player.Data.items);
+            _getAble.AddRange(Player.Data.spells);
 
-            foreach (LootItem item in getAble) InventoryItem.Create(item, transform);
+            foreach (var item in _getAble) InventoryItem.Create(item, transform);
         }
 
         public void Close()

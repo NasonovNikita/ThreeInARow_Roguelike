@@ -6,13 +6,11 @@ namespace Battle.Units.StatModifiers
     [Serializable]
     public class DamageConstMod : DamageMod
     {
-        public DamageConstMod(int value, bool save = false) : base(value, save)
+        public DamageConstMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is DamageConstMod;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is DamageConstMod;
     }
 }

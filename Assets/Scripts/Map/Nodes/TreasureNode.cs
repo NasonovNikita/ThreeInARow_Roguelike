@@ -6,13 +6,11 @@ namespace Map.Nodes
     {
         protected override void Action()
         {
-            RoomLoader.LoadTreasure(layer, seed);
+            RoomLoader.LoadTreasure(Layer, Seed);
         }
 
-        public static TreasureNode Create(int layer, int randomSeed)
-        {
-            return (TreasureNode)Create(PrefabsContainer.instance.treasureNode, layer,
+        public static TreasureNode Create(int layer, int randomSeed) =>
+            (TreasureNode)Create(PrefabsContainer.Instance.treasureNode, layer,
                 randomSeed);
-        }
     }
 }

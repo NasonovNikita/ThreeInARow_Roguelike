@@ -6,20 +6,28 @@ using UnityEngine;
 
 namespace Battle.Units.StatModifiers
 {
+    /// <summary>
+    ///     Created because of <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>.
+    /// </summary>
     [Serializable]
-    public abstract class ValuedStatModifier : Modifier, IIntModifier, IModIconModifier
+    public abstract class ValuedStatModifier : UnitModifier, IIntModifier
     {
         [SerializeField] protected int value;
 
-        protected ValuedStatModifier(int value, bool save) : base(save)
-        {
+        protected ValuedStatModifier(int value, bool isSaved) : base(isSaved) =>
             this.value = value;
-        }
 
         protected abstract bool IsPositive { get; }
 
-        protected abstract KnotTextKeyReference DescriptionKnotKeyReferencePositive { get; }
-        protected abstract KnotTextKeyReference DescriptionKnotKeyReferenceNegative { get; }
+        protected abstract KnotTextKeyReference DescriptionKnotKeyReferencePositive
+        {
+            get;
+        }
+
+        protected abstract KnotTextKeyReference DescriptionKnotKeyReferenceNegative
+        {
+            get;
+        }
 
         protected abstract Sprite SpritePositive { get; }
         protected abstract Sprite SpriteNegative { get; }
@@ -27,15 +35,15 @@ namespace Battle.Units.StatModifiers
 
         int IIntModifier.Modify(int val)
         {
+            if (EndedWork) return val;
+            
             return val + value;
         }
 
-        public override bool EndedWork => ToDelete;
+        public override string SubInfo => value.ToString();
+        protected override bool HiddenEndedWork => value == 0;
 
-        public virtual string SubInfo => value.ToString();
-        public virtual bool ToDelete => value == 0;
-
-        public string Description =>
+        public override string Description =>
             IsPositive switch
             {
                 true => IModIconModifier.SimpleFormatDescription(
@@ -46,14 +54,14 @@ namespace Battle.Units.StatModifiers
                     Math.Abs(value))
             };
 
-        public Sprite Sprite =>
+        public override Sprite Sprite =>
             IsPositive switch
             {
                 true => SpritePositive,
                 false => SpriteNegative
             };
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             value += ((ValuedStatModifier)other).value;
         }

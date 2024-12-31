@@ -21,8 +21,8 @@ MonoBehaviour:
     _key: 
     _formatters: []
   useCost: 45
-  protectionAmount: 10
-  moves: 2
+  protectionAmount: 3
+  moves: 1
   references:
     version: 2
     RefIds: []

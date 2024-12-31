@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 namespace Battle.UI
 {
+    /// <summary>
+    ///     Controls picking enemies as a target in battle.
+    /// </summary>
     public class PickerManager : MonoBehaviour
     {
         private static bool[] _allowedToPick = { true, false, true, false, true };
 
         [SerializeField] private Image aimPrefab;
 
-        private Picker currentPicker;
-        private Image previousAim;
+        private Picker _currentPicker;
+        private Image _previousAim;
         public static PickerManager Instance { get; private set; }
 
         public void Awake()
@@ -27,7 +30,8 @@ namespace Battle.UI
 
         public void PickNextPossible()
         {
-            if (BattleFlowManager.Instance.EnemiesWithoutNulls.All(enemy => enemy.Dead)) return;
+            if (BattleFlowManager.Instance.EnemiesAlive.All(enemy => enemy.Dead))
+                return;
 
             for (var i = 0; i < _allowedToPick.Length; i++)
             {
@@ -43,32 +47,32 @@ namespace Battle.UI
 
             Player.Instance.target = picker.enemy;
             DrawAim(picker.enemy);
-            currentPicker = picker;
+            _currentPicker = picker;
+        }
+
+        public void OnPickerDestroyed(Picker picker)
+        {
+            if (_currentPicker == picker) PickNextPossible();
         }
 
         private void Pick(int index)
         {
             if (!PossibleToPick(index)) return;
-            Player.Instance.target = BattleFlowManager.Instance.enemiesWithNulls[index];
-            DrawAim(BattleFlowManager.Instance.enemiesWithNulls[index]);
-            currentPicker = BattleFlowManager.Instance.enemiesWithNulls[index]
+            Player.Instance.target = BattleFlowManager.Instance.EnemiesWithNulls[index];
+            DrawAim(BattleFlowManager.Instance.EnemiesWithNulls[index]);
+            _currentPicker = BattleFlowManager.Instance.EnemiesWithNulls[index]
                 .GetComponentInChildren<Picker>();
-        }
-
-        public void OnPickerDestroyed(Picker picker)
-        {
-            if (currentPicker == picker) PickNextPossible();
         }
 
         private void DrawAim(Component picker)
         {
-            if (previousAim != null) Destroy(previousAim.gameObject);
-            previousAim = Instantiate(aimPrefab, picker.transform);
+            if (_previousAim != null) Destroy(_previousAim.gameObject);
+            _previousAim = Instantiate(aimPrefab, picker.transform);
         }
 
         private bool PossibleToPick(Picker picker)
         {
-            var index = BattleFlowManager.Instance.enemiesWithNulls.IndexOf(picker.enemy);
+            var index = BattleFlowManager.Instance.EnemiesWithNulls.IndexOf(picker.enemy);
 
             return PossibleToPick(index);
         }
@@ -77,14 +81,16 @@ namespace Battle.UI
         {
             var noOtherOptions = true;
             for (var i = 0;
-                 i < _allowedToPick.Length && i < BattleFlowManager.Instance.enemiesWithNulls.Count;
+                 i < _allowedToPick.Length &&
+                 i < BattleFlowManager.Instance.EnemiesWithNulls.Count;
                  i++)
-                if (_allowedToPick[i] && BattleFlowManager.Instance.enemiesWithNulls[i] != null &&
-                    !BattleFlowManager.Instance.enemiesWithNulls[i].Dead)
+                if (_allowedToPick[i] &&
+                    BattleFlowManager.Instance.EnemiesWithNulls[i] != null &&
+                    !BattleFlowManager.Instance.EnemiesWithNulls[i].Dead)
                     noOtherOptions = false;
 
-            return BattleFlowManager.Instance.enemiesWithNulls[index] != null &&
-                   !BattleFlowManager.Instance.enemiesWithNulls[index].Dead &&
+            return BattleFlowManager.Instance.EnemiesWithNulls[index] != null &&
+                   !BattleFlowManager.Instance.EnemiesWithNulls[index].Dead &&
                    (_allowedToPick[index] || noOtherOptions);
         }
     }

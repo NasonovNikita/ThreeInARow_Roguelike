@@ -23,8 +23,8 @@ namespace UI
 
         public static void Create(LootItem targetItem, Transform parentTransform)
         {
-            InventoryItem res =
-                Instantiate(PrefabsContainer.instance.inventoryItem, parentTransform);
+            var res =
+                Instantiate(PrefabsContainer.Instance.inventoryItem, parentTransform);
             res._item = targetItem;
         }
     }

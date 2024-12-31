@@ -1,3 +1,4 @@
+using Battle.Units;
 using Battle.Units.StatModifiers;
 using Battle.Units.Statuses;
 using UnityEngine;
@@ -16,8 +17,10 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.damage.mods.Add(new DamageMoveMod(damage, damageModMoves));
-            unitBelong.Statuses.Add(new Stun(stunMoves));
+            UnitBelong.damage.mods.Add(new DamageMoveMod(damage, damageModMoves));
+            UnitBelong.Statuses.Add(new Stun(stunMoves));
+            
+            if (UnitBelong is Player) Player.Instance.WasteAllMoves();
         }
     }
 }

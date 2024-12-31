@@ -347,5 +347,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 3696471998360653708}
-  timeBetweenIncrements: 10
+  timeBetweenIncrements: 20
   incrementAmount: 7

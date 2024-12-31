@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Shop
 {
+    /// <summary>
+    ///     An item seller. Tries to take player's money and give a <see cref="LootItem"/>.
+    /// </summary>
     [CreateAssetMenu(fileName = "Good", menuName = "Good")]
     [Serializable]
     public class Good : ScriptableObject
@@ -16,9 +19,9 @@ namespace Shop
 
         public void TryBuy(Action onBuy)
         {
-            if (Player.data.money < price) return;
+            if (Player.Data.money < price) return;
             if (target is Spell spell)
-                switch (Player.data.spells.Count)
+                switch (Player.Data.spells.Count)
                 {
                     case > 4:
                         throw new Exception(
@@ -26,7 +29,7 @@ namespace Shop
                     case 4:
                         SpellGettingWarningWindow.Create(spell, () =>
                         {
-                            Player.data.money -= price;
+                            Player.Data.money -= price;
                             onBuy?.Invoke();
                         });
                         return;
@@ -38,7 +41,7 @@ namespace Shop
 
         private void Buy()
         {
-            Player.data.money -= price;
+            Player.Data.money -= price;
             target.Get();
         }
     }

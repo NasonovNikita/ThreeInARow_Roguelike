@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Audio;
+using Battle.Grid;
 using Battle.UI;
 using Battle.Units;
 using Core.Saves;
@@ -13,7 +14,7 @@ namespace Battle
 {
     public class SceneManager : MonoBehaviour
     {
-        public static EnemyGroup enemyGroup;
+        public static EnemyGroup EnemyGroup;
 
         [SerializeField] private Canvas mainCanvas;
         [SerializeField] private EnemyPlacer placer;
@@ -23,7 +24,7 @@ namespace Battle
         [FormerlySerializedAs("winMessage")] [SerializeField]
         private BattleWinWindow winMessageWindow;
 
-        private readonly List<Enemy> enemiesWithNulls = new();
+        private readonly List<Enemy> _enemiesWithNulls = new();
 
         public void Awake()
         {
@@ -39,17 +40,30 @@ namespace Battle
 
             TurnLabel.Instance.SetPlayerTurn();
 
-            BattleFlowManager.Instance.enemiesWithNulls = enemiesWithNulls;
-            BattleFlowManager.Instance.TurnOn();
+            BattleFlowManager.Instance.EnemiesWithNulls = _enemiesWithNulls;
+            BattleFlowManager.Instance.Init();
             PickerManager.Instance.PickNextPossible();
 
-            Player.Instance.LateLoad();
+            if (EnemyGroup.isBoss)
+            {
+                ChangeGridSize(2);
+
+                BattleFlowManager.Instance.OnBattleEnd += () => ChangeGridSize(-2);
+            }
+            Grid.Grid.Instance.Init();
+            GridResizer.Instance.Resize();
+            GridGenerator.Instance.Init();
+            
+
+            Player.Instance.Init();
 
             BattleFlowManager.Instance.OnBattleWin += WinBattle;
             BattleFlowManager.Instance.OnBattleLose += LoseBattle;
             BattleFlowManager.Instance.OnEnemiesShuffle += PlaceEnemies;
-            BattleFlowManager.Instance.OnEnemiesTurnStart += TurnLabel.Instance.SetEnemyTurn;
-            BattleFlowManager.Instance.OnPlayerTurnStart += TurnLabel.Instance.SetPlayerTurn;
+            BattleFlowManager.Instance.OnEnemiesTurnStart +=
+                TurnLabel.Instance.SetEnemyTurn;
+            BattleFlowManager.Instance.OnPlayerTurnStart +=
+                TurnLabel.Instance.SetPlayerTurn;
 
             OnSceneFullyLoaded?.Invoke();
         }
@@ -64,28 +78,32 @@ namespace Battle
 
         private void InitEnemies()
         {
-            foreach (Enemy enemy in enemyGroup.Enemies)
+            foreach (var enemy in EnemyGroup.Enemies)
             {
                 if (enemy == null)
                 {
-                    enemiesWithNulls.Add(null);
+                    _enemiesWithNulls.Add(null);
                     continue;
                 }
 
-                enemiesWithNulls.Add(LoadEnemy(enemy));
+                _enemiesWithNulls.Add(LoadEnemy(enemy));
             }
 
             PlaceEnemies();
         }
 
-        private Enemy LoadEnemy(Enemy enemy)
+        private Enemy LoadEnemy(Enemy enemy) =>
+            Instantiate(enemy, mainCanvas.transform, false);
+
+        private void ChangeGridSize(int dSize)
         {
-            return Instantiate(enemy, mainCanvas.transform, false);
+            Grid.Grid.Instance.sizeX += dSize;
+            Grid.Grid.Instance.sizeY += dSize;
         }
 
         private void PlaceEnemies()
         {
-            EnemyPlacer.Instance.Place(enemiesWithNulls);
+            EnemyPlacer.Instance.Place(_enemiesWithNulls);
         }
 
         private void LoseBattle()
@@ -95,7 +113,7 @@ namespace Battle
 
         private void WinBattle()
         {
-            winMessageWindow.Create(enemyGroup.Reward, UICanvas.Instance.transform);
+            winMessageWindow.Create(EnemyGroup.Reward, UICanvas.Instance.transform);
         }
     }
 }

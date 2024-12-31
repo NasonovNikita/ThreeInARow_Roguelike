@@ -11,20 +11,20 @@ namespace Battle.Units.StatModifiers
     {
         [SerializeField] private MoveCounter moveCounter;
 
-        public DamageMoveMod(int value, int moves, bool save = false) : base(value, save)
-        {
+        public DamageMoveMod(int value, int moves, bool isSaved = false) :
+            base(value, isSaved) =>
             moveCounter = CreateChangeableSubSystem(new MoveCounter(moves));
-        }
 
-        protected override List<IChangeAble> ChangeAblesToInitialize => new() { moveCounter };
+        protected override List<IChangeAble> ChangeAblesToInitialize =>
+            new() { moveCounter };
 
-        public string SubInfo => moveCounter.SubInfo;
-        public bool ToDelete => moveCounter.EndedWork || base.ToDelete;
+        public override string SubInfo => moveCounter.SubInfo;
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is DamageMoveMod damageMoveMod &&
-                   damageMoveMod.moveCounter.Moves == moveCounter.Moves;
-        }
+        protected override bool HiddenEndedWork =>
+            moveCounter.EndedWork || base.HiddenEndedWork;
+
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is DamageMoveMod damageMoveMod &&
+            damageMoveMod.moveCounter.Moves == moveCounter.Moves;
     }
 }

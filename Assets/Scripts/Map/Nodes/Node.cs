@@ -9,6 +9,10 @@ using UnityEngine.Serialization;
 
 namespace Map.Nodes
 {
+    /// <summary>
+    ///     You can <i>arrive to node</i> which means you enter some room.
+    ///     At this time the node is scaled to indicate it as <i>chosen</i>.
+    /// </summary>
     public abstract class Node : MonoBehaviour, IPointerClickHandler
     {
         [FormerlySerializedAs("prefab")] [SerializeField]
@@ -16,30 +20,33 @@ namespace Map.Nodes
 
         [SerializeField] private ObjectScaler scaler;
 
+        /// <summary>
+        ///     Nodes where you can <see cref="Arrive">arrive</see> to from this one.
+        /// </summary>
         public List<Node> next;
 
-        private readonly List<Edge> edges = new();
+        private readonly List<Edge> _edges = new();
 
-        protected int layer;
-        protected int seed;
+        protected int Layer;
+        protected int Seed;
 
         public void OnEnable()
         {
-            foreach (Node node in next)
+            foreach (var node in next)
             {
-                Edge edge = Instantiate(edgePrefab);
+                var edge = Instantiate(edgePrefab);
                 edge.Draw(transform.position, node.transform.position);
-                edges.Add(edge);
+                _edges.Add(edge);
             }
         }
 
         public void OnDisable()
         {
-            for (var i = 0; i < edges.Count; i++)
+            for (var i = 0; i < _edges.Count; i++)
             {
-                Edge edge = edges[i];
+                var edge = _edges[i];
                 if (edge == null) return;
-                edges.Remove(edge);
+                _edges.Remove(edge);
                 Destroy(edge.gameObject);
             }
         }
@@ -59,10 +66,10 @@ namespace Map.Nodes
 
         protected static Node Create(Node prefab, int layer, int randomSeed)
         {
-            Node node = Instantiate(prefab);
-            node.layer = layer;
-            node.seed = randomSeed;
-            GameObject gameObject = node.gameObject;
+            var node = Instantiate(prefab);
+            node.Layer = layer;
+            node.Seed = randomSeed;
+            var gameObject = node.gameObject;
             DontDestroyOnLoad(gameObject);
             gameObject.SetActive(false);
 
@@ -76,13 +83,10 @@ namespace Map.Nodes
 
         public void UnChoose()
         {
-            StartCoroutine(scaler.UnScale());
+            StartCoroutine(scaler.Unscale());
         }
 
-        public bool BelongsToNext(Node other)
-        {
-            return next.Contains(other);
-        }
+        public bool BelongsToNext(Node other) => next.Contains(other);
 
         private IEnumerator Arrive()
         {

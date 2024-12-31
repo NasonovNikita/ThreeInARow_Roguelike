@@ -8,21 +8,21 @@ namespace UI.MessageWindows
 {
     public class SpellGettingWarningWindow : MonoBehaviour
     {
-        private Spell gettingSpell;
-        private Action onYes;
+        private Spell _gettingSpell;
+        private Action _onYes;
 
         public static void Create(Spell spell, Action onYes = null)
         {
-            SpellGettingWarningWindow window =
-                Tools.InstantiateUI(PrefabsContainer.instance.spellGettingWarningWindow);
-            window.gettingSpell = spell;
-            window.onYes = onYes;
+            var window =
+                Tools.InstantiateUI(PrefabsContainer.Instance.spellGettingWarningWindow);
+            window._gettingSpell = spell;
+            window._onYes = onYes;
         }
 
         public void Yes()
         {
-            onYes?.Invoke();
-            SpellReplacingWindow.Create(gettingSpell);
+            _onYes?.Invoke();
+            SpellReplacingWindow.Create(_gettingSpell);
             Close();
         }
 

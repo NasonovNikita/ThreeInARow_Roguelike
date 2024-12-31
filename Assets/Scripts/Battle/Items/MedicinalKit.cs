@@ -15,7 +15,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.hp.onHealingMods.Add(new HealingConstMod(value, true));
+            Player.Data.hp.onHealingMods.Add(new HealingConstMod(value, true));
         }
     }
 }

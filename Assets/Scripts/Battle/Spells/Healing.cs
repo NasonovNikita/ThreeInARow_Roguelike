@@ -13,14 +13,14 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            unitBelong.hp.Heal(healAmount);
+            UnitBelong.hp.Heal(healAmount);
         }
 
         public void MapCast()
         {
-            if (Player.data.mana <= useCost) return;
-            Player.data.mana.Waste(useCost);
-            Player.data.hp.Heal(healAmount);
+            if (Player.Data.mana <= useCost) return;
+            Player.Data.mana.Waste(useCost);
+            Player.Data.hp.Heal(healAmount);
         }
     }
 }

@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -4471335532245260209, guid: b995ee947cebe454a8db8e1c55fb8efc, type: 3}
+    - target: {fileID: 2498874067317279280, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9065346117105821478, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -132,12 +136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6ba90923024a4a9c15b8af5780c260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mover: {fileID: 2012928630110493356}
+  scaler: {fileID: 7010170170264452560}
   descriptionKeyRef:
     _key: ShieldCellDescription
     _formatters: []
   possibleReward: 1
-  mover: {fileID: 2012928630110493356}
-  scaler: {fileID: 7010170170264452560}
   amount: 2
   references:
     version: 2

@@ -8,22 +8,19 @@ namespace Map.Nodes.Managers
 {
     public class NodeController : MonoBehaviour
     {
-#if UNITY_EDITOR
+        private List<Node> _nodes = new();
 
-        public bool unlocked;
+        [NonSerialized] public int CurrentNodeIndex;
 
-#endif
+        [NonSerialized] public bool NoNodeIsChosen;
 
-        [NonSerialized] public int currentNodeIndex;
+        [NonSerialized] public bool Unlocked; // For debug
 
-        private List<Node> nodes = new();
-
-        [NonSerialized] public bool noNodeIsChosen;
         public static NodeController Instance { get; private set; }
 
-        private Node CurrentNode => nodes[currentNodeIndex];
+        private Node CurrentNode => _nodes[CurrentNodeIndex];
 
-        private bool CameOutFromFinalNode => currentNodeIndex == nodes.Count - 1;
+        private bool CameOutFromFinalNode => CurrentNodeIndex == _nodes.Count - 1;
 
         public void Awake()
         {
@@ -53,27 +50,27 @@ namespace Map.Nodes.Managers
             HideNodes();
         }
 
+        /// <summary>
+        ///     Get new node tree for controller.
+        /// </summary>
         public void RegenerateNodes()
         {
-            foreach (Node node in nodes.Where(node => node != null)) Destroy(node.gameObject);
+            foreach (var node in _nodes.Where(node => node != null))
+                Destroy(node.gameObject); // Delete old nodes if were spawned
 
-            nodes = Generator.Instance.GetMap(Globals.Instance.seed);
+            _nodes = Generator.Instance.GetMap(Globals.Instance.seed);
         }
 
         public bool TryArrive(Node node)
         {
-            var success = (noNodeIsChosen && nodes.IndexOf(node) == 0) ||
-                          (!noNodeIsChosen && CurrentNode.BelongsToNext(node));
+            var success = (NoNodeIsChosen && _nodes.IndexOf(node) == 0) ||
+                          (!NoNodeIsChosen && CurrentNode.BelongsToNext(node));
 
-#if UNITY_EDITOR
-
-            success = success || unlocked;
-
-#endif
+            success = success || Unlocked;
 
             if (!success) return false;
 
-            if (!noNodeIsChosen) CurrentNode.UnChoose();
+            if (!NoNodeIsChosen) CurrentNode.UnChoose();
             SetCurrentNode(node);
 
             return true;
@@ -81,24 +78,24 @@ namespace Map.Nodes.Managers
 
         private void SetCurrentNode(Node node)
         {
-            currentNodeIndex = nodes.IndexOf(node);
-            noNodeIsChosen = false;
+            CurrentNodeIndex = _nodes.IndexOf(node);
+            NoNodeIsChosen = false;
         }
 
         private void ScaleCurrentNode()
         {
-            if (!noNodeIsChosen) CurrentNode.Choose();
+            if (!NoNodeIsChosen) CurrentNode.Choose();
         }
 
         private void ShowNodes()
         {
-            foreach (Node node in nodes)
+            foreach (var node in _nodes)
                 node.gameObject.SetActive(true);
         }
 
         private void HideNodes()
         {
-            foreach (Node node in nodes)
+            foreach (var node in _nodes)
                 node?.gameObject.SetActive(false);
         }
     }

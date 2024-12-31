@@ -23,19 +23,19 @@ namespace Map.PlotRooms
 
         private void ReDraw()
         {
-            text.text = plot.currentText;
+            text.text = plot.CurrentText;
 
             SpawnButtons();
         }
 
         private void SpawnButtons()
         {
-            foreach (Button btn in _spawnedButtons) Destroy(btn.gameObject);
+            foreach (var btn in _spawnedButtons) Destroy(btn.gameObject);
 
-            for (var i = 0; i < plot.currentActions.Count; i++)
+            for (var i = 0; i < plot.CurrentActions.Count; i++)
             {
-                Button btn = Instantiate(buttonPrefab, buttonsGrid, false);
-                btn.InitButton(plot.currentActions[i], plot.CurrentActionsTexts[i]);
+                var btn = Instantiate(buttonPrefab, buttonsGrid, false);
+                btn.InitButton(plot.CurrentActions[i], plot.CurrentActionsTexts[i]);
                 _spawnedButtons.Add(btn);
             }
         }

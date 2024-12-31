@@ -12,22 +12,157 @@ namespace Other
 {
     public static class Tools
     {
-        public static void InstantiateAll<T>(IList<T> a) where T : Object
+        public static void InstantiateAll<T>(List<T> objects) where T : Object
         {
-            for (var i = 0; i < a.Count; i++)
+            for (var i = 0; i < objects.Count; i++)
             {
-                if (a[i] is null) return;
+                if (objects[i] is null) return;
 
-                a[i] = Object.Instantiate(a[i]);
+                objects[i] = Object.Instantiate(objects[i]);
             }
+        }
+
+        /// <summary>
+        ///     Instantiates into <see cref="UICanvas"/>.
+        /// </summary>
+        public static T InstantiateUI<T>(T obj) where T : Object =>
+            Object.Instantiate(obj, UICanvas.Instance.transform);
+
+        public static void InitButton(this Button btn, Action onClick,
+            string content)
+        {
+            btn.onClick.AddListener(() => onClick());
+            btn.GetComponentInChildren<Text>().text = content;
+        }
+
+        /// <summary>
+        ///     Convert float value to percents (rounded).
+        /// </summary>
+        public static int Percents(float v) => (int)(v * 100);
+
+        /// <summary>
+        ///     Gets all items from two-dimensional array and returns as a single list.
+        /// </summary>
+        public static List<T> MultiDimToOne<T>(T[,] orig)
+        {
+            var value = new List<T>();
+            for (var i = 0; i < orig.GetLength(0); i++)
+            for (var j = 0; j < orig.GetLength(1); j++)
+                value.Add(orig[i, j]);
+
+            return value;
+        }
+
+        /// <summary>
+        ///     Returns all combinations of given array of length of <b>count</b>.
+        ///     Is used to get all possible variations of arrays consisting of given items.
+        /// </summary>
+        /// <example>
+        ///     Returns [1, 1], [1, 2], [1, 3], [2, 1] ... (or something like that).
+        ///     <code>
+        /// string res = "";
+        /// foreach(T[] arr in Repeat(new int[] {1, 2, 3}, 2)
+        /// {
+        ///     res += arr.ToString() + ", ";
+        /// }
+        /// Debug.Log(res);
+        /// </code>
+        /// </example>
+        /// <param name="items">Items that will be repeated.</param>
+        /// <param name="count">Count of items in each returned array.</param>
+        /// <returns>Iterator for all combinations of items.</returns>
+        public static T[][] Repeat<T>(T[] items, int count)
+        {
+            var sequences = new List<T[]> { Array.Empty<T>() };
+
+            for (var i = 0; i < count; i++)
+                sequences = sequences
+                    .SelectMany(
+                        _ => items,
+                        (seq, item) => seq.Concat(new[] { item }).ToArray()
+                    ).ToList(); 
+
+            return sequences.ToArray();
+        }
+
+        public static string FormatByKeys(this string formattedString,
+            IReadOnlyDictionary<string, object> values)
+        {
+            return values.Aggregate(formattedString,
+                (current, pair) =>
+                    current.Replace($"{{{pair.Key}}}", pair.Value.ToString()));
+        }
+
+        /// <summary>
+        ///     Supports Python-like format, where there is no indexes in {} brackets.
+        /// </summary>
+        /// <example>
+        ///     Both variants work:<br/>
+        ///     <c>"Hello, {0}!".IndexErrorProtectedFormat("Tom") // "Hello, Tom!"</c>
+        ///     <br/>
+        ///     <c>"Hello, {}!".IndexErrorProtectedFormat("Tom") // "Hello, Tom!"</c>
+        /// </example>
+        public static string IndexErrorProtectedFormat(this string original,
+            params object[] args)
+        {
+            var res = "";
+
+            List<string> parts = new();
+            List<string> replaceMarks = new();
+
+            var lastPart = "";
+            for (var i = 0; i < original.Length; i++)
+            {
+                var c = original[i];
+
+                if (c == '{')
+                {
+                    parts.Add(lastPart);
+                    lastPart = "";
+
+                    var replaceMark = "{";
+                    do
+                    {
+                        i++;
+                        replaceMark += original[i];
+                    } while (original[i] != '}');
+
+                    replaceMarks.Add(replaceMark);
+                }
+                else
+                {
+                    lastPart += c;
+                }
+            }
+
+            if (lastPart != "") parts.Add(lastPart);
+
+            Assert.IsTrue(
+                (replaceMarks.Contains("{}") &&
+                 new HashSet<string>(replaceMarks).Count == 1) ||
+                !replaceMarks.Contains("{}"),
+                "Indexed and non-indexed replace points can't exist at the same time\n" +
+                $"Original string: {original}");
+
+            if (replaceMarks.Contains("{}"))
+            {
+                var i = 0;
+                for (; i < replaceMarks.Count; i++) res += parts[i] + $"{{{i}}}";
+
+                if (parts.Count != replaceMarks.Count) res += parts[i];
+            }
+            else
+            {
+                res = original;
+            }
+
+            return string.Format(res, args);
         }
 
         public static class Random
         {
-            public static bool RandomChance(int chance)
-            {
-                return UnityRandom.Range(1, 101) <= chance;
-            }
+            public static bool RandomChance(int chance) =>
+                UnityRandom.Range(1, 101) <= chance;
 
             public static T RandomChoose<T>(IEnumerable<T> toChoose)
             {
@@ -41,7 +176,7 @@ namespace Other
                 var chosenChance = UnityRandom.Range(0, sum);
 
                 var result = default(T);
-                foreach ((T, float) chance in chances)
+                foreach (var chance in chances)
                     if (chosenChance > chance.Item2)
                     {
                         chosenChance -= chance.Item2;
@@ -61,7 +196,7 @@ namespace Other
                 var chosenChance = UnityRandom.Range(1, sum + 1);
 
                 var result = default(T);
-                foreach ((T, int) chance in chances)
+                foreach (var chance in chances)
                     if (chosenChance > chance.Item2)
                     {
                         chosenChance -= chance.Item2;
@@ -75,6 +210,9 @@ namespace Other
                 return result;
             }
 
+            /// <summary>
+            ///     Initializes <see cref="UnityRandom"/> with new seed.
+            /// </summary>
             public static void ResetRandom()
             {
                 UnityRandom.InitState((int)DateTime.Now.Ticks);
@@ -138,124 +276,6 @@ namespace Other
 
                 return elements;
             }
-        }
-
-        public static T InstantiateUI<T>(T obj) where T : Object
-        {
-            return Object.Instantiate(obj, UICanvas.Instance.transform);
-        }
-
-        public static void InitButton(this Button btn, Action onClick,
-            string content)
-        {
-            btn.onClick.AddListener(() => onClick());
-            btn.GetComponentInChildren<Text>().text = content;
-        }
-
-        public static int Percents(float v)
-        {
-            return (int)(v * 100);
-        }
-
-        public static List<T> MultiDimToOne<T>(T[,] orig)
-        {
-            var value = new List<T>();
-            for (var i = 0; i < orig.GetLength(0); i++)
-            for (var j = 0; j < orig.GetLength(1); j++)
-                value.Add(orig[i, j]);
-
-            return value;
-        }
-
-        public static IEnumerable<T[]> Repeat<T>(T[] items, int count)
-        {
-            return Product(Enumerable.Repeat(items, count).ToArray());
-        }
-
-        public static IEnumerable<T[]> Product<T>(T[][] items)
-        {
-            var length = items.Length;
-            var indexes = new int[length];
-
-            while (true)
-            {
-                var arr = new T[length];
-                for (var i = 0; i < length; i++) arr[i] = items[i][indexes[i]];
-                yield return arr;
-
-                var row = length - 1;
-                indexes[row]++;
-                while (indexes[row] == items[row].Length)
-                {
-                    if (row == 0)
-                        yield break;
-                    indexes[row] = 0;
-                    row--;
-                    indexes[row]++;
-                }
-            }
-        }
-
-        public static string FormatByKeys(this string formattedString,
-            IReadOnlyDictionary<string, object> values)
-        {
-            return values.Aggregate(formattedString,
-                (current, pair) => current.Replace($"{{{pair.Key}}}", pair.Value.ToString()));
-        }
-
-        public static string IndexErrorProtectedFormat(this string original, params object[] args)
-        {
-            var res = "";
-
-            List<string> parts = new();
-            List<string> replaceMarks = new();
-
-            var lastPart = "";
-            for (var i = 0; i < original.Length; i++)
-            {
-                var c = original[i];
-
-                if (c == '{')
-                {
-                    parts.Add(lastPart);
-                    lastPart = "";
-
-                    var replaceMark = "{";
-                    do
-                    {
-                        i++;
-                        replaceMark += original[i];
-                    } while (original[i] != '}');
-
-                    replaceMarks.Add(replaceMark);
-                }
-                else
-                {
-                    lastPart += c;
-                }
-            }
-
-            if (lastPart != "") parts.Add(lastPart);
-
-            Assert.IsTrue(
-                (replaceMarks.Contains("{}") && new HashSet<string>(replaceMarks).Count == 1) ||
-                !replaceMarks.Contains("{}"),
-                "Indexed and non-indexed replace points can't exist at the same time\n" +
-                $"Original string: {original}");
-
-            if (replaceMarks.Contains("{}"))
-            {
-                var i = 0;
-                for (; i < replaceMarks.Count; i++) res += parts[i] + $"{{{i}}}";
-
-                if (parts.Count != replaceMarks.Count) res += parts[i];
-            }
-            else
-            {
-                res = original;
-            }
-
-            return string.Format(res, args);
         }
     }
 }

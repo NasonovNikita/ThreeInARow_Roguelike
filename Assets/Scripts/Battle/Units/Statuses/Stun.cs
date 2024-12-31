@@ -7,30 +7,26 @@ namespace Battle.Units.Statuses
 {
     public class Stun : Status
     {
-        private readonly MoveCounter moveMod;
+        private readonly MoveCounter _moveMod;
 
-        public Stun(int moves, bool save = false) : base(save)
-        {
-            moveMod = CreateChangeableSubSystem(new MoveCounter(moves));
-        }
+        public Stun(int moves, bool isSaved = false) : base(isSaved) =>
+            _moveMod = CreateChangeableSubSystem(new MoveCounter(moves));
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.stun;
+        public override Sprite Sprite => ModSpritesContainer.Instance.stun;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.stun.Value,
-                moveMod.Moves);
+            IModIconModifier.SimpleFormatDescription(
+                ModDescriptionsContainer.Instance.stun.Value,
+                _moveMod.Moves);
 
-        public override string SubInfo => moveMod.SubInfo;
-        public override bool ToDelete => moveMod.EndedWork;
+        public override string SubInfo => _moveMod.SubInfo;
+        protected override bool HiddenEndedWork => _moveMod.EndedWork;
 
-        protected override bool CanConcat(Modifier other)
+        protected override bool HiddenCanConcat(Modifier other) => other is Stun;
+
+        protected override void HiddenConcat(Modifier other)
         {
-            return other is Stun;
-        }
-
-        public override void Concat(Modifier other)
-        {
-            moveMod.Concat(((Stun)other).moveMod);
+            _moveMod.Concat(((Stun)other)._moveMod);
         }
     }
 }

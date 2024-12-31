@@ -1,48 +1,29 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Other;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle.Modifiers
 {
+    /// <summary>
+    ///     Supports concatenation, initialization and state checking.<br/>
+    ///     <inheritdoc cref="IChangeAble"/>
+    /// </summary>
     [Serializable]
     public abstract class Modifier : IChangeAble
     {
-        [SerializeField] private bool save;
+        [SerializeField] public bool isSaved;
+        [SerializeField] protected bool killed;
 
-        protected Modifier(bool save = false)
-        {
-            this.save = save;
-        }
+        protected Modifier(bool isSaved = false) => this.isSaved = isSaved;
 
         protected virtual List<IChangeAble> ChangeAblesToInitialize => new();
 
-        public abstract bool EndedWork { get; }
+        protected abstract bool HiddenEndedWork { get; }
+        public bool EndedWork => HiddenEndedWork || killed;
 
         public event Action OnChanged;
-
-        public static void RemoveNotSavingMods<T>(List<T> list) where T : Modifier
-        {
-            foreach (T mod in list.ToList().Where(mod => !mod.save)) list.Remove(mod);
-        }
-
-        public static List<T> LoadList<T>(List<T> list) where T : Modifier
-        {
-            foreach (T mod in list) mod.Init();
-
-            return list;
-        }
-
-
-        public static void AddToList(List<Modifier> list, Modifier other)
-        {
-            Modifier second = list.FirstOrDefault(obj =>
-                obj.LowCanConcat(other));
-
-            if (second is not null) second.LowConcat(other);
-            else list.Add(other);
-        }
 
         protected T CreateChangeableSubSystem<T>(T changeAble) where T : IChangeAble
         {
@@ -54,31 +35,36 @@ namespace Battle.Modifiers
 
         public void Init()
         {
-            foreach (IChangeAble changeAble in ChangeAblesToInitialize) InitChangeAble(changeAble);
+            foreach (var changeAble in ChangeAblesToInitialize)
+                InitChangeAble(changeAble);
+        }
+
+        public void Kill()
+        {
+            killed = true;
+            OnChanged?.Invoke();
         }
 
         private void InitChangeAble(IChangeAble changeAble)
         {
             changeAble.OnChanged += () => OnChanged?.Invoke();
-            (changeAble as IInit)?.Init();
+            (changeAble as IInitiated)?.Init();
         }
 
         #region ConcatAbility
 
-        public bool LowCanConcat(Modifier other)
+        public bool CanConcat(Modifier other) =>
+            isSaved == other.isSaved && !EndedWork && HiddenCanConcat(other);
+
+        public void Concat(Modifier other)
         {
-            return save == other.save && !EndedWork && CanConcat(other);
-        }
-
-        protected abstract bool CanConcat(Modifier other);
-
-        public abstract void Concat(Modifier other);
-
-        private void LowConcat(Modifier other)
-        {
-            Concat(other);
+            HiddenConcat(other);
             OnChanged?.Invoke();
         }
+
+        protected abstract bool HiddenCanConcat(Modifier other);
+
+        protected abstract void HiddenConcat(Modifier other);
 
         #endregion
     }

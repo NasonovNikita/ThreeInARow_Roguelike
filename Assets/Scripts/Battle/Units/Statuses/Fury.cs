@@ -15,18 +15,19 @@ namespace Battle.Units.Statuses
         [SerializeField] private int hpBorder;
         [SerializeField] private DamageConstMod constMod;
 
-        public Fury(int addition, int hpBorder, bool save = false) : base(save)
+        public Fury(int addition, int hpBorder, bool isSaved = false) : base(isSaved)
         {
             this.addition = addition;
             this.hpBorder = hpBorder;
         }
 
-        private bool Condition => belongingUnit.hp <= hpBorder;
+        private bool Condition => BelongingUnit.hp <= hpBorder;
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.fury;
+        public override Sprite Sprite => ModSpritesContainer.Instance.fury;
 
         public override string Description =>
-            IModIconModifier.FormatDescriptionByKeys(ModDescriptionsContainer.Instance.fury.Value,
+            IModIconModifier.FormatDescriptionByKeys(
+                ModDescriptionsContainer.Instance.fury.Value,
                 new Dictionary<string, object>
                 {
                     { "hpBorder", hpBorder },
@@ -34,19 +35,19 @@ namespace Battle.Units.Statuses
                 });
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
-        public override bool ToDelete => addition == 0;
+        protected override bool HiddenEndedWork => addition == 0;
 
         private void CheckHpAndApplyMod()
         {
             switch (Condition)
             {
                 case false when constMod is not null:
-                    belongingUnit.damage.mods.Add(new DamageConstMod(-addition));
+                    BelongingUnit.damage.mods.Add(new DamageConstMod(-addition));
                     constMod = null;
                     break;
                 case true when constMod is null:
                     constMod = new DamageConstMod(addition);
-                    belongingUnit.damage.mods.Add(constMod);
+                    BelongingUnit.damage.mods.Add(constMod);
                     break;
             }
         }
@@ -57,13 +58,11 @@ namespace Battle.Units.Statuses
             unit.hp.OnValueChanged += _ => CheckHpAndApplyMod();
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is Fury fury &&
-                   fury.hpBorder == hpBorder;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is Fury fury &&
+            fury.hpBorder == hpBorder;
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             var otherAddition = ((Fury)other).addition;
             if (Condition && constMod is not null)

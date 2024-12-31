@@ -16,7 +16,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddStatus(new Fury(bonus, hpLessThen, true));
+            Player.Data.AddStatus(new Fury(bonus, hpLessThen, true));
         }
     }
 }

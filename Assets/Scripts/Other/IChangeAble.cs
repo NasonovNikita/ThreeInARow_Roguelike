@@ -2,10 +2,11 @@ using System;
 
 namespace Other
 {
+    /// <summary>
+    ///     Invokes <see cref="OnChanged"/> when changed.
+    /// </summary>
     public interface IChangeAble
     {
-        public bool EndedWork { get; }
-
         public event Action OnChanged;
     }
 }

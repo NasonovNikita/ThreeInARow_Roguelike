@@ -11,19 +11,17 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int heal;
 
-        public Vampirism(int healAmount, bool save = false) : base(save)
-        {
+        public Vampirism(int healAmount, bool isSaved = false) : base(isSaved) =>
             heal = healAmount;
-        }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.vampirism;
+        public override Sprite Sprite => ModSpritesContainer.Instance.vampirism;
 
         public override string Description =>
             IModIconModifier.SimpleFormatDescription(
                 ModDescriptionsContainer.Instance.vampirism.Value, heal);
 
         public override string SubInfo => heal.ToString();
-        public override bool ToDelete => heal == 0;
+        protected override bool HiddenEndedWork => heal == 0;
 
         public override void Init(Unit unit)
         {
@@ -34,15 +32,12 @@ namespace Battle.Units.Statuses
 
         private void Heal()
         {
-            belongingUnit.hp.Heal(heal);
+            BelongingUnit.hp.Heal(heal);
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is Vampirism;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Vampirism;
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             heal += ((Vampirism)other).heal;
         }

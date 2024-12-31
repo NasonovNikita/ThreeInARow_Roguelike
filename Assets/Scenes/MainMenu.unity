@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44334a532574ad19f4ccec916f8b926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doLog: 0
+  doLog: 1
 --- !u!1 &175298465
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd0f4bb925e70246b6484b25daf4b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 3409028896318203545, guid: c366518e1149a2e459e83cd5e2e069dc, type: 3}
+  inventoryManager: {fileID: 5194967847300656914, guid: 34ea5d7648c4043488c9e4c94f712932, type: 3}
+  modIcon: {fileID: 1606239242982794547, guid: d24b8f2015a7a854292d194eac721bd4, type: 3}
+  hud: {fileID: 6277296317740278923, guid: 7c2cc85c0ff04f74595e3f09de7286ab, type: 3}
   winMessage: {fileID: 2188612303319430005, guid: 0176c58bca5452d4dae563e7896417e4, type: 3}
   spellGettingWarningWindow: {fileID: 3249984304521703575, guid: d60f55fc6a25dab4f9dbe6952da2d69f, type: 3}
   spellReplacingWindow: {fileID: 6715011800204960958, guid: ce906c6e3d9376d4ea06b7814f04d72e, type: 3}
@@ -393,10 +397,6 @@ MonoBehaviour:
   battleNode: {fileID: 4151228096430590339, guid: 7c206f31ade975445bcd9358de4eed63, type: 3}
   shopNode: {fileID: 1152749678958579468, guid: d1977df78c95e574691f3a9f20b27c8c, type: 3}
   treasureNode: {fileID: 171546427078445624, guid: 76714e3d2afa7e644b0a358c75be5138, type: 3}
-  inventoryItem: {fileID: 3409028896318203545, guid: c366518e1149a2e459e83cd5e2e069dc, type: 3}
-  inventoryManager: {fileID: 5194967847300656914, guid: 34ea5d7648c4043488c9e4c94f712932, type: 3}
-  modIcon: {fileID: 1606239242982794547, guid: d24b8f2015a7a854292d194eac721bd4, type: 3}
-  hud: {fileID: 6277296317740278923, guid: 7c2cc85c0ff04f74595e3f09de7286ab, type: 3}
 --- !u!4 &193633472
 Transform:
   m_ObjectHideFlags: 0
@@ -1120,7 +1120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6f02c218fb49a78b844f992cde52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doLog: 0
+  doLog: 1
 --- !u!4 &757175412
 Transform:
   m_ObjectHideFlags: 0
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a82284c0f444628f5494fb1fc92eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doLog: 0
+  doLog: 1
 --- !u!114 &757175414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5537d96438f149f9acd922cd1e36c995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doLog: 0
+  doLog: 1
 --- !u!1 &809755281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,6 +1191,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c52a6992f54893a6756772dcb1740a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instakillProtectionLocalizedKey:
+    _key: InstakillProtection
+    _formatters: []
+  unitInfoLocalizedKey:
+    _key: UnitInfo
+    _formatters: []
+  miss:
+    _key: Miss
+    _formatters: []
   blind:
     _key: BlindDescription
     _formatters: []
@@ -1238,15 +1247,6 @@ MonoBehaviour:
     _formatters: []
   less:
     _key: less
-    _formatters: []
-  instakillProtectionLocalizedKey:
-    _key: InstakillProtection
-    _formatters: []
-  unitInfoLocalizedKey:
-    _key: UnitInfo
-    _formatters: []
-  miss:
-    _key: Miss
     _formatters: []
   references:
     version: 2
@@ -2300,7 +2300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield:
-    _key: ModShieldDescription
+    _key: ShieldModDescription
     _formatters: []
   damagePositive:
     _key: DamageModDescriptionPositive
@@ -2332,8 +2332,14 @@ MonoBehaviour:
   deal:
     _key: DealModDescription
     _formatters: []
+  endurance:
+    _key: EnduranceModDescription
+    _formatters: []
   fury:
     _key: FuryModDescription
+    _formatters: []
+  frozen:
+    _key: FrozenModDescription
     _formatters: []
   immortality:
     _key: ImmortalityModDescription
@@ -2355,6 +2361,9 @@ MonoBehaviour:
     _formatters: []
   vampirism:
     _key: VampirismModDescription
+    _formatters: []
+  reflection:
+    _key: ReflectionModDescription
     _formatters: []
   references:
     version: 2
@@ -3163,7 +3172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00a0ef7d8e149dd82e594a2c45075ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
 --- !u!4 &1976907544
 Transform:
   m_ObjectHideFlags: 0
@@ -3208,7 +3216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef3e2910637b849aed3c5275120762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
   depth: 6
   minWidth: 2
   maxWidth: 3
@@ -3284,7 +3291,8 @@ MonoBehaviour:
   burning: {fileID: 21300000, guid: 34bbf9e14bffd6644ac36b3416772dfb, type: 3}
   damage: {fileID: -460376368110710891, guid: 27afab3641c169b428409c0e136685c0, type: 3}
   deal: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
-  fury: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
+  endurance: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
+  fury: {fileID: 21300000, guid: 92935d7f48fadda778be709f394f8601, type: 3}
   manaMod: {fileID: 7946027417908342247, guid: d08bbbebaf761954bb19bc3ec975123d, type: 3}
   shield: {fileID: -4471335532245260209, guid: b995ee947cebe454a8db8e1c55fb8efc, type: 3}
   healing: {fileID: -3094117710451779448, guid: 284e30720a629de4697c930bf25d6c18, type: 3}
@@ -3293,7 +3301,9 @@ MonoBehaviour:
   stun: {fileID: -1937328843035238197, guid: e67749658568bdc41bb42430f9752772, type: 3}
   irritation: {fileID: -4733730143810245763, guid: bbd974a0f96397f4ea4f879813f7d12c, type: 3}
   randomIgnition: {fileID: -8821602397545208518, guid: 4c2e3660853cfb142bf8963cf51b41b4, type: 3}
-  sharp: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
+  sharp: {fileID: 21300000, guid: 4ccd69705ccd087deb1cf60364df654e, type: 3}
+  frozen: {fileID: 21300000, guid: ccbcfff57caef6324a4871be8a6385f7, type: 3}
+  reflection: {fileID: 21300000, guid: 1d69addeac404c82b9a393a57e3c5160, type: 3}
   vampirism: {fileID: 4249207539230793570, guid: 4e413fb2d6c98304a80cd1e9b271cb33, type: 3}
 --- !u!1 &2061605703
 GameObject:

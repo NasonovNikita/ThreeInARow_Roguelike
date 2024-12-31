@@ -9,13 +9,15 @@ namespace Battle.Units.StatModifiers
     [Serializable]
     public class HealingConstMod : ValuedStatModifier
     {
-        public HealingConstMod(int value, bool save = false) : base(value, save)
+        public HealingConstMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 
-        protected override Sprite SpritePositive => ModifierSpritesContainer.Instance.healing;
+        protected override Sprite SpritePositive =>
+            ModSpritesContainer.Instance.healing;
 
-        protected override Sprite SpriteNegative => ModifierSpritesContainer.Instance.healing;
+        protected override Sprite SpriteNegative =>
+            ModSpritesContainer.Instance.healing;
 
         protected override bool IsPositive => value > 0;
 
@@ -25,9 +27,7 @@ namespace Battle.Units.StatModifiers
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
             ModDescriptionsContainer.Instance.healingNegative;
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is HealingConstMod;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is HealingConstMod;
     }
 }

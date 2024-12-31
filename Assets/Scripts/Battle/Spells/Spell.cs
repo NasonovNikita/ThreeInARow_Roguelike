@@ -6,30 +6,44 @@ using UnityEngine;
 
 namespace Battle.Spells
 {
+    /// <summary>
+    ///     Base class for all spells.<br/>
+    ///     Initialize with <see cref="Unit"/> and then use <see cref="Cast"/>.
+    /// </summary>
+    /// <remarks>For <see cref="Player"/> use <see cref="PlayerCast"/>!</remarks>
     [Serializable]
     public abstract class Spell : LootItem
     {
         private const float CastTime = 0.5f; // TEMP
         [SerializeField] public int useCost;
 
-        protected BattleFlowManager battleFlowManager;
+        protected BattleFlowManager BattleFlowManager;
 
-        protected Unit unitBelong;
+        protected Unit UnitBelong;
 
-        public virtual bool CantCast => unitBelong.mana < useCost;
+        public virtual bool CantCast => UnitBelong.mana < useCost;
 
         public virtual void Init(Unit unit)
         {
-            unitBelong = unit;
-            battleFlowManager = FindFirstObjectByType<BattleFlowManager>();
+            UnitBelong = unit;
+            BattleFlowManager = FindFirstObjectByType<BattleFlowManager>();
         }
 
+        /// <summary>   The same as <see cref="Cast"/> but also checks if it's Player's turn.   </summary>
         public void PlayerCast()
         {
-            if (battleFlowManager.CurrentlyTurningUnit is Player)
-                unitBelong.StartCoroutine(Cast());
+            if (BattleFlowManager.Instance.AllowedToUseSpells)
+                UnitBelong.StartCoroutine(Cast());
         }
 
+        /// <summary>
+        ///     Checks if Unit can cast the spell, uses <b>Action</b>,
+        ///     <b>Wastes</b> mana (or whatever), Invokes events and plays an animation (if exists).
+        /// </summary>
+        /// <returns>
+        ///     IEnumerator with time delays.
+        ///     Is Supposed to be used with <c>StartCoroutine(Cast())</c>
+        /// </returns>
         public IEnumerator Cast()
         {
             if (CantCast) yield break;
@@ -37,7 +51,7 @@ namespace Battle.Spells
             Action();
 
             Waste();
-            unitBelong.UseSpell();
+            UnitBelong.UseSpell();
 
             yield return Wait();
         }
@@ -51,12 +65,12 @@ namespace Battle.Spells
 
         protected virtual void Waste()
         {
-            unitBelong.mana.Waste(useCost);
+            UnitBelong.mana.Waste(useCost);
         }
 
         public override void Get()
         {
-            Player.data.spells.Add(this);
+            Player.Data.spells.Add(this);
         }
     }
 }

@@ -11,6 +11,8 @@ using Spell = Battle.Spells.Spell;
 
 namespace Battle.Units
 {
+    /// Keeps data about player (stats, inventory, money, etc.)
+    /// Is Serializeable and can be saved.
     [CreateAssetMenu(fileName = "PlayerData", menuName = "UnitData/PlayerData")]
     [Serializable]
     public class PlayerData : ScriptableObject
@@ -26,10 +28,9 @@ namespace Battle.Units
         [SerializeField] public List<Cell> cells;
         [SerializeField] public int money;
 
-        public static PlayerData NewData(Player player, PlayerData oldData)
-        {
-            return NewData(player.hp, player.mana, player.damage, player.Statuses, oldData);
-        }
+        public static PlayerData NewData(Player player, PlayerData oldData) =>
+            NewData(player.hp, player.mana, player.damage, player.Statuses,
+                oldData);
 
         public static PlayerData NewData(
             Hp hp,
@@ -43,7 +44,7 @@ namespace Battle.Units
             data.mana = mana.Save();
             data.damage = damage.Save();
 
-            statuses.SaveMods();
+            statuses.RemoveTempModsAndUnAttach();
             data.statuses = statuses;
 
             return data;
@@ -56,7 +57,7 @@ namespace Battle.Units
             ModifierList statuses,
             PlayerData oldData)
         {
-            PlayerData data = NewData(hp, mana, damage, statuses);
+            var data = NewData(hp, mana, damage, statuses);
 
             data.spells = oldData.spells;
             data.items = oldData.items;

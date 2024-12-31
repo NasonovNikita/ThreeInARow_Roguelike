@@ -6,7 +6,7 @@ namespace Battle.Units.StatModifiers
 {
     public abstract class DamageMod : ValuedStatModifier
     {
-        protected DamageMod(int value, bool save = false) : base(value, save)
+        protected DamageMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 
@@ -18,7 +18,10 @@ namespace Battle.Units.StatModifiers
         protected override KnotTextKeyReference DescriptionKnotKeyReferenceNegative =>
             ModDescriptionsContainer.Instance.damageNegative;
 
-        protected override Sprite SpriteNegative => ModifierSpritesContainer.Instance.damage;
-        protected override Sprite SpritePositive => ModifierSpritesContainer.Instance.damage;
+        protected override Sprite SpriteNegative =>
+            ModSpritesContainer.Instance.damage;
+
+        protected override Sprite SpritePositive =>
+            ModSpritesContainer.Instance.damage;
     }
 }

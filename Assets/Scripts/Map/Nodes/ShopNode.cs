@@ -6,12 +6,10 @@ namespace Map.Nodes
     {
         protected override void Action()
         {
-            RoomLoader.LoadShop(layer, seed);
+            RoomLoader.LoadShop(Layer, Seed);
         }
 
-        public static ShopNode Create(int layer, int seed)
-        {
-            return (ShopNode)Create(PrefabsContainer.instance.shopNode, layer, seed);
-        }
+        public static ShopNode Create(int layer, int seed) =>
+            (ShopNode)Create(PrefabsContainer.Instance.shopNode, layer, seed);
     }
 }

@@ -7,39 +7,26 @@ using UnityEngine;
 namespace Battle.Units.StatModifiers
 {
     [Serializable]
-    public class Shield : Modifier, IIntModifier, IModIconModifier
+    public class Shield : OneTurnCounter, IIntModifier
     {
-        [SerializeField] private Counter counter;
+        public Shield(int count, bool isSaved = false) : base(count, isSaved)
+        { }
 
-        public Shield(int count, bool save = false) : base(save)
+        int IIntModifier.Modify(int val) => Counter.Decrease(val);
+
+        public override Sprite Sprite => ModSpritesContainer.Instance.shield;
+
+        public override string Description =>
+            IModIconModifier.SimpleFormatDescription(
+                ModDescriptionsContainer.Instance.shield.Value, Counter.Count);
+
+        public override string SubInfo => Counter.SubInfo;
+
+        protected override bool HiddenCanConcat(Modifier other) => other is Shield;
+
+        protected override void HiddenConcat(Modifier other)
         {
-            counter = CreateChangeableSubSystem(new Counter(count));
-        }
-
-        int IIntModifier.Modify(int val)
-        {
-            return counter.Decrease(val);
-        }
-
-        public override bool EndedWork => ToDelete;
-
-        public Sprite Sprite => ModifierSpritesContainer.Instance.shield;
-
-        public string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.shield.Value,
-                counter.Count);
-
-        public string SubInfo => counter.SubInfo;
-        public bool ToDelete => counter.EndedWork;
-
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is Shield;
-        }
-
-        public override void Concat(Modifier other)
-        {
-            counter.Concat(((Shield)other).counter);
+            Counter.ConcatWith(((Shield)other).Counter);
         }
     }
 }

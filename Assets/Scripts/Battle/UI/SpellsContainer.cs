@@ -1,4 +1,3 @@
-using Battle.Spells;
 using Battle.Units;
 using Other;
 using UI.MessageWindows;
@@ -15,11 +14,12 @@ namespace Battle.UI
             var spellButtons = GetComponentsInChildren<Button>();
             for (var i = 0; i < player.spells.Count && i < 4; i++)
             {
-                Button button = spellButtons[i];
-                Spell spell = player.spells[i];
-                var objectWithInfo = button.GetComponent<InfoObject>();
+                var button = spellButtons[i];
+                var spell = player.spells[i];
+                var objectWithInfo =
+                    button.GetComponent<InfoObject>(); // btn must have this component
                 objectWithInfo.text = spell.Description;
-                objectWithInfo.actAfterTime = true; // btn must have this component
+                objectWithInfo.actAfterTime = true;
                 button.InitButton(() => StartCoroutine(spell.Cast()),
                     spell.Title + " " + spell.useCost);
             }

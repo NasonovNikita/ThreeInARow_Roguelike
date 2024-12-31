@@ -5,7 +5,7 @@ namespace Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        private Dictionary<AudioEnum, AudioPlayer> sounds;
+        private Dictionary<AudioEnum, AudioPlayer> _sounds;
         public static AudioManager Instance { get; private set; }
 
         public void Awake()
@@ -17,33 +17,34 @@ namespace Audio
 
             DontDestroyOnLoad(gameObject);
 
-            sounds = new Dictionary<AudioEnum, AudioPlayer>();
-            foreach (AudioPlayer snd in GetComponentsInChildren<AudioPlayer>())
-                sounds[snd.audioName] = snd;
+            _sounds = new Dictionary<AudioEnum, AudioPlayer>();
+            foreach (var snd in GetComponentsInChildren<AudioPlayer>())
+                _sounds[snd.audioName] = snd;
         }
 
+        /// <summary>
+        ///     Plays chosen by ID music
+        /// </summary>
+        /// <param name="soundEnum">A sound's <b>key</b> (ID)</param>
         public void Play(AudioEnum soundEnum)
         {
-            AudioPlayer sound = GetAudio(soundEnum);
+            var sound = GetAudio(soundEnum);
 
             sound.Play();
         }
 
         public void Stop(AudioEnum soundEnum)
         {
-            AudioPlayer sound = GetAudio(soundEnum);
+            var sound = GetAudio(soundEnum);
 
             sound.Stop();
         }
 
         public void StopAll()
         {
-            foreach (AudioPlayer sound in sounds.Values) sound.Stop();
+            foreach (var sound in _sounds.Values) sound.Stop();
         }
 
-        private AudioPlayer GetAudio(AudioEnum soundEnum)
-        {
-            return sounds[soundEnum];
-        }
+        private AudioPlayer GetAudio(AudioEnum soundEnum) => _sounds[soundEnum];
     }
 }

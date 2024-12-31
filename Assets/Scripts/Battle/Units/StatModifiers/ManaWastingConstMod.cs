@@ -6,13 +6,11 @@ namespace Battle.Units.StatModifiers
     [Serializable]
     public class ManaWastingConstMod : ManaWastingMod
     {
-        public ManaWastingConstMod(int value, bool save = false) : base(value, save)
+        public ManaWastingConstMod(int value, bool isSaved = false) : base(value, isSaved)
         {
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is ManaWastingConstMod;
-        }
+        protected override bool HiddenCanConcat(Modifier other) =>
+            other is ManaWastingConstMod;
     }
 }

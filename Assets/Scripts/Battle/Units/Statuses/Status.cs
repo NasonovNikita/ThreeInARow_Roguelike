@@ -1,33 +1,20 @@
 using System;
-using Battle.Modifiers;
 using Battle.UI.ModsDisplaying;
 using UnityEngine;
 
 namespace Battle.Units.Statuses
 {
+    /// <summary>
+    ///     Modifier that belongs to <see cref="Unit"/>. Is usually used as a mark
+    ///     or has some additional behaviour such as <see cref="Burning"/>.
+    /// </summary>
     [Serializable]
-    public abstract class Status : Modifier, IModIconModifier
+    public abstract class Status : UnitModifier
     {
-        protected Unit belongingUnit;
-
-        protected Status(bool save = false) : base(save)
+        protected Status(bool isSaved = false) : base(isSaved)
         {
         }
 
         protected BattleFlowManager BattleFlowManager => BattleFlowManager.Instance;
-
-        public abstract Sprite Sprite { get; }
-
-        public abstract string Description { get; }
-        public abstract string SubInfo { get; }
-
-        public abstract bool ToDelete { get; }
-
-        public override bool EndedWork => ToDelete;
-
-        public virtual void Init(Unit unit)
-        {
-            belongingUnit = unit;
-        }
     }
 }

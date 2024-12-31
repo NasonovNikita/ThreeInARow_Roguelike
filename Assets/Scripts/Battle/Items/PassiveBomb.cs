@@ -15,7 +15,7 @@ namespace Battle.Items
 
         public override void OnGet()
         {
-            Player.data.AddStatus(new Units.Statuses.PassiveBomb(damage, minMana, true));
+            Player.Data.AddStatus(new Units.Statuses.PassiveBomb(damage, minMana, true));
         }
     }
 }

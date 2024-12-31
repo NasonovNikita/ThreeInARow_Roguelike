@@ -14,7 +14,7 @@ namespace Battle.UI.HUD
 
         public static HUD Create(string content, Color color, Transform parentTransform)
         {
-            HUD hud = Instantiate(PrefabsContainer.instance.hud, parentTransform);
+            var hud = Instantiate(PrefabsContainer.Instance.hud, parentTransform);
 
             hud.text.text = content;
             hud.text.color = color;
@@ -35,21 +35,17 @@ namespace Battle.UI.HUD
 
         public void Stay()
         {
-            Move(-0.5f);
+            Move(-0.1f);
         }
 
         private void Move(float direction)
         {
-            StartCoroutine(mover.MoveBy(
-                MoveVector(direction),
-                OnMoveEnd
-            ));
+            new SmartCoroutine(this, () => mover.MoveBy(MoveVector(direction)),
+                onEnd: OnMoveEnd).Start();
         }
 
-        private Vector3 MoveVector(float direction)
-        {
-            return Vector3.up * (moveLength * direction);
-        }
+        private Vector3 MoveVector(float direction) =>
+            Vector3.up * (moveLength * direction);
 
         private void OnMoveEnd()
         {

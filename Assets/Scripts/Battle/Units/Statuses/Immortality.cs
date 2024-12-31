@@ -12,19 +12,18 @@ namespace Battle.Units.Statuses
     {
         [SerializeField] private int chance;
 
-        public Immortality(int chance, bool save = false) : base(save)
-        {
+        public Immortality(int chance, bool isSaved = false) : base(isSaved) =>
             this.chance = chance;
-        }
 
-        public override Sprite Sprite => ModifierSpritesContainer.Instance.immortality;
+        public override Sprite Sprite => ModSpritesContainer.Instance.immortality;
 
         public override string Description =>
-            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance.immortality
+            IModIconModifier.SimpleFormatDescription(ModDescriptionsContainer.Instance
+                .immortality
                 .Value);
 
         public override string SubInfo => IModIconModifier.EmptyInfo;
-        public override bool ToDelete => chance <= 0;
+        protected override bool HiddenEndedWork => chance <= 0;
 
         public override void Init(Unit unit)
         {
@@ -36,16 +35,13 @@ namespace Battle.Units.Statuses
 
         private void CheckAndApply()
         {
-            if (belongingUnit.hp <= 0 && Tools.Random.RandomChance(chance))
-                belongingUnit.hp.Heal(1);
+            if (BelongingUnit.hp <= 0 && Tools.Random.RandomChance(chance))
+                BelongingUnit.hp.Heal(1);
         }
 
-        protected override bool CanConcat(Modifier other)
-        {
-            return other is Immortality;
-        }
+        protected override bool HiddenCanConcat(Modifier other) => other is Immortality;
 
-        public override void Concat(Modifier other)
+        protected override void HiddenConcat(Modifier other)
         {
             chance += ((Immortality)other).chance;
             chance = Math.Max(chance, 100);
