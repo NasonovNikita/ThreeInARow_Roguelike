@@ -384,3 +384,8 @@ MonoBehaviour:
     _rawText: Gives {} freeze
   - _key: MirrorCellDescription
     _rawText: Gives {} reflection
+  - _key: PanicButtonCellDescription
+    _rawText: Gives {count} shield. Is availiable once in {cooldown} turns. Starts
+      with {startCooldown} cooldown
+  - _key: TemporaryStrengthCellDescription
+    _rawText: Gives {shieldCount} shield, but gives {debuffAmount} debuff next turn

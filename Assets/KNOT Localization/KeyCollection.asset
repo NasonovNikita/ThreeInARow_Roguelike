@@ -717,6 +717,14 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
+  - _key: PanicButtonCellDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: TemporaryStrengthCellDescription
+    _metadata:
+      _runtime: []
+      _editor: []
   references:
     version: 2
     RefIds: []
