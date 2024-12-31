@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 2498874067317279280, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e1ca713a8416f51b38acd5722c75f24d, type: 3}
+      objectReference: {fileID: 21300000, guid: 57450bbca8806b9a3a7d0edabbf9a202, type: 3}
     - target: {fileID: 9065346117105821478, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -146,7 +146,7 @@ MonoBehaviour:
   mover: {fileID: 4350608258828168247}
   scaler: {fileID: 5099777258088860491}
   descriptionKeyRef:
-    _key: 
+    _key: TemporaryStrengthCellDescription
     _formatters: []
   possibleReward: 1
   shieldCount: 3

@@ -146,7 +146,7 @@ MonoBehaviour:
   mover: {fileID: 2961708762560457241}
   scaler: {fileID: 6033804398600523109}
   descriptionKeyRef:
-    _key: 
+    _key: PanicButtonCellDescription
     _formatters: []
   possibleReward: 1
   cooldownMoves: 6

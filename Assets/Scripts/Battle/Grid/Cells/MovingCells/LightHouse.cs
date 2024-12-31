@@ -64,7 +64,7 @@ namespace Battle.Grid.Cells.MovingCells
         }
 
         public override bool BoxIsStable(Cell[,] box) =>
-            Tools.MultiDimToOne(box).Count(IsSameType) == count;
+            Tools.MultiDimToOne(box).Count(IsSameType) == Grid.Instance.Size / 22;
 
         public override bool IsSameType(Cell other) => other is LightHouse;
     }

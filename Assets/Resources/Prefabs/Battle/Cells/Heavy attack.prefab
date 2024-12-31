@@ -146,7 +146,7 @@ MonoBehaviour:
   mover: {fileID: 2643004886771489453}
   scaler: {fileID: 6776701090394488273}
   descriptionKeyRef:
-    _key: 
+    _key: HeavyAttackCellDescription
     _formatters: []
   possibleReward: 1
   baseAttackVal: 2

@@ -13,7 +13,7 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            UnitBelong.hp.onTakingDamageMods.Add(new HpDamageConstMod(-protectionAmount));
+            UnitBelong.hp.onTakingDamageMods.Add(new HpDamageMoveMod(-protectionAmount, 1));
         }
     }
 }

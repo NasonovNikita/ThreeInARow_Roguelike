@@ -135,7 +135,7 @@ MonoBehaviour:
   mover: {fileID: 8530262682439565201}
   scaler: {fileID: 920968508756547821}
   descriptionKeyRef:
-    _key: 
+    _key: BatteryCellDescription
     _formatters: []
   possibleReward: 1
   damage: 1

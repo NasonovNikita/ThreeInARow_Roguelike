@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 5289296318866020691}
-  timeBetweenIncrements: 4
+  timeBetweenIncrements: 15
   incrementAmount: 10
 --- !u!114 &5289296318866020691 stripped
 MonoBehaviour:

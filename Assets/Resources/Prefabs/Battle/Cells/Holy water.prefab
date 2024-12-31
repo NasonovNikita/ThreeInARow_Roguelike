@@ -135,7 +135,7 @@ MonoBehaviour:
   mover: {fileID: 9162131797760420703}
   scaler: {fileID: 396339994266422307}
   descriptionKeyRef:
-    _key: 
+    _key: HolyWaterCellDescription
     _formatters: []
   possibleReward: 0
   references:

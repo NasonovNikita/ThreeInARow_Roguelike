@@ -697,6 +697,26 @@ MonoBehaviour:
     _metadata:
       _runtime: []
       _editor: []
+  - _key: BatteryCellDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HeavyAttackCellDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: HolyWaterCellDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: IceCellDescription
+    _metadata:
+      _runtime: []
+      _editor: []
+  - _key: MirrorCellDescription
+    _metadata:
+      _runtime: []
+      _editor: []
   references:
     version: 2
     RefIds: []

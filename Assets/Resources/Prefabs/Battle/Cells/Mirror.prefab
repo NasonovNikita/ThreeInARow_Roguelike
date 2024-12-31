@@ -124,7 +124,7 @@ MonoBehaviour:
   mover: {fileID: 4912773703161232121}
   scaler: {fileID: 4506932157467057541}
   descriptionKeyRef:
-    _key: 
+    _key: MirrorCellDescription
     _formatters: []
   possibleReward: 1
   value: 2

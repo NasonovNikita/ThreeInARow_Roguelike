@@ -17,7 +17,7 @@ namespace Battle.Grid.Cells.MovingCells.MatchingCells
 
         protected override void Use()
         {
-            BattleFlowManager.Instance.CurrentlyTurningUnit.damage.mods.Add(
+            BattleFlowManager.Instance.CurrentlyTurningUnit.target.damage.mods.Add(
                 new Units.StatModifiers.Frozen(
                     IIntModifier.UseModList(Modifiers.List, freezeAmount)));
         }

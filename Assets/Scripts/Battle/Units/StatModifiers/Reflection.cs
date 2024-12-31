@@ -1,7 +1,6 @@
 using Battle.Modifiers;
 using Battle.UI.ModsDisplaying;
 using Core.Singleton;
-using Other;
 using UnityEngine;
 
 namespace Battle.Units.StatModifiers
@@ -18,9 +17,11 @@ namespace Battle.Units.StatModifiers
 
         int IIntModifier.Modify(int val)
         {
-            BelongingUnit.target.TakeDamage(val - Counter.Decrease(val));
+            var unreflected = Counter.Decrease(val);
+            
+            BelongingUnit.target.TakeDamage(val - unreflected);
 
-            return val;
+            return unreflected;
         }
 
         public override Sprite Sprite => ModSpritesContainer.Instance.reflection;

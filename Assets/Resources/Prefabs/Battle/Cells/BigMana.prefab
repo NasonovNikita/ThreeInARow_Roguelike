@@ -135,7 +135,7 @@ MonoBehaviour:
   mover: {fileID: 1625953794733195753}
   scaler: {fileID: 7797691456588654229}
   descriptionKeyRef:
-    _key: 
+    _key: ManaCellDescription
     _formatters: []
   possibleReward: 0
   amount: 15

@@ -135,7 +135,7 @@ MonoBehaviour:
   mover: {fileID: 1310196540008749237}
   scaler: {fileID: 7532476552244576201}
   descriptionKeyRef:
-    _key: 
+    _key: IceCellDescription
     _formatters: []
   possibleReward: 1
   freezeAmount: 3
