@@ -33,7 +33,7 @@ MonoBehaviour:
       list: []
   items: []
   spells:
-  - {fileID: 11400000, guid: 9e771189d8b29c34a9833897e7125219, type: 2}
+  - {fileID: 11400000, guid: ce91f5523f61d70cb87e7d132d992143, type: 2}
   statuses:
     list: []
   cells:

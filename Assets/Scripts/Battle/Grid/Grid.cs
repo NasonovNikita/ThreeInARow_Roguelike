@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Battle.Grid.Cells.MovingCells;
 using UnityEngine;
 using UnityEngine.Pool;
 using Object = UnityEngine.Object;
@@ -10,6 +11,8 @@ namespace Battle.Grid
     /// and also grid-specific such as SwitchCells, GetCellsNeighbours, CellsAreNeighbours.
     public class Grid : MonoBehaviour
     {
+        public static Grid Instance { get; private set; }
+        
         [SerializeField] private RectTransform cellPrefab;
 
         public int sizeX;
@@ -28,12 +31,13 @@ namespace Battle.Grid
         /// <remarks>Don't change directly!</remarks>
         public Cell[,] Box;
 
-        public static Grid Instance { get; private set; }
 
         /// Is called when two cells were switched using
         /// <see cref="SwitchCells"/>
         /// function.
         public event Action<Cell, Cell> OnSwitchedCells;
+
+        public event Action<MatchingCell> OnCellClicked;
 
         public event Action OnChanged;
 
@@ -110,7 +114,13 @@ namespace Battle.Grid
         {
             for (var i = 0; i < sizeY; i++)
             for (var j = 0; j < sizeX; j++)
+            {
                 InitCell(Box[i, j], i, j);
+                if (Box[i, j] is MatchingCell cell)
+                {
+                    cell.OnClicked += () => OnCellClicked?.Invoke(cell);
+                }
+            }
         }
 
         public (int, int) FindCell(Object cell)

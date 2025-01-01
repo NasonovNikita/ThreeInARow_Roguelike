@@ -49,13 +49,16 @@ namespace Battle.Units
         {
             Tools.InstantiateAll(spells);
 
-            foreach (var spell in spells) spell.Init(this);
-
             foreach (var modList in AllModifierLists)
             {
                 // Every mod is initialized after adding
                 modList.OnModAdded += modifier => ((UnitModifier)modifier).Init(this);
             }
+        }
+
+        public void Start()
+        {
+            foreach (var spell in spells) spell.Init(this);
         }
 
         public event Action OnSpellCasted;

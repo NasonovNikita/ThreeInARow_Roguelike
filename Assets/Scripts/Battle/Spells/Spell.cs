@@ -17,8 +17,6 @@ namespace Battle.Spells
         private const float CastTime = 0.5f; // TEMP
         [SerializeField] public int useCost;
 
-        protected BattleFlowManager BattleFlowManager;
-
         protected Unit UnitBelong;
 
         public virtual bool CantCast => UnitBelong.mana < useCost;
@@ -26,7 +24,6 @@ namespace Battle.Spells
         public virtual void Init(Unit unit)
         {
             UnitBelong = unit;
-            BattleFlowManager = FindFirstObjectByType<BattleFlowManager>();
         }
 
         /// <summary>   The same as <see cref="Cast"/> but also checks if it's Player's turn.   </summary>

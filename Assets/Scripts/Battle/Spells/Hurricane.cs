@@ -9,7 +9,7 @@ namespace Battle.Spells
 
         protected override void Action()
         {
-            BattleFlowManager.ShuffleEnemies();
+            BattleFlowManager.Instance.ShuffleEnemies();
         }
     }
 }

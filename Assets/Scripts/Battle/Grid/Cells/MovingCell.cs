@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Battle.Units;
 using Other;
@@ -13,11 +14,14 @@ namespace Battle.Grid.Cells
     {
         private static MovingCell _chosen;
 
+        public event Action OnClicked;
+
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Left) OnClicked?.Invoke();
             if (eventData.button != PointerEventData.InputButton.Left ||
                 !BattleFlowManager.Instance.AllowedToUseGrid) return;
-
+            
             
             BattleFlowManager.Instance.AddProcess(new SmartCoroutine(this, Choose)
                 .Start());
@@ -89,5 +93,7 @@ namespace Battle.Grid.Cells
             yield return scaleFirst;
             yield return scaleSecond;
         }
+        
+        
     }
 }

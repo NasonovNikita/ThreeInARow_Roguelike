@@ -9,7 +9,7 @@ namespace Battle.Spells
         [SerializeField] private int damage;
 
         public override bool CantCast =>
-            BattleFlowManager.CurrentlyTurningUnit is not Player ||
+            BattleFlowManager.Instance.CurrentlyTurningUnit is not Player ||
             Player.Data.money < useCost;
 
         public override string Description =>
