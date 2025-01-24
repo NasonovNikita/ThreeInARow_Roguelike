@@ -10,19 +10,19 @@ namespace Battle.Spells
 
         public override bool CantCast =>
             BattleFlowManager.Instance.CurrentlyTurningUnit is not Player ||
-            Player.Data.money < useCost;
+            Player.Data.money < UseCost;
 
         public override string Description =>
             string.Format(descriptionKeyRef.Value, damage);
 
         protected override void Waste()
         {
-            Player.Data.money -= useCost;
+            Player.Data.money -= UseCost;
         }
 
         protected override void Action()
         {
-            for (var i = 0; i < useCost; i++)
+            for (var i = 0; i < UseCost; i++)
             {
                 var index = Random.Range(0, UnitBelong.Enemies.Count);
                 while (UnitBelong.Enemies[index] == null)

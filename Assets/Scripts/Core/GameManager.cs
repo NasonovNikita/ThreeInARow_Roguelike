@@ -1,4 +1,3 @@
-using Audio;
 using Battle.Units;
 using Core.Saves;
 using UnityEditor;
@@ -33,12 +32,6 @@ namespace Core
         public void MainMenu()
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-
-            AudioManager.Instance.StopAll();
-
-            AudioManager.Instance.Play(AudioEnum.MainMenu);
-
-            SettingsSave.Save();
         }
 
         public void NewGame()

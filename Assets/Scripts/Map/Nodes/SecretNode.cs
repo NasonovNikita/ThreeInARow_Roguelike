@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Other;
-using Random = UnityEngine.Random;
+using UnityRandom = UnityEngine.Random;
 
 namespace Map.Nodes
 {
@@ -12,9 +12,10 @@ namespace Map.Nodes
 
         protected override void Action()
         {
-            Random.InitState(Seed);
+            UnityRandom.InitState(Seed);
 
-            // TODO Choose and create room from Rooms
+            var chosenRoom = Tools.Random.RandomChoose(Rooms);
+            chosenRoom?.Invoke();
 
             Tools.Random.ResetRandom();
         }

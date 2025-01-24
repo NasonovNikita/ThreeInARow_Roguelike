@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 431597028952375755, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
       propertyPath: m_Name
-      value: Stone_
+      value: Stone
       objectReference: {fileID: 0}
     - target: {fileID: 2498874067317279280, guid: 6e6debdf26285cc4cbde29a4383e29b7, type: 3}
       propertyPath: m_Sprite
@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 8715939541780319134}
   scaler: {fileID: 167556336849857762}
+  Rarity: 4
   descriptionKeyRef:
     _key: StoneCellDescription
     _formatters: []

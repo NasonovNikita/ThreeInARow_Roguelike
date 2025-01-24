@@ -23,7 +23,7 @@ namespace UI
                         Player.Data.spells.Find(spell => spell is Healing));
                 _btn.onClick.AddListener(spell.MapCast);
                 _btn.GetComponentInChildren<Text>().text =
-                    $"{spell.Title} {spell.useCost}";
+                    $"{spell.Title} {spell.UseCost}";
             }
             else
             {

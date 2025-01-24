@@ -44,7 +44,7 @@ namespace UI.MessageWindows
                 window.cellRewardButton.image.sprite =
                     window._cell.GetComponent<Image>().sprite;
                 window.cellInfoObject.text =
-                    window._cell.Description; // TODO descriptions in editor
+                    window._cell.Description;
             }
         }
 

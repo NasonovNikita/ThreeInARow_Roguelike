@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 4912773703161232121}
   scaler: {fileID: 4506932157467057541}
+  Rarity: 1
   descriptionKeyRef:
     _key: MirrorCellDescription
     _formatters: []

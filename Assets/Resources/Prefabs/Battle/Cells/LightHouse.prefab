@@ -121,12 +121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a311c7e25e944a1aa087d81546c4c49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mover: {fileID: 6709036987252417814}
+  scaler: {fileID: 2863500825340592746}
+  Rarity: 3
   descriptionKeyRef:
     _key: LightHouseCellDescription
     _formatters: []
   possibleReward: 1
-  mover: {fileID: 6709036987252417814}
-  scaler: {fileID: 2863500825340592746}
   count: 2
   xBonus: 2
   references:

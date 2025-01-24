@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 8530262682439565201}
   scaler: {fileID: 920968508756547821}
+  Rarity: 2
   descriptionKeyRef:
     _key: BatteryCellDescription
     _formatters: []

@@ -3,6 +3,7 @@ using System.Collections;
 using Battle.Units;
 using Other;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle.Spells
 {
@@ -15,11 +16,15 @@ namespace Battle.Spells
     public abstract class Spell : LootItem
     {
         private const float CastTime = 0.5f; // TEMP
-        [SerializeField] public int useCost;
+        [SerializeField] private int useCost;
+        
+        public virtual int UseCost => useCost;
+
+        public virtual bool CantCast => UnitBelong.mana < UseCost;
 
         protected Unit UnitBelong;
 
-        public virtual bool CantCast => UnitBelong.mana < useCost;
+        public event Action OnChanged;
 
         public virtual void Init(Unit unit)
         {
@@ -27,10 +32,10 @@ namespace Battle.Spells
         }
 
         /// <summary>   The same as <see cref="Cast"/> but also checks if it's Player's turn.   </summary>
-        public void PlayerCast()
+        public IEnumerator PlayerCast()
         {
             if (BattleFlowManager.Instance.AllowedToUseSpells)
-                UnitBelong.StartCoroutine(Cast());
+                yield return UnitBelong.StartCoroutine(Cast());
         }
 
         /// <summary>
@@ -53,6 +58,11 @@ namespace Battle.Spells
             yield return Wait();
         }
 
+        public override void Get()
+        {
+            Player.Data.spells.Add(this);
+        }
+
         protected abstract void Action();
 
         protected virtual IEnumerator Wait()
@@ -62,12 +72,12 @@ namespace Battle.Spells
 
         protected virtual void Waste()
         {
-            UnitBelong.mana.Waste(useCost);
+            UnitBelong.mana.Waste(UseCost);
         }
 
-        public override void Get()
+        protected void InvokeOnChanged()
         {
-            Player.Data.spells.Add(this);
+            OnChanged?.Invoke();
         }
     }
 }

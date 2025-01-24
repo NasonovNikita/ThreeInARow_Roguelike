@@ -34,6 +34,7 @@ namespace Battle.Grid.Cells.MovingCells
         protected virtual IEnumerator OnUsed()
         {
             OffScreenPoint.Instance.Hide(gameObject);
+            IsInGridBox = false;
             yield break;
         }
 

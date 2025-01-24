@@ -31,6 +31,7 @@ namespace Other
         public static void InitButton(this Button btn, Action onClick,
             string content)
         {
+            btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => onClick());
             btn.GetComponentInChildren<Text>().text = content;
         }

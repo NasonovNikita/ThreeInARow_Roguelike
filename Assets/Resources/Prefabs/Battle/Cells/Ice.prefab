@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 1310196540008749237}
   scaler: {fileID: 7532476552244576201}
+  Rarity: 1
   descriptionKeyRef:
     _key: IceCellDescription
     _formatters: []

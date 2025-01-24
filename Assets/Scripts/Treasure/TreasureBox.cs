@@ -15,7 +15,7 @@ namespace Treasure
     public class TreasureBox : MonoBehaviour
     {
         public LootItem treasure;
-        [SerializeField] private Button button; // TODO place TryGet in editor
+        [SerializeField] private Button button;
 
         public void Start()
         {

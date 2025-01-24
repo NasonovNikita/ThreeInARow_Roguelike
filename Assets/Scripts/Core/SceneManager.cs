@@ -1,3 +1,5 @@
+using Audio;
+using Core.Saves;
 using UnityEngine;
 
 namespace Core
@@ -7,11 +9,11 @@ namespace Core
     {
         public void Start()
         {
-            //AudioManager.Instance.StopAll();
+            AudioManager.Instance.StopAll();
 
-            //AudioManager.Instance.Play(AudioEnum.MainMenu);
+            AudioManager.Instance.Play(AudioEnum.MainMenu);
 
-            // TODO decide if needed  -not yet
+            SettingsSave.Save();
         }
     }
 }

@@ -15,10 +15,10 @@ MonoBehaviour:
   rarity: 4
   img: {fileID: 0}
   titleKeyRef:
-    _key: 
+    _key: UseAnyCell
     _formatters: []
   descriptionKeyRef:
-    _key: 
+    _key: UseAnyCellDEscription
     _formatters: []
   useCost: 10
   references:

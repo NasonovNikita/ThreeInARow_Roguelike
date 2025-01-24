@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 2961708762560457241}
   scaler: {fileID: 6033804398600523109}
+  Rarity: 1
   descriptionKeyRef:
     _key: PanicButtonCellDescription
     _formatters: []

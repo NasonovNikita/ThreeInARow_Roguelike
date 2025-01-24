@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 4350608258828168247}
   scaler: {fileID: 5099777258088860491}
+  Rarity: 1
   descriptionKeyRef:
     _key: TemporaryStrengthCellDescription
     _formatters: []

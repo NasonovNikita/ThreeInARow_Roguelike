@@ -18,8 +18,8 @@ namespace Battle.Spells
 
         public void MapCast()
         {
-            if (Player.Data.mana <= useCost) return;
-            Player.Data.mana.Waste(useCost);
+            if (Player.Data.mana <= UseCost) return;
+            Player.Data.mana.Waste(UseCost);
             Player.Data.hp.Heal(healAmount);
         }
     }

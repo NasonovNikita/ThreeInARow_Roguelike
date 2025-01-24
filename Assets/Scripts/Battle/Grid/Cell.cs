@@ -3,6 +3,7 @@ using System.Collections;
 using Knot.Localization;
 using Other;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Battle.Grid
 {
@@ -12,6 +13,9 @@ namespace Battle.Grid
     {
         [SerializeField] protected ObjectMover mover;
         [SerializeField] protected ObjectScaler scaler;
+
+        [FormerlySerializedAs("Rarity")]
+        [SerializeField] public Rarity rarity;
         
         [SerializeField] protected KnotTextKeyReference descriptionKeyRef;
 

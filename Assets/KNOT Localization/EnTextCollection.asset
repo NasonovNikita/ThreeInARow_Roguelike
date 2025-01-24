@@ -389,3 +389,7 @@ MonoBehaviour:
       with {startCooldown} cooldown
   - _key: TemporaryStrengthCellDescription
     _rawText: Gives {shieldCount} shield, but gives {debuffAmount} debuff next turn
+  - _key: UseAnyCell
+    _rawText: Use any cell
+  - _key: UseAnyCellDEscription
+    _rawText: Use any mathcing cell

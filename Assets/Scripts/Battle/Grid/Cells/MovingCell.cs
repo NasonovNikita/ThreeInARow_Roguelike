@@ -12,41 +12,46 @@ namespace Battle.Grid.Cells
     /// </summary>
     public abstract class MovingCell : Cell, IPointerClickHandler
     {
-        private static MovingCell _chosen;
+        public static MovingCell Chosen { get; private set; }
 
         public event Action OnClicked;
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left) OnClicked?.Invoke();
             if (eventData.button != PointerEventData.InputButton.Left ||
                 !BattleFlowManager.Instance.AllowedToUseGrid) return;
             
             
             BattleFlowManager.Instance.AddProcess(new SmartCoroutine(this, Choose)
                 .Start());
+            OnClicked?.Invoke();
+        }
+
+        public IEnumerator UnChoose()
+        {
+            yield return StartCoroutine(Choose());
         }
 
         public IEnumerator Choose()
         {
-            if (_chosen == null) // This is first one
+            if (Chosen == null) // This is first one
             {
-                _chosen = this;
+                Chosen = this;
                 yield return StartCoroutine(scaler.ScaleUp());
             }
-            else if (_chosen == this) // Tried to choose the same = unchoose
+            else if (Chosen == this) // Tried to choose the same = unchoose
             {
                 var coroutine = new SmartCoroutine(this,
                     () => scaler.Unscale());
-                _chosen = null;
+                Chosen = null;
                 coroutine.Start();
             }
-            else if (Grid.Instance.CellsAreNeighbours(_chosen, this)) // And switch
+            else if (Grid.Instance.CellsAreNeighbours(Chosen, this)) // And switch
             {
                 var scaleSecond = new SmartCoroutine(this,
                     scaler.ScaleUp);
                 var switchCells = new SmartCoroutine(this,
-                    () => SwitchCells(_chosen, this));
+                    () => SwitchCells(Chosen, this));
                 var unscaleCells = new SmartCoroutine(this,
                     UnscaleCells);
 
@@ -58,20 +63,20 @@ namespace Battle.Grid.Cells
                 yield return unscaleCells.Start();
             
                 
-                Grid.Instance.SwitchCells(this, _chosen);
+                Grid.Instance.SwitchCells(this, Chosen);
 
                 OnMoveDone();
-                _chosen.OnMoveDone();
+                Chosen.OnMoveDone();
 
-                _chosen = null;
+                Chosen = null;
             }
             else // Choose another one
             {
                 var unscaleFirst = new SmartCoroutine(this,
-                    () => _chosen.scaler.Unscale()).Start();
+                    () => Chosen.scaler.Unscale()).Start();
                 var unscaleSecond = new SmartCoroutine(this,
                     () => scaler.ScaleUp()).Start();
-                _chosen = this;
+                Chosen = this;
 
                 yield return unscaleFirst;
                 yield return unscaleSecond;
@@ -88,12 +93,10 @@ namespace Battle.Grid.Cells
             var scaleFirst = new SmartCoroutine(this,
                 () => scaler.Unscale()).Start();
             var scaleSecond = new SmartCoroutine(this,
-                () => _chosen.scaler.Unscale()).Start();
+                () => Chosen.scaler.Unscale()).Start();
 
             yield return scaleFirst;
             yield return scaleSecond;
         }
-        
-        
     }
 }

@@ -10,19 +10,24 @@ namespace Battle.UI
     {
         public void Start()
         {
-            var player = FindFirstObjectByType<Player>();
             var spellButtons = GetComponentsInChildren<Button>();
-            for (var i = 0; i < player.spells.Count && i < 4; i++)
+            for (var i = 0; i < Player.Instance.spells.Count && i < 4; i++)
             {
-                var button = spellButtons[i];
-                var spell = player.spells[i];
-                var objectWithInfo =
-                    button.GetComponent<InfoObject>(); // btn must have this component
-                objectWithInfo.text = spell.Description;
-                objectWithInfo.actAfterTime = true;
-                button.InitButton(() => StartCoroutine(spell.Cast()),
-                    spell.Title + " " + spell.useCost);
+                InitButton(spellButtons[i], i);
+                var i1 = i;
+                Player.Instance.spells[i].OnChanged += () => InitButton(spellButtons[i1], i1);
             }
+        }
+
+        private void InitButton(Button btn, int index)
+        {
+            var spell = Player.Instance.spells[index];
+            var objectWithInfo =
+                btn.GetComponent<InfoObject>(); // btn MUST have this component
+            objectWithInfo.text = spell.Description;
+            objectWithInfo.actAfterTime = true;
+            btn.InitButton(() => StartCoroutine(spell.PlayerCast()),
+                spell.Title + " " + spell.UseCost);
         }
     }
 }
