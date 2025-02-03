@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Battle.Grid.Cells.MovingCells
 {
     public abstract class RowingCell : MatchingCell
     {
+        protected abstract int CountInRow { get; }
+        
         public override List<MatchingCell> GetCellsToUse()
         {
             var found = new HashSet<RowingCell>();
@@ -34,7 +35,7 @@ namespace Battle.Grid.Cells.MovingCells
             return found.Cast<MatchingCell>().ToList();
         }
 
-        private bool RowExists(int i, int j, int di = 0, int dj = 0)
+        protected bool RowExists(int i, int j, int di = 0, int dj = 0)
         {
             var cells = new List<Cell>();
             for (var k = 0; k < CountInRow; k++)

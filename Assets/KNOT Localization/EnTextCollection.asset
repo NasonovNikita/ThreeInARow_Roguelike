@@ -393,3 +393,5 @@ MonoBehaviour:
     _rawText: Use any cell
   - _key: UseAnyCellDEscription
     _rawText: Use any mathcing cell
+  - _key: LightningCellDescription
+    _rawText: Deals {} damage to every enemy

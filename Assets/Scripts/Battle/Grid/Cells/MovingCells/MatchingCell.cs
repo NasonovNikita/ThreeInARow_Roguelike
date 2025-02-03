@@ -7,7 +7,6 @@ namespace Battle.Grid.Cells.MovingCells
 {
     public abstract class MatchingCell : MovingCell
     {
-        protected abstract int CountInRow { get; }
 
         public override bool BoxIsStable(Cell[,] box) =>
             GetCellsToUse().Count == 0;
