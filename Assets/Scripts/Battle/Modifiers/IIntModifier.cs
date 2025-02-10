@@ -11,7 +11,10 @@ namespace Battle.Modifiers
     {
         protected int Modify(int val);
 
-        /// Applies all Modifiers in given list to a given value.
+        /// <summary>
+        /// Applies all enabled <see cref="IIntModifier"/> modifiers in list to a given value.
+        /// </summary>
+        /// <returns>Modified value.</returns>
         public static int UseModList(IEnumerable<Modifier> list, int val)
         {
             // ReSharper disable once PossibleInvalidOperationException
