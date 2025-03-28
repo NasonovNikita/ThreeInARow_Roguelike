@@ -395,3 +395,5 @@ MonoBehaviour:
     _rawText: Use any mathcing cell
   - _key: LightningCellDescription
     _rawText: Deals {} damage to every enemy
+  - _key: SacrificialDaggerCellDescription
+    _rawText: Refills {manaAmount} mana, but get {selfDamage} damage

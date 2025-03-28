@@ -13,7 +13,7 @@ namespace Editor
         {
             var fields = new List<string>(typeof(Globals).GetFields().Select(val => val.Name));
 
-            int selected = EditorGUILayout.Popup(fields.IndexOf(serializedObject.FindProperty("currentField").stringValue), fields.ToArray());
+            var selected = EditorGUILayout.Popup(fields.IndexOf(serializedObject.FindProperty("currentField").stringValue), fields.ToArray());
 
             if (selected >= 0 && selected <= fields.Count)
             {

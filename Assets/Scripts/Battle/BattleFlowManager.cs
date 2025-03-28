@@ -20,10 +20,6 @@ namespace Battle
         
         [NonSerialized] public List<Enemy> EnemiesWithNulls = new();
 
-        /// <summary>
-        ///     <b>Put processes</b>, that must be ended
-        ///     before manager goes to next step (e.g. next unit's turn), <b>here</b>.
-        /// </summary>
 
         public List<Enemy> EnemiesAlive =>
             EnemiesWithNulls.Where(enemy => enemy != null && !enemy.Dead).ToList();
@@ -37,11 +33,15 @@ namespace Battle
         
         private readonly Stack<BattleState> _states = new();
 
+        /// <summary>
+        ///     <b>Put processes</b>, that must be ended
+        ///     before manager goes to next step (e.g. next unit's turn), <b>here</b>.
+        /// </summary>
         private readonly List<SmartCoroutine> _processes = new();
 
 
-        // Was used before. Will be kept to possibly use in some mechanics.
         // ReSharper disable once MemberCanBePrivate.Global
+        // Was used before. Will be kept to possibly use in some mechanics.
         public int CyclesDone { get; private set; }
 
         public void Awake()
